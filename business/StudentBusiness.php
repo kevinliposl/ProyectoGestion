@@ -1,10 +1,12 @@
 <?php
 if (isset($_POST['create'])) {
+    
     if (isset($_POST['mail']) && isset($_POST['name']) && isset($_POST['lastname1']) && isset($_POST['lastname2']) && isset($_POST['career1']) && isset($_POST['career2']) && isset($_POST['headquarters'])) {
         $studentBusiness = new StudentBusiness();
         include_once '../domain/Student.php';
         $student = new Student(0, $_POST['mail'], $_POST['name'], $_POST['lastname1'], $_POST['lastname2'], $_POST['career1'], $_POST['career2'], $_POST['headquarters']);
-        //$result = $studentBusiness->insert($student);    
+        //$result = $studentBusiness->insert($student);
+        $result='Success';
         echo json_encode(array("result" => $result));
     } else {
         echo json_encode(array("result" => "Campos Vacios"));

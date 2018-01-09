@@ -2,8 +2,7 @@
 include_once '../public/headerIN.php';
 ?>
 
-
-<form method="POST" onsubmit="return false;" action="../business/StudentBusiness.php">
+<form method="POST" onsubmit="val(); return false" action="../business/StudentBusiness.php">
     <div>
         <label for="mail">Correo*</label>
         <input type="email" id="form-mail" name="form-mail" minlength="4" required/>
@@ -39,9 +38,8 @@ include_once '../public/headerIN.php';
     <br>
     <div id="state"></div>
 </form>
-<script>
-    $("#form-submit").click(function () {
-
+<script type="text/javascript" async>
+    function val() {
         var args = {
             "mail": $("#form-mail").val().trim(),
             "name": $("#form-name").val().trim(),
@@ -52,8 +50,6 @@ include_once '../public/headerIN.php';
             "headquarters": $("#form-headquarters").val().trim(),
             "create": "create"
         };
-        //alert(JSON.stringify(args));
-        $("#state").text("Espere un momento...");
 
         $.post('../business/StudentBusiness.php', args, function (data) {
             if (data.result) {
@@ -62,7 +58,7 @@ include_once '../public/headerIN.php';
                 $("#state").text("Error en la petici&oacuten");
             }
         }, 'json');
-    });
+    }
 </script>
 <?php
 include_once '../public/footerIN.php';
