@@ -1,25 +1,24 @@
 <?php
-
-echo 'HOLA';
-
-print_r($_POST);
-
 if (isset($_POST['create'])) {
-    if (isset($_POST['mail']) && isset($_POST['name']) && isset($_POST['lastname1']) && isset($_POST[]) && isset($_POST[]) && isset($_POST[])) {
+    if (isset($_POST['mail']) && isset($_POST['name']) && isset($_POST['lastname1']) && isset($_POST['lastname2']) && isset($_POST['career1']) && isset($_POST['career2']) && isset($_POST['headquarters'])) {
         $studentBusiness = new StudentBusiness();
         include_once '../domain/Student.php';
-        $student = new Student();
-        echo 'HOLA';
-    }
-    //$result = $studentBusiness->insert($student);
-    //echo json_encode($result);///SOLO SI SE USA CON AJAX
-    header("location: ../view/insertStudent.php?success=created"); ///SOLO SI NO SE USA CON AJAX
+        $student = new Student(0, $_POST['mail'], $_POST['name'], $_POST['lastname1'], $_POST['lastname2'], $_POST['career1'], $_POST['career2'], $_POST['headquarters']);
+        //$result = $studentBusiness->insert($student);    
+        echo json_encode(array("result" => $result));
+    } else {
+        echo json_encode(array("result" => "Campos Vacios"));
+    }////////////////Faltan validaciones
 } else if (isset($_POST['delete'])) {
-    $studentBusiness = new StudentBusiness();
-    include_once '../domain/Student.php';
-    $student = new Student();
-
-    $result = $studentBusiness->delete($student);
+    if (isset($_POST['mail'])) {
+        $studentBusiness = new StudentBusiness();
+        include_once '../domain/Student.php';
+        $student = new Student(0, $_POST['mail'],'','','','','','');
+        //$result = $studentBusiness->delete($student);    
+        echo json_encode(array("result" => $result));
+    } else {
+        echo json_encode(array("result" => "Campos Vacios"));
+    }////////////////Faltan validaciones
 } else if (isset($_POST['select'])) {
     $studentBusiness = new StudentBusiness();
     include_once '../domain/Student.php';

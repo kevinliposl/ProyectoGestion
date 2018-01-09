@@ -35,6 +35,8 @@ include_once '../public/headerIN.php';
     <div>
         <input type="submit" id="form-submit"/>
     </div>
+    <br>
+    <br>
     <div id="state"></div>
 </form>
 <script>
@@ -50,11 +52,15 @@ include_once '../public/headerIN.php';
             "headquarters": $("#form-headquarters").val().trim(),
             "create": "create"
         };
-        alert(JSON.stringify(args));
+        //alert(JSON.stringify(args));
         $("#state").text("Espere un momento...");
 
         $.post('../business/StudentBusiness.php', args, function (data) {
-            $("#state").text(data.toString());
+            if (data.result) {
+                $("#state").text(data.result);
+            } else {
+                $("#state").text("Error en la petici&oacuten");
+            }
         }, 'json');
     });
 </script>
