@@ -2,7 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>ProyectoGesti&oacute;n</title>
+        <script src="../public/js/jquery.min.js" type="text/javascript"></script>
     </head>
     <body>
         <header>
