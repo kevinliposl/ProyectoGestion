@@ -47,7 +47,6 @@ include_once 'public/header.php';
 </form>
 <script type="text/javascript">
     function val() {
-
         var args = {
             "name": $("#form-name").val().trim(),
             "lastname1": $("#form-lastname1").val().trim(),
@@ -59,12 +58,14 @@ include_once 'public/header.php';
         };
 
         $.post('?controller=Student&action=insert', args, function (data) {
-            if (data.result) {
+          /*  if (data.result) {
                 $("#state").text(data.result);
             } else {
                 $("#state").text("Error en la petici&oacuten");
-            }
+            }*/
+        alert(JSON.stringify(data));
         }, 'json');
+        return false;
     }
 </script>
 

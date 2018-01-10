@@ -18,9 +18,11 @@ class StudentModel {
         $queryLastId->closeCursor();
         $nextId = 1;
 
+   
+        
         //ultimo id
-        if ($row = mysqli_fetch_row($idCont)) {
-            $nextId = trim($row[0]) + 1;
+        if ($resultLastId['studentid'] != NULL) {
+            $nextId = $resultLastId['studentid'] + 1;
         }
 
         //insertar estudiante
@@ -33,12 +35,18 @@ class StudentModel {
                 $student->getLastName2() . "'," .
                 $student->getCareer1() . "," .
                 $student->getCareer2() . "," .
-                $student->getHeadquarters() . "," .
-                $student->getPassword() . "," .
+                $student->getHeadquarters() . ",'" .
+                $student->getPassword() . "'," .
                 $status . ");");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
+        
+        if(!$result){
+            return array("result" => "1");
+        }else{
+            return array("result" => "0");
+        }
 
         return $result;
     }
