@@ -52,7 +52,12 @@ class StudentModel {
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
-        return $result;
+        
+        if(!$result){
+            return array("result" => "1");
+        }else{
+            return array("result" => "0");
+        }
     }
 
     public function selectAll() {
@@ -74,7 +79,12 @@ class StudentModel {
         $query = $this->db->prepare("UPDATE tbstudent SET status=" . 0 . " WHERE idstudent=" . $idStudent . ";");
         $query->execute();
         $result = $query->fetch();
-        return $result;
+
+        if(!$result){
+            return array("result" => "1");
+        }else{
+            return array("result" => "0");
+        }
     }
 
 }
