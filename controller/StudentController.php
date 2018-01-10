@@ -12,10 +12,13 @@ class StudentController {
      * Funcion para insertar estudiante
      */
     function insert() {
-        if (isset($_POST["id"]) && isset($_POST["email"])) {
+        if (isset($_POST['name']) && isset($_POST['lastname1']) && isset($_POST['lastname2']) && isset($_POST['password']) &&
+                isset($_POST['career1']) && isset($_POST['career2']) && isset($_POST['headquarters'])) {
             require 'model/StudentModel.php';
+            require 'public/domain/Student.php';
+            $student = new Student($_POST['name'], $_POST['lastname1'], $_POST['lastname2'], $_POST['password'], $_POST['career1'], $_POST['career2'], $_POST['headquarters']);
             $model = new StudentModel();
-            $result = $model->insertStudent($_POST["id"], $_POST["name"], $_POST["lastname1"], $_POST["lastname2"]);
+            $result = $model->insert($student);
             echo json_encode($result);
         } else {
             $this->view->show("insertStudentView.php");
