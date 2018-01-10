@@ -57,13 +57,15 @@ class StudentController {
      */
     function update() {
         require 'model/StudentModel.php';
-        if (!isset($_POST["id"]) && !isset($_POST["email"])) {
+        if (!isset($_POST["id"])) {
             $model = new StudentModel();
             $result = $model->selectAll();
             $this->view->show("updateStudentView.php", $result);
         } else {
+            require '../public/domain/Student.php';
             $model = new StudentModel();
-            $result = $model->update($_POST["id"], $_POST["name"], $_POST["lastname1"], $_POST["lastname2"]);
+            $student = new Student($_POST['id'], $_POST['name'], $_POST['lastname1'], $_POST['lastname2'], $_POST['career1'], $_POST['career2'], $_POST['headquarters'], $_POST['password']);
+            $result = $model->update($student);
             echo json_encode($result);
         }
     }
