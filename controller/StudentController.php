@@ -35,7 +35,7 @@ class StudentController {
         require 'model/StudentModel.php';
         if (isset($_POST["id"])) {
             require 'public/domain/Student.php';
-            $student = new Student($_POST['id'], '', '', '', '', '', '');
+            $student = new Student($_POST['id'], '', '', '', '', '', '','');
             $model = new StudentModel();
             $result = $model->delete($student);
             echo json_encode($result);

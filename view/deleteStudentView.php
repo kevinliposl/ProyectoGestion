@@ -31,13 +31,12 @@ include_once 'public/header.php';
             return false;
         }
         var args = {
-            "id": $("#form-students").val(),
-            "delete": "delete"
+            "id": $("#form-students").val()
         };
 
         $("#state").text("Espere...");
 
-        $.post('../business/StudentBusiness.php', args, function (data) {
+        $.post('?controller=Student&action=delete', args, function (data) {
             if (data.result) {
                 $("#state").text(data.result);
             } else {
