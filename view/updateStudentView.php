@@ -6,21 +6,23 @@ include_once 'public/header.php';
 <h1>Update</h1>
 
 <form onsubmit="val(); return false">
-    
+
     <div>
         <label for="students">Estudiante*</label>
         <select id="form-students">
-           <?php       
-                if (isset($students)) {
-                    while($item = $vars->fetch()){
-            ?>
-                        <option  value="<?= $student->getId(); ?>"><?= $student ?></option>
-            <?php 
-                    }
+            <option value="-1">Seleccione Estudiante</option>
+            <?php
+            if (isset($vars)) {
+                foreach ($vars as $student) {
+                    ?>
+                    <option  value="<?= $student['studentid'] ?>"><?= $student['studentname'] . " | " . $student['studentlastname1'] ?></option>
+                    <?php
                 }
+            }
             ?>
         </select>
     </div>
+    <br>
     <div>
         <label for="name">Nombre*</label>
         <input type="text" id="form-name" pattern="[a-zA-Z\s]+$" minlength="4" required/>
@@ -48,7 +50,7 @@ include_once 'public/header.php';
     <br>
     <div>
         <label for="career2">Segunda Carrera</label>
-        <input type="text" id="form-career2" minlength="4"/>
+        <input type="text" id="form-career2" minlength="4" />
     </div>
     <br>
     <div>
@@ -57,7 +59,7 @@ include_once 'public/header.php';
     </div>
     <br>
     <div>
-        <input type="submit" id="form-submit"/>
+        <input type="submit" id="form-submit" value="Actualizar"/>
     </div>
     <br>
     <br>
@@ -65,27 +67,64 @@ include_once 'public/header.php';
 </form>
 
 <script type="text/javascript" async>
-    function val() {
 
+    $("#form-students").change(function () {
         if ($("#form-students").val() === '-1') {
+            $("#form-name").val("");
+            $("#form-lastname1").val("");
+            $("#form-lastname2").val("");
+            $("#form-password").val("");
+            $("#form-career1").val("");
+            $("#form-career2").val("");
+            $("#form-headquarters").val("");
             $("#state").text("Seleccione un estudiante...");
             return false;
         }
+
         var args = {
             "id": $("#form-students").val()
         };
 
         $("#state").text("Espere...");
 
+        $.post('?controller=Student&action=select', args, function (data) {
+            if (data.studentname) {
+                $("#form-name").val(data.studentname);
+                $("#form-lastname1").val(data.studentlastname1);
+                $("#form-lastname2").val(data.studentlastname2);
+                $("#form-password").val(data.studentpassword);
+                $("#form-career1").val(data.studentcareer1);
+                $("#form-career2").val(data.studentcareer2);
+                $("#form-headquarters").val(data.studentheadquarters);
+                $("#state").text("");
+            } else {
+                $("#state").text("Error en la petici&oacuten");
+            }
+        }, 'json');
+    });
+
+    function val() {
+        if ($("#form-students").val() === '-1') {
+            $("#state").text("Seleccione un estudiante...");
+            return false;
+        }
+
+        var args = {
+            "id": $("#form-students").val().trim(),
+            "name": $("#form-name").val().trim(),
+            "lastname1": $("#form-lastname1").val().trim(),
+            "lastname2": $("#form-lastname2").val().trim(),
+            "password": $("#form-password").val().trim(),
+            "career1": $("#form-career1").val().trim(),
+            "career2": $("#form-career2").val().trim(),
+            "headquarters": $("#form-headquarters").val().trim()
+        };
+
+        $("#state").text("Espere...");
+
         $.post('?controller=Student&action=update', args, function (data) {
-            if (data.result) {
-                $("#form-name").text(data.studentname);
-                $("#form-lastname1").text(data.studentlastname1);
-                $("#form-lastname2").text(data.studentlastname2);
-                $("#form-password").text(data.studentpassword);
-                $("#form-career1").text(data.studentcareer1);
-                $("#form-career2").text(data.studentcareer2);
-                $("#form-headquarters").text(data.studentheadquarters);
+            if (data.result === "1") {
+                $("#state").text("Actualizado");
             } else {
                 $("#state").text("Error en la petici&oacuten");
             }

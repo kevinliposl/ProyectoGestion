@@ -7,21 +7,17 @@ include_once 'public/header.php';
         <label for="students">Estudiante*</label>
         <select id="form-students">
             <?php
-            include_once '../domain/Student.php';
-            include_once '../business/StudentBusiness.php';
-
-            $studentBusiness = new StudentBusiness();
-            $students = $studentBusiness->getAll();
-            if (isset($students)) {
-                foreach ($students as $student) {
+            if (isset($vars)) {
+                foreach ($vars as $student) {
                     ?>
-                    <option  value="<?= $student->getId(); ?>"><?= $student ?></option>
+                    <option  value="<?= $student['studentid'] ?>"><?= $student['studentname'].' | '.$student['studentlastname1'].' | '.$student['studentlastname2'] ?></option>
                 <?php }
             } ?>
         </select>
     </div>
+    <br>
     <div>
-        <input type="submit" id="form-submit"/>
+        <input type="submit" id="form-submit" value="Eliminar"/>
     </div>
     <br>
     <br>
@@ -35,13 +31,12 @@ include_once 'public/header.php';
             return false;
         }
         var args = {
-            "id": $("#form-students").val(),
-            "delete": "delete"
+            "id": $("#form-students").val()
         };
 
         $("#state").text("Espere...");
 
-        $.post('../business/StudentBusiness.php', args, function (data) {
+        $.post('?controller=Student&action=delete', args, function (data) {
             if (data.result) {
                 $("#state").text(data.result);
             } else {

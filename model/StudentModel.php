@@ -17,10 +17,10 @@ class StudentModel {
         $resultLastId = $queryLastId->fetch();
         $queryLastId->closeCursor();
         $nextId = 1;
-
+ 
         //ultimo id
-        if ($row = mysqli_fetch_row($idCont)) {
-            $nextId = trim($row[0]) + 1;
+        if ($resultLastId['studentid'] != NULL) {
+            $nextId = $resultLastId['studentid'] + 1;
         }
 
         //insertar estudiante
@@ -33,44 +33,66 @@ class StudentModel {
                 $student->getLastName2() . "'," .
                 $student->getCareer1() . "," .
                 $student->getCareer2() . "," .
-                $student->getHeadquarters() . "," .
-                $student->getPassword() . "," .
+                $student->getHeadquarters() . ",'" .
+                $student->getPassword() . "'," .
                 $status . ");");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
-
-        return $result;
+        
+        if(!$result){
+            return array("result" => "1");
+        }else{
+            return array("result" => "0");
+        }
     }
 
-    public function update($id, $name, $lastname1, $lastname2, $career1, $career2) {
-        $query = $this->db->prepare();
+    public function update(Student $student) {
+        $query = $this->db->prepare("UPDATE tbStudent SET studentid ='" . $student->getId() .
+                ", name='" . $student->getName() .
+                "', lastName1='" . $student->getLastName1() .
+                "', lastName2='" . $student->getLastName2() .
+                "', firstCareer=" . $student->getFirstCareer() .
+                ", secondCareer=" . $student->getSecondCareer() .
+                ", idEnclosure=" . $student->getHeadquarters() .
+                ", password='" . $student->getPassword() .
+                "' WHERE studentid=" . $student->getId() . ";");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
-        return $result;
+        
+        if(!$result){
+            return array("result" => "1");
+        }else{
+            return array("result" => "0");
+        }
     }
 
     public function selectAll() {
-        $query = $this->db->prepare();
+        $query = $this->db->prepare("SELECT * FROM tbstudent;");
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
         return $result;
     }
 
-    public function select($id) {
-        $query = $this->db->prepare();
+    public function select($idStudent) {
+        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE studentid=" . $idStudent . ";");
         $query->execute();
         $result = $query->fetch();
         return $result;
     }
 
-    public function delete($id) {
-        $query = $this->db->prepare();
+    public function delete(Student $student) {
+        $query = $this->db->prepare("UPDATE tbstudent SET status=" . 0 . " WHERE studentid=" . $student->getId() . ";");
         $query->execute();
         $result = $query->fetch();
-        return $result;
+
+        if(!$result){
+            return array("result" => "1");
+        }else{
+            return array("result" => "0");
+        }
     }
 
 }

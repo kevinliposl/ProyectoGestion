@@ -59,11 +59,12 @@ include_once 'public/header.php';
         };
 
         $.post('?controller=Student&action=insert', args, function (data) {
-            if (data.result) {
-                $("#state").text(data.result);
-            } else {
-                $("#state").text("Error en la petici&oacuten");
-            }
+            /*  if (data.result) {
+             $("#state").text(data.result);
+             } else {
+             $("#state").text("Error en la petici&oacuten");
+             }*/
+            alert(JSON.stringify(data));
         }, 'json');
     }
 </script>

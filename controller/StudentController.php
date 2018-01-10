@@ -14,13 +14,13 @@ class StudentController {
     function insert() {
         if (isset($_POST['name']) && isset($_POST['lastname1']) && isset($_POST['lastname2']) && isset($_POST['password']) &&
                 isset($_POST['career1']) && isset($_POST['career2']) && isset($_POST['headquarters'])) {
-            require 'model/StudentModel.php';
-            require 'public/domain/Student.php';
+            require '../model/StudentModel.php';
+            require '../public/domain/Student.php';
             $student = new Student(0, $_POST['name'], $_POST['lastname1'], $_POST['lastname2'], $_POST['career1'], $_POST['career2'], $_POST['headquarters'], $_POST['password']);
             $model = new StudentModel();
-            //$result = $model->insert($student);
-            //echo json_encode($result);
-            echo json_encode(array('result' => 'Llegue'));
+            $result = $model->insert($student);
+            echo json_encode($result);
+            //echo json_encode(array('result' => 'Llegue'));
         } else {
             $this->view->show("insertStudentView.php");
         }
@@ -35,13 +35,13 @@ class StudentController {
         require 'model/StudentModel.php';
         if (isset($_POST["id"])) {
             require 'public/domain/Student.php';
-            $student = new Student($_POST['id'], '', '', '', '', '', '');
+            $student = new Student($_POST['id'], '', '', '', '', '', '','');
             $model = new StudentModel();
             $result = $model->delete($student);
             echo json_encode($result);
         } else {
             $model = new StudentModel();
-            $result = $model->selectAllStudent();
+            $result = $model->selectAll();
             $this->view->show("deleteStudentView.php", $result);
         }
     }
@@ -57,13 +57,15 @@ class StudentController {
      */
     function update() {
         require 'model/StudentModel.php';
-        if (!isset($_POST["id"]) && !isset($_POST["email"])) {
+        if (!isset($_POST["id"])) {
             $model = new StudentModel();
-            //$result = $model->selectAllStudent();
-            $this->view->show("updateStudentView.php");
+            $result = $model->selectAll();
+            $this->view->show("updateStudentView.php", $result);
         } else {
+            require '../public/domain/Student.php';
             $model = new StudentModel();
-            $result = $model->updateStudent($_POST["id"], $_POST["name"], $_POST["lastname1"], $_POST["lastname2"]);
+            $student = new Student($_POST['id'], $_POST['name'], $_POST['lastname1'], $_POST['lastname2'], $_POST['career1'], $_POST['career2'], $_POST['headquarters'], $_POST['password']);
+            $result = $model->update($student);
             echo json_encode($result);
         }
     }
@@ -77,10 +79,13 @@ class StudentController {
         if (isset($_POST["id"])) {
             require 'model/StudentModel.php';
             $model = new StudentModel();
-            $result = $model->selectStudent($_POST["id"]);
+            $result = $model->select($_POST["id"]);
             echo json_encode($result);
         } else {
-            $this->view->show("selectStudentView.php");
+            require 'model/StudentModel.php';
+            $model = new StudentModel();
+            $result = $model->selectAll();
+            $this->view->show("selectStudentView.php", $result);
         }
     }
 
