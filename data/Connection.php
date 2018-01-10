@@ -1,6 +1,6 @@
 <?php
 
-class Data {
+class Connection {
 
     public $server;
     public $user;
@@ -11,11 +11,11 @@ class Data {
 
     /* constructor */
 
-    public function connection() {
+    public function Connection() {
         $this->isActive = false;
-        $this->server = "163.178.130.107";
-        $this->user = "adm";
-        $this->password = "saucr.092";
+        $this->server = "127.0.0.0";
+        $this->user = "root";
+        $this->password = "";
         $this->db = "proyectoGestion2018";
     }
 
