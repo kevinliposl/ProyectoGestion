@@ -2,20 +2,22 @@
 include_once '../public/headerIN.php';
 ?>
 
-<form method="POST" onsubmit="val(); return false" action="../business/StudentBusiness.php">
+<form onsubmit="val(); return false">
     <div>
         <label for="students">Estudiante*</label>
         <select id="form-students">
             <?php
+            include_once '../domain/Student.php';
             include_once '../business/StudentBusiness.php';
 
             $studentBusiness = new StudentBusiness();
             $students = $studentBusiness->getAll();
-
-            foreach ($students as $student) {
-                ?>
-                <option id="<?= $student->__get('id'); ?>" value=""><?= $student ?></option>
-            <?php } ?>
+            if (isset($students)) {
+                foreach ($students as $student) {
+                    ?>
+                    <option  value="<?= $student->getId(); ?>"><?= $student ?></option>
+                <?php }
+            } ?>
         </select>
     </div>
     <div>
@@ -27,16 +29,17 @@ include_once '../public/headerIN.php';
 </form>
 <script type="text/javascript" async>
     function val() {
+
+        if ($("#form-students").val() === '-1') {
+            $("#state").text("Seleccione un estudiante...");
+            return false;
+        }
         var args = {
-            "mail": $("#form-mail").val().trim(),
-            "name": $("#form-name").val().trim(),
-            "lastname1": $("#form-lastname1").val().trim(),
-            "lastname2": $("#form-lastname2").val().trim(),
-            "career1": $("#form-career1").val().trim(),
-            "career2": $("#form-career2").val().trim(),
-            "headquarters": $("#form-headquarters").val().trim(),
-            "create": "create"
+            "id": $("#form-students").val(),
+            "delete": "delete"
         };
+
+        $("#state").text("Espere...");
 
         $.post('../business/StudentBusiness.php', args, function (data) {
             if (data.result) {
@@ -47,7 +50,6 @@ include_once '../public/headerIN.php';
         }, 'json');
     }
 </script>
-
 
 <?php
 include_once '../public/footerIN.php';

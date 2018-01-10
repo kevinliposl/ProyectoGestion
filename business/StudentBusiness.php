@@ -21,8 +21,8 @@ if (isset($_POST['create'])) {
         $studentBusiness = new StudentBusiness();
         include_once '../domain/Student.php';
         $student = new Student($_POST['id'], '', '', '', '', '', '', '');
-        //$result = $studentBusiness->delete($student);    
-        echo json_encode(array("result" => '$result'));
+        $result = $studentBusiness->delete($student);    
+        echo json_encode(array("result" => $result));
     } else {
         echo json_encode(array("result" => "Campos Vacios"));
     }////////////////Faltan validaciones

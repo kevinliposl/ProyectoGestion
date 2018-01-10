@@ -85,10 +85,10 @@ class Student {
     function setPassword($password) {
         $this->password = $password;
     }
-    
+
     function __toString() {
         try {
-            return (string) $this->id . '|' . $this->name . '|' . $this->lastname1;
+            return (string) $this->id . ' | ' . $this->name . ' | ' . $this->lastname1.' | '. $this->lastname2 .' | '.$this->career1;
         } catch (Exception $e) {
             return '';
         }

@@ -2,40 +2,40 @@
 include_once '../public/headerIN.php';
 ?>
 
-<form method="POST" onsubmit="val(); return false" action="../business/StudentBusiness.php">
+<form onsubmit="val(); return false">
     <div>
         <label for="name">Nombre*</label>
-        <input type="text" id="form-name" name="form-name" minlength="4" required/>
+        <input type="text" id="form-name" pattern="[a-zA-Z\s]+$" minlength="4" required/>
     </div>
     <br>
     <div>
         <label for="lastname1">Primer Apellido*</label>
-        <input type="text" id="form-lastname1" name=form-lastname1" minlength="4" required/>
+        <input type="text" id="form-lastname1" pattern="[a-zA-Z\s]+$" minlength="4" required/>
     </div>
     <br>
     <div>
         <label for="lastname2">Segundo Apellido*</label>
-        <input type="text" id="form-lastname2" name="form-lastname2" minlength="4" required/>
+        <input type="text" id="form-lastname2" pattern="[a-zA-Z\s]+$" minlength="4" required/>
     </div>
     <br>
     <div>
         <label for="password">Contrase&ncaron;a*</label>
-        <input type="password" id="form-password" name="form-password" minlength="8" required/>
+        <input type="password" id="form-password" minlength="8" required/>
     </div>
     <br>
     <div>
         <label for="career1">Primer Carrera*</label>
-        <input type="text" id="form-career1" name="form-career1" minlength="4" required/>
+        <input type="text" id="form-career1" minlength="4" required/>
     </div>
     <br>
     <div>
         <label for="career2">Segunda Carrera</label>
-        <input type="text" id="form-career2" name="form-career2" minlength="4"/>
+        <input type="text" id="form-career2" minlength="4"/>
     </div>
     <br>
     <div>
         <label for="headquarters">Sede*</label>
-        <input type="text" id="form-headquarters" name="form-headquarters" minlength="4" required/>
+        <input type="text" id="form-headquarters" minlength="4" required/>
     </div>
     <br>
     <div>
