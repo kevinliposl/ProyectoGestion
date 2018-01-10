@@ -47,8 +47,16 @@ class StudentModel {
         }
     }
 
-    public function update($id, $name, $lastname1, $lastname2, $career1, $career2) {
-        $query = $this->db->prepare();
+    public function update(Student $student) {
+        $query = $this->db->prepare("UPDATE tbStudent SET studentid ='" . $student->getId() .
+                ", name='" . $student->getName() .
+                "', lastName1='" . $student->getLastName1() .
+                "', lastName2='" . $student->getLastName2() .
+                "', firstCareer=" . $student->getFirstCareer() .
+                ", secondCareer=" . $student->getSecondCareer() .
+                ", idEnclosure=" . $student->getHeadquarters() .
+                ", password='" . $student->getPassword() .
+                "' WHERE studentid=" . $student->getId() . ";");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
