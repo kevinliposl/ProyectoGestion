@@ -3,7 +3,6 @@ include_once '../public/headerIN.php';
 ?>
 
 <form method="POST" onsubmit="val(); return false" action="../business/StudentBusiness.php">
- 
     <div>
         <label for="name">Nombre*</label>
         <input type="text" id="form-name" name="form-name" minlength="4" required/>
