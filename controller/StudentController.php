@@ -12,14 +12,26 @@ class StudentController {
      * Funcion para insertar estudiante
      */
     function insert() {
+
         if (isset($_POST['name']) && isset($_POST['lastname1']) && isset($_POST['lastname2']) && isset($_POST['password']) &&
                 isset($_POST['career1']) && isset($_POST['career2']) && isset($_POST['headquarters'])) {
             require 'model/StudentModel.php';
             require 'public/domain/Student.php';
+<<<<<<< HEAD
+            //$student = new Student(0, $_POST['name'], $_POST['lastname1'], $_POST['lastname2'], $_POST['career1'], $_POST['career2'], $_POST['headquarters'], $_POST['password']);
+            //$model = new StudentModel();
+            //$result = $model->insertStudent($student);
+            //echo json_encode($result);
+            echo json_encode(array('result' => 'Llegue'));
+=======
+            echo json_encode(array('resulta' => 1));
             $student = new Student($_POST['name'], $_POST['lastname1'], $_POST['lastname2'], $_POST['password'], $_POST['career1'], $_POST['career2'], $_POST['headquarters']);
             $model = new StudentModel();
+            echo json_encode(array('resulta' => 2));
             $result = $model->insertStudent($student);
+            echo json_encode(array('resulta' => 3));
             echo json_encode($result);
+>>>>>>> b754bb93c4765fc39ee8d0a472e05d2b5d659fe9
         } else {
             $this->view->show("insertStudentView.php");
         }

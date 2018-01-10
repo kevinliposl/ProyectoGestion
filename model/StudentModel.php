@@ -9,7 +9,7 @@ class StudentModel {
         $this->db = SPDO::singleton();
     }
 
-       public function insertStudent(Student $student) {
+       public function insert(Student $student) {
         
         //obtener ultimo id de estudiante
         $queryLastId = $this->db->prepare("SELECT MAX(studentid) AS studentid  FROM tbstudent");

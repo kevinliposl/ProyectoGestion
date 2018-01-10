@@ -56,19 +56,39 @@ include_once 'public/header.php';
             "career1": $("#form-career1").val().trim(),
             "career2": $("#form-career2").val().trim(),
             "headquarters": $("#form-headquarters").val().trim(),
-            "create": "create"
+<<<<<<< HEAD
+=======
+           
+>>>>>>> b754bb93c4765fc39ee8d0a472e05d2b5d659fe9
         };
 
-        $("#state").text("Espere...");
+     $.ajax(
+                    {
+                        data: args,
+                        url: '?controller=Student&action=insert',
+                        type: 'post',
+                        beforeSend: function (){
+                            $("#result").html("Procesando,\n\
+                     espere por favor");
+                        },
+                        success: function (response){
+                            $("#result").html(response);
+                        }
+                    }
+                  );
 
-        $.post('../business/StudentBusiness.php', args, function (data) {
+<<<<<<< HEAD
+        $.post('?controller=Student&action=insert', args, function (data) {
             if (data.result) {
                 $("#state").text(data.result);
             } else {
                 $("#state").text("Error en la petici&oacuten");
             }
         }, 'json');
+=======
+>>>>>>> b754bb93c4765fc39ee8d0a472e05d2b5d659fe9
     }
 </script>
+
 <?php
 include_once 'public/footer.php';
