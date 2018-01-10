@@ -4,8 +4,12 @@ include_once 'Connection.php';
 include '../domain/student.php';
 
 
-class StudinteData extends Connection {
+class StudentData extends Connection {
 
+    function __construct() {
+        ;
+    }
+    
     public function insertStudent($student) {
         $conn = mysqli_connect($this->server, $this->user, $this->password, $this->db);
         $conn->set_charset('utf8');
