@@ -1,7 +1,7 @@
 <?php
 
-include_once 'coneccion.php';
-include '../domain/estudianteDomain.php';
+include_once 'Connection.php';
+include '../domain/student.php';
 
 
 class StudinteData extends Connection {
@@ -10,7 +10,7 @@ class StudinteData extends Connection {
         $conn = mysqli_connect($this->server, $this->user, $this->password, $this->db);
         $conn->set_charset('utf8');
 
-        //egt del recinto al que pertenece
+        //get del recinto al que pertenece
         //$queryGetLastId = "SELECT MAX(idEstudiante) AS idtEstudiante  FROM tbEstudiante";
         //$idCont = mysqli_query($conn, $queryGetLastId);
         $idEnclosure = 1;

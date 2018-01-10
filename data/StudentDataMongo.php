@@ -1,7 +1,7 @@
 <?php
 
-include_once 'coneccion.php';
-include '../domain/estudianteDomain.php';
+//include_once 'Connection.php';
+include '../domain/student.php';
 
 
 class StudentDataMongo {
