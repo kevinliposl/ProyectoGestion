@@ -1,51 +1,51 @@
 <?php
 
 include_once 'Connection.php';
-include '../domain/student.php';
-
 
 class StudentData extends Connection {
 
     function __construct() {
         ;
     }
-    
-    public function insertStudent($student) {
+
+    function insert(Student $student) {
         $conn = mysqli_connect($this->server, $this->user, $this->password, $this->db);
         $conn->set_charset('utf8');
 
         //get del recinto al que pertenece
         //$queryGetLastId = "SELECT MAX(idEstudiante) AS idtEstudiante  FROM tbEstudiante";
         //$idCont = mysqli_query($conn, $queryGetLastId);
-        $idEnclosure = 1;
-        
+        //$idEnclosure = 1;
         //estado de la cuenta(activo/inactivo)
         $status = 0;
-        
+
         //Get the last id
-        $queryGetLastId = "SELECT MAX(idStudent) AS idStudent  FROM tbStudent";
-        $idCont = mysqli_query($conn, $queryGetLastId);
+        $idCont = mysqli_query($conn, "SELECT MAX(idStudent) AS idStudent FROM tbStudent");
         $nextId = 1;
 
+        ///////ESTA VARA ESTA FALLANDO
         if ($row = mysqli_fetch_row($idCont)) {
             $nextId = trim($row[0]) + 1;
         }
+        
+        //return "Success";
+
         $queryInsert = "INSERT INTO tbStudent VALUES (" . $nextId . ",'" .
                 $student->getName() . "','" .
-                $student->getLastName1() . "','" .
+                $student->getLastname1() . "','" .
                 $student->getLastName2() . "'," .
-                $student->getFirstCareer() . "," .
-                $student->getSecondCareer() . "," .
-                $status . "," .
+                $student->getCareer1() . "," .
+                $student->getCareer2() . "," .
+                $student->getHeadquarters() . "," .
                 $student->getPassword() . "," .
-                $student->getHeadquarters() . ");";
+                $status . ");";
 
         $result = mysqli_query($conn, $queryInsert);
         mysqli_close($conn);
         return $result;
     }
 
-        public function updateTBEstudiante($student) {
+    public function updateTBEstudiante($student) {
         $conn = mysqli_connect($this->server, $this->user, $this->password, $this->db);
         $conn->set_charset('utf8');
         $queryUpdate = "UPDATE tbStudent SET idStudent ='" . $student->getIdStudent() .
@@ -68,7 +68,7 @@ class StudentData extends Connection {
         $conn = mysqli_connect($this->server, $this->user, $this->password, $this->db);
         $conn->set_charset('utf8');
 
-        $queryUpdate = "UPDATE tbStudent SET status=" . 0 ." WHERE idStudent=". $idStudent .";";
+        $queryUpdate = "UPDATE tbStudent SET status=" . 0 . " WHERE idStudent=" . $idStudent . ";";
         $result = mysqli_query($conn, $queryUpdate);
         mysqli_close($conn);
 
@@ -89,12 +89,12 @@ class StudentData extends Connection {
         }
         return $students;
     }
-    
+
     public function getStudent($idStudent) {
         $conn = mysqli_connect($this->server, $this->user, $this->password, $this->db);
         $conn->set_charset('utf8');
 
-        $querySelect = "SELECT * FROM tbStudent where idStudent=". $idStudent .";";
+        $querySelect = "SELECT * FROM tbStudent where idStudent=" . $idStudent . ";";
         $result = mysqli_query($conn, $querySelect);
         mysqli_close($conn);
         $students = [];
@@ -104,39 +104,37 @@ class StudentData extends Connection {
         }
         return $students;
     }
-    
-    /**public function getBullsInventary() {
-        $conn = mysqli_connect($this->server, $this->user, $this->password, $this->db);
-        $conn->set_charset('utf8');
 
-        $querySelect = "select tbbull.idtbbull as 'idtbbull', CONCAT(tbbull.namebull, "
-                . "' - ', tbbull.codebull) as 'bull', tbbull.strawsquantity as "
-                . "'strawsquantity' from tbbull group by tbbull.idtbbull; ";
-        $result = mysqli_query($conn, $querySelect);
-        
-        $bulls = [];
-        while ($row = mysqli_fetch_array($result)) {
-            $currentBull = array('idtbbull' => $row['idtbbull'], 
-                'bull' => $row['bull'], 
-                'strawsquantity' => $row['strawsquantity']);
-            array_push($bulls, $currentBull);
-        }
-        
-        $newBulls = [];
-        foreach ($bulls as $currentBull) {
-            $querySelect = "select sum(tbinsemination.strawsquantity) as 'strawsquantity' " .
-            "from tbinsemination where bull =" . $currentBull['idtbbull'] . " group by tbinsemination.bull;";
-            $result = mysqli_query($conn, $querySelect);
-            $row = mysqli_fetch_array($result);
-            $quantityStrawsUse = $row[0];
-            $currentBull['strawsquantity'] = $currentBull['strawsquantity'] - $quantityStrawsUse;
-            array_push($newBulls, $currentBull);
-        }
-        
-        mysqli_close($conn);
-        return $newBulls;
-        
-    }**/
+    /*     * public function getBullsInventary() {
+      $conn = mysqli_connect($this->server, $this->user, $this->password, $this->db);
+      $conn->set_charset('utf8');
 
+      $querySelect = "select tbbull.idtbbull as 'idtbbull', CONCAT(tbbull.namebull, "
+      . "' - ', tbbull.codebull) as 'bull', tbbull.strawsquantity as "
+      . "'strawsquantity' from tbbull group by tbbull.idtbbull; ";
+      $result = mysqli_query($conn, $querySelect);
+
+      $bulls = [];
+      while ($row = mysqli_fetch_array($result)) {
+      $currentBull = array('idtbbull' => $row['idtbbull'],
+      'bull' => $row['bull'],
+      'strawsquantity' => $row['strawsquantity']);
+      array_push($bulls, $currentBull);
+      }
+
+      $newBulls = [];
+      foreach ($bulls as $currentBull) {
+      $querySelect = "select sum(tbinsemination.strawsquantity) as 'strawsquantity' " .
+      "from tbinsemination where bull =" . $currentBull['idtbbull'] . " group by tbinsemination.bull;";
+      $result = mysqli_query($conn, $querySelect);
+      $row = mysqli_fetch_array($result);
+      $quantityStrawsUse = $row[0];
+      $currentBull['strawsquantity'] = $currentBull['strawsquantity'] - $quantityStrawsUse;
+      array_push($newBulls, $currentBull);
+      }
+
+      mysqli_close($conn);
+      return $newBulls;
+
+      }* */
 }
-

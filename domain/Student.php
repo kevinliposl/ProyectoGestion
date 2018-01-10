@@ -30,11 +30,11 @@ class Student {
         return $this->name;
     }
 
-    function getLastname1() {
+    function getLastName1() {
         return $this->lastname1;
     }
 
-    function getLastname2() {
+    function getLastName2() {
         return $this->lastname2;
     }
 

@@ -12,11 +12,11 @@ class Connection {
     /* constructor */
 
     public function Connection() {
+        $this->server = "localhost";
         $this->isActive = false;
-        $this->server = "127.0.0.0";
         $this->user = "root";
         $this->password = "";
-        $this->db = "proyectoGestion2018";
+        $this->db = "gestion2018";
     }
 
 }
