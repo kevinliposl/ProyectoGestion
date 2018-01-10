@@ -36,6 +36,7 @@ include_once '../public/headerIN.php';
 </form>
 <script type="text/javascript" async>
     function val() {
+
         var args = {
             "name": $("#form-name").val().trim(),
             "lastname1": $("#form-lastname1").val().trim(),
@@ -45,6 +46,8 @@ include_once '../public/headerIN.php';
             "headquarters": $("#form-headquarters").val().trim(),
             "create": "create"
         };
+
+        $("#state").text("Espere...");
 
         $.post('../business/StudentBusiness.php', args, function (data) {
             if (data.result) {
