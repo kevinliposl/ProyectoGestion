@@ -12,7 +12,6 @@ class StudentController {
      * Funcion para insertar estudiante
      */
     function insert() {
-
         if (isset($_POST['name']) && isset($_POST['lastname1']) && isset($_POST['lastname2']) && isset($_POST['password']) &&
                 isset($_POST['career1']) && isset($_POST['career2']) && isset($_POST['headquarters'])) {
             require 'model/StudentModel.php';

@@ -6,7 +6,7 @@ $config->set('controllerFolder', 'controller/');
 $config->set('modelFolder', 'model/');
 $config->set('viewFolder', 'view/');
 
-$config->set('dbhost', '127.0.0.0');
+$config->set('dbhost', '127.0.0.1');
 $config->set('dbname', 'gestion2018');
 $config->set('dbuser', 'root');
-$config->set('dbpass', 'Red12345');
+$config->set('dbpass', '');

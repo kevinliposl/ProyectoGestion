@@ -45,7 +45,7 @@ include_once 'public/header.php';
     <br>
     <div id="state"></div>
 </form>
-<script type="text/javascript" async>
+<script type="text/javascript">
     function val() {
 
         var args = {
