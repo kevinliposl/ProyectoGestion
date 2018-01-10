@@ -56,18 +56,24 @@ include_once 'public/header.php';
             "career1": $("#form-career1").val().trim(),
             "career2": $("#form-career2").val().trim(),
             "headquarters": $("#form-headquarters").val().trim(),
-            "create": "create"
+           
         };
 
-        $("#state").text("Espere...");
+     $.ajax(
+                    {
+                        data: args,
+                        url: '?controller=Student&action=insert',
+                        type: 'post',
+                        beforeSend: function (){
+                            $("#result").html("Procesando,\n\
+                     espere por favor");
+                        },
+                        success: function (response){
+                            $("#result").html(response);
+                        }
+                    }
+                  );
 
-        $.post('../business/StudentBusiness.php', args, function (data) {
-            if (data.result) {
-                $("#state").text(data.result);
-            } else {
-                $("#state").text("Error en la petici&oacuten");
-            }
-        }, 'json');
     }
 </script>
 <?php
