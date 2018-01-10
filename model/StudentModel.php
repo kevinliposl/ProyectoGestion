@@ -48,7 +48,7 @@ class StudentModel {
     }
 
     public function update(Student $student) {
-        $query = $this->db->prepare("UPDATE tbStudent SET studentid =" . $student->getId() .
+        $query = $this->db->prepare("UPDATE tbstudent SET studentid =" . $student->getId() .
                 ", studentname='" . $student->getName() .
                 "', studentlastName1='" . $student->getLastName1() .
                 "', studentlastName2='" . $student->getLastName2() .
