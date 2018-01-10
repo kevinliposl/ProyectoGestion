@@ -15,7 +15,7 @@ include_once 'public/header.php';
             if (isset($vars)) {
                 foreach ($vars as $student) {
                     ?>
-                    <option  value="<?= $student['studentid'] ?>"><?= $student['studentname'] . " | " . $student['studentlastname1'] ?></option>
+                    <option  value="<?= $student['studentid']; ?>"><?= $student['studentname'] . " | " . $student['studentlastname1'] ?></option>
                     <?php
                 }
             }
@@ -110,7 +110,7 @@ include_once 'public/header.php';
         }
 
         var args = {
-            "id": $("#form-students").val().trim(),
+            "id": $("#form-students").val(),
             "name": $("#form-name").val().trim(),
             "lastname1": $("#form-lastname1").val().trim(),
             "lastname2": $("#form-lastname2").val().trim(),
@@ -119,7 +119,6 @@ include_once 'public/header.php';
             "career2": $("#form-career2").val().trim(),
             "headquarters": $("#form-headquarters").val().trim()
         };
-
         $("#state").text("Espere...");
 
         $.post('?controller=Student&action=update', args, function (data) {
