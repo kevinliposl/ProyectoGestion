@@ -33,8 +33,10 @@ class StudentController {
     function delete() {
         require 'model/StudentModel.php';
         if (isset($_POST["id"])) {
+            require 'public/domain/Student.php';
+            $student = new Student($_POST['name'], $_POST['lastname1'], $_POST['lastname2'], $_POST['password'], $_POST['career1'], $_POST['career2'], $_POST['headquarters']);
             $model = new StudentModel();
-            $result = $model->deleteStudent($_POST['id']);
+            $result = $model->delete($_POST['id']);
             echo json_encode($result);
         } else {
             $model = new StudentModel();
