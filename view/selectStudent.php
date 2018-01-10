@@ -4,32 +4,18 @@ include_once '../public/headerIN.php';
 
 <form method="POST" onsubmit="val(); return false" action="../business/StudentBusiness.php">
     <div>
-        <label for="students">Correo*</label>
-        <select id="form0">
-        
-        <?php
-        include_once '../business/StudentBusiness.php';
-   
-        $studentBusiness = new StudentBusiness();
-        $students = $studentBusiness->getAll();
-        
-        foreach ($students as $current) {
-            echo '<form method="post" enctype="multipart/form-data" action="../business/bullAction.php">';
-            echo '<input type="hidden" name="idBull" value="' . $current->getIdTBBull() . '">';
-            echo '<tr>';
-            echo '<input type="hidden" name="ranch" id="ranch" value="' . $current->getRanchTBBull() . '"/>';
-            echo '<td><input type="text" name="code" id="code" value="' . $current->getCodeTBBull() . '"/></td>';
-            echo '<td><input type="text" name="name" id="name" value="' . $current->getNameTBBull() . '"/></td>';
-            echo '<td><input type="text" name="commercialcase" id="commercialcase" value="' . $current->getCommercialCaseTBBull() . '"/></td>';
-            echo '<td><input type="date" name="buydate" id="buydate" value="' . $current->getBuyDateTBBull() . '"/></td>';
-            echo '<td><input type="number" name="strawsquantity" id="sstrawsquantity" value="' . $current->getStrawsQuantityTBBull() . '"/></td>';
-            echo '<td><input type="number" name="strawsprice" id="sstrawsprice" value="' . $current->getStrawsPriceTBBull() . '"/></td>';
-            echo '<td><input type="submit" value="Actualizar" name="update" id="update"/></td>';
-            echo '<td><input type="submit" value="Eliminar" name="delete" id="delete"/></td>';
-            echo '</tr>';
-            echo '</form>';
-        }
-        ?>
+        <label for="students">Estudiante*</label>
+        <select id="form-students">
+            <?php
+            include_once '../business/StudentBusiness.php';
+
+            $studentBusiness = new StudentBusiness();
+            $students = $studentBusiness->getAll();
+
+            foreach ($students as $student) {
+                ?>
+                <option id="<?=$student->__get('id');?>" value=""><?=$student?></option>
+            <?php } ?>
         </select>
     </div>
     <div>

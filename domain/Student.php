@@ -35,4 +35,12 @@ class Student {
         }
     }
 
+    function __toString() {
+        try {
+            return (string) $this->id . '|' . $this->name . '|' . $this->lastname1;
+        } catch (Exception $e) {
+            return '';
+        }
+    }
+
 }
