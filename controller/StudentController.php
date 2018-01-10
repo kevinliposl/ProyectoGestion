@@ -17,8 +17,8 @@ class StudentController {
                 isset($_POST['career1']) && isset($_POST['career2']) && isset($_POST['headquarters'])) {
             require 'model/StudentModel.php';
             require 'public/domain/Student.php';
-            //$student = new Student(0, $_POST['name'], $_POST['lastname1'], $_POST['lastname2'], $_POST['career1'], $_POST['career2'], $_POST['headquarters'], $_POST['password']);
-            //$model = new StudentModel();
+            $student = new Student(0, $_POST['name'], $_POST['lastname1'], $_POST['lastname2'], $_POST['career1'], $_POST['career2'], $_POST['headquarters'], $_POST['password']);
+            $model = new StudentModel();
             //$result = $model->insertStudent($student);
             //echo json_encode($result);
             echo json_encode(array('result' => 'Llegue'));
