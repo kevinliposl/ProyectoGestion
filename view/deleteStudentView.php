@@ -7,13 +7,8 @@ include_once 'public/header.php';
         <label for="students">Estudiante*</label>
         <select id="form-students">
             <?php
-            include_once '../domain/Student.php';
-            include_once '../business/StudentBusiness.php';
-
-            $studentBusiness = new StudentBusiness();
-            $students = $studentBusiness->getAll();
-            if (isset($students)) {
-                foreach ($students as $student) {
+            if (isset($vars)) {
+                foreach ($vars as $student) {
                     ?>
                     <option  value="<?= $student->getId(); ?>"><?= $student ?></option>
                 <?php }
