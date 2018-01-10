@@ -53,8 +53,8 @@ class StudentController {
         require 'model/StudentModel.php';
         if (!isset($_POST["id"]) && !isset($_POST["email"])) {
             $model = new StudentModel();
-            $result = $model->selectAllStudent();
-            $this->view->show("updateStudentView.php", $result);
+            //$result = $model->selectAllStudent();
+            $this->view->show("updateStudentView.php");
         } else {
             $model = new StudentModel();
             $result = $model->updateStudent($_POST["id"], $_POST["name"], $_POST["lastname1"], $_POST["lastname2"]);
@@ -74,8 +74,7 @@ class StudentController {
             $result = $model->selectStudent($_POST["id"]);
             echo json_encode($result);
         } else {
-            $result = 0;
-            echo json_encode($result);
+            $this->view->show("selectStudentView.php");
         }
     }
 
