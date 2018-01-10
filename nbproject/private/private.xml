@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/ProyectoGestionEjemplo/business/StudentBusiness.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoGestionEjemplo/data/StudentData.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoGestionEjemplo/index.php</file>
+            <file>file:/C:/Users/AkaiTsuki/Documents/GitHub/ProyectoGestion/data/StudentDataMongo.php</file>
+            <file>file:/C:/Users/AkaiTsuki/Documents/GitHub/ProyectoGestion/business/StudentBusiness.php</file>
+            <file>file:/C:/Users/AkaiTsuki/Documents/GitHub/ProyectoGestion/view/insertStudent.php</file>
+            <file>file:/C:/Users/AkaiTsuki/Documents/GitHub/ProyectoGestion/data/StudentData.php</file>
+            <file>file:/C:/Users/AkaiTsuki/Documents/GitHub/ProyectoGestion/data/Connection.php</file>
+            <file>file:/C:/Users/AkaiTsuki/Documents/GitHub/ProyectoGestion/domain/Student.php</file>
+            <file>file:/C:/Users/AkaiTsuki/Documents/GitHub/ProyectoGestion/data/CMongoDB.php</file>
         </group>
     </open-files>
 </project-private>
