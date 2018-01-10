@@ -18,7 +18,7 @@ class StudentController {
             require 'public/domain/Student.php';
             $student = new Student($_POST['name'], $_POST['lastname1'], $_POST['lastname2'], $_POST['password'], $_POST['career1'], $_POST['career2'], $_POST['headquarters']);
             $model = new StudentModel();
-            $result = $model->insert($student);
+            $result = $model->insertStudent($student);
             echo json_encode($result);
         } else {
             $this->view->show("insertStudentView.php");

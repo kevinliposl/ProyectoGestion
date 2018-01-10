@@ -9,13 +9,40 @@ class StudentModel {
         $this->db = SPDO::singleton();
     }
 
-    public function insert($id, $name, $lastname1, $lastname2, $career1, $career2) {
-        $query = $this->db->prepare();
+       public function insertStudent(Student $student) {
+        
+        //obtener ultimo id de estudiante
+        $queryLastId = $this->db->prepare("SELECT MAX(studentid) AS studentid  FROM tbstudent");
+        $queryLastId->execute();
+        $resultLastId = $queryLastId->fetch();
+        $queryLastId->closeCursor();      
+        $nextId = 1;
+        
+        //ultimo id
+        if ($row = mysqli_fetch_row($idCont)) {
+            $nextId = trim($row[0]) + 1;
+        }
+
+        //insertar estudiante
+        //status empieza en 0 
+        $status = 0;
+        
+        $query = $this->db->prepare("INSERT INTO tbstudent VALUES (" . $nextId . ",'" .
+                $student->getName() . "','" .
+                $student->getLastname1() . "','" .
+                $student->getLastName2() . "'," .
+                $student->getCareer1() . "," .
+                $student->getCareer2() . "," .
+                $student->getHeadquarters() . "," .
+                $student->getPassword() . "," .
+                $status . ");");
         $query->execute();
         $result = $query->fetch();
-        $query->closeCursor();
+        $query->closeCursor();  
+        
         return $result;
     }
+    
 
     public function update($id, $name, $lastname1, $lastname2, $career1, $career2) {
         $query = $this->db->prepare();
