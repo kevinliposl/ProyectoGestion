@@ -50,8 +50,8 @@ class StudentModel {
     public function update(Student $student) {
         $query = $this->db->prepare("UPDATE tbstudent SET studentid =" . $student->getId() .
                 ", studentname='" . $student->getName() .
-                "', studentlastName1='" . $student->getLastName1() .
-                "', studentlastName2='" . $student->getLastName2() .
+                "', studentlastname1='" . $student->getLastName1() .
+                "', studentlastname2='" . $student->getLastName2() .
                 "', studentcareer1=" . $student->getFirstCareer() .
                 ", studentcareer2=" . $student->getSecondCareer() .
                 ", studentheadquarters=" . $student->getHeadquarters() .
