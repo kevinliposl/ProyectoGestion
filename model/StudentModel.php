@@ -52,8 +52,8 @@ class StudentModel {
                 ", studentname='" . $student->getName() .
                 "', studentlastname1='" . $student->getLastName1() .
                 "', studentlastname2='" . $student->getLastName2() .
-                "', studentcareer1=" . $student->getFirstCareer() .
-                ", studentcareer2=" . $student->getSecondCareer() .
+                "', studentcareer1=" . $student->getCareer1() .
+                ", studentcareer2=" . $student->getCareer2() .
                 ", studentheadquarters=" . $student->getHeadquarters() .
                 ", studentpassword='" . $student->getPassword() .
                 "' WHERE studentid=" . $student->getId() . ";");
