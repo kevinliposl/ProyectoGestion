@@ -17,15 +17,14 @@ include_once 'public/header.php';
             ?>
         </select>
     </div>
-    <div>
-        <input type="submit" id="form-submit"/>
-    </div>
+   
     <br>
     <br>
     <div id="state"></div>
 </form>
 <script type="text/javascript" async>
-    function val() {
+    
+    $("#form-students").change(function () {
 
         if ($("#form-students").val() === '-1') {
             $("#state").text("Seleccione un estudiante...");
@@ -45,7 +44,8 @@ include_once 'public/header.php';
                 $("#state").text("Error en la petici&oacuten");
             }
         }, 'json');
-    }
+    });
+    
 </script>
 
 <?php
