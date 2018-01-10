@@ -5,7 +5,7 @@ class StudentModel {
     private $db;
 
     public function __construct() {
-        require '../libs/SPDO.php';
+        require 'libs/SPDO.php';
         $this->db = SPDO::singleton();
     }
 
@@ -61,7 +61,7 @@ class StudentModel {
     }
 
     public function selectAll() {
-        $query = $this->db->prepare("SELECT * FROM tbStudent;");
+        $query = $this->db->prepare("SELECT * FROM tbstudent;");
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
@@ -69,7 +69,7 @@ class StudentModel {
     }
 
     public function select($idStudent) {
-        $query = $this->db->prepare("SELECT * FROM tbstudent where idstudent=" . $idStudent . ";");
+        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE studentid=" . $idStudent . ";");
         $query->execute();
         $result = $query->fetch();
         return $result;

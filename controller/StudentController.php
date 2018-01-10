@@ -59,11 +59,11 @@ class StudentController {
         require 'model/StudentModel.php';
         if (!isset($_POST["id"]) && !isset($_POST["email"])) {
             $model = new StudentModel();
-            //$result = $model->selectAllStudent();
-            $this->view->show("updateStudentView.php");
+            $result = $model->selectAll();
+            $this->view->show("updateStudentView.php", $result);
         } else {
             $model = new StudentModel();
-            $result = $model->updateStudent($_POST["id"], $_POST["name"], $_POST["lastname1"], $_POST["lastname2"]);
+            $result = $model->update($_POST["id"], $_POST["name"], $_POST["lastname1"], $_POST["lastname2"]);
             echo json_encode($result);
         }
     }
@@ -77,10 +77,13 @@ class StudentController {
         if (isset($_POST["id"])) {
             require 'model/StudentModel.php';
             $model = new StudentModel();
-            $result = $model->selectStudent($_POST["id"]);
+            $result = $model->select($_POST["id"]);
             echo json_encode($result);
         } else {
-            $this->view->show("selectStudentView.php");
+            require 'model/StudentModel.php';
+            $model = new StudentModel();
+            $result = $model->selectAll();
+            $this->view->show("selectStudentView.php", $result);
         }
     }
 

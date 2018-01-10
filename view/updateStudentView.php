@@ -10,30 +10,31 @@ include_once 'public/header.php';
     <div>
         <label for="students">Estudiante*</label>
         <select id="form-students">
-           <?php       
-                if (isset($students)) {
-                    while($item = $vars->fetch()){
-            ?>
-                        <option  value="<?= $student->getId(); ?>"><?= $student ?></option>
-            <?php 
-                    }
+            <?php
+            if (isset($vars)) {
+                foreach ($vars as $student) {
+                    ?>
+                    <option  value="<?= $student['studentid'] ?>"><?= $student['studentname'] . " | " . $student['studentlastname1'] ?></option>
+                    <?php
                 }
+            }
             ?>
         </select>
     </div>
+    <br>
     <div>
         <label for="name">Nombre*</label>
-        <input type="text" id="form-name" pattern="[a-zA-Z\s]+$" minlength="4" required/>
+        <input type="text" id="form-name" pattern="[a-zA-Z\s]+$" disabled minlength="4" required/>
     </div>
     <br>
     <div>
         <label for="lastname1">Primer Apellido*</label>
-        <input type="text" id="form-lastname1" pattern="[a-zA-Z\s]+$" minlength="4" required/>
+        <input type="text" id="form-lastname1" pattern="[a-zA-Z\s]+$" disabled minlength="4" required/>
     </div>
     <br>
     <div>
         <label for="lastname2">Segundo Apellido*</label>
-        <input type="text" id="form-lastname2" pattern="[a-zA-Z\s]+$" minlength="4" required/>
+        <input type="text" id="form-lastname2" pattern="[a-zA-Z\s]+$" disabled minlength="4" required/>
     </div>
     <br>
     <div>

@@ -6,14 +6,14 @@ include_once 'public/header.php';
     <div>
         <label for="students">Estudiante*</label>
         <select id="form-students">
-           <?php       
-                if (isset($students)) {
-                    while($item = $vars->fetch()){
-            ?>
-                        <option  value="<?= $student->getId(); ?>"><?= $student ?></option>
-            <?php 
-                    }
+            <?php
+            if (isset($vars)) {
+                foreach ($vars as $student) {
+                    ?>
+                    <option  value="<?= $student['studentid'] ?>"><?= $student['studentname'] . " | " . $student['studentlastname1'] ?></option>
+                    <?php
                 }
+            }
             ?>
         </select>
     </div>
@@ -38,8 +38,9 @@ include_once 'public/header.php';
         $("#state").text("Espere...");
 
         $.post('?controller=Student&action=select', args, function (data) {
-            if (data.result) {
-                $("#state").text(data.result);
+            $("#state").text(JSON.stringify(data));
+            if (data.studentname) {
+                $("#state").text(data.studentname + " | " + data.studentlastname1 + " | " + data.studentlastname2 + " | " + data.studentcareer1 + " | " + data.studentcareer2 + " | " + data.studentheadquarters);
             } else {
                 $("#state").text("Error en la petici&oacuten");
             }
