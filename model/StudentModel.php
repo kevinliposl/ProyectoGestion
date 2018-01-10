@@ -83,8 +83,8 @@ class StudentModel {
         return $result;
     }
 
-    public function delete($idStudent) {
-        $query = $this->db->prepare("UPDATE tbstudent SET status=" . 0 . " WHERE idstudent=" . $idStudent . ";");
+    public function delete(Student $student) {
+        $query = $this->db->prepare("UPDATE tbstudent SET status=" . 0 . " WHERE studentid=" . $student->getId() . ";");
         $query->execute();
         $result = $query->fetch();
 
