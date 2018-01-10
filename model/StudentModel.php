@@ -5,7 +5,7 @@ class StudentModel {
     private $db;
 
     public function __construct() {
-        require 'libs/SPDO.php';
+        require '../libs/SPDO.php';
         $this->db = SPDO::singleton();
     }
 
@@ -17,9 +17,7 @@ class StudentModel {
         $resultLastId = $queryLastId->fetch();
         $queryLastId->closeCursor();
         $nextId = 1;
-
-   
-        
+ 
         //ultimo id
         if ($resultLastId['studentid'] != NULL) {
             $nextId = $resultLastId['studentid'] + 1;
@@ -47,8 +45,6 @@ class StudentModel {
         }else{
             return array("result" => "0");
         }
-
-        return $result;
     }
 
     public function update($id, $name, $lastname1, $lastname2, $career1, $career2) {
@@ -60,22 +56,22 @@ class StudentModel {
     }
 
     public function selectAll() {
-        $query = $this->db->prepare();
+        $query = $this->db->prepare("SELECT * FROM tbStudent;");
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
         return $result;
     }
 
-    public function select($id) {
-        $query = $this->db->prepare();
+    public function select($idStudent) {
+        $query = $this->db->prepare("SELECT * FROM tbstudent where idstudent=" . $idStudent . ";");
         $query->execute();
         $result = $query->fetch();
         return $result;
     }
 
-    public function delete($id) {
-        $query = $this->db->prepare();
+    public function delete($idStudent) {
+        $query = $this->db->prepare("UPDATE tbstudent SET status=" . 0 . " WHERE idstudent=" . $idStudent . ";");
         $query->execute();
         $result = $query->fetch();
         return $result;

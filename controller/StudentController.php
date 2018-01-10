@@ -14,8 +14,8 @@ class StudentController {
     function insert() {
         if (isset($_POST['name']) && isset($_POST['lastname1']) && isset($_POST['lastname2']) && isset($_POST['password']) &&
                 isset($_POST['career1']) && isset($_POST['career2']) && isset($_POST['headquarters'])) {
-            require 'model/StudentModel.php';
-            require 'public/domain/Student.php';
+            require '../model/StudentModel.php';
+            require '../public/domain/Student.php';
             $student = new Student(0, $_POST['name'], $_POST['lastname1'], $_POST['lastname2'], $_POST['career1'], $_POST['career2'], $_POST['headquarters'], $_POST['password']);
             $model = new StudentModel();
             $result = $model->insert($student);
