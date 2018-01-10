@@ -9,4 +9,4 @@ $config->set('viewFolder', 'view/');
 $config->set('dbhost', '127.0.0.1');
 $config->set('dbname', 'gestion2018');
 $config->set('dbuser', 'root');
-$config->set('dbpass', '');
+$config->set('dbpass', 'Red12345');
