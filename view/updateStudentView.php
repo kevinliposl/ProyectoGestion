@@ -1,9 +1,10 @@
 <?php
-include_once '../public/headerIN.php';
+include_once 'public/header.php';
 ?>
 
 
 <h1>Update</h1>
 
+
 <?php
-include_once '../public/footerIN.php';
+include_once 'public/footer.php';

@@ -9,15 +9,15 @@
         <header>
             <nav>
                 <ul>
-                    <li><a href="index.php"><div>Home</div></a></li> 
+                    <li><a href="?"><div>Home</div></a></li> 
                     <li><a href="#"><div>Usuarios</div></a>
                         <ul>
                             <li><a href="#"><div>Estudiante</div></a>
                                 <ul>
-                                    <li><a href="view/insertStudent.php"><div>Registrar</div></a></li>  
-                                    <li><a href="view/selectStudent.php"><div>Ver</div></a></li>
-                                    <li><a href="view/updateStudent.php"><div>Actualizar</div></a></li>
-                                    <li><a href="view/deleteStudent.php"><div>Eliminar</div></a></li>
+                                    <li><a href="?controller=Student&action=insert"><div>Registrar</div></a></li>  
+                                    <li><a href="?controller=Student&action=select"><div>Ver</div></a></li>
+                                    <li><a href="?controller=Student&action=update"><div>Actualizar</div></a></li>
+                                    <li><a href="?controller=Student&action=delete"><div>Eliminar</div></a></li>
                                 </ul>
                             </li>
                         </ul>

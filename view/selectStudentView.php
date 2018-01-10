@@ -1,6 +1,6 @@
 <?php
-include_once '../public/headerIN.php';
+include_once 'public/header.php';
 ?>
 
 <?php
-include_once '../public/footerIN.php';
+include_once 'public/footer.php';
