@@ -18,8 +18,7 @@ class StudentController {
             $result = $model->insertStudent($_POST["id"], $_POST["name"], $_POST["lastname1"], $_POST["lastname2"]);
             echo json_encode($result);
         } else {
-            $file = file_get_contents("libs/nationalities.json");
-            $this->view->show("insertStudentView.php", json_decode($file, true));
+            $this->view->show("insertStudentView.php");
         }
     }
 
@@ -30,14 +29,14 @@ class StudentController {
      */
     function delete() {
         require 'model/StudentModel.php';
-        if (!isset($_POST["id"]) && !isset($_POST["email"])) {
-            $model = new StudentModel();
-            $result = $model->selectAllStudent();
-            $this->view->show("deleteStudentView.php", $result);
-        } else {
+        if (isset($_POST["id"])) {
             $model = new StudentModel();
             $result = $model->deleteStudent($_POST['id']);
             echo json_encode($result);
+        } else {
+            $model = new StudentModel();
+            $result = $model->selectAllStudent();
+            $this->view->show("deleteStudentView.php", $result);
         }
     }
 
