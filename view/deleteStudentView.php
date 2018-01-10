@@ -10,13 +10,14 @@ include_once 'public/header.php';
             if (isset($vars)) {
                 foreach ($vars as $student) {
                     ?>
-                    <option  value="<?= $student->getId(); ?>"><?= $student ?></option>
+                    <option  value="<?= $student['studentid'] ?>"><?= $student['studentname'].' | '.$student['studentlastname1'].' | '.$student['studentlastname2'] ?></option>
                 <?php }
             } ?>
         </select>
     </div>
+    <br>
     <div>
-        <input type="submit" id="form-submit"/>
+        <input type="submit" id="form-submit" value="Eliminar"/>
     </div>
     <br>
     <br>

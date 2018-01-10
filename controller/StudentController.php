@@ -41,7 +41,7 @@ class StudentController {
             echo json_encode($result);
         } else {
             $model = new StudentModel();
-            $result = $model->selectAllStudent();
+            $result = $model->selectAll();
             $this->view->show("deleteStudentView.php", $result);
         }
     }
