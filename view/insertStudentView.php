@@ -55,34 +55,9 @@ include_once 'public/header.php';
             "password": $("#form-password").val().trim(),
             "career1": $("#form-career1").val().trim(),
             "career2": $("#form-career2").val().trim(),
-            "headquarters": $("#form-headquarters").val().trim(),
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-           
->>>>>>> b754bb93c4765fc39ee8d0a472e05d2b5d659fe9
-=======
-           
->>>>>>> b754bb93c4765fc39ee8d0a472e05d2b5d659fe9
+            "headquarters": $("#form-headquarters").val().trim()
         };
 
-     $.ajax(
-                    {
-                        data: args,
-                        url: '?controller=Student&action=insert',
-                        type: 'post',
-                        beforeSend: function (){
-                            $("#result").html("Procesando,\n\
-                     espere por favor");
-                        },
-                        success: function (response){
-                            $("#result").html(response);
-                        }
-                    }
-                  );
-
-<<<<<<< HEAD
-<<<<<<< HEAD
         $.post('?controller=Student&action=insert', args, function (data) {
             if (data.result) {
                 $("#state").text(data.result);
@@ -90,10 +65,6 @@ include_once 'public/header.php';
                 $("#state").text("Error en la petici&oacuten");
             }
         }, 'json');
-=======
->>>>>>> b754bb93c4765fc39ee8d0a472e05d2b5d659fe9
-=======
->>>>>>> b754bb93c4765fc39ee8d0a472e05d2b5d659fe9
     }
 </script>
 
