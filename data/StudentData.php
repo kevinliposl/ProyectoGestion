@@ -34,7 +34,7 @@ class StudinteData extends Connection {
                 $student->getSecondCareer() . "," .
                 $status . "," .
                 $student->getPassword() . "," .
-                $idEnclosure . ");";
+                $student->getHeadquarters() . ");";
 
         $result = mysqli_query($conn, $queryInsert);
         mysqli_close($conn);
@@ -50,7 +50,7 @@ class StudinteData extends Connection {
                 "', lastName2='" . $student->getLastName2() .
                 "', firstCareer='" . $student->getFirstCareer() .
                 "', secondCareer='" . $student->getSecondCareer() .
-                "', idEnclosure='" . $student->getIdEnclosure() .
+                "', idEnclosure='" . $student->getHeadquarters() .
                 "', password='" . $student->getPassword() .
                 " WHERE idStudent=" . $student->getIdStudent() . ";";
 
@@ -80,7 +80,7 @@ class StudinteData extends Connection {
         mysqli_close($conn);
         $students = [];
         while ($row = mysqli_fetch_array($result)) {
-            $currentStudent = new Student($row['idStudent'], $row['name'], $row['lastName1'], $row['lastName2'], $row['firstCareer'], $row['secondCareer'], $row['idEnclosure'], $row['password'], $row['status']);
+            $currentStudent = new Student($row['idStudent'], $row['name'], $row['lastName1'], $row['lastName2'], $row['firstCareer'], $row['secondCareer'], $row['headquarters'], $row['password'], $row['status']);
             array_push($students, $currentStudent);
         }
         return $students;
@@ -95,7 +95,7 @@ class StudinteData extends Connection {
         mysqli_close($conn);
         $students = [];
         while ($row = mysqli_fetch_array($result)) {
-            $currentStudent = new Student($row['idStudent'], $row['name'], $row['lastName1'], $row['lastName2'], $row['firstCareer'], $row['secondCareer'], $row['idEnclosure'], $row['password'], $row['status']);
+            $currentStudent = new Student($row['idStudent'], $row['name'], $row['lastName1'], $row['lastName2'], $row['firstCareer'], $row['secondCareer'], $row['headquarters'], $row['password'], $row['status']);
             array_push($students, $currentStudent);
         }
         return $students;
