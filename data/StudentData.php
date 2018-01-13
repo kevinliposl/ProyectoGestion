@@ -1,33 +1,28 @@
 <?php
 
-class StudentModel {
+class StudentData {
 
     private $db;
 
-    public function __construct() {
-        require 'libs/SPDO.php';
-        $this->db = SPDO::singleton();
+    function __construct() {
+        $this->db = new PDO('mysql:host=' . '127.0.0.1' . ';dbname=' . 'prueba', 'root', '');
     }
 
-    public function insert(Student $student) {
-
-        //obtener ultimo id de estudiante
+    function insert(Student $student) {
         $queryLastId = $this->db->prepare("SELECT MAX(studentid) AS studentid  FROM tbstudent");
         $queryLastId->execute();
         $resultLastId = $queryLastId->fetch();
         $queryLastId->closeCursor();
         $nextId = 1;
- 
+
         //ultimo id
         if ($resultLastId['studentid'] != NULL) {
-            $nextId = $resultLastId['studentid'] + 1;
+            $nextId = (int) $resultLastId['studentid'] + 1;
         }
 
-        //insertar estudiante
-        //status empieza en 0 
-        $status = 0;
-
-        $query = $this->db->prepare("INSERT INTO tbstudent VALUES (" . $nextId . ",'" .
+        $query = $this->db->prepare(
+                "INSERT INTO tbstudent VALUES (" . $nextId . ",'" .
+                $student->getCarnet() . "','".
                 $student->getName() . "','" .
                 $student->getLastname1() . "','" .
                 $student->getLastName2() . "'," .
@@ -35,21 +30,24 @@ class StudentModel {
                 $student->getCareer2() . "," .
                 $student->getHeadquarters() . ",'" .
                 $student->getPassword() . "'," .
-                $status . ");");
+                0 . ");"
+        );
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
-        
-        if(!$result){
-            return array("result" => "1");
-        }else{
-            return array("result" => "0");
+
+        if (!$result) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 
-    public function update(Student $student) {
-        $query = $this->db->prepare("UPDATE tbstudent SET studentid =" . $student->getId() .
-                ", studentname='" . $student->getName() .
+    function update(Student $student) {
+        $query = $this->db->prepare("UPDATE tbstudent "
+                . "SET studentid =" . $student->getId() .
+                ", studentcarnet='" . $student->getCarnet() .
+                "', studentname='" . $student->getName() .
                 "', studentlastname1='" . $student->getLastName1() .
                 "', studentlastname2='" . $student->getLastName2() .
                 "', studentcareer1=" . $student->getCareer1() .
@@ -60,16 +58,16 @@ class StudentModel {
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
-        
-        if(!$result){
-            return array("result" => "1");
-        }else{
-            return array("result" => "0");
+
+        if (!$result) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 
     public function selectAll() {
-        $query = $this->db->prepare("SELECT * FROM tbstudent;");
+        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE state=". 0 .";");
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
@@ -84,14 +82,13 @@ class StudentModel {
     }
 
     public function delete(Student $student) {
-        $query = $this->db->prepare("UPDATE tbstudent SET status=" . 0 . " WHERE studentid=" . $student->getId() . ";");
+        $query = $this->db->prepare("UPDATE tbstudent SET state=" . 1 . " WHERE studentid=" . $student->getId() . ";");
         $query->execute();
         $result = $query->fetch();
-
-        if(!$result){
-            return array("result" => "1");
-        }else{
-            return array("result" => "0");
+        if (!$result) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 
