@@ -1,5 +1,5 @@
-CREATE DATABASE gestion2018;
-USE gestion2018;
+CREATE DATABASE ucrpagecenter;
+USE ucrpagecenter;
 
 CREATE TABLE tbstudent(
 	studentid INTEGER,
