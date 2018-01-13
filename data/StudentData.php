@@ -5,7 +5,8 @@ class StudentData {
     private $db;
 
     function __construct() {
-        $this->db = new PDO('mysql:host=' . '127.0.0.1' . ';dbname=' . 'prueba', 'root', '');
+        require 'SPDO.php';
+        $this->db = SPDO::singleton();
     }
 
     function insert(Student $student) {
@@ -22,7 +23,7 @@ class StudentData {
 
         $query = $this->db->prepare(
                 "INSERT INTO tbstudent VALUES (" . $nextId . ",'" .
-                $student->getCarnet() . "','".
+                $student->getCarnet() . "','" .
                 $student->getName() . "','" .
                 $student->getLastname1() . "','" .
                 $student->getLastName2() . "'," .
@@ -67,7 +68,7 @@ class StudentData {
     }
 
     public function selectAll() {
-        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE state=". 0 .";");
+        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE state=" . 0 . ";");
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
