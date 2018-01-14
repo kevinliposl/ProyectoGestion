@@ -17,8 +17,8 @@ class University {
             return (string) $this->universityid . ' | ' . $this->universitycode . ' | ' . $this->universityname . ' | ' . $this->universityType;
         } catch (Exception $e) {
             return '';
-        }//ENd try-catch (Exception $e)
-    }//ENd yoString()
+        }//End try-catch (Exception $e)
+    }//End toString()
     
     function setUniversityid($universityid) {
         $this->id = $universityid;
