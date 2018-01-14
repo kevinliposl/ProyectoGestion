@@ -59,7 +59,7 @@ class HeadquarterData {
         }
     }
 
-    public function selectAll() {
+    function selectAll() {
         $query = $this->db->prepare("SELECT * FROM tbheadquarter;");
         $query->execute();
         $result = $query->fetchAll();
@@ -67,14 +67,14 @@ class HeadquarterData {
         return $result;
     }
 
-    public function select($headquarterCode) {
-        $query = $this->db->prepare("SELECT * FROM tbheadquarter WHERE headquartercode=" . $headquarterCode . ";");
+    function select(Headquarter $headquarter) {
+        $query = $this->db->prepare("SELECT * FROM tbheadquarter WHERE headquartercode=" . $headquarter->getHeadquartercode() . ";");
         $query->execute();
         $result = $query->fetch();
         return $result;
     }
 
-    public function delete(Headquarter $headquarter) {
+    function delete(Headquarter $headquarter) {
         $query = $this->db->prepare("DELETE FROM tbuheadquarter WHERE headquartercode=" . $headquarter->getHeadquartercode() . ";");
         $query->execute();
         $result = $query->fetch();

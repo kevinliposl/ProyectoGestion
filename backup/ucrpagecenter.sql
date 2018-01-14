@@ -23,7 +23,7 @@ CREATE TABLE tbuniversity(
 	CONSTRAINT PRIMARY KEY(universityid)
 );
 
-CREATER TABLE tbheadquarter(
+CREATE TABLE tbheadquarter(
 	headquarterid INTEGER,
 	headquartercode INTEGER,
 	headquartername VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
