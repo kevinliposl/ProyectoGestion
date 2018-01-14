@@ -22,10 +22,11 @@ class HeadquarterData {
         }
 
         $query = $this->db->prepare(
-                "INSERT INTO tbheadquarter VALUES (" . $nextId . ",'" .
-                $headquarter->getHeadquarterCode() . "','" .
-                $headquarter->getHeadquarterName() . "','" .
-                $headquarter->getHeadquarterLocation() . "','" .
+                "INSERT INTO tbheadquarter VALUES (" . $nextId . "," .
+                $headquarter->getHeadquartercode() . ",'" .
+                $headquarter->getHeadquartername() . "','" .
+                $headquarter->getHeadquarterlocation() . "'," .
+                $headquarter->getHeadquarteruniversityid() . "," .
                 ");"
         );
         $query->execute();
@@ -41,11 +42,12 @@ class HeadquarterData {
 
     function update(Headquarter $headquarter) {
         $query = $this->db->prepare("UPDATE tbheadquarter "
-                . "SET headquarterId =" . $headquarter->getHeadquarterId() .
-                ", headquarterCode=" . $headquarter->getHeadquarterCode() .
-                ", headquarterName='" . $headquarter->getHeadquarterName() .
-                "', headquarterLocation=" . $headquarter->getHeadquarterLocation() .
-                " WHERE headquarterCode=" . $headquarter->getHeadquarterCode() . ";");
+                . "SET headquarterId =" . $headquarter->getHeadquarterid() .
+                ", headquarterCode=" . $headquarter->getHeadquartercode() .
+                ", headquarterName='" . $headquarter->getHeadquartername() .
+                "', headquarterLocation='" . $headquarter->getHeadquarterlocation() .
+                "', headquarterUniversityId=" . $headquarter->getHeadquarteruniversityid() .
+                " WHERE headquarterCode=" . $headquarter->getHeadquartercode() . ";");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
@@ -73,7 +75,7 @@ class HeadquarterData {
     }
 
     public function delete(Headquarter $headquarter) {
-        $query = $this->db->prepare("DELETE FROM tbuheadquarter WHERE headquartercode=" . $headquarter->getHeadquarterCode() . ";");
+        $query = $this->db->prepare("DELETE FROM tbuheadquarter WHERE headquartercode=" . $headquarter->getHeadquartercode() . ";");
         $query->execute();
         $result = $query->fetch();
         if (!$result) {

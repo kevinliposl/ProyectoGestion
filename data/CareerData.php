@@ -23,8 +23,8 @@ class CareerData {
 
         $query = $this->db->prepare(
                 "INSERT INTO tbcareer VALUES (" . $nextId . "," .
-                $career->getCareerCode() . ",'" .
-                $career->getCareerName() . "'" .
+                $career->getCareercode() . ",'" .
+                $career->getCareername() . "'" .
                 ");"
         );
         $query->execute();
@@ -40,10 +40,10 @@ class CareerData {
 
     function update(Career $career) {
         $query = $this->db->prepare("UPDATE tbcareer "
-                . "SET careerId =" . $career->getCareerId() .
-                ", careerCode=" . $career->getCarerCode() .
-                ", careerName='" . $career->getCareerName() .
-                "' WHERE careerCode=" . $career->getCareerCode() . ";");
+                . "SET careerId =" . $career->getCareerid() .
+                ", careerCode=" . $career->getCarercode() .
+                ", careerName='" . $career->getCareername() .
+                "' WHERE careerCode=" . $career->getCareercode() . ";");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
@@ -71,7 +71,7 @@ class CareerData {
     }
 
     public function delete(Career $career) {
-        $query = $this->db->prepare("DELETE FROM tbcareer WHERE careercode=" . $career->getCareerCode() . ";");
+        $query = $this->db->prepare("DELETE FROM tbcareer WHERE careercode=" . $career->getCareercode() . ";");
         $query->execute();
         $result = $query->fetch();
         if (!$result) {

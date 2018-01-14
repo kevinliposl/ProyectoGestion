@@ -23,9 +23,9 @@ class UniversityData {
 
         $query = $this->db->prepare(
                 "INSERT INTO tbuniversity VALUES (" . $nextId . ",'" .
-                $university->getUniversityCode() . "','" .
-                $university->getUniversityName() . "','" .
-                $university->getUniversityType() . "','" .
+                $university->getUniversitycode() . "','" .
+                $university->getUniversityname() . "','" .
+                $university->getUniversitytype() . "','" .
                 ");"
         );
         $query->execute();
@@ -41,11 +41,11 @@ class UniversityData {
 
     function update(University $university) {
         $query = $this->db->prepare("UPDATE tbuniversity "
-                . "SET universityid =" . $university->getUniversityId() .
-                ", universityCode=" . $university->getUniversityCode() .
-                ", universityName='" . $university->getUniversityName() .
-                "', universityType=" . $university->getUniversityType() .
-                " WHERE universityCode=" . $university->getUniversityCode() . ";");
+                . "SET universityid =" . $university->getUniversityid() .
+                ", universityCode=" . $university->getUniversitycode() .
+                ", universityName='" . $university->getUniversityname() .
+                "', universityType=" . $university->getUniversitytype() .
+                " WHERE universityCode=" . $university->getUniversitycode() . ";");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
@@ -73,7 +73,7 @@ class UniversityData {
     }
 
     public function delete(University $university) {
-        $query = $this->db->prepare("DELETE FROM tbuniversity WHERE universitycode=" . $university->getUniversityCode() . ";");
+        $query = $this->db->prepare("DELETE FROM tbuniversity WHERE universitycode=" . $university->getUniversitycode() . ";");
         $query->execute();
         $result = $query->fetch();
         if (!$result) {

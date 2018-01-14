@@ -28,6 +28,7 @@ CREATER TABLE tbheadquarter(
 	headquartercode INTEGER,
 	headquartername VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	headquarterlocation VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	headquarteruniversityid INTEGER,
 	CONSTRAINT PRIMARY KEY(headquarterid)
 );
 

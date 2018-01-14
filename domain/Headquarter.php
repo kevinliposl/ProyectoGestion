@@ -7,6 +7,7 @@ class Headquarter {
     private $headquartercode;
     private $headquartername;
     private $headquarterlocation;
+    private $headquarteruniversityid;
     
     function __construct() {
         ;
@@ -14,7 +15,7 @@ class Headquarter {
     
     function __toString() {
         try {
-            return (string) $this->headquarterid . ' | ' . $this->headquartercode . ' | ' . $this->headquartername . ' | ' . $this->headquarterlocation;
+            return (string) $this->headquarterid . ' | ' . $this->headquartercode . ' | ' . $this->headquartername . ' | ' . $this->headquarterlocation. ' | '. $this->headquarteruniversityid;
         } catch (Exception $e) {
             return '';
         }//End try-catch (Exception $e)
@@ -36,6 +37,10 @@ class Headquarter {
         $this->headquarterlocation = $headquarterlocation;
     }//End setHeadquarterlocation()
     
+    function setHeadquarteruniversityid($headquarteruniversityid) {
+        $this->headquarteruniversityid = $headquarteruniversityid;
+    }//End setHeadquarteruniversityid()
+    
     function getHeadquarterid() {
         return $this->headquarterid;
     }//End getHeadquarterid()    
@@ -51,5 +56,9 @@ class Headquarter {
     function getHeadquarterlocation(){
         return $this->headquarterlocation;
     }//End getHeadquarterlocation()
+    
+     function getHeadquarteruniversityid(){
+        return $this->headquarteruniversityid;
+    }//End getHeadquarteruniversityid()
     
 }//End class Headquarter
