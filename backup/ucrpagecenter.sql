@@ -19,7 +19,7 @@ CREATE TABLE tbuniversity(
 	universityid INTEGER,
 	universitycode INTEGER,
 	universityname VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	universityType BIT DEFAULT 1 NOT NULL,
+	universitytype BIT DEFAULT 1 NOT NULL,
 	CONSTRAINT PRIMARY KEY(universityid)
 );
 
@@ -35,6 +35,6 @@ CREATE TABLE tbheadquarter(
 CREATE TABLE tbcareer(
 	careerid INTEGER,
 	careercode INTEGER,
-	careername VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL
+	careername VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	CONSTRAINT PRIMARY KEY(careerid)
 );

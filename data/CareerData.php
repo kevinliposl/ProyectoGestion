@@ -40,10 +40,9 @@ class CareerData {
 
     function update(Career $career) {
         $query = $this->db->prepare("UPDATE tbcareer "
-                . "SET careerId =" . $career->getCareerid() .
-                ", careerCode=" . $career->getCarercode() .
-                ", careerName='" . $career->getCareername() .
-                "' WHERE careerCode=" . $career->getCareercode() . ";");
+                . "SET careercode=" . $career->getCareercode() .
+                ", careername='" . $career->getCareername() .
+                "' WHERE careercode=" . $career->getCareercode() . ";");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();

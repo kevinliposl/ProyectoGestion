@@ -22,11 +22,10 @@ class UniversityData {
         }
 
         $query = $this->db->prepare(
-                "INSERT INTO tbuniversity VALUES (" . $nextId . ",'" .
-                $university->getUniversitycode() . "','" .
-                $university->getUniversityname() . "','" .
-                $university->getUniversitytype() . "','" .
-                ");"
+                "INSERT INTO tbuniversity VALUES (" . $nextId . "," .
+                $university->getUniversitycode() . ",'" .
+                $university->getUniversityname() . "'," .
+                $university->getUniversitytype() . ");"
         );
         $query->execute();
         $result = $query->fetch();
@@ -41,11 +40,10 @@ class UniversityData {
 
     function update(University $university) {
         $query = $this->db->prepare("UPDATE tbuniversity "
-                . "SET universityid =" . $university->getUniversityid() .
-                ", universityCode=" . $university->getUniversitycode() .
-                ", universityName='" . $university->getUniversityname() .
-                "', universityType=" . $university->getUniversitytype() .
-                " WHERE universityCode=" . $university->getUniversitycode() . ";");
+                . "SET universitycode=" . $university->getUniversitycode() .
+                ", universityname='" . $university->getUniversityname() .
+                "', universitytype=" . $university->getUniversitytype() .
+                " WHERE universitycode=" . $university->getUniversitycode() . ";");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();

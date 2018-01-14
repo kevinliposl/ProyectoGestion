@@ -3,12 +3,12 @@
 require '../domain/University.php';
 
 if (isset($_POST['create'])) {
-    if (isset($_POST['id']) && isset($_POST['code']) && isset($_POST['name']) && isset($_POST['type'])) {
-        if (strlen($_POST['id']) > 0 && strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0 && strlen($_POST['type']) > 0) {
+    if (isset($_POST['code']) && isset($_POST['name']) && isset($_POST['type'])) {
+        if (strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0 && strlen($_POST['type']) > 0) {
             $universityBusiness = new UniversityBusiness();
 
             $university = new University();
-            $university->setUniversityid($_POST['id']);
+            $university->setUniversityid(0);
             $university->setUniversitycode($_POST['code']);
             $university->setUniversityname($_POST['name']);
             $university->setUniversityType($_POST['type']);
@@ -26,12 +26,12 @@ if (isset($_POST['create'])) {
         header("location: ../view/UniversityView.php?error=empty");
     }
 } else if (isset($_POST['delete'])) {
-    if (isset($_POST['id'])) {
-        if (strlen($_POST['id']) > 0) {
+    if (isset($_POST['code'])) {
+        if (strlen($_POST['code'])) {
             $universityBusiness = new UniversityBusiness();
 
             $university = new University();
-            $university->setUniversityid($_POST['id']);
+            $university->setUniversityid($_POST['code']);
             $result = $universityBusiness->delete($university);
 
             if ($result == 1) {
@@ -46,27 +46,27 @@ if (isset($_POST['create'])) {
         header("location: ../view/UniversityView.php?error=empty");
     }
 } else if (isset($_POST['update'])) {
-    if (isset($_POST['id']) && isset($_POST['code']) && isset($_POST['name']) && isset($_POST['type'])) {
-        if (strlen($_POST['id']) > 0 && strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0 && strlen($_POST['type']) > 0) {
+    if (isset($_POST['code']) && isset($_POST['name']) && isset($_POST['type'])) {
+        if (strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0 && strlen($_POST['type']) > 0) {
             $universityBusiness = new UniversityBusiness();
 
             $university = new University();
-            $university->setUniversityid($_POST['id']);
+            $university->setUniversityid(0);
             $university->setUniversitycode($_POST['code']);
             $university->setUniversityname($_POST['name']);
             $university->setUniversityType($_POST['type']);
             $result = $universityBusiness->update($university);
 
             if ($result == 1) {
-//                header("location: ../view/UniversityView.php?success=inserted");
+                header("location: ../view/UniversityView.php?success=inserted");
             } else {
-//                header("location: ../view/UniversityView.php?error=dbError");
+                header("location: ../view/UniversityView.php?error=dbError");
             }
         } else {
-//            header("location: ../view/UniversityView.php?error=format");
+            header("location: ../view/UniversityView.php?error=format");
         }
     } else {
-//        header("location: ../view/UniversityView.php?error=empty");
+        header("location: ../view/UniversityView.php?error=empty");
     }
 }
 
