@@ -26,8 +26,8 @@ if (isset($_POST['create'])) {
         header("location: ../view/HeadquarterView.php?error=empty");
     }
 } else if (isset($_POST['delete'])) {
-    if (isset($_POST['id'])) {
-        if (strlen($_POST['id']) > 0) {
+    if (isset($_POST['code'])) {
+        if (strlen($_POST['code']) > 0) {
             $haedquarterBusiness = new HeadquarterBusiness();
 
             $headquarter = new Headquarter();
@@ -75,7 +75,7 @@ class HeadquarterBusiness {
     private $headquarterData;
 
     function __construct() {
-        include_once '../data/Headquarter.php';
+        include_once '../data/HeadquarterData.php';
         $this->headquarterData = new HeadquarterData();
     }
 
