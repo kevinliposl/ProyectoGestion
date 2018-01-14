@@ -26,8 +26,7 @@ class HeadquarterData {
                 $headquarter->getHeadquartercode() . ",'" .
                 $headquarter->getHeadquartername() . "','" .
                 $headquarter->getHeadquarterlocation() . "'," .
-                $headquarter->getHeadquarteruniversityid() . "," .
-                ");"
+                $headquarter->getHeadquarteruniversityid() . ");"
         );
         $query->execute();
         $result = $query->fetch();
@@ -42,8 +41,7 @@ class HeadquarterData {
 
     function update(Headquarter $headquarter) {
         $query = $this->db->prepare("UPDATE tbheadquarter "
-                . "SET headquarterId =" . $headquarter->getHeadquarterid() .
-                ", headquarterCode=" . $headquarter->getHeadquartercode() .
+                . "SET  headquarterCode=" . $headquarter->getHeadquartercode() .
                 ", headquarterName='" . $headquarter->getHeadquartername() .
                 "', headquarterLocation='" . $headquarter->getHeadquarterlocation() .
                 "', headquarterUniversityId=" . $headquarter->getHeadquarteruniversityid() .
