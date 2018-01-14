@@ -16,6 +16,11 @@
 						<li><a href="view/studentView.php"><div>Gesti&oacute;n de Estudiantes</div></a></li>
 					</ul>
 				</li>
+                                <li><a href="#"><div>Recinto</div></a>
+					<ul>
+                                            <li><a href="view/HeadquarterView.php"><div>Gesti&oacute;n de los Recintos</div></a></li>
+					</ul>
+				</li>
 			</ul>
 		</nav>
 	</header>
