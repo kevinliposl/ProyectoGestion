@@ -73,7 +73,7 @@ class HeadquarterData {
     }
 
     function delete(Headquarter $headquarter) {
-        $query = $this->db->prepare("DELETE FROM tbuheadquarter WHERE headquartercode=" . $headquarter->getHeadquartercode() . ";");
+        $query = $this->db->prepare("DELETE FROM tbheadquarter WHERE headquartercode=" . $headquarter->getHeadquartercode() . ";");
         $query->execute();
         $result = $query->fetch();
         if (!$result) {

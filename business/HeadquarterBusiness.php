@@ -31,6 +31,7 @@ if (isset($_POST['create'])) {
             $haedquarterBusiness = new HeadquarterBusiness();
 
             $headquarter = new Headquarter();
+            $headquarter->setHeadquartercode($_POST['code']);
             $result = $haedquarterBusiness->delete($headquarter);
 
             if ($result == 1) {
