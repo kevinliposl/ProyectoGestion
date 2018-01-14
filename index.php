@@ -19,9 +19,9 @@
                                
                                 <li><a href="#"><div>Universidades</div></a>
                                     <ul>
-                                        <li><a href="careerView.php"><div>Gesti&oacute;n de Carreras</div></a></li>
-                                        <li><a href="universityView.php"><div>Gesti&oacute;n de Universidades</div></a></li>
-                                        <li><a href="HeadquarterView.php"><div>Gesti&oacute;n de Recintos</div></a></li>
+                                        <li><a href="view/careerView.php"><div>Gesti&oacute;n de Carreras</div></a></li>
+                                        <li><a href="view/universityView.php"><div>Gesti&oacute;n de Universidades</div></a></li>
+                                        <li><a href="view/HeadquarterView.php"><div>Gesti&oacute;n de Recintos</div></a></li>
                                     </ul>
                                 </li>
 			</ul>
