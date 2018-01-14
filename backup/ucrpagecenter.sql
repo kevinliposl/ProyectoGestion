@@ -14,3 +14,26 @@ CREATE TABLE tbstudent(
 	state BIT DEFAULT 1 NOT NULL,
 	CONSTRAINT PRIMARY KEY(studentid)
 );
+
+CREATE TABLE tbuniversity(
+	universityid INTEGER,
+	universitycode INTEGER,
+	universityname VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	universityType BIT DEFAULT 1 NOT NULL,
+	CONSTRAINT PRIMARY KEY(universityid)
+);
+
+CREATER TABLE tbheadquarter(
+	headquarterid INTEGER,
+	headquartercode INTEGER,
+	headquartername VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	headquarterlocation VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	CONSTRAINT PRIMARY KEY(headquarterid)
+);
+
+CREATE TABLE tbcareer(
+	careerid INTEGER,
+	careercode INTEGER,
+	careername VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL
+	CONSTRAINT PRIMARY KEY(careerid)
+);
