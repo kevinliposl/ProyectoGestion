@@ -10,7 +10,7 @@ if (isset($_POST['create'])) {
     
 } else if (isset($_POST['update'])) {
     if (isset($_POST['id']) && isset($_POST['code']) && isset($_POST['name'])) {
-        if (strlen($_POST['id']) > 0 && strlen($_POST['code']) > 0 && strlen($_POST['name'])) {
+        if (strlen($_POST['id']) > 0 && strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0) {
             $CareerBusiness = new CareerBusiness();
 
             $Career = new Career();
