@@ -78,39 +78,25 @@ class HeadquarterBusiness {
     function __construct() {
         include_once '../data/HeadquarterData.php';
         $this->headquarterData = new HeadquarterData();
-    }
-
-//End construct()
+    }//End construct()
 
     function insert(Headquarter $headquarter) {
         return $this->headquarterData->insert($headquarter);
-    }
-
-//End insert()
+    }//End insert()
 
     function update(Headquarter $headquarter) {
         return $this->headquarterData->update($headquarter);
-    }
-
-//End update()
+    }//End update()
 
     function selectAll() {
         return $this->headquarterData->selectAll();
-    }
-
-//End selectAll()
+    }//End selectAll()
 
     function select($headquarterCode) {
         return $this->headquarterData->select($headquarterCode);
-    }
-
-//End select()
+    }//End select()
 
     function delete(Headquarter $headquarter) {
         return $this->headquarterData->delete($headquarter);
-    }
-
-//End delete()
-}
-
-//End class HeadquarterBusiness
+    }//End delete()
+}//End class HeadquarterBusiness
