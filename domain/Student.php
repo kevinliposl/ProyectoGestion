@@ -9,7 +9,6 @@ class Student {
     private $lastname2;
     private $career1;
     private $career2;
-    private $headquarters;
     private $password;
 
     function __construct() {
@@ -44,10 +43,6 @@ class Student {
         return $this->career2;
     }
 
-    function getHeadquarters() {
-        return $this->headquarters;
-    }
-
     function getPassword() {
         return $this->password;
     }
@@ -78,10 +73,6 @@ class Student {
 
     function setCareer2($career2) {
         $this->career2 = $career2;
-    }
-
-    function setHeadquarters($headquarters) {
-        $this->headquarters = $headquarters;
     }
 
     function setPassword($password) {

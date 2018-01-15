@@ -10,7 +10,6 @@ include_once '../public/header.php';
         <th>Contrasenna</th>
         <th>Primer Carrera</th>
         <th>Segundo Carrera</th>
-        <th>Sede</th>
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/StudentBusiness.php'>
         <tr>
@@ -34,9 +33,6 @@ include_once '../public/header.php';
             </td>
             <td>
                 <input type="text" name="career2"/>
-            </td>
-            <td>
-                <input type="text" name="headquarters"/>    
             </td>
             <td>
                 <input type="submit" name="create" value="Crear"/> 
@@ -77,9 +73,6 @@ include_once '../public/header.php';
         echo "</td>";
         echo "<td>";
         echo "<input type ='text' name='career2' value='" . $student['studentcareer2'] . "'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='text' name='headquarters' value='" . $student['studentheadquarters'] . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type ='submit' name='delete' value ='Eliminar'/>";
