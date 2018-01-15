@@ -62,7 +62,17 @@ class HeadquarterData {
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
-        return $result;
+        $headquarters = [];
+        foreach ($result as $row) {
+            $currentheadquarter = new Headquarter();
+            $currentheadquarter->setHeadquarterid($row['headquarterid']);
+            $currentheadquarter->setHeadquartercode($row['headquartercode']);
+            $currentheadquarter->setHeadquartername($row['headquartername']);
+            $currentheadquarter->setHeadquarterlocation($row['headquarterlocation']);
+            $currentheadquarter->setHeadquarteruniversityid($row['headquarteruniversityid']);
+            array_push($headquarters , $currentheadquarter);
+        }//End foreach ($result as $row)
+        return $headquarters;
     }
 
     function select(Headquarter $headquarter) {

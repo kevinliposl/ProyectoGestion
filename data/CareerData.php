@@ -59,7 +59,15 @@ class CareerData {
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
-        return $result;
+        $Careers = [];
+        foreach ($result as $row) {
+            $currentCareer = new Career();
+            $currentCareer->setCareerid($row['careerid']);
+            $currentCareer->setCareercode($row['careercode']);
+            $currentCareer->setCareername($row['careername']);
+            array_push($Careers , $currentCareer);
+        }//End foreach ($result as $row)
+        return $Careers;
     }
 
     public function select($careerCode) {

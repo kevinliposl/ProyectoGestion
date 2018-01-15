@@ -60,7 +60,16 @@ class UniversityData {
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
-        return $result;
+        $universitys = [];
+        foreach ($result as $row) {
+            $currentuniversity = new University();
+            $currentuniversity->setUniversityid($row['universityid']);
+            $currentuniversity->setUniversitycode($row['universitycode']);
+            $currentuniversity->setUniversityname($row['universityname']);
+            $currentuniversity->setUniversityType($row['universitytype']);
+            array_push($universitys , $currentuniversity);
+        }//End foreach ($result as $row)
+        return $universitys;
     }
 
     public function select($universityCode) {
