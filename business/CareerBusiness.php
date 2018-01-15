@@ -70,30 +70,30 @@ if (isset($_POST['create'])) {
 class CareerBusiness {
 
     //Attributes
-    private $CareerData;
+    private $data;
 
     function __construct() {
         include_once '../data/CareerData.php';
-        $this->CareerData = new CareerData();
+        $this->data = new CareerData();
     }//End construct()
 
     function insert(Career $career) {
-        return $this->CareerData->insert($career);
+        return $this->data->insert($career);
     }//End insert()
 
     function update(Career $career) {
-        return $this->CareerData->update($career);
+        return $this->data->update($career);
     }//End update()
 
     function selectAll() {
-        return $this->CareerData->selectAll();
+        return $this->data->selectAll();
     }//End selectAll()
 
     function select($careerCode) {
-        return $this->CareerData->select($careerCode);
+        return $this->data->select($careerCode);
     }//End select()
 
     function delete(Career $career) {
-        return $this->CareerData->delete($career);
+        return $this->data->delete($career);
     }//End delete()
 }//End class CareerBusiness 
