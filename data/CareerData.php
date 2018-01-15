@@ -74,7 +74,11 @@ class CareerData {
         $query = $this->db->prepare("SELECT * FROM tbcareer WHERE careercode=" . $careerCode . ";");
         $query->execute();
         $result = $query->fetch();
-        return $result;
+        $career = new Career();
+        $career->setCareerid($result['careerid']);
+        $career->setCareercode($result['careercode']);
+        $career->setCareername($result['careername']);
+        return $career;
     }
 
     public function delete(Career $career) {

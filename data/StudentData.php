@@ -88,12 +88,21 @@ class StudentData {
         return $students;
     }
 
-//    function select($idStudent) {
-//        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE studentid=" . $idStudent . ";");
-//        $query->execute();
-//        $result = $query->fetch();
-//        return $result;
-//    }
+    function select($idStudent) {
+        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE studentid=" . $idStudent . ";");
+        $query->execute();
+        $result = $query->fetch();
+        $Student = new Student();
+        $Student->setId($result['studentid']);
+        $Student->setLicense($result['studentlicense']);
+        $Student->setName($result['studentname']);
+        $Student->setLastName1($result['studentlastname1']);
+        $Student->setLastName2($result['studentlastname2']);
+        $Student->setCareer1($result['studentcareer1']);
+        $Student->setCareer2($result['studentcareer2']);
+        $Student->getPassword($result['studentpassword']);
+        return $Student;
+    }
 
     function delete(Student $student) {
         $query = $this->db->prepare("UPDATE tbstudent SET state=:state WHERE studentid=:id;");

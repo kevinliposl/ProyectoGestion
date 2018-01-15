@@ -79,7 +79,12 @@ class HeadquarterData {
         $query = $this->db->prepare("SELECT * FROM tbheadquarter WHERE headquartercode=" . $headquarter->getHeadquartercode() . ";");
         $query->execute();
         $result = $query->fetch();
-        return $result;
+        $headquarter->setHeadquarterid($result['headquarterid']);
+        $headquarter->setHeadquartercode($result['headquartercode']);
+        $headquarter->setHeadquartername($result['headquartername']);
+        $headquarter->setHeadquarterlocation($result['headquarterlocation']);
+        $headquarter->setHeadquarteruniversityid($result['headquarteruniversityid']);
+        return $headquarter;
     }
 
     function delete(Headquarter $headquarter) {

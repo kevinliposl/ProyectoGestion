@@ -76,7 +76,12 @@ class UniversityData {
         $query = $this->db->prepare("SELECT * FROM tbuniversity WHERE universitycode=" . $universityCode . ";");
         $query->execute();
         $result = $query->fetch();
-        return $result;
+        $university = new University();
+        $university->setUniversityid($result['universityid']);
+        $university->setUniversitycode($result['universitycode']);
+        $university->setUniversityname($result['universityname']);
+        $university->setUniversityType($result['universitytype']);
+        return $university;
     }
 
     public function delete(University $university) {
