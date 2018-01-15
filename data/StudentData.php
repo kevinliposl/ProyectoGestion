@@ -67,24 +67,24 @@ class StudentData {
         }
     }
 
-    public function selectAll() {
-        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE state=" . 0 . ";");
-        $query->execute();
+    function selectAll() {
+        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE state=:state;");
+        $query->execute(array('state' => 0));
         $result = $query->fetchAll();
         $query->closeCursor();
         return $result;
     }
 
-    public function select($idStudent) {
-        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE studentid=" . $idStudent . ";");
-        $query->execute();
-        $result = $query->fetch();
-        return $result;
-    }
+//    function select($idStudent) {
+//        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE studentid=" . $idStudent . ";");
+//        $query->execute();
+//        $result = $query->fetch();
+//        return $result;
+//    }
 
-    public function delete(Student $student) {
-        $query = $this->db->prepare("UPDATE tbstudent SET state=" . 1 . " WHERE studentid=" . $student->getId() . ";");
-        $query->execute();
+    function delete(Student $student) {
+        $query = $this->db->prepare("UPDATE tbstudent SET state=:state WHERE studentid=:id;");
+        $query->execute(array('state' => 1, 'id' => $student->getId()));
         $result = $query->fetch();
         if (!$result) {
             return 1;
