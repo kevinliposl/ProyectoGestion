@@ -72,7 +72,18 @@ class StudentData {
         $query->execute(array('state' => 0));
         $result = $query->fetchAll();
         $query->closeCursor();
-        return $result;
+        $students = [];
+        foreach ($result as $row) {
+            $currentStudent = new Student();
+            $currentStudent->setId($row['studentid']);
+            $currentStudent->getCarnet($row['studentlicense']);
+            $currentStudent->getName($row['studentname']);
+            $currentStudent->getLastName1($row['studentlastname1']);
+            $currentStudent->getLastName2($row['studentlastname2']);
+            $currentStudent->getPassword($row['studentpassword']);
+            array_push($students, $currentStudent);
+        }
+        return $students;
     }
 
 //    function select($idStudent) {
