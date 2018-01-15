@@ -3,7 +3,7 @@
 class Student {
 
     private $id;
-    private $carnet;
+    private $license;
     private $name;
     private $lastname1;
     private $lastname2;
@@ -15,8 +15,8 @@ class Student {
         ;
     }
 
-    function getCarnet() {
-        return $this->carnet;
+    function getLicense() {
+        return $this->license;
     }
 
     function getId() {
@@ -51,8 +51,8 @@ class Student {
         $this->id = $id;
     }
 
-    function setCarnet($carnet) {
-        $this->carnet = $carnet;
+    function setLicense($license) {
+        $this->license = $license;
     }
 
     function setName($name) {

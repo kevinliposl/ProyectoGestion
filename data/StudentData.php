@@ -76,10 +76,12 @@ class StudentData {
         foreach ($result as $row) {
             $currentStudent = new Student();
             $currentStudent->setId($row['studentid']);
-            $currentStudent->getCarnet($row['studentlicense']);
-            $currentStudent->getName($row['studentname']);
-            $currentStudent->getLastName1($row['studentlastname1']);
-            $currentStudent->getLastName2($row['studentlastname2']);
+            $currentStudent->setLicense($row['studentlicense']);
+            $currentStudent->setName($row['studentname']);
+            $currentStudent->setLastName1($row['studentlastname1']);
+            $currentStudent->setLastName2($row['studentlastname2']);
+            $currentStudent->setCareer1($row['studentcareer1']);
+            $currentStudent->setCareer2($row['studentcareer2']);
             $currentStudent->getPassword($row['studentpassword']);
             array_push($students, $currentStudent);
         }
