@@ -5,6 +5,7 @@ include_once '../public/header.php';
 <table>
     <tr>
         <th>Nombre de Universidad</th>
+        <th>Sede?</th>
         <th>Codigo del Recinto</th>
         <th>Nombre del Recinto</th>        
         <th>Ubicacion del Recinto</th>
@@ -16,8 +17,7 @@ include_once '../public/header.php';
                 <?php
     
                 include '../business/UniversityBusiness.php';
-
-   
+                
                 $universityBusiness = new UniversityBusiness();
                 $currentUniversity = new University();
                 $universities = $universityBusiness->selectAll();
@@ -27,7 +27,7 @@ include_once '../public/header.php';
                     <?php
                     foreach ($universities as $currentUniversity) {
                     ?>
-                    <option value="<?php $currentUniversity->getUniversityid() ?>"><?php print_r($currentUniversity->getUniversityName()) ?></option>
+                    <option value="<?php print_r($currentUniversity->getUniversityid()) ?>"><?php print_r($currentUniversity->getUniversityName()) ?></option>
                         
                         <?php 
                         }
@@ -35,18 +35,24 @@ include_once '../public/header.php';
                 </select> 
   
             </td>
-            
             <td>
-                <input type="text" name="code"/>
+                <select name="enclosure" id="enclosure">
+                    <option value="2">Ninguna</option>
+                    <option value="1">Si</option>
+                    <option value="0">No</option>
+                </select>
             </td>
             <td>
-                <input type="text" name="name" pattern="[a-zA-Z\s]+$"/>
+                <input type="text" name="code" id="code" hidden="true"/>
+            </td>
+            <td>
+                <input type="text" name="name" pattern="[a-zA-Z\s]+$" hidden="true"/>
             </td>            
             <td>
-                <input type="text" name="location" pattern="[a-zA-Z\s]+$"/>
+                <input type="text" name="location" pattern="[a-zA-Z\s]+$" hidden="true"/>
             </td>
             <td>
-                <input type="text" name="universityid"/>
+                <input type="text" name="universityid" hidden="true"/>
             </td>            
             <td>
                 <input type="submit" name="create" value="Crear"/> 
@@ -62,7 +68,7 @@ include_once '../public/header.php';
     $headquarterBusiness = new HeadquarterBusiness();
     $headquarters = $headquarterBusiness->selectAll();
 
-    foreach ($headquarters as $headquarter){
+   /** foreach ($headquarters as $headquarter){
 
         echo "<form enctype='multipart/form-data' method='POST' action='../business/HeadquarterBusiness.php'>";
         echo "<tr>";
@@ -86,7 +92,7 @@ include_once '../public/header.php';
         echo "</td>";
         echo "</tr>";
         echo "</form>";
-    }
+    }*/
     ?>
     
     <tr>
@@ -107,6 +113,24 @@ include_once '../public/header.php';
             ?>
         </td>
     </tr>
+    
+    <script type="text/javascript" async>
+    
+    $("#enclosure").change(function () {
+
+        if ($("#enclosure").val() === '1') {
+            
+            var code= document.getElementById("code");
+            code.style.visibility = "visible";
+            
+            return false;
+        }
+        
+    });
+    
+</script>
+
 
 <?php
+
     include_once '../public/footer.php';

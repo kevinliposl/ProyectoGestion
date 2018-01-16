@@ -5,7 +5,7 @@ class HeadquarterData {
     private $db;
 
     function __construct() {
-        require 'SPDO.php';
+        require_once 'SPDO.php';
         $this->db = SPDO::singleton();
     }
 

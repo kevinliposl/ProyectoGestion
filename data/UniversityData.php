@@ -5,7 +5,7 @@ class UniversityData {
     private $db;
 
     function __construct() {
-        require 'SPDO.php';
+        require_once 'SPDO.php';
         $this->db = SPDO::singleton();
     }
 
@@ -60,16 +60,19 @@ class UniversityData {
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
-        $universitys = [];
+        
+        $universities = [];
+        
         foreach ($result as $row) {
             $currentuniversity = new University();
             $currentuniversity->setUniversityid($row['universityid']);
             $currentuniversity->setUniversitycode($row['universitycode']);
             $currentuniversity->setUniversityname($row['universityname']);
             $currentuniversity->setUniversityType($row['universitytype']);
-            array_push($universitys , $currentuniversity);
+            array_push($universities , $currentuniversity);
         }//End foreach ($result as $row)
-        return $universitys;
+        
+        return $universities;
     }
 
     public function select($universityCode) {
