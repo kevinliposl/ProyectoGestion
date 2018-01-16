@@ -7,7 +7,8 @@ class Career {
     private $careerid;
     private $careercode;
     private $careername;
-    
+    private $careerUniversity;
+
     function __construct() {
         ;
     }//End construct()
@@ -19,6 +20,14 @@ class Career {
             return '';
         }//End try-catch (Exception $e)
     }//End toString()
+    
+    function getCareerUniversity() {
+        return $this->careerUniversity;
+    }
+
+    function setCareerUniversity($careerUniversity) {
+        $this->careerUniversity = $careerUniversity;
+    }
     
     function setCareerid($careerid) {
         $this->careerid = $careerid;

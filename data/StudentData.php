@@ -5,7 +5,7 @@ class StudentData {
     private $db;
 
     function __construct() {
-        require 'SPDO.php';
+        include_once 'SPDO.php';
         $this->db = SPDO::singleton();
     }
 

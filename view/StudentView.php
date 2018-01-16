@@ -1,5 +1,11 @@
 <?php
 include_once '../public/header.php';
+
+include '../business/StudentBusiness.php';
+include '../business/CareerBusiness.php';
+
+$careerBusiness = new CareerBusiness();
+$studentBusiness = new StudentBusiness();
 ?>
 <table>
     <tr>
@@ -29,10 +35,30 @@ include_once '../public/header.php';
                 <input type="password" name="password"/>
             </td>
             <td>
-                <input type="text" name="career1"/>
+                <select id="career1">
+                    <option>Ninguna</option>
+                    <?php
+                    $careers1 = $careerBusiness->selectAll();
+                    foreach ($careers as $career) {
+                        ?>
+                    <option id="<?=$career->getCareerid() ?>"><?= $career->getCareercode() ?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
             </td>
             <td>
-                <input type="text" name="career2"/>
+                <select id="career2">
+                    <option>Ninguna</option>
+                    <?php
+                    $careers2 = $careerBusiness->selectAll();
+                    foreach ($careers as $career) {
+                        ?>
+                    <option id="<?=$career->getCareerid() ?>"><?= $career->getCareercode() ?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
             </td>
             <td>
                 <input type="submit" name="create" value="Crear"/> 
@@ -43,9 +69,6 @@ include_once '../public/header.php';
     </form>
 
     <?php
-    include '../business/StudentBusiness.php';
-
-    $studentBusiness = new StudentBusiness();
     $students = $studentBusiness->selectAll();
 
     foreach ($students as $student) {

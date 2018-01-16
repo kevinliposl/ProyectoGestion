@@ -86,7 +86,7 @@ class StudentBusiness {
     private $data;
 
     function __construct() {
-        require '../data/StudentData.php';
+        include_once '../data/StudentData.php';
         $this->data = new StudentData();
     }
 
