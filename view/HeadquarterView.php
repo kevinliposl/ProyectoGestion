@@ -4,6 +4,7 @@ include_once '../public/header.php';
 
 <table>
     <tr>
+        <th>Nombre de Universidad</th>
         <th>Codigo del Recinto</th>
         <th>Nombre del Recinto</th>        
         <th>Ubicacion del Recinto</th>
@@ -11,6 +12,30 @@ include_once '../public/header.php';
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/HeadquarterBusiness.php'>
         <tr>
+            <td>
+                <?php
+    
+                include '../business/UniversityBusiness.php';
+
+   
+                $universityBusiness = new UniversityBusiness();
+                $currentUniversity = new University();
+                $universities = $universityBusiness->selectAll();
+                ?>
+                
+                <select>
+                    <?php
+                    foreach ($universities as $currentUniversity) {
+                    ?>
+                    <option value="<?php $currentUniversity->getUniversityid() ?>"><?php print_r($currentUniversity->getUniversityName()) ?></option>
+                        
+                        <?php 
+                        }
+                        ?> 
+                </select> 
+  
+            </td>
+            
             <td>
                 <input type="text" name="code"/>
             </td>
