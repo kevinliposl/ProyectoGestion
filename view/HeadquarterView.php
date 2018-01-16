@@ -6,12 +6,9 @@ include_once '../public/header.php';
     <tr>
         <th>Nombre de Universidad</th>
         <th>Sede?</th>
-        <th>Codigo del Recinto</th>
-        <th>Nombre del Recinto</th>        
-        <th>Ubicacion del Recinto</th>
-        <th>Id de la Universidad del Recinto</th>
+        <th id="thE1" name="thE1" style="visibility: hidden">Codigo del Recinto</th>
+        <th id="thE2" name="thE2" style="visibility: hidden">Nombre del Recinto</th>        
     </tr>
-    <form enctype="multipart/form-data" method='POST' action='../business/HeadquarterBusiness.php'>
         <tr>
             <td>
                 <?php
@@ -43,24 +40,49 @@ include_once '../public/header.php';
                 </select>
             </td>
             <td>
-                <input type="text" name="code" id="code" hidden="true"/>
+                <input type="text" name="codeE" id="codeE" style="visibility: hidden"/>
+                
             </td>
             <td>
-                <input type="text" name="name" pattern="[a-zA-Z\s]+$" hidden="true"/>
+                <input type="text" name="nameE" id="nameE" pattern="[a-zA-Z\s]+$" style="visibility: hidden"/>
+            </td>            
+           
+            <td>
+            </td>
+        </tr>
+</table>
+
+<table>
+      <tr>
+        <th id="thH" style="visibility: hidden">Codigo del Recinto</th>
+        <th id="thH" style="visibility: hidden">Nombre del Recinto</th>        
+        <th id="thH" style="visibility: hidden">Ubicacion del Recinto</th>
+        <th id="thH" style="visibility: hidden">Id de la Universidad del Recinto</th>
+    </tr>
+    
+    <form enctype="multipart/form-data" method='POST' action='../business/HeadquarterBusiness.php'>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <input type="text" name="codeH" id="codeH" style="visibility: hidden"/>
+            </td>
+         
+            <td>
+                <input type="text" name="nameH" id="nameH" pattern="[a-zA-Z\s]+$" style="visibility: hidden"/>
             </td>            
             <td>
-                <input type="text" name="location" pattern="[a-zA-Z\s]+$" hidden="true"/>
+                <input type="text" name="locationH" id="locationH" pattern="[a-zA-Z\s]+$" style="visibility: hidden"/>
             </td>
             <td>
-                <input type="text" name="universityid" hidden="true"/>
+                <input type="text" name="universityidH" id="universityidH" style="visibility: hidden"/>
             </td>            
             <td>
                 <input type="submit" name="create" value="Crear"/> 
             </td>
-            <td>
-            </td>
         </tr>
     </form>
+</table>
     
     <?php
     include '../business/HeadquarterBusiness.php';
@@ -120,13 +142,33 @@ include_once '../public/header.php';
 
         if ($("#enclosure").val() === '1') {
             
-            var code= document.getElementById("code");
-            code.style.visibility = "visible";
+            var thE1 = document.getElementById("thE1");
+            thE1.style.visility = "visible";
+            var thE2 = document.getElementById("thE2");
+            thE2.style.visility = "visible";
+            var codeE = document.getElementById("codeE");
+            codeE.style.visibility = "visible";
+            var nameE = document.getElementById("nameE");
+            nameE.style.visibility= "visible";
+       
             
             return false;
         }
         
     });
+    
+    $('#codeE').on('keyup', function() {
+       var codeH = document.getElementById("codeH");
+            codeH.style.visibility = "visible";
+            var nameH = document.getElementById("nameH");
+            nameH.style.visibility= "visible";
+            var locationH = document.getElementById("locationH");
+            locationH.style.visibility = "visible";
+            var universityidH = document.getElementById("universityidH");
+            universityidH.style.visibility = "visible";
+            
+        return false;
+});
     
 </script>
 
