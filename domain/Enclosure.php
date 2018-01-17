@@ -42,8 +42,8 @@ class Enclosure {
         return $this->enclosurename;
     }
 
-    function getHeadquarterlocation() {
-        return $this->headquarterlocation;
+    function getEnclosurenlocation() {
+        return $this->enclosurenlocation;
     }
 
     function setEnclosureid($enclosureid) {
@@ -66,8 +66,7 @@ class Enclosure {
         $this->enclosurename = $enclosurename;
     }
 
-    function setHeadquarterlocation($headquarterlocation) {
-        $this->headquarterlocation = $headquarterlocation;
+    function setEnclosurenlocation($enclosurenlocation) {
+        $this->enclosurenlocation = $enclosurenlocation;
     }
-
 }
