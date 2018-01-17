@@ -24,6 +24,7 @@ class UniversityData {
         $query = $this->db->prepare("INSERT INTO tbuniversity VALUES(:id,:code,:name,:type,:state);");
         $query->execute(array('id' => $nextId, 'code' => $university->getUniversitycode(),
             'name' => (string) $university->getUniversityname(), 'type' => $university->getUniversitytype(), 'state' => 1));
+        
         $result = $query->fetch();
         $query->closeCursor();
 

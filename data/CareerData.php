@@ -21,13 +21,8 @@ class CareerData {
             $nextId = (int) $resultLastId['careerid'] + 1;
         }
 
-        $query = $this->db->prepare(
-                "INSERT INTO tbcareer VALUES (" . $nextId . "," .
-                $career->getCareercode() . ",'" .
-                $career->getCareername() . "'" .
-                ");"
-        );
-        $query->execute();
+        $query = $this->db->prepare("INSERT INTO tbcareer VALUES(:id,:code,:name,'');");
+        $query->execute(array('id' => $nextId, 'code' => $career->getCareercode(), 'name' => $career->getCareername()));
         $result = $query->fetch();
         $query->closeCursor();
 
@@ -65,12 +60,12 @@ class CareerData {
             $currentCareer->setCareerid($row['careerid']);
             $currentCareer->setCareercode($row['careercode']);
             $currentCareer->setCareername($row['careername']);
-            array_push($careers , $currentCareer);
+            array_push($careers, $currentCareer);
         }//End foreach ($result as $row)
         return $careers;
     }
 
-    public function select($careerCode) {
+    function select($careerCode) {
         $query = $this->db->prepare("SELECT * FROM tbcareer WHERE careercode=" . $careerCode . ";");
         $query->execute();
         $result = $query->fetch();
@@ -81,6 +76,7 @@ class CareerData {
         return $career;
     }
 
+    ////// PONER SOLO ELIMINACIONES LOGICAS
     public function delete(Career $career) {
         $query = $this->db->prepare("DELETE FROM tbcareer WHERE careercode=" . $career->getCareercode() . ";");
         $query->execute();
@@ -93,7 +89,3 @@ class CareerData {
     }
 
 }
-
-
-
-
