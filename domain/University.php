@@ -21,7 +21,7 @@ class University {
     }//End toString()
     
     function setUniversityid($universityid) {
-        $this->id = $universityid;
+        $this->universityid = $universityid;
     }//End setUniversityid()
     
      function setUniversitycode($universitycode) {

@@ -26,12 +26,12 @@ if (isset($_POST['create'])) {
         header("location: ../view/UniversityView.php?error=empty");
     }
 } else if (isset($_POST['delete'])) {
-    if (isset($_POST['code'])) {
-        if (strlen($_POST['code'])) {
+    if (isset($_POST['id'])) {
+        if (strlen($_POST['id'])) {
             $universityBusiness = new UniversityBusiness();
 
             $university = new University();
-            $university->setUniversityid($_POST['code']);
+            $university->setUniversityid($_POST['id']);
             $result = $universityBusiness->delete($university);
 
             if ($result == 1) {

@@ -10,7 +10,7 @@ CREATE TABLE tbstudent(
 	studentcareer1 INTEGER NOT NULL,
 	studentcareer2 INTEGER,
 	studentpassword VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL CHECK(studentpassword > 7),
-	studentstate BIT DEFAULT 1 NOT NULL,
+	studentstate SMALLINT DEFAULT 1 NOT NULL,
 	CONSTRAINT PRIMARY KEY(studentid)
 );
 
@@ -18,7 +18,8 @@ CREATE TABLE tbuniversity(
 	universityid INTEGER,
 	universitycode INTEGER,
 	universityname VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	universitytype BIT DEFAULT 1 NOT NULL,
+	universitytype SMALLINT DEFAULT 1 NOT NULL,
+    universitystate SMALLINT DEFAULT 1 NOT NULL,
 	CONSTRAINT PRIMARY KEY(universityid)
 );
 

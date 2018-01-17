@@ -21,13 +21,9 @@ class UniversityData {
             $nextId = (int) $resultLastId['universityid'] + 1;
         }
 
-        $query = $this->db->prepare(
-                "INSERT INTO tbuniversity VALUES (" . $nextId . "," .
-                $university->getUniversitycode() . ",'" .
-                $university->getUniversityname() . "'," .
-                $university->getUniversitytype() . ");"
-        );
-        $query->execute();
+        $query = $this->db->prepare("INSERT INTO tbuniversity VALUES(:id,:code,:name,:type,:state);");
+        $query->execute(array('id' => $nextId, 'code' => $university->getUniversitycode(),
+            'name' => (string) $university->getUniversityname(), 'type' => $university->getUniversitytype(), 'state' => 1));
         $result = $query->fetch();
         $query->closeCursor();
 
@@ -55,23 +51,23 @@ class UniversityData {
         }
     }
 
-    public function selectAll() {
-        $query = $this->db->prepare("SELECT * FROM tbuniversity;");
-        $query->execute();
+    function selectAll() {
+        $query = $this->db->prepare("SELECT * FROM tbuniversity WHERE universitystate=:state;");
+        $query->execute(array('state' => 1));
         $result = $query->fetchAll();
         $query->closeCursor();
-        
+
         $universities = [];
-        
+
         foreach ($result as $row) {
             $currentuniversity = new University();
             $currentuniversity->setUniversityid($row['universityid']);
             $currentuniversity->setUniversitycode($row['universitycode']);
             $currentuniversity->setUniversityname($row['universityname']);
             $currentuniversity->setUniversityType($row['universitytype']);
-            array_push($universities , $currentuniversity);
+            array_push($universities, $currentuniversity);
         }//End foreach ($result as $row)
-        
+
         return $universities;
     }
 
@@ -88,8 +84,8 @@ class UniversityData {
     }
 
     public function delete(University $university) {
-        $query = $this->db->prepare("DELETE FROM tbuniversity WHERE universitycode=" . $university->getUniversitycode() . ";");
-        $query->execute();
+        $query = $this->db->prepare("UPDATE tbuniversity SET universitystate=:state WHERE universityid=:id;");
+        $query->execute(array('id' => $university->getUniversityid(), 'state' => 0));
         $result = $query->fetch();
         if (!$result) {
             return 1;
@@ -99,5 +95,3 @@ class UniversityData {
     }
 
 }
-
-
