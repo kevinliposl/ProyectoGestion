@@ -20,12 +20,12 @@ class UniversityData {
         if ($resultLastId['universityid'] != NULL) {
             $nextId = (int) $resultLastId['universityid'] + 1;
         }
-
-        $query = $this->db->prepare("INSERT INTO tbuniversity VALUES(:id,:code,:name,:type,:state),:headquarter;");
-        $query->execute(array('id' => $nextId, 'code' => $university->getUniversitycode(),
-            'name' => (string) $university->getUniversityname(), 'type' => $university->getUniversitytype(), 'state' => 1, 'headquarter' => $university->getUniversityHeadquarter()));
+        //universityid, universityname, universitytype, universitystate, universityhadheadquarter
+        $query = $this->db->prepare("INSERT INTO tbuniversity VALUES(:id,:name,:type,:state,:headquarter);");
+        $query->execute(array('id' => $nextId,'name' => (string) $university->getUniversityname(),
+            'type' => $university->getUniversityType(), 'state' => 1, 'headquarter' => $university->getUniversityhadheadquarter()));
         
-        $result = $query->fetch();
+        $result = $query->fetchAll();
         $query->closeCursor();
 
         if (!$result) {
@@ -64,27 +64,13 @@ class UniversityData {
         foreach ($result as $row) {
             $currentuniversity = new University();
             $currentuniversity->setUniversityid($row['universityid']);
-            $currentuniversity->setUniversitycode($row['universitycode']);
             $currentuniversity->setUniversityname($row['universityname']);
             $currentuniversity->setUniversityType($row['universitytype']);
-            $currentuniversity->setUniversityHeadquarter($row['universityheadquarter']);
+            $currentuniversity->setUniversityhadheadquarter($row['universityhadheadquarter']);
             array_push($universities, $currentuniversity);
         }//End foreach ($result as $row)
 
         return $universities;
-    }
-
-    public function select($universityCode) {
-        $query = $this->db->prepare("SELECT * FROM tbuniversity WHERE universitycode=" . $universityCode . ";");
-        $query->execute();
-        $result = $query->fetch();
-        $university = new University();
-        $university->setUniversityid($result['universityid']);
-        $university->setUniversitycode($result['universitycode']);
-        $university->setUniversityname($result['universityname']);
-        $university->setUniversityType($result['universitytype']);
-        $university->setUniversityHeadquarter($result['universityheadquarter']);
-        return $university;
     }
 
     public function delete(University $university) {

@@ -3,15 +3,12 @@ include_once '../public/header.php';
 ?>
 <table>
     <tr>
-        <th>Codigo</th>
         <th>Nombre</th>
         <th>Tipo</th>
+        <th>Manejo de instalaciones</th>
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/UniversityBusiness.php'>
         <tr>
-            <td>
-                <input type ='text' name='code' pattern="[0-9]{6}" placeholder="123456"/>
-            </td>
             <td>
                 <input type="text" name="name" pattern="[a-zA-Z\s]+$" placeholder="UCR &oacute; Universidad de Costa Rica"/>
             </td>
@@ -22,6 +19,16 @@ include_once '../public/header.php';
                     </option>
                     <option value="0">
                         Privada
+                    </option>
+                </select>
+            </td>
+            <td>
+                <select style="width: 100%" name="hadheadquarter">
+                    <option value="1">
+                        Sedes y Recintos
+                    </option>
+                    <option value="0">
+                        Recintos
                     </option>
                 </select>
             </td>
@@ -43,13 +50,13 @@ include_once '../public/header.php';
         echo "<input type ='hidden' name='id' value='" . $university->getUniversityid() . "'/>";
         echo "<tr>";
         echo "<td>";
-        echo "<input type ='text' name='code' value='" . $university->getUniversityCode() . "'/>";
-        echo "</td>";
-        echo "<td>";
         echo "<input type = 'text' name='name' value='" . $university->getUniversityName() . "' pattern ='[a-zA-Z\s]+$'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type = 'text' name='type' value='" . $university->getUniversityType() . "' pattern ='[0-1]{1}'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type = 'text' name='type' value='" . $university->getUniversityhadheadquarter() . "' pattern ='[0-1]{1}'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type ='submit' name='delete' value ='Eliminar'/>";

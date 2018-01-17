@@ -3,16 +3,14 @@
 require '../domain/University.php';
 
 if (isset($_POST['create'])) {
-    if (isset($_POST['code']) && isset($_POST['name']) && isset($_POST['type']) && isset($_POST['headquarter'])) {
-        if (strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0 && strlen($_POST['type']) > 0 && strlen($_POST['headquarter']) > 0) {
+    if (isset($_POST['name']) && isset($_POST['type']) && isset($_POST['hadheadquarter'])) {
+    if (strlen($_POST['name']) > 0 && strlen($_POST['type']) > 0 && strlen($_POST['hadheadquarter'])) {
             $universityBusiness = new UniversityBusiness();
 
             $university = new University();
-            $university->setUniversityid(0);
-            $university->setUniversitycode($_POST['code']);
             $university->setUniversityname($_POST['name']);
             $university->setUniversityType($_POST['type']);
-            $university->setUniversityType($_POST['headquarter']);
+            $university->setUniversityhadheadquarter($_POST['hadheadquarter']);
             $result = $universityBusiness->insert($university);
 
             if ($result == 1) {
