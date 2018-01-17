@@ -70,14 +70,14 @@ include_once '../public/header.php';
 <table id="form-headquarters" style="display: none;">
     <thead>
         <tr>
-            <th>Sede</th>
+            <th id="input-headquarters-text">Sede</th>
             <th>Nombre</th>
         </tr>
     </thead>
     <form method="POST">
         <tr>
             <td>
-                <select>
+                <select id="input-headquarters">
                     <option>
                         Selecccione una sede
                     </option>
@@ -93,7 +93,6 @@ include_once '../public/header.php';
     </form>
 </table>
 
-
 <script>
     $("#form-university").change(function () {
         if ($("#form-university").val() !== "-1") {
@@ -107,6 +106,8 @@ include_once '../public/header.php';
                     $("#form-headquarters-enclosure").css("display", "block");
                     $("#form-th").css("display", 'block');
                 } else {
+                    $("#input-headquarters-text").css('display','none');
+                    $("#input-headquarters").css('display','none');
                     $("#form-th").css("display", 'none');
                     $("#form-headquarters-enclosure").css("display", "none");
                     $("#form-enclosure").css('display', 'none');
@@ -139,58 +140,6 @@ include_once '../public/header.php';
     });
 
 </script>
-
-<?php
-include '../business/HeadquarterBusiness.php';
-
-$headquarterBusiness = new HeadquarterBusiness();
-$headquarters = $headquarterBusiness->selectAll();
-
-/** foreach ($headquarters as $headquarter){
-
-  echo "<form enctype='multipart/form-data' method='POST' action='../business/HeadquarterBusiness.php'>";
-  echo "<tr>";
-  echo "<td>";
-  echo "<input type ='text' name='code' value='" . $headquarter['headquartercode'] . "'/>";
-  echo "</td>";
-  echo "<td>";
-  echo "<input type = 'text' name='name' value='" . $headquarter['headquartername'] . "' pattern ='[a-zA-Z\s]+$'/>";
-  echo "</td>";
-  echo "<td>";
-  echo "<input type ='text' name='location' value='" . $headquarter['headquarterlocation'] ."' pattern ='[a-zA-Z\s]+$'/>";
-  echo "</td>";
-  echo "<td>";
-  echo "<input type = 'text' name='universityid' value='" . $headquarter['headquarteruniversityid'] . "'/>";
-  echo "</td>";
-  echo "<td>";
-  echo "<input type ='submit' name='delete' value ='Eliminar'/>";
-  echo "</td>";
-  echo "<td>";
-  echo "<input type ='submit' name='update' value ='Actualizar'/>";
-  echo "</td>";
-  echo "</tr>";
-  echo "</form>";
-  } */
-?>
-
-<tr>
-    <td></td>
-    <td>
-        <?php
-        if (isset($_GET['error'])) {
-            if ($_GET['error'] == "empty") {
-                echo '<p style="color: red">Campo(s) vacio(s)</p>';
-            } else if ($_GET['error'] == "format") {
-                echo '<p style="color: red">Error, formato de numero</p>';
-            } else if ($_GET['error'] == "dbError") {
-                echo '<center><p style="color: red">Error al procesar la transacción</p></center>';
-            }
-        } else if (isset($_GET['success'])) {
-            echo '<p style="color: green">Transacción realizada</p>';
-        }
-        ?>
-    </td>
-</tr>
 
 <?php
 include_once '../public/footer.php';
