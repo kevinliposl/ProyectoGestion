@@ -16,18 +16,16 @@ CREATE TABLE tbstudent(
 
 CREATE TABLE tbuniversity(
 	universityid INTEGER,
-	universitycode INTEGER,
 	universityname VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	universitytype SMALLINT DEFAULT 1 NOT NULL,
     universitystate SMALLINT DEFAULT 1 NOT NULL,
 	CONSTRAINT PRIMARY KEY(universityid)
 );
 
+
 CREATE TABLE tbheadquarter(
 	headquarterid INTEGER,
-	headquartercode INTEGER,
 	headquartername VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	headquarterlocation VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	headquarteruniversityid INTEGER,
 	CONSTRAINT PRIMARY KEY(headquarterid)
 );
@@ -38,6 +36,14 @@ CREATE TABLE tbcareer(
 	careername VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     careergrade VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci,
 	CONSTRAINT PRIMARY KEY(careerid)
+);
+
+CREATE TABLE tbenclosure(
+	enclosureid INTEGER,
+	enclosurename VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci,
+    enclosureheadquarterid INTEGER,
+    enclosureuniversityid INTEGER,
+	CONSTRAINT PRIMARY KEY(enclosureid)
 );
 
 

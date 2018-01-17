@@ -3,12 +3,13 @@ include_once '../public/header.php';
 ?>
 
 <table>
+    <thead>
     <tr>
         <th>Nombre de Universidad</th>
         <th>Sede?</th>
-        <th id="thE1" name="thE1" style="display: none;">Codigo del Recinto</th>
-        <th id="thE2" name="thE2" style="display: none;">Nombre del Recinto</th>        
     </tr>
+    </thead>
+    <tbody>
     <tr>
         <td>
             <?php
@@ -31,53 +32,70 @@ include_once '../public/header.php';
             </select> 
 
         </td>
-        <td>
-            <select name="enclosure" id="enclosure">
-                <option value="2">Ninguna</option>
-                <option value="1">Si</option>
-                <option value="0">No</option>
-            </select>
-        </td>
-        <td>
-            <input type="text" name="codeE" id="codeE" style="visibility: hidden"/>
-
-        </td>
-        <td>
-            <input type="text" name="nameE" id="nameE" pattern="[a-zA-Z\s]+$" style="visibility: hidden"/>
-        </td>            
 
     </tr>
+    </tbody>
+
 </table>
 
-<table>
-    <tr>
-        <th id="thH1" style="display: none;">Codigo del Recinto</th>
-        <th id="thH2" style="display: none;">Nombre del Recinto</th>        
-        <th id="thH3" style="display: none;">Ubicacion del Recinto</th>
-        <th id="thH4" style="display: none;">Id de la Universidad del Recinto</th>
-    </tr>
-
-    <form enctype="multipart/form-data" method='POST' action='../business/HeadquarterBusiness.php'>
+<table name="tabeE" id="tableE" style="display: none;">
+    <thead>
         <tr>
+        <th>Codigo del Recinto</th>
+        <th>Nombre del Recinto</th>  
+   
+    </tr>
+     </thead>
+        <tbody>
+    <tr>
+           <td>
+            <input type="text" name="codeE" id="codeE"/>
+
+        </td>
+        <td>
+            <input type="text" name="nameE" id="nameE" pattern="[a-zA-Z\s]+$"/>
+        </td>            
+
+    </tr> 
+        </tbody>
+</table>
+<br>
+<table name="tableH" id="tableH" style="display: none;">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Codigo del Recinto</th>
+            <th>Nombre del Recinto</th>        
+            <th>Ubicacion del Recinto</th>
+            <th>Id de la Universidad del Recinto</th>
+        </tr>
+    </thead>
+
+    
+    <form enctype="multipart/form-data" method='POST' action='../business/HeadquarterBusiness.php'>
+        <tbody>
+            <tr>
             <td></td>
             <td></td>
             <td>
-                <input type="text" name="codeH" id="codeH" style="visibility: hidden"/>
+                <input type="text" name="codeH" id="codeH"/>
             </td>
 
             <td>
-                <input type="text" name="nameH" id="nameH" pattern="[a-zA-Z\s]+$" style="visibility: hidden"/>
+                <input type="text" name="nameH" id="nameH" pattern="[a-zA-Z\s]+$"/>
             </td>            
             <td>
-                <input type="text" name="locationH" id="locationH" pattern="[a-zA-Z\s]+$" style="visibility: hidden"/>
+                <input type="text" name="locationH" id="locationH" pattern="[a-zA-Z\s]+$"/>
             </td>
             <td>
-                <input type="text" name="universityidH" id="universityidH" style="visibility: hidden"/>
+                <input type="text" name="universityidH" id="universityidH"/>
             </td>            
             <td>
                 <input type="submit" name="create" value="Crear"/> 
             </td>
         </tr>
+        </tbody>
     </form>
 </table>
 
@@ -139,33 +157,34 @@ $headquarters = $headquarterBusiness->selectAll();
 
         if ($("#enclosure").val() === '1') {
 
-            var thE1 = document.getElementById("thE1");
-            thE1.style.display = "inline";
-            var codeE = document.getElementById("codeE");
-            codeE.style.visibility = "visible";
-            var thE2 = document.getElementById("thE2");
-            thE2.style.display = "inline";
-            var nameE = document.getElementById("nameE");
-            nameE.style.visibility = "visible";
-
-
+            var tableE = document.getElementById("tableE");
+            tableE.style.display = "inline";
+          
+           var tableH = document.getElementById("tableH");
+            tableH.style.display = "none";
+          
+            return false;
+        }
+        
+        if ($("#enclosure").val() === '0') {
+            
+            var tableH = document.getElementById("tableH");
+            tableH.style.display = "inline";
+            
+            var tableE = document.getElementById("tableE");
+            tableE.style.display = "none";
+            
             return false;
         }
 
     });
 
     $('#codeE').on('keyup', function () {
-
-        var codeH = document.getElementById("codeH");
-        codeH.style.visibility = "visible";
-        var nameH = document.getElementById("nameH");
-        nameH.style.visibility = "visible";
-        var locationH = document.getElementById("locationH");
-        locationH.style.visibility = "visible";
-        var universityidH = document.getElementById("universityidH");
-        universityidH.style.visibility = "visible";
-
-        return false;
+        
+            var tableH = document.getElementById("tableH");
+            tableH.style.display = "inline";
+            
+            return false;
     });
 
 </script>
