@@ -20,7 +20,7 @@ CREATE TABLE tbuniversity(
 	universityname VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	universitytype SMALLINT DEFAULT 1 NOT NULL,
         universitystate SMALLINT DEFAULT 1 NOT NULL,
-        universityHeadquarter SMALLINT DEFAULT 1 NOT NULL,
+        universityheadquarter SMALLINT DEFAULT 1 NOT NULL,
 	CONSTRAINT PRIMARY KEY(universityid)
 );
 
