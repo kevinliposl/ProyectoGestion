@@ -7,6 +7,7 @@ class University {
     private $universitycode;
     private $universityname;
     private $universityType;
+    private $universityheadquarter;
     
     function __construct() {
         ;
@@ -14,7 +15,7 @@ class University {
     
     function __toString() {
         try {
-            return (string) $this->universityid . ' | ' . $this->universitycode . ' | ' . $this->universityname . ' | ' . $this->universityType;
+            return (string) $this->universityid . ' | ' . $this->universitycode . ' | ' . $this->universityname . ' | ' . $this->universityType.' | ' . $this->universityheadquarter;
         } catch (Exception $e) {
             return '';
         }//End try-catch (Exception $e)
@@ -36,6 +37,10 @@ class University {
         $this->universityType = $universityType;
     }//End setUniversityType()
     
+    function setUniversityHeadquarter($universityheadquarter) {
+        $this->universityheadquarter = $universityheadquarter;
+    }//End setUniversityHeadquarter()
+    
     function getUniversityid() {
         return $this->universityid;
     }//End getUniversityid()    
@@ -51,5 +56,9 @@ class University {
     function getUniversityType(){
         return $this->universityType;
     }//End getUNiversityType()
+    
+    function getUniversityHeadquarter(){
+        return $this->universityheadquarter;
+    }//End getUniversityHeadquarter()
     
 }//End class University

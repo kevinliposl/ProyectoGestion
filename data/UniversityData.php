@@ -21,9 +21,9 @@ class UniversityData {
             $nextId = (int) $resultLastId['universityid'] + 1;
         }
 
-        $query = $this->db->prepare("INSERT INTO tbuniversity VALUES(:id,:code,:name,:type,:state);");
+        $query = $this->db->prepare("INSERT INTO tbuniversity VALUES(:id,:code,:name,:type,:state),:headquarter;");
         $query->execute(array('id' => $nextId, 'code' => $university->getUniversitycode(),
-            'name' => (string) $university->getUniversityname(), 'type' => $university->getUniversitytype(), 'state' => 1));
+            'name' => (string) $university->getUniversityname(), 'type' => $university->getUniversitytype(), 'state' => 1, 'headquarter' => $university->getUniversityHeadquarter()));
         
         $result = $query->fetch();
         $query->closeCursor();
@@ -40,6 +40,7 @@ class UniversityData {
                 . "SET universitycode=" . $university->getUniversitycode() .
                 ", universityname='" . $university->getUniversityname() .
                 "', universitytype=" . $university->getUniversitytype() .
+                ", universityheadquarter=". $university->getUniversityHeadquarter().
                 " WHERE universitycode=" . $university->getUniversitycode() . ";");
         $query->execute();
         $result = $query->fetch();
@@ -66,6 +67,7 @@ class UniversityData {
             $currentuniversity->setUniversitycode($row['universitycode']);
             $currentuniversity->setUniversityname($row['universityname']);
             $currentuniversity->setUniversityType($row['universitytype']);
+            $currentuniversity->setUniversityHeadquarter($row['universityheadquarter']);
             array_push($universities, $currentuniversity);
         }//End foreach ($result as $row)
 
@@ -81,6 +83,7 @@ class UniversityData {
         $university->setUniversitycode($result['universitycode']);
         $university->setUniversityname($result['universityname']);
         $university->setUniversityType($result['universitytype']);
+        $university->setUniversityHeadquarter($result['universityheadquarter']);
         return $university;
     }
 

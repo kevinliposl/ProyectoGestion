@@ -3,8 +3,8 @@
 require '../domain/University.php';
 
 if (isset($_POST['create'])) {
-    if (isset($_POST['code']) && isset($_POST['name']) && isset($_POST['type'])) {
-        if (strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0 && strlen($_POST['type']) > 0) {
+    if (isset($_POST['code']) && isset($_POST['name']) && isset($_POST['type']) && isset($_POST['headquarter'])) {
+        if (strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0 && strlen($_POST['type']) > 0 && strlen($_POST['headquarter']) > 0) {
             $universityBusiness = new UniversityBusiness();
 
             $university = new University();
@@ -12,6 +12,7 @@ if (isset($_POST['create'])) {
             $university->setUniversitycode($_POST['code']);
             $university->setUniversityname($_POST['name']);
             $university->setUniversityType($_POST['type']);
+            $university->setUniversityType($_POST['headquarter']);
             $result = $universityBusiness->insert($university);
 
             if ($result == 1) {
@@ -46,8 +47,8 @@ if (isset($_POST['create'])) {
         header("location: ../view/UniversityView.php?error=empty");
     }
 } else if (isset($_POST['update'])) {
-    if (isset($_POST['code']) && isset($_POST['name']) && isset($_POST['type'])) {
-        if (strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0 && strlen($_POST['type']) > 0) {
+    if (isset($_POST['code']) && isset($_POST['name']) && isset($_POST['type']) && isset($_POST['headquarter'])) {
+        if (strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0 && strlen($_POST['type']) > 0 && strlen($_POST['headquarter']) > 0) {
             $universityBusiness = new UniversityBusiness();
 
             $university = new University();
@@ -55,6 +56,7 @@ if (isset($_POST['create'])) {
             $university->setUniversitycode($_POST['code']);
             $university->setUniversityname($_POST['name']);
             $university->setUniversityType($_POST['type']);
+            $university->setUniversityType($_POST['headquarter']);
             $result = $universityBusiness->update($university);
 
             if ($result == 1) {
