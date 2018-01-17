@@ -36,5 +36,10 @@ CREATE TABLE tbcareer(
 	careerid INTEGER,
 	careercode INTEGER,
 	careername VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    careergrade VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 	CONSTRAINT PRIMARY KEY(careerid)
 );
+
+
+
+-- SE CAMBIO LA TABLA UNIVERSIDAD(SE AGREGO STATE) Y CARRERA(SE AGREGO GRADO)
