@@ -4,7 +4,7 @@ require '../domain/University.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['name']) && isset($_POST['type']) && isset($_POST['hadheadquarter'])) {
-    if (strlen($_POST['name']) > 0 && strlen($_POST['type']) > 0 && strlen($_POST['hadheadquarter'])) {
+        if (strlen($_POST['name']) > 0 && strlen($_POST['type']) > 0 && strlen($_POST['hadheadquarter'])) {
             $universityBusiness = new UniversityBusiness();
 
             $university = new University();
@@ -68,35 +68,54 @@ if (isset($_POST['create'])) {
     } else {
         header("location: ../view/UniversityView.php?error=empty");
     }
+} else if (isset($_POST['select'])) {
+    if (isset($_POST['id'])) {
+        if (strlen($_POST['id']) > 0) {
+            $universityBusiness = new UniversityBusiness();
+
+            $university = new University();
+            $university->setUniversityid($_POST['id']);
+            $result = $universityBusiness->select($university);
+
+            echo json_encode($result);
+            //echo json_encode(array("result"=>"select"));
+            return;
+        } else {
+            echo json_encode(array("result"=>"select"));
+            return;
+        }
+    } else {
+        echo json_encode(array("result"=>"Error"));
+        return;
+    }
 }
 
 class UniversityBusiness {
 
-    //Attributes
     private $universityData;
 
     function __construct() {
         include_once '../data/UniversityData.php';
         $this->universityData = new UniversityData();
-    }//End construct()
+    }
 
     function insert(University $university) {
         return $this->universityData->insert($university);
-    }/* End insert() */
+    }
 
     function update(University $university) {
         return $this->universityData->update($university);
-    }//End update()
+    }
 
     function selectAll() {
         return $this->universityData->selectAll();
-    }//End selectAll()
+    }
 
-    function select($universityCode) {
-        return $this->universityData->select($universityCode);
-    }//End select()
+    function select(University $university) {
+        return $this->universityData->select($university);
+    }
 
     function delete(University $university) {
         return $this->universityData->delete($university);
-    }//End delete()
-}//End class UniversityBusiness 
+    }
+}

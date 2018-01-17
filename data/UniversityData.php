@@ -22,9 +22,9 @@ class UniversityData {
         }
         //universityid, universityname, universitytype, universitystate, universityhadheadquarter
         $query = $this->db->prepare("INSERT INTO tbuniversity VALUES(:id,:name,:type,:state,:headquarter);");
-        $query->execute(array('id' => $nextId,'name' => (string) $university->getUniversityname(),
+        $query->execute(array('id' => $nextId, 'name' => (string) $university->getUniversityname(),
             'type' => $university->getUniversityType(), 'state' => 1, 'headquarter' => $university->getUniversityhadheadquarter()));
-        
+
         $result = $query->fetchAll();
         $query->closeCursor();
 
@@ -40,7 +40,7 @@ class UniversityData {
                 . "SET universitycode=" . $university->getUniversitycode() .
                 ", universityname='" . $university->getUniversityname() .
                 "', universitytype=" . $university->getUniversitytype() .
-                ", universityheadquarter=". $university->getUniversityHeadquarter().
+                ", universityheadquarter=" . $university->getUniversityHeadquarter() .
                 " WHERE universitycode=" . $university->getUniversitycode() . ";");
         $query->execute();
         $result = $query->fetch();
@@ -71,6 +71,14 @@ class UniversityData {
         }//End foreach ($result as $row)
 
         return $universities;
+    }
+
+    function select(University $university) {
+        $query = $this->db->prepare("SELECT * FROM tbuniversity WHERE universityid=:id;");
+        $query->execute(array('id' => $university->getUniversityid()));
+        $result = $query->fetch();
+        $query->closeCursor();
+        return $result;
     }
 
     public function delete(University $university) {
