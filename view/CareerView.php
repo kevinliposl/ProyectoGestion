@@ -30,7 +30,6 @@ include_once '../public/header.php';
     $careers = $careerBusiness->selectAll();
 
     foreach ($careers as $career) {
-
         echo "<form enctype='multipart/form-data' method='POST' action='../business/CareerBusiness.php'>";
         echo "<tr>";
         echo "<td>";
