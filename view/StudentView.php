@@ -35,7 +35,7 @@ $studentBusiness = new StudentBusiness();
                 <input type="password" name="password"/>
             </td>
             <td>
-                <select id="career1">
+                <select id="career1" name="career1"style="width: 100%">
                     <option>Ninguna</option>
                     <?php
                     $careers1 = $careerBusiness->selectAll();
@@ -48,7 +48,7 @@ $studentBusiness = new StudentBusiness();
                 </select>
             </td>
             <td>
-                <select id="career2">
+                <select id="career2" name="career2" style="width: 100%">
                     <option>Ninguna</option>
                     <?php
                     $careers2 = $careerBusiness->selectAll();
