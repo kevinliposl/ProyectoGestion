@@ -9,6 +9,20 @@ class HeadquarterData {
         $this->db = SPDO::singleton();
     }
 
+    function lastID() {
+        $queryLastId = $this->db->prepare("SELECT MAX(headquarterid) AS headquarterid  FROM tbheadquarter");
+        $queryLastId->execute();
+        $resultLastId = $queryLastId->fetch();
+        $queryLastId->closeCursor();
+        $nextId = 1;
+
+        //ultimo id
+        if ($resultLastId['headquarterid'] != NULL) {
+            $nextId = (int) $resultLastId['headquarterid'] + 1;
+        }
+        return $nextId;
+    }
+
     function insert(Headquarter $headquarter) {
         $queryLastId = $this->db->prepare("SELECT MAX(headquarterid) AS headquarterid  FROM tbheadquarter");
         $queryLastId->execute();
@@ -70,7 +84,7 @@ class HeadquarterData {
             $currentheadquarter->setHeadquartername($row['headquartername']);
             $currentheadquarter->setHeadquarterlocation($row['headquarterlocation']);
             $currentheadquarter->setHeadquarteruniversityid($row['headquarteruniversityid']);
-            array_push($headquarters , $currentheadquarter);
+            array_push($headquarters, $currentheadquarter);
         }//End foreach ($result as $row)
         return $headquarters;
     }
@@ -99,6 +113,3 @@ class HeadquarterData {
     }
 
 }
-
-
-
