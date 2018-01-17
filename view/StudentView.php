@@ -38,10 +38,10 @@ $studentBusiness = new StudentBusiness();
                 <select id="career1" name="career1"style="width: 100%">
                     <option>Ninguna</option>
                     <?php
-                    $careers1 = $careerBusiness->selectAll();
+                    $careers = $careerBusiness->selectAll();
                     foreach ($careers as $career) {
                         ?>
-                    <option id="<?=$career->getCareerid() ?>"><?= $career->getCareercode() ?></option>
+                        <option id="<?= $career->getCareerid(); ?>"><?= $career->getCareername(); ?></option>
                         <?php
                     }
                     ?>
@@ -51,10 +51,9 @@ $studentBusiness = new StudentBusiness();
                 <select id="career2" name="career2" style="width: 100%">
                     <option>Ninguna</option>
                     <?php
-                    $careers2 = $careerBusiness->selectAll();
                     foreach ($careers as $career) {
                         ?>
-                    <option id="<?=$career->getCareerid() ?>"><?= $career->getCareercode() ?></option>
+                        <option value="<?= $career->getCareerid(); ?>"><?= $career->getCareername(); ?></option>
                         <?php
                     }
                     ?>

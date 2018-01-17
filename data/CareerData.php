@@ -54,20 +54,20 @@ class CareerData {
         }
     }
 
-    public function selectAll() {
+    function selectAll() {
         $query = $this->db->prepare("SELECT * FROM tbcareer;");
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
-        $Careers = [];
+        $careers = [];
         foreach ($result as $row) {
             $currentCareer = new Career();
             $currentCareer->setCareerid($row['careerid']);
             $currentCareer->setCareercode($row['careercode']);
             $currentCareer->setCareername($row['careername']);
-            array_push($Careers , $currentCareer);
+            array_push($careers , $currentCareer);
         }//End foreach ($result as $row)
-        return $Careers;
+        return $careers;
     }
 
     public function select($careerCode) {
