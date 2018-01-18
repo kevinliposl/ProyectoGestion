@@ -64,6 +64,24 @@ class CareerData {
         }//End foreach ($result as $row)
         return $careers;
     }
+    
+     function selectAllByUniversity() {
+        $queryCareer = $this->db->prepare("SELECT careerid, careername FROM tbcareer  INNER JOIN tbenclosure"
+                . "tbcareer.careerid = tbenclosure.enclosureid INNER JOIN tbheadquarter tbenclosure.enclosureid = tbheadquarter.headquarterid"
+                . "INNER JOIN tbuniversity tbheadquarter.headquarterid = tbuniversity.universityid;");
+        $query->execute();
+        $result = $query->fetchAll();
+        $query->closeCursor();
+        $careers = [];
+        foreach ($result as $row) {
+            $currentCareer = new Career();
+            $currentCareer->setCareerid($row['careerid']);
+            $currentCareer->setCareercode($row['careercode']);
+            $currentCareer->setCareername($row['careername']);
+            array_push($careers, $currentCareer);
+        }//End foreach ($result as $row)
+        return $careers;
+    }
 
     function select($careerCode) {
         $query = $this->db->prepare("SELECT * FROM tbcareer WHERE careercode=" . $careerCode . ";");
