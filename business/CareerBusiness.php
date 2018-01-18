@@ -96,4 +96,8 @@ class CareerBusiness {
     function delete(Career $career) {
         return $this->data->delete($career);
     }//End delete()
+    
+     function selectAllByUniversity() {
+        return $this->data->selectByUniversity();
+    }
 }//End class CareerBusiness 

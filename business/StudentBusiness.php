@@ -105,4 +105,5 @@ class StudentBusiness {
     function selectAll() {
         return $this->data->selectAll();
     }
+ 
 }

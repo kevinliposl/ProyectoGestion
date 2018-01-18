@@ -62,25 +62,27 @@ class CareerData {
             $currentCareer->setCareername($row['careername']);
             array_push($careers, $currentCareer);
         }//End foreach ($result as $row)
+        
+      
+        
         return $careers;
+        
     }
     
-     function selectAllByUniversity() {
-        $queryCareer = $this->db->prepare("SELECT careerid, careername FROM tbcareer  INNER JOIN tbenclosure"
-                . "tbcareer.careerid = tbenclosure.enclosureid INNER JOIN tbheadquarter tbenclosure.enclosureid = tbheadquarter.headquarterid"
-                . "INNER JOIN tbuniversity tbheadquarter.headquarterid = tbuniversity.universityid;");
-        $query->execute();
-        $result = $query->fetchAll();
-        $query->closeCursor();
-        $careers = [];
-        foreach ($result as $row) {
-            $currentCareer = new Career();
-            $currentCareer->setCareerid($row['careerid']);
-            $currentCareer->setCareercode($row['careercode']);
-            $currentCareer->setCareername($row['careername']);
-            array_push($careers, $currentCareer);
-        }//End foreach ($result as $row)
-        return $careers;
+     function selectByUniversity() {
+        $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername,"
+                ." h.headquarterid, e.enclosurename, e.enclosureid, c.careername, c.careerid from tbuniversity as u"
+                ." inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid"
+                ." inner join tbenclosure as e on h.headquarterid = e.enclosureheadquarterid"
+                ." inner join tbcareer as c on e.enclosureid = c.careerenclosureid order by(u.universityid);");
+        
+        $queryCareer->execute();
+        
+        $result = $queryCareer->fetchAll();
+        
+        $queryCareer->closeCursor();
+        
+        return $result;
     }
 
     function select($careerCode) {

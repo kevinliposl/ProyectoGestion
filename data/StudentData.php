@@ -76,7 +76,7 @@ class StudentData {
         foreach ($result as $row) {
             $currentStudent = new Student();
             $currentStudent->setId($row['studentid']);
-            $currentStudent->setLicense($row['studentlicense']);
+            //$currentStudent->setLicense($row['studentlicense']);
             $currentStudent->setName($row['studentname']);
             $currentStudent->setLastName1($row['studentlastname1']);
             $currentStudent->setLastName2($row['studentlastname2']);

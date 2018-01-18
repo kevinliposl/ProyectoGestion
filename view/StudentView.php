@@ -2,9 +2,7 @@
 include_once '../public/header.php';
 
 include '../business/StudentBusiness.php';
-include '../business/CareerBusiness.php';
 
-$careerBusiness = new CareerBusiness();
 $studentBusiness = new StudentBusiness();
 ?>
 <table>
@@ -38,10 +36,15 @@ $studentBusiness = new StudentBusiness();
                 <select id="career1" name="career1"style="width: 100%">
                     <option>Ninguna</option>
                     <?php
-                    $careers = $careerBusiness->selectAll();
+                    include '../business/CareerBusiness.php';
+                    
+                    $careerBusiness = new CareerBusiness();
+                  
+                    $careers = $careerBusiness->selectAllByUniversity();
                     foreach ($careers as $career) {
                         ?>
-                        <option id="<?= $career->getCareerid(); ?>"><?= $career->getCareername(); ?></option>
+                
+                        <option id="<?= $career->getCareerid(); ?>">hola</option>
                         <?php
                     }
                     ?>
@@ -70,7 +73,7 @@ $studentBusiness = new StudentBusiness();
     <?php
     $students = $studentBusiness->selectAll();
 
-    foreach ($students as $student) {
+   /* foreach ($students as $student) {
 
         echo "<form enctype='multipart/form-data' method='POST' action='../business/StudentBusiness.php'>";
         echo "<tr>";
@@ -104,7 +107,7 @@ $studentBusiness = new StudentBusiness();
         echo "</td>";
         echo "</tr>";
         echo "</form>";
-    }
+    }*/
     ?>
 
     <tr>
