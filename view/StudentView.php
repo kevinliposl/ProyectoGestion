@@ -77,7 +77,7 @@ include_once '../public/header.php';
                         $cambio=0;
                     
                         foreach ($careers as $career) {
-                            if(strcmp(current($careers)['universityname'], $career['universityname'])===0 && $cambio === 0){
+                            if($cambio == 0 && strcmp(current($careers)['universityname'], $career['universityname']) ===0){
                                 $cambio=1;                           
                         ?>
                     
@@ -86,7 +86,7 @@ include_once '../public/header.php';
                         
                         <?php
                             }else{
-                                if(next($careers)['universityname'] != "" and next($careers)['universityname'] != $career['universityname']){
+                                if(current($careers)['universityname'] != "" and next($careers)['universityname'] != $career['universityname'] && $cambio == 1){
                                     $cambio=0;
                                 }
                         ?>
