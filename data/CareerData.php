@@ -70,16 +70,11 @@ class CareerData {
     }
     
      function selectByUniversity() {
-        $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername,"
-                ." h.headquarterid, e.enclosurename, e.enclosureid, c.careername, c.careerid from tbuniversity as u"
-                ." inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid"
-                ." inner join tbenclosure as e on h.headquarterid = e.enclosureheadquarterid"
-                ." inner join tbcareer as c on e.enclosureid = c.careerenclosureid order by(u.universityid);");
-        
+          
+         
+        $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername, h.headquarterid, e.enclosurename, e.enclosureid, c.careername, c.careerid from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid inner join tbenclosure as e on h.headquarterid = e.enclosureheadquarterid inner join tbcareer as c on e.enclosureid = c.careerenclosureid order by(u.universityid);");
         $queryCareer->execute();
-        
         $result = $queryCareer->fetchAll();
-        
         $queryCareer->closeCursor();
         
         return $result;

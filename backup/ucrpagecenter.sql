@@ -55,6 +55,7 @@ INSERT INTO tbcareer VALUES(2,110202,'HISTORIA DEL ARTE','BACH. Y LIC.', 2);
 INSERT INTO tbcareer VALUES(3,110213,'DISEÃ‘O PLASTICO CON Ã‰NFASIS DISEÃ‘O PICTÃ“RICO','BACH. Y LIC.', 3);
 INSERT INTO tbcareer VALUES(4,110214,'DISEÃ‘O GRAFICO','BACH. Y LIC.', 4);
 INSERT INTO tbcareer VALUES(5,110106,'ARTES PLASTICAS','BACH. Y LIC.', 1);
+INSERT INTO tbcareer VALUES(9,110106,'ARTES PLASTICAS','BACH. Y LIC.', 2);
 INSERT INTO tbcareer VALUES(6,110207,'HISTORIA DE LA MUSICA','BACH. Y LIC.', 2);
 INSERT INTO tbcareer VALUES(7,110218,'DISEÃ‘O INTERIORES','BACH. Y LIC.', 3);
 INSERT INTO tbcareer VALUES(8,110219,'MODELADO GRAFICO','BACH. Y LIC.', 4);
@@ -71,8 +72,3 @@ INSERT INTO tbuniversity VALUES(1, 'UCR', 1, 1, 1);
 INSERT INTO tbuniversity VALUES(2, 'UNA', 1, 1, 1);
 
 -- SE CAMBIO LA TABLA UNIVERSIDAD(SE AGREGO STATE) Y CARRERA(SE AGREGO GRADO)
-
-SELECT careerid, careername, universityname, headquartername, enclosurename FROM tbcareer as c  INNER JOIN tbenclosure as e ON c.careerid = e.enclosureid 
-INNER JOIN tbheadquarter as h ON e.enclosureid = h.headquarterid INNER JOIN tbuniversity as u ON h.headquarterid = u.universityid;
-
-SELECT careerid, careername, enclosurename FROM tbcareer as c inner join tbenclosure as e on c.careerid = e.enclosureid;

@@ -6,7 +6,7 @@ class SPDO extends PDO {
 
     function __construct() {
         try {
-            parent::__construct('mysql:host=' . '127.0.0.1' . ';dbname=' . 'ucrpagecenter', 'root', '');
+            parent::__construct('mysql:host=' . '127.0.0.1' . ';dbname=' . 'ucrpagecenter', 'root', 'Red12345');
         } catch (PDOException $e) {
             return $e->getMessage();
         }
