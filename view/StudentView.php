@@ -1,9 +1,11 @@
 <?php
 include_once '../public/header.php';
 
-include '../business/StudentBusiness.php';
+//include '../business/StudentBusiness.php';
+//$studentBusiness = new StudentBusiness();
 
-$studentBusiness = new StudentBusiness();
+ include '../business/CareerBusiness.php';
+ $careerBusiness = new CareerBusiness();
 ?>
 <table>
     <tr>
@@ -35,31 +37,69 @@ $studentBusiness = new StudentBusiness();
             <td>
                 <select id="career1" name="career1"style="width: 100%">
                     <option>Ninguna</option>
-                    <?php
-                    include '../business/CareerBusiness.php';
                     
-                    $careerBusiness = new CareerBusiness();
-                  
-                    $careers = $careerBusiness->selectAllByUniversity();
-                    foreach ($careers as $career) {
+                        <?php               
+                        $careers = $careerBusiness->selectAllByUniversity();
+                        $cambio=0;
+                    
+                        foreach ($careers as $career) {
+                            if($cambio == 0 && strcmp(current($careers)['universityname'], $career['universityname']) ===0){
+                                $cambio=1;                           
                         ?>
-                
-                        <option id="<?= $career->getCareerid(); ?>">hola</option>
+                    
+                    <optgroup label="<?= $career['universityname']; ?>">
+                    <option id="<?= $career['careerid']; ?>" value="<?= $career['careerid']." | ".$career['universityid']; ?>" ><?= $career['careerid']." | ".$career['careername']." | ".$career['enclosurename']; ?></option>
+                        
                         <?php
-                    }
-                    ?>
+                            }else{
+                                if(current($careers)['universityname'] != "" and next($careers)['universityname'] != $career['universityname'] && $cambio == 1){
+                                    $cambio=0;
+                                }
+                        ?>
+                        
+                    <option id="<?= $career['careerid']; ?>" value="<?= $career['careerid']." | ".$career['universityid']; ?>" ><?= $career['careerid']." | ".$career['careername']." | ".$career['enclosurename']; ?></option>
+                        
+                        <?php
+                        
+                                }
+                                
+                                }
+                        ?>
+                    
                 </select>
             </td>
             <td>
                 <select id="career2" name="career2" style="width: 100%">
                     <option>Ninguna</option>
-                    <?php
-                    foreach ($careers as $career) {
+                    
+                         <?php               
+                        $careers = $careerBusiness->selectAllByUniversity();
+                        $cambio=0;
+                    
+                        foreach ($careers as $career) {
+                            if($cambio == 0 && strcmp(current($careers)['universityname'], $career['universityname']) ===0){
+                                $cambio=1;                           
                         ?>
-                        <option value="<?= $career->getCareerid(); ?>"><?= $career->getCareername(); ?></option>
+                    
+                    <optgroup label="<?= $career['universityname']; ?>">
+                    <option id="<?= $career['careerid']; ?>" value="<?= $career['careerid']." | ".$career['universityid']; ?>" ><?= $career['careerid']." | ".$career['careername']; ?></option>
+                        
                         <?php
-                    }
-                    ?>
+                            }else{
+                                if(current($careers)['universityname'] != "" and next($careers)['universityname'] != $career['universityname'] && $cambio == 1){
+                                    $cambio=0;
+                                }
+                        ?>
+                        
+                    <option id="<?= $career['careerid']; ?>" value="<?= $career['careerid']." | ".$career['universityid']; ?>" ><?= $career['careerid']." | ".$career['careername']; ?></option>
+                        
+                        <?php
+                        
+                                }
+                                
+                                }
+                        ?>
+                    
                 </select>
             </td>
             <td>
@@ -71,7 +111,7 @@ $studentBusiness = new StudentBusiness();
     </form>
 
     <?php
-    $students = $studentBusiness->selectAll();
+    //$students = $studentBusiness->selectAll();
 
    /* foreach ($students as $student) {
 
