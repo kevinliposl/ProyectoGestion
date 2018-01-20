@@ -73,6 +73,14 @@ class HeadquarterData {
         return $headquarters;
     }
 
+    function selectbyUniversity(Headquarter $headquarter) {
+        $query = $this->db->prepare("SELECT h.* FROM tbheadquarter h INNER JOIN tbuniversity u ON u.universityid = h.headquarteruniversityid WHERE u.universityid = :universityid");
+        $query->execute(array("universityid" => $headquarter->getHeadquarteruniversityid()));
+        $result = $query->fetchAll();
+        $query->closeCursor();
+        return $result;
+    }
+
     function select(Headquarter $headquarter) {
         $query = $this->db->prepare("SELECT * FROM tbheadquarter WHERE headquartercode=" . $headquarter->getHeadquartercode() . ";");
         $query->execute();

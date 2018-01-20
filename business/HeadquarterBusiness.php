@@ -20,47 +20,25 @@ if (isset($_POST['create'])) {
         echo json_encode(array("result" => "empty"));
     }
 } else if (isset($_POST['delete'])) {
-    if (isset($_POST['code'])) {
-        if (strlen($_POST['code']) > 0) {
-            $haedquarterBusiness = new HeadquarterBusiness();
-
-            $headquarter = new Headquarter();
-            $headquarter->setHeadquartercode($_POST['code']);
-            $result = $haedquarterBusiness->delete($headquarter);
-
-            if ($result == 1) {
-                header("location: ../view/HeadquarterView.php?success=inserted");
-            } else {
-                header("location: ../view/HeadquarterView.php?error=dbError");
-            }
-        } else {
-            header("location: ../view/HeadquarterView.php?error=format");
-        }
-    } else {
-        header("location: ../view/HeadquarterView.php?error=empty");
-    }
+    
 } else if (isset($_POST['update'])) {
-    if (isset($_POST['code']) && isset($_POST['name']) && isset($_POST['location']) && isset($_POST['universityid'])) {
-        if (strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0 && strlen($_POST['location']) > 0 && strlen($_POST['universityid']) > 0) {
-            $haedquarterBusiness = new HeadquarterBusiness();
+    
+} else if (isset($_POST['select'])) {
+
+    if (isset($_POST['universityid'])) {
+        if (strlen($_POST['universityid']) > 0) {
+            $headquarterBusiness = new HeadquarterBusiness;
 
             $headquarter = new Headquarter();
-            $headquarter->setHeadquartercode($_POST['code']);
-            $headquarter->setHeadquartername($_POST['name']);
-            $headquarter->setHeadquarterlocation($_POST['location']);
             $headquarter->setHeadquarteruniversityid($_POST['universityid']);
-            $result = $haedquarterBusiness->update($headquarter);
-
-            if ($result == 1) {
-                header("location: ../view/HeadquarterView.php?success=inserted");
-            } else {
-                header("location: ../view/HeadquarterView.php?error=dbError");
-            }
+            $result = $headquarterBusiness->selectbyUniversity($headquarter);
+            //echo json_encode(array("result" => "Correcto"));
+            echo json_encode($result);
         } else {
-            header("location: ../view/HeadquarterView.php?error=format");
+            echo json_encode(array("result" => "format"));
         }
     } else {
-        header("location: ../view/HeadquarterView.php?error=empty");
+        echo json_encode(array("result" => "empty"));
     }
 }
 
@@ -101,9 +79,17 @@ class HeadquarterBusiness {
     /**
      * Funcion para seleccionar una sede 
      */
+    function selectbyUniversity(Headquarter $headquarter) {
+        return $this->data->selectbyUniversity($headquarter);
+    }
+
+    /**
+     * Funcion para seleccionar una sede 
+     */
     function select($headquarterCode) {
         return $this->data->select($headquarterCode);
     }
+
     /**
      *  Funcion para eliminar una sede 
      */

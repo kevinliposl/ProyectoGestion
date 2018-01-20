@@ -216,6 +216,28 @@ include_once '../public/header.php';
             $("#form-enclosure").css("display", "block");
 
         } else if ($("#form-select-headquarters-enclosure").val() === "0") {
+            var args = {
+                "universityid": $("#form-university").val(),
+                "select": "select"
+            };
+
+            $.post('../business/HeadquarterBusiness.php', args, function (data) {
+                if (data[0].headquarterid) {
+                    $.each(data, function (key, value) {
+                        
+                        alert(key + ": " + value.headquarterid);
+                    });
+                } else if (data.result === -1) {
+                    $("#state").html(message["format"]);
+                } else if (data.result === -2) {
+                    $("#state").html(message["fail"]);
+                } else {
+                    $("#state").html(message["emptyField"]);
+                }
+            }, "json").fail(function () {
+                alert("La solicitud a fallado!!!");
+            });
+
             $("#form-enclosure").css("display", "none");
             $("#form-headquarters").css("display", "block");
         } else {
