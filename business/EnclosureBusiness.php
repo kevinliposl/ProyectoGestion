@@ -24,7 +24,21 @@ if (isset($_POST['create']) && isset($_POST['action'])) {
         
     }
 } else if (isset($_POST['delete'])) {
-    
+    if (isset($_POST['enclosureid'])) {
+        if (strlen($_POST['enclosureid']) > 0) {
+            $enclosureBusiness = new EnclosureBusiness();
+
+            $enclosure = new Enclosure();
+            $enclosure->setEnclosureid($_POST['enclosureid']);
+            $result = $enclosureBusiness->delete($enclosure);
+
+            echo json_encode(array("result" => $result));
+        } else {
+            echo json_encode(array("result" => "error"));
+        }
+    } else {
+        echo json_encode(array("result" => "empty"));
+    }
 } else if (isset($_POST['update'])) {
     
 }

@@ -24,25 +24,11 @@ class HeadquarterData {
     }
 
     function insert(Headquarter $headquarter) {
-        $queryLastId = $this->db->prepare("SELECT MAX(headquarterid) AS headquarterid  FROM tbheadquarter");
-        $queryLastId->execute();
-        $resultLastId = $queryLastId->fetch();
-        $queryLastId->closeCursor();
-        $nextId = 1;
+        $nextId = $this->lastID();
 
-        //ultimo id
-        if ($resultLastId['headquarterid'] != NULL) {
-            $nextId = (int) $resultLastId['headquarterid'] + 1;
-        }
-
-        $query = $this->db->prepare(
-                "INSERT INTO tbheadquarter VALUES (" . $nextId . "," .
-                $headquarter->getHeadquartercode() . ",'" .
-                $headquarter->getHeadquartername() . "','" .
-                $headquarter->getHeadquarterlocation() . "'," .
-                $headquarter->getHeadquarteruniversityid() . ");"
-        );
-        $query->execute();
+        $query = $this->db->prepare("INSERT INTO tbheadquarter VALUES(:headquarterid,:headquartername,:headquarteruniversityid);");
+        $query->execute(array("headquarterid" => $nextId, "headquartername" => $headquarter->getHeadquartername(),
+            "headquarteruniversityid" => $headquarter->getHeadquarteruniversityid()));
         $result = $query->fetch();
         $query->closeCursor();
 
@@ -72,7 +58,7 @@ class HeadquarterData {
     }
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT * FROM tbheadquarter;");
+        $query = $this->db->prepare("SELECT h.*,u.universityname FROM tbheadquarter h INNER JOIN tbuniversity u ON u.universityid = h.headquarteruniversityid;");
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
@@ -80,10 +66,8 @@ class HeadquarterData {
         foreach ($result as $row) {
             $currentheadquarter = new Headquarter();
             $currentheadquarter->setHeadquarterid($row['headquarterid']);
-            $currentheadquarter->setHeadquartercode($row['headquartercode']);
             $currentheadquarter->setHeadquartername($row['headquartername']);
-            $currentheadquarter->setHeadquarterlocation($row['headquarterlocation']);
-            $currentheadquarter->setHeadquarteruniversityid($row['headquarteruniversityid']);
+            $currentheadquarter->setHeadquarteruniversityid($row['universityname']);
             array_push($headquarters, $currentheadquarter);
         }//End foreach ($result as $row)
         return $headquarters;
@@ -99,17 +83,6 @@ class HeadquarterData {
         $headquarter->setHeadquarterlocation($result['headquarterlocation']);
         $headquarter->setHeadquarteruniversityid($result['headquarteruniversityid']);
         return $headquarter;
-    }
-
-    function delete(Headquarter $headquarter) {
-        $query = $this->db->prepare("DELETE FROM tbheadquarter WHERE headquartercode=" . $headquarter->getHeadquartercode() . ";");
-        $query->execute();
-        $result = $query->fetch();
-        if (!$result) {
-            return 1;
-        } else {
-            return 0;
-        }
     }
 
 }
