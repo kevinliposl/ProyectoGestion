@@ -101,7 +101,7 @@ include_once '../public/header.php';
     <form method="POST" onsubmit="submitOnlyEnclosure(); return false;">
         <tr>
             <td>
-                <input type="text" placeholder="Recinto" required/>
+                <input id="form-only-enclosure-name"type="text" placeholder="Recinto" required/>
             </td>
             <td>
                 <input type="submit" value="Insertar"/>
@@ -114,19 +114,27 @@ include_once '../public/header.php';
 <script>
 
     function submitOnlyEnclosure() {
-        var args = {
+        if ($("#form-only-enclosure-name").val() !== "-1") {
+            var args = {
+                "universityid": $("#form-university").val(),
+                "name": $("#form-only-enclosure-name").val(),
+                "create": "create",
+                "action": "only"
+            };
 
-        };
+            $.post('../business/EnclosureBusiness.php', args, function (data) {
+                if (data.result === "1") {
 
-        $.post('../business/EnclosureBusiness.php', args, function (data) {
-            if (data.result === "1") {
 
-            } else {
+                } else {
 
-            }
-        }, "json").fail(function () {
-            alert("La solicitud a fallado!!!");
-        });
+                }
+            }, "json").fail(function () {
+                alert("La solicitud a fallado!!!");
+            });
+        } else {
+            alert("Solicitud no permitida!!!");
+        }
     }
 
     function showHeadquarterAndEnclosure() {

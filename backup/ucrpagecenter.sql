@@ -34,8 +34,8 @@ CREATE TABLE tbcareer(
 	careerid INTEGER,
 	careercode INTEGER,
 	careername VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    careergrade VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci,
-    careerenclosureid INTEGER,
+        careergrade VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci,
+        careerenclosureid INTEGER,
 	CONSTRAINT PRIMARY KEY(careerid)
 );
 
@@ -43,8 +43,8 @@ CREATE TABLE tbcareer(
 CREATE TABLE tbenclosure(
 	enclosureid INTEGER,
 	enclosurename VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci,
-    enclosureheadquarterid INTEGER,
-    enclosureuniversityid INTEGER,
+        enclosureheadquarterid INTEGER,
+        enclosureuniversityid INTEGER,
 	CONSTRAINT PRIMARY KEY(enclosureid)
 );
 
@@ -70,5 +70,3 @@ INSERT INTO tbheadquarter VALUES(2, 'Cartago', 2);
 
 INSERT INTO tbuniversity VALUES(1, 'UCR', 1, 1, 1);
 INSERT INTO tbuniversity VALUES(2, 'UNA', 1, 1, 1);
-
--- SE CAMBIO LA TABLA UNIVERSIDAD(SE AGREGO STATE) Y CARRERA(SE AGREGO GRADO)

@@ -23,26 +23,12 @@ class EnclosureData {
         return $nextId;
     }
 
-    function insert(Headquarter $headquarter) {
-        $queryLastId = $this->db->prepare("SELECT MAX(headquarterid) AS headquarterid  FROM tbheadquarter");
-        $queryLastId->execute();
-        $resultLastId = $queryLastId->fetch();
-        $queryLastId->closeCursor();
-        $nextId = 1;
+    function insertOnly(Enclosure $enclosure) {
+        $nextId = $this->lastID();
 
-        //ultimo id
-        if ($resultLastId['headquarterid'] != NULL) {
-            $nextId = (int) $resultLastId['headquarterid'] + 1;
-        }
-
-        $query = $this->db->prepare(
-                "INSERT INTO tbheadquarter VALUES (" . $nextId . "," .
-                $headquarter->getHeadquartercode() . ",'" .
-                $headquarter->getHeadquartername() . "','" .
-                $headquarter->getHeadquarterlocation() . "'," .
-                $headquarter->getHeadquarteruniversityid() . ");"
-        );
-        $query->execute();
+        $query = $this->db->prepare("INSERT INTO tbenclosure VALUES(:enclosureid,:enclosurename,:enclosureheadquarterid,:enclosureuniversityid);");
+        $query->execute(array("enclosureid" => $nextId, "enclosureheadquarterid" => 0, "enclosureuniversityid" => $enclosure->getEnclosureuniversityid(),
+            "enclosurename" => $enclosure->getEnclosurename()));
         $result = $query->fetch();
         $query->closeCursor();
 
@@ -53,14 +39,25 @@ class EnclosureData {
         }
     }
 
-    function update(Headquarter $headquarter) {
-        $query = $this->db->prepare("UPDATE tbheadquarter "
-                . "SET  headquarterCode=" . $headquarter->getHeadquartercode() .
-                ", headquarterName='" . $headquarter->getHeadquartername() .
-                "', headquarterLocation='" . $headquarter->getHeadquarterlocation() .
-                "', headquarterUniversityId=" . $headquarter->getHeadquarteruniversityid() .
-                " WHERE headquarterCode=" . $headquarter->getHeadquartercode() . ";");
-        $query->execute();
+    function insert(Enclosure $enclosure) {
+        $nextId = $this->lastID();
+
+        $query = $this->db->prepare("INSERT INTO tbenclosure VALUES(:enclosureid,:enclosurename,:enclosureheadquarterid,:enclosureuniversityid);");
+        $query->execute(array("enclosureid" => $nextId, "enclosureheadquarterid" => $enclosure->getEnclosureheadquarterid(),
+            "enclosureuniversityid" => $enclosure->getEnclosureuniversityid(), "enclosurename" => $enclosure->getEnclosurename()));
+        $result = $query->fetch();
+        $query->closeCursor();
+
+        if (!$result) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    function update(Enclosure $enclosure) {
+        $query = $this->db->prepare("UPDATE tbenclosure SET enclosurename = :enclosurename WHERE enclosureid = :enclosureid;");
+        $query->execute(array("enclosureid" => $enclosure->getEnclosureid(), "enclosurename" => $enclosure->getEnclosurename()));
         $result = $query->fetch();
         $query->closeCursor();
 
@@ -72,43 +69,30 @@ class EnclosureData {
     }
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT * FROM tbheadquarter;");
+        $query = $this->db->prepare("SELECT * FROM tbenclosure;");
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
-        $headquarters = [];
+        $enclosures = [];
         foreach ($result as $row) {
-            $currentheadquarter = new Headquarter();
-            $currentheadquarter->setHeadquarterid($row['headquarterid']);
-            $currentheadquarter->setHeadquartercode($row['headquartercode']);
-            $currentheadquarter->setHeadquartername($row['headquartername']);
-            $currentheadquarter->setHeadquarterlocation($row['headquarterlocation']);
-            $currentheadquarter->setHeadquarteruniversityid($row['headquarteruniversityid']);
-            array_push($headquarters, $currentheadquarter);
+            $current = new Enclosure();
+            $current->setEnclosureid($row['enclosureid']);
+            $current->setEnclosurename($row['enclosurename']);
+            $current->setEnclosureheadquarterid($row['enclosureheadquarterid']);
+            $current->setEnclosureuniversityid($row['enclosureuniversityid']);
+            array_push($enclosures, $current);
         }//End foreach ($result as $row)
-        return $headquarters;
+        return $enclosures;
     }
 
-    function select(Headquarter $headquarter) {
-        $query = $this->db->prepare("SELECT * FROM tbheadquarter WHERE headquartercode=" . $headquarter->getHeadquartercode() . ";");
-        $query->execute();
+    function select(Enclosure $enclosure) {
+        $query = $this->db->prepare("SELECT * FROM tbenclosure WHERE enclosureid = :enclosureid;");
+        $query->execute(array("enclosureid" => $enclosure->getEnclosureid()));
         $result = $query->fetch();
-        $headquarter->setHeadquarterid($result['headquarterid']);
-        $headquarter->setHeadquartercode($result['headquartercode']);
-        $headquarter->setHeadquartername($result['headquartername']);
-        $headquarter->setHeadquarterlocation($result['headquarterlocation']);
-        $headquarter->setHeadquarteruniversityid($result['headquarteruniversityid']);
-        return $headquarter;
+        $enclosure->setEnclosurename($result['enclosurename']);
+        $enclosure->setEnclosureheadquarterid($result['enclosureheadquarterid']);
+        $enclosure->setEnclosureuniversityid($result['enclosureuniversityid']);
+        return $enclosure;
     }
 
-    function delete(Headquarter $headquarter) {
-        $query = $this->db->prepare("DELETE FROM tbheadquarter WHERE headquartercode=" . $headquarter->getHeadquartercode() . ";");
-        $query->execute();
-        $result = $query->fetch();
-        if (!$result) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
 }

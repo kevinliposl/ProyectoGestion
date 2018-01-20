@@ -2,115 +2,84 @@
 
 require '../domain/Enclosure.php';
 
-if (isset($_POST['create'])) {
-    if (isset($_POST['name']) && isset($_POST['universityid']) && isset($_POST['code']) && isset($_POST['headquaerterid'])) {
-        if (strlen($_POST['name']) > 0 && strlen($_POST['universityid']) > 0 && strlen($_POST['code']) > 0 && strlen($_POST['headquaerterid']) > 0) {
-            $enclosureBusiness = new EnclosureBusiness();
+if (isset($_POST['create']) && isset($_POST['action'])) {
+    if ($_POST['action'] == "only") {
+        if (isset($_POST['name']) && isset($_POST['universityid']) && isset($_POST['code']) && isset($_POST['headquaerterid'])) {
+            if (strlen($_POST['name']) > 0 && strlen($_POST['universityid']) > 0 && strlen($_POST['code']) > 0 && strlen($_POST['headquaerterid']) > 0) {
+                $enclosureBusiness = new EnclosureBusiness();
 
-            $enclosure = new Enclosure();
-            $enclosure->setEnclosurename($_POST['name']);
-            $enclosure->setEnclosureuniversityid($_POST['universityid']);
-            $enclosure->setEnclosurecode($_POST['code']);
-            $enclosure->setEnclosureheadquarterid($_POST['headquaerterid']);
-            $result = $enclosureBusiness->insert($enclosure);
+                $enclosure = new Enclosure();
+                $enclosure->setEnclosurename($_POST['name']);
+                $enclosure->setEnclosureuniversityid($_POST['universityid']);
+                $result = $enclosureBusiness->insert($enclosure);
 
-            if ($result == 1) {
-                header("location: ../view/EnclosureView.php?success=inserted");
+                echo json_encode(array("result" => $result));
             } else {
-                header("location: ../view/EnclosureView.php?error=dbError");
+                echo json_encode(array("result" => "error"));
             }
         } else {
-            header("location: ../view/EnclosureView.php?error=format");
+            echo json_encode(array("result" => "empty"));
         }
     } else {
-        header("location: ../view/EnclosureView.php?error=empty");
+        
     }
 } else if (isset($_POST['delete'])) {
-    if (isset($_POST['code'])) {
-        if (strlen($_POST['code']) > 0) {
-            $haedquarterBusiness = new HeadquarterBusiness();
-
-            $headquarter = new Headquarter();
-            $headquarter->setHeadquartercode($_POST['code']);
-            $result = $haedquarterBusiness->delete($headquarter);
-
-            if ($result == 1) {
-                header("location: ../view/HeadquarterView.php?success=inserted");
-            } else {
-                header("location: ../view/HeadquarterView.php?error=dbError");
-            }
-        } else {
-            header("location: ../view/HeadquarterView.php?error=format");
-        }
-    } else {
-        header("location: ../view/HeadquarterView.php?error=empty");
-    }
+    
 } else if (isset($_POST['update'])) {
-    if (isset($_POST['code']) && isset($_POST['name']) && isset($_POST['location']) && isset($_POST['universityid'])) {
-        if (strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0 && strlen($_POST['location']) > 0 && strlen($_POST['universityid']) > 0) {
-            $haedquarterBusiness = new HeadquarterBusiness();
-
-            $headquarter = new Headquarter();
-            $headquarter->setHeadquartercode($_POST['code']);
-            $headquarter->setHeadquartername($_POST['name']);
-            $headquarter->setHeadquarterlocation($_POST['location']);
-            $headquarter->setHeadquarteruniversityid($_POST['universityid']);
-            $result = $haedquarterBusiness->update($headquarter);
-
-            if ($result == 1) {
-                header("location: ../view/HeadquarterView.php?success=inserted");
-            } else {
-                header("location: ../view/HeadquarterView.php?error=dbError");
-            }
-        } else {
-            header("location: ../view/HeadquarterView.php?error=format");
-        }
-    } else {
-        header("location: ../view/HeadquarterView.php?error=empty");
-    }
+    
 }
 
 class EnclosureBusiness {
 
     //Attributes
-    private $enclosureData;
+    private $data;
 
     function __construct() {
         include_once '../data/EnclosureData.php';
-        $this->enclosureData = new EnclosureData();
+        $this->data = new EnclosureData();
     }
 
-//End construct()
-
-    function insert(Headquarter $headquarter) {
-        return $this->enclosureData->insert($headquarter);
+    /**
+     * Insertar recinto sin sede
+     */
+    function insertOnly(Enclosure $enclosure) {
+        return $this->data->insertOnly($enclosure);
     }
 
-//End insert()
-
-    function update(Headquarter $headquarter) {
-        return $this->enclosureData->update($headquarter);
+    /**
+     * Insertar recinto con sede
+     */
+    function insert(Enclosure $enclosure) {
+        return $this->data->insert($enclosure);
     }
 
-//End update()
+    /**
+     * Actualizar recinto
+     */
+    function update(Enclosure $enclosure) {
+        return $this->data->update($enclosure);
+    }
 
+    /**
+     * Seleccionar recintos
+     */
     function selectAll() {
-        return $this->enclosureData->selectAll();
+        return $this->data->selectAll();
     }
 
-//End selectAll()
-
-    function select($headquarterCode) {
-        return $this->enclosureData->select($headquarterCode);
+    /**
+     * Seleccionar un recinto
+     */
+    function select(Enclosure $enclosure) {
+        return $this->data->select($enclosure);
     }
 
-//End select()
-
-    function delete(Headquarter $headquarter) {
-        return $this->enclosureData->delete($headquarter);
+    /**
+     * Eliminar un recinto
+     */
+    function delete(Enclosure $enclosure) {
+        return $this->data->delete($enclosure);
     }
-
-//End delete()
-}
 
 //End class HeadquarterBusiness
+}
