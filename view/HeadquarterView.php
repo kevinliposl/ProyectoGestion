@@ -55,7 +55,7 @@ include_once '../public/header.php';
             <th>Nombre</th>
         </tr>
     </thead>
-    <form method="POST">
+    <form method="POST" onsubmit="submitOnlyEnclosure(); return false">
         <tr>
             <td>
                 <input type="text" placeholder="Sede"/>
@@ -98,7 +98,7 @@ include_once '../public/header.php';
             <th>Nombre</th>
         </tr>
     </thead>
-    <form method="POST" onsubmit="submitOnlyEnclosure(); return false;">
+    <form method="POST" onsubmit="submitOnlyEnclosure(); return false">
         <tr>
             <td>
                 <input id="form-only-enclosure-name"type="text" placeholder="Recinto" required/>
@@ -109,32 +109,30 @@ include_once '../public/header.php';
         </tr>
     </form>
 </table>
-
+<div id="state"></div>
 
 <script>
 
     function submitOnlyEnclosure() {
-        if ($("#form-only-enclosure-name").val() !== "-1") {
-            var args = {
-                "universityid": $("#form-university").val(),
-                "name": $("#form-only-enclosure-name").val(),
-                "create": "create",
-                "action": "only"
-            };
-
-            $.post('../business/EnclosureBusiness.php', args, function (data) {
-                if (data.result === "1") {
-
-
-                } else {
-
-                }
-            }, "json").fail(function () {
-                alert("La solicitud a fallado!!!");
-            });
-        } else {
-            alert("Solicitud no permitida!!!");
-        }
+        var args = {
+            "universityid": $("#form-university").val(),
+            "name": $("#form-only-enclosure-name").val(),
+            "create": "create",
+            "action": "only"
+        };
+        $.post('../business/EnclosureBusiness.php', args, function (data) {
+            if (data.result === 1) {
+                $("#state").html(message["success"]);
+            } else if (data.result === -1) {
+                $("#state").html(message["format"]);
+            } else if (data.result === -2) {
+                $("#state").html(message["fail"]);
+            } else {
+                $("#state").html(message["emptyField"]);
+            }
+        }, "json").fail(function () {
+            alert("La solicitud a fallado!!!");
+        });
     }
 
     function showHeadquarterAndEnclosure() {
@@ -206,6 +204,39 @@ include_once '../public/header.php';
     }
 
 </script>
+
+<?php
+echo "<h1> Recintos sin Sede </h1>";
+include_once '../business/EnclosureBusiness.php';
+
+$enclosureBusiness = new EnclosureBusiness;
+$enclosures = $enclosureBusiness->selectAll();
+
+echo "<table>";
+echo "<thead>";
+echo "<tr>";
+echo "<th>Nombre</th>";
+echo "</tr>";
+echo "</thead>";
+foreach ($enclosures as $enclosure) {
+
+    echo "<form enctype='multipart/form-data' method='POST' action='../business/EnclosureBusiness.php'>";
+    echo "<tr>";
+    echo "<td>";
+    echo "<input type ='hidden' name='id' value='" . $enclosure->getEnclosureid() . "'/>";
+    echo "<input type ='text' name='name' value='" . $enclosure->getEnclosurename() . "'/>";
+    echo "</td>";
+    echo "<td>";
+    echo "<input type ='submit' name='delete' value='Eliminar'/>";
+    echo "</td>";
+    echo "<td>";
+    echo "<input type ='submit' name='update' value='Actualizar'/>";
+    echo "</td>";
+    echo "</tr>";
+    echo "</form>";
+}
+echo "</table>"
+?>
 
 <?php
 include_once '../public/footer.php';

@@ -4,14 +4,14 @@ require '../domain/Enclosure.php';
 
 if (isset($_POST['create']) && isset($_POST['action'])) {
     if ($_POST['action'] == "only") {
-        if (isset($_POST['name']) && isset($_POST['universityid']) && isset($_POST['code']) && isset($_POST['headquaerterid'])) {
-            if (strlen($_POST['name']) > 0 && strlen($_POST['universityid']) > 0 && strlen($_POST['code']) > 0 && strlen($_POST['headquaerterid']) > 0) {
+        if (isset($_POST['name']) && isset($_POST['universityid'])) {
+            if (strlen($_POST['name']) > 0 && strlen($_POST['universityid']) > 0) {
                 $enclosureBusiness = new EnclosureBusiness();
 
                 $enclosure = new Enclosure();
                 $enclosure->setEnclosurename($_POST['name']);
                 $enclosure->setEnclosureuniversityid($_POST['universityid']);
-                $result = $enclosureBusiness->insert($enclosure);
+                $result = $enclosureBusiness->insertOnly($enclosure);
 
                 echo json_encode(array("result" => $result));
             } else {
