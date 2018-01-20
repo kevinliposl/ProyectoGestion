@@ -73,17 +73,14 @@ include_once '../public/header.php';
             <th>Sede</th>
         </tr>
     </thead>
-    <form method="POST">
+    <form method="POST" onsubmit="submitHeadquarterEnclosure(); return false">
         <tr>
             <td>
                 <select id="input-headquarters">
-                    <option>
-                        Selecccione una sede
-                    </option>
                 </select>
             </td>
             <td>
-                <input type="text" placeholder="Recinto"/>
+                <input id="form-headquarters-enclosure-name" type="text" placeholder="Recinto"/>
             </td>
             <td>
                 <input type="submit" value="Insertar"/>
@@ -138,20 +135,23 @@ include_once '../public/header.php';
     function submitHeadquarterEnclosure() {
         var args = {
             "universityid": $("#form-university").val(),
-            "name": $("#form-only-enclosure-name").val(),
-            "create": "create",
-            "action": "only"
+            "headquarterid": $('#input-headquarters').val(),
+            "enclosurename": $("#form-headquarters-enclosure-name").val(),
+            "create": "create"
         };
+        alert(JSON.stringify(args));
+
         $.post('../business/EnclosureBusiness.php', args, function (data) {
-            if (data.result === 1) {
-                $("#state").html(message["success"]);
-            } else if (data.result === -1) {
-                $("#state").html(message["format"]);
-            } else if (data.result === -2) {
-                $("#state").html(message["fail"]);
-            } else {
-                $("#state").html(message["emptyField"]);
-            }
+            alert(data.result);
+//            if (data.result === 1) {
+//                $("#state").html(message["success"]);
+//            } else if (data.result === -1) {
+//                $("#state").html(message["format"]);
+//            } else if (data.result === -2) {
+//                $("#state").html(message["fail"]);
+//            } else {
+//                $("#state").html(message["emptyField"]);
+//            }
         }, "json").fail(function () {
             alert("La solicitud a fallado!!!");
         });
@@ -179,37 +179,6 @@ include_once '../public/header.php';
         });
     }
 
-    function showHeadquarterAndEnclosure() {
-        $("#form-th").css("display", 'block');
-        $("#form-select-headquarters-enclosure").css("display", "block");
-    }
-
-    function showOnlyEnclosure() {
-        $("#form-only-enclosure").css("display", 'block');
-    }
-
-    $("#form-university").change(function () {
-        if ($("#form-university").val() !== "-1") {
-            var args = {
-                "id": $("#form-university").val(),
-                'select': 'select'
-            };
-            $.post('../business/UniversityBusiness.php', args, function (data) {
-                if (data.universityhadheadquarter === "1") {
-                    hideAll();
-                    showHeadquarterAndEnclosure();
-                } else {
-                    hideAll();
-                    showOnlyEnclosure();
-                }
-            }, "json").fail(function () {
-                alert("La solicitud a fallado!!!");
-            });
-        } else {
-            hideAll();
-        }
-    });
-
     $("#form-select-headquarters-enclosure").change(function () {
         if ($("#form-select-headquarters-enclosure").val() === "1") {
             $("#form-headquarters").css("display", "none");
@@ -223,10 +192,13 @@ include_once '../public/header.php';
 
             $.post('../business/HeadquarterBusiness.php', args, function (data) {
                 if (data[0].headquarterid) {
+                    $('#input-headquarters').empty();
+                    $('#input-headquarters').append($("<option></option>").attr("value", "-1").text(" Seleccione una Sede "));
+
                     $.each(data, function (key, value) {
-                        
-                        alert(key + ": " + value.headquarterid);
+                        $('#input-headquarters').append($("<option></option>").attr("value", value.headquarterid).text(value.headquartername));
                     });
+
                 } else if (data.result === -1) {
                     $("#state").html(message["format"]);
                 } else if (data.result === -2) {
@@ -237,13 +209,21 @@ include_once '../public/header.php';
             }, "json").fail(function () {
                 alert("La solicitud a fallado!!!");
             });
-
             $("#form-enclosure").css("display", "none");
             $("#form-headquarters").css("display", "block");
         } else {
             hideAll();
         }
     });
+
+    function showHeadquarterAndEnclosure() {
+        $("#form-th").css("display", 'block');
+        $("#form-select-headquarters-enclosure").css("display", "block");
+    }
+
+    function showOnlyEnclosure() {
+        $("#form-only-enclosure").css("display", 'block');
+    }
 
     function hideAll() {
         hideSelectHeadquartersEnclosure();
@@ -268,6 +248,28 @@ include_once '../public/header.php';
         $("#form-th").css("display", 'none');
         $("#form-select-headquarters-enclosure").css("display", "none");
     }
+
+    $("#form-university").change(function () {
+        if ($("#form-university").val() !== "-1") {
+            var args = {
+                "id": $("#form-university").val(),
+                'select': 'select'
+            };
+            $.post('../business/UniversityBusiness.php', args, function (data) {
+                if (data.universityhadheadquarter === "1") {
+                    hideAll();
+                    showHeadquarterAndEnclosure();
+                } else {
+                    hideAll();
+                    showOnlyEnclosure();
+                }
+            }, "json").fail(function () {
+                alert("La solicitud a fallado!!!");
+            });
+        } else {
+            hideAll();
+        }
+    });
 
 </script>
 
