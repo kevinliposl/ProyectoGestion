@@ -3,21 +3,23 @@
 require '../domain/Student.php';
 
 if (isset($_POST['create'])) {
-    if (isset($_POST['name']) && isset($_POST['lastname1']) && isset($_POST['lastname2']) && isset($_POST['password']) &&
-            isset($_POST['career1']) && isset($_POST['career2']) && isset($_POST['carnet'])) {
-        if (strlen($_POST['name']) > 0 && strlen($_POST['lastname1']) > 0 && strlen($_POST['lastname2']) > 0 && strlen($_POST['password']) > 0 &&
-                strlen($_POST['career1']) > 0 && strlen($_POST['career2']) > 0 && strlen($_POST['carnet']) > 0) {
+    if (isset($_POST['name']) && isset($_POST['password']) && isset($_POST['career1']) && isset($_POST['carnet'])) {        
+            
+        if (strlen($_POST['name']) > 0 && strlen($_POST['password']) > 0  && strlen($_POST['carnet']) > 0) {
+          
             $studentBusiness = new StudentBusiness();
-
             $student = new Student();
-            $student->setCarnet($_POST['carnet']);
+         
+            $student->setLicense($_POST['carnet']);
             $student->setName($_POST['name']);
             $student->setLastname1($_POST['lastname1']);
             $student->setLastname2($_POST['lastname2']);
-            $student->setCareer1($_POST['career1']);
-            $student->setCareer2($_POST['career2']);
+            $student->setCareer1(intval($_POST['career1']));
+            $student->setCareer2(intval($_POST['career2']));
             $student->setPassword($_POST['password']);
+            
             $result = $studentBusiness->insert($student);
+            
             if ($result == 1) {
                 header("location: ../view/StudentView.php?success=inserted");
             } else {

@@ -11,7 +11,7 @@ class SPDO extends PDO {
         } catch (PDOException $e) {
             try {
                 ///Para base de datos sin contrasenna
-                parent::__construct('mysql:host=' . '127.0.0.1' . ';dbname=' . 'ucrpagecenter', 'root', '');
+                parent::__construct('mysql:host=' . '127.0.0.1' . ';dbname=' . 'ucrpagecenter', 'root', 'Red12345');
             } catch (Exception $ex) {
                 return $ex->getMessage();
             }

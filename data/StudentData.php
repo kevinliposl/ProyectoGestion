@@ -9,7 +9,8 @@ class StudentData {
         $this->db = SPDO::singleton();
     }
 
-    function insert(Student $student) {
+    function insert(Student $student) {    
+
         $queryLastId = $this->db->prepare("SELECT MAX(studentid) AS studentid  FROM tbstudent");
         $queryLastId->execute();
         $resultLastId = $queryLastId->fetch();
@@ -20,16 +21,14 @@ class StudentData {
         if ($resultLastId['studentid'] != NULL) {
             $nextId = (int) $resultLastId['studentid'] + 1;
         }
-
         $query = $this->db->prepare(
                 "INSERT INTO tbstudent VALUES (" . $nextId . ",'" .
-                $student->getCarnet() . "','" .
+                $student->getLicense() . "','" .
                 $student->getName() . "','" .
                 $student->getLastname1() . "','" .
                 $student->getLastName2() . "'," .
                 $student->getCareer1() . "," .
-                $student->getCareer2() . "," .
-                $student->getHeadquarters() . ",'" .
+                $student->getCareer2() . ",'" .
                 $student->getPassword() . "'," .
                 0 . ");"
         );
@@ -73,18 +72,22 @@ class StudentData {
         $result = $query->fetchAll();
         $query->closeCursor();
         $students = [];
+        $currentStudent = new Student();
+        
         foreach ($result as $row) {
-            $currentStudent = new Student();
+            
             $currentStudent->setId($row['studentid']);
-            //$currentStudent->setLicense($row['studentlicense']);
+            $currentStudent->setLicense($row['studentlicense']);
             $currentStudent->setName($row['studentname']);
             $currentStudent->setLastName1($row['studentlastname1']);
             $currentStudent->setLastName2($row['studentlastname2']);
             $currentStudent->setCareer1($row['studentcareer1']);
             $currentStudent->setCareer2($row['studentcareer2']);
             $currentStudent->getPassword($row['studentpassword']);
+            
             array_push($students, $currentStudent);
         }
+        
         return $students;
     }
 

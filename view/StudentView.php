@@ -1,8 +1,8 @@
 <?php
 include_once '../public/header.php';
 
-//include '../business/StudentBusiness.php';
-//$studentBusiness = new StudentBusiness();
+include '../business/StudentBusiness.php';
+$studentBusiness = new StudentBusiness();
 
  include '../business/CareerBusiness.php';
  $careerBusiness = new CareerBusiness();
@@ -36,7 +36,7 @@ include_once '../public/header.php';
             </td>
             <td>
                 <select id="career1" name="career1"style="width: 100%">
-                    <option>Ninguna</option>
+                    <option value="0">Ninguna</option>
                     
                         <?php               
                         $careers = $careerBusiness->selectAllByUniversity();
@@ -48,7 +48,7 @@ include_once '../public/header.php';
                         ?>
                     
                     <optgroup label="<?= $career['universityname']; ?>">
-                    <option id="<?= $career['careerid']; ?>" value="<?= $career['careerid']." | ".$career['universityid']; ?>" ><?= $career['careerid']." | ".$career['careername']." | ".$career['enclosurename']; ?></option>
+                    <option value="<?= $career['careerid']; ?>" ><?= $career['careerid']." | ".$career['careername']." | ".$career['enclosurename']; ?></option>
                         
                         <?php
                             }else{
@@ -57,7 +57,7 @@ include_once '../public/header.php';
                                 }
                         ?>
                         
-                    <option id="<?= $career['careerid']; ?>" value="<?= $career['careerid']." | ".$career['universityid']; ?>" ><?= $career['careerid']." | ".$career['careername']." | ".$career['enclosurename']; ?></option>
+                    <option value="<?= $career['careerid']; ?>" ><?= $career['careerid']." | ".$career['careername']." | ".$career['enclosurename']; ?></option>
                         
                         <?php
                         
@@ -70,7 +70,7 @@ include_once '../public/header.php';
             </td>
             <td>
                 <select id="career2" name="career2" style="width: 100%">
-                    <option>Ninguna</option>
+                    <option value="0">Ninguna</option>
                     
                          <?php               
                         $careers = $careerBusiness->selectAllByUniversity();
@@ -82,7 +82,7 @@ include_once '../public/header.php';
                         ?>
                     
                     <optgroup label="<?= $career['universityname']; ?>">
-                    <option id="<?= $career['careerid']; ?>" value="<?= $career['careerid']." | ".$career['universityid']; ?>" ><?= $career['careerid']." | ".$career['careername']; ?></option>
+                    <option value="<?= $career['careerid']; ?>" ><?= $career['careerid']." | ".$career['careername']; ?></option>
                         
                         <?php
                             }else{
@@ -91,7 +91,7 @@ include_once '../public/header.php';
                                 }
                         ?>
                         
-                    <option id="<?= $career['careerid']; ?>" value="<?= $career['careerid']." | ".$career['universityid']; ?>" ><?= $career['careerid']." | ".$career['careername']; ?></option>
+                    <option value="<?= $career['careerid']; ?>" ><?= $career['careerid']." | ".$career['careername']; ?></option>
                         
                         <?php
                         
@@ -111,14 +111,16 @@ include_once '../public/header.php';
     </form>
 
     <?php
-    //$students = $studentBusiness->selectAll();
+    
+    $students = $studentBusiness->selectAll();
+    $student=new Student();
 
-   /* foreach ($students as $student) {
+    foreach ($students as $student) {
 
         echo "<form enctype='multipart/form-data' method='POST' action='../business/StudentBusiness.php'>";
         echo "<tr>";
         echo "<td>";
-        echo "<input type ='text' name='carnet' value='" . $student['studentcarnet'] . "'/>";
+        echo "<input type ='text' name='carnet' value='" . $student->getLastName1() . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type = 'hidden' name='id' value='" . $student['studentid'] . "'/>";
@@ -147,7 +149,7 @@ include_once '../public/header.php';
         echo "</td>";
         echo "</tr>";
         echo "</form>";
-    }*/
+    }
     ?>
 
     <tr>
