@@ -7,6 +7,7 @@ class Professor {
     private $professorname;
     private $professorlastname1;
     private $professorlastname2;
+    private $professorstate;
     private $professorpassword;
 
     function __construct() {
@@ -15,6 +16,10 @@ class Professor {
 
     function getProfessorlicense() {
         return $this->professorlicense;
+    }
+    
+    function getProfessorstate() {
+        return $this->professorstate;
     }
 
     function getProfessorid() {
@@ -30,7 +35,7 @@ class Professor {
     }
 
     function getProfessorlastname2() {
-        return $this->profesorlastname2;
+        return $this->professorlastname2;
     }
 
     function getProfessorpassword() {
@@ -44,6 +49,10 @@ class Professor {
     function setProfessorlicense($license) {
         $this->professorlicense = $license;
     }
+    
+     function setProfessorstate($state) {
+        $this->professorstate = $state;
+    }
 
     function setProfessorname($name) {
         $this->professorname = $name;
@@ -54,7 +63,7 @@ class Professor {
     }
 
     function setProfessorlastname2($lastname2) {
-        $this->profesorlastname2 = $lastname2;
+        $this->professorlastname2 = $lastname2;
     }
 
     function setProfessorpassword($password) {

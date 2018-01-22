@@ -56,6 +56,7 @@ professorname VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 professorlastname1 VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 professorlastname2 VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 professorpassword VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+professorstate SMALLINT DEFAULT 1 NOT NULL,
 CONSTRAINT PRIMARY KEY(professorid)
 );
 
@@ -68,6 +69,12 @@ administrativelastname2 VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NUL
 administrativearea VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 administrativepassword VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 CONSTRAINT PRIMARY KEY(administrativeid)
+);
+
+CREATE TABLE tbactor(
+actorid INTEGER,
+actormail VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+CONSTRAINT PRIMARY KEY(actorid)
 );
 
 -- DATOS DE PRUEBA
