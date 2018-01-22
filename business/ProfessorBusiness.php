@@ -6,12 +6,6 @@ if (isset($_POST['create'])) {
     if ($_POST['action'] == "only") {
         if (isset($_POST['name']) && isset($_POST['universityid'])) {
             if (strlen($_POST['name']) > 0 && strlen($_POST['universityid']) > 0) {
-                $enclosureBusiness = new EnclosureBusiness();
-
-                $enclosure = new Enclosure();
-                $enclosure->setEnclosurename($_POST['name']);
-                $enclosure->setEnclosureuniversityid($_POST['universityid']);
-                $result = $enclosureBusiness->insertOnly($enclosure);
 
                 echo json_encode(array("result" => $result));
             } else {

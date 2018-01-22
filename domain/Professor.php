@@ -30,7 +30,7 @@ class Professor {
     }
 
     function getProfessorlastname2() {
-        return $this->profesorlastname2;
+        return $this->professorlastname2;
     }
 
     function getProfessorpassword() {
@@ -54,7 +54,7 @@ class Professor {
     }
 
     function setProfessorlastname2($lastname2) {
-        $this->profesorlastname2 = $lastname2;
+        $this->professorlastname2 = $lastname2;
     }
 
     function setProfessorpassword($password) {
