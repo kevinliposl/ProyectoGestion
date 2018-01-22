@@ -66,7 +66,7 @@ class ProfessorBusiness {
     }
 
     function selectAll() {
-        
+        return $this->data->selectAll();
     }
 
     function delete(Professor $professor) {
