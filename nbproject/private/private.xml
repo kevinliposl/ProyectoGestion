@@ -5,9 +5,12 @@
         <group>
             <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/domain/Student.php</file>
             <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/view/StudentView.php</file>
+            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/business/CareerBusiness.php</file>
             <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/data/SPDO.php</file>
+            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/business/EnclosureBusiness.php</file>
             <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/view/CareerView.php</file>
-            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/business/StudentBusiness.php</file>
+            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/data/CareerData.php</file>
+            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/data/EnclosureData.php</file>
             <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/data/StudentData.php</file>
         </group>
     </open-files>

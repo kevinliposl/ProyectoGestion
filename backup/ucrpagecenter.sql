@@ -1,7 +1,6 @@
 CREATE DATABASE ucrpagecenter;
 USE ucrpagecenter;
 
-
 CREATE TABLE tbstudent(
 	studentid INTEGER,
 	studentlicense VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -35,8 +34,8 @@ CREATE TABLE tbcareer(
 	careerid INTEGER,
 	careercode INTEGER,
 	careername VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-        careergrade VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci,
-        careerenclosureid INTEGER,
+    careergrade VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci,
+    careerenclosureid INTEGER,
 	CONSTRAINT PRIMARY KEY(careerid)
 );
 
@@ -50,7 +49,26 @@ CREATE TABLE tbenclosure(
 );
 
 
+CREATE TABLE tbprofessor(
+professorid INTEGER,
+professorlicense VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+professorname VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+professorlastname1 VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+professorlastname2 VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+professorpassword VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+CONSTRAINT PRIMARY KEY(professorid)
+);
 
+CREATE TABLE tbadministrative(
+administrativeid INTEGER,
+administrativelicense VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+administrativename VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+administrativelastname1 VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+administrativelastname2 VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+administrativearea VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+administrativepassword VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+CONSTRAINT PRIMARY KEY(administrativeid)
+);
 
 -- DATOS DE PRUEBA
 

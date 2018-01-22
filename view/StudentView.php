@@ -1,10 +1,10 @@
 <?php
 include_once '../public/header.php';
 
-include '../business/StudentBusiness.php';
+include_once '../business/StudentBusiness.php';
 $studentBusiness = new StudentBusiness();
 
- include '../business/CareerBusiness.php';
+ include_once '../business/CareerBusiness.php';
  $careerBusiness = new CareerBusiness();
 ?>
 <table>
@@ -113,14 +113,13 @@ $studentBusiness = new StudentBusiness();
     <?php
     
     $students = $studentBusiness->selectAll();
-    $student=new Student();
 
     foreach ($students as $student) {
 
         echo "<form enctype='multipart/form-data' method='POST' action='../business/StudentBusiness.php'>";
         echo "<tr>";
         echo "<td>";
-        echo "<input type ='text' name='carnet' value='" . $student->getLastName1() . "'/>";
+        echo "<input type ='text' name='carnet' value='" . $student['studentlicense'] . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type = 'hidden' name='id' value='" . $student['studentid'] . "'/>";
@@ -136,10 +135,7 @@ $studentBusiness = new StudentBusiness();
         echo "<input type ='password' name='password' value='" . $student['studentpassword'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type = 'text' name='career1' value='" . $student['studentcareer1'] . "'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='text' name='career2' value='" . $student['studentcareer2'] . "'/>";
+        echo "<input type = 'text' name='career1' readonly value='" . $student['careername'] . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type ='submit' name='delete' value ='Eliminar'/>";

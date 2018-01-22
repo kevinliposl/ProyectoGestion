@@ -67,14 +67,17 @@ class StudentData {
     }
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE studentstate=:state;");
+        $query = $this->db->prepare("SELECT s.studentid, s.studentname, s.studentlicense, s.studentlastname1, s.studentlastname2, 
+                                    s.studentpassword, c.careername FROM tbstudent AS s INNER JOIN tbcareer as c ON 
+                                    s.studentcareer1=c.careerid AND s.studentstate=:state;");
         $query->execute(array('state' => 0));
         $result = $query->fetchAll(); //PDO::FETCH_ASSOC
         $query->closeCursor();
-        $students = [];
-        $currentStudent = new Student();
         
-        foreach ($result as $row) {
+        //$students = [];
+        //$currentStudent = new Student();
+        
+        /*foreach ($result as $row) {
             
             $currentStudent->setId($row['studentid']);
             $currentStudent->setLicense($row['studentlicense']);
@@ -86,9 +89,9 @@ class StudentData {
             $currentStudent->getPassword($row['studentpassword']);
             
             array_push($students, $currentStudent);
-        }
+        }*/
         
-        return $students;
+        return $result;
     }
 
     function select($idStudent) {
