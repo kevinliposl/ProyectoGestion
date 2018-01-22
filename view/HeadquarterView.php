@@ -137,13 +137,13 @@ include_once '../public/header.php';
             "universityid": $("#form-university").val(),
             "headquarterid": $('#input-headquarters').val(),
             "enclosurename": $("#form-headquarters-enclosure-name").val(),
-            "create": ""
+            "create": "create",
+            "action": ""
         };
 
         $.post('../business/EnclosureBusiness.php', args, function (data) {
-            alert(data.result);
-            if (data.result) {
-                $("#state").html(data.result);
+            if (data.result === 1) {
+                $("#state").html(message['success']);
             } //else if (data.result === -1) {
             // $("#state").html(message["format"]);
 //            } else if (data.result === -2) {

@@ -24,14 +24,13 @@ if (isset($_POST['create'])) {
         if (isset($_POST['enclosurename']) && isset($_POST['universityid']) && isset($_POST['headquarterid'])) {
             if (strlen($_POST['enclosurename']) > 0 && strlen($_POST['universityid']) > 0 && strlen($_POST['headquarterid']) > 0) {
                 $enclosureBusiness = new EnclosureBusiness();
-
                 $enclosure = new Enclosure();
                 $enclosure->setEnclosurename($_POST['enclosurename']);
                 $enclosure->setEnclosureuniversityid($_POST['universityid']);
                 $enclosure->setEnclosureheadquarterid($_POST['headquarterid']);
                 $result = $enclosureBusiness->insert($enclosure);
 
-                echo json_encode(array("result" => $result));//error or success
+                echo json_encode(array("result" => $result)); //error or success
             } else {
                 echo json_encode(array("result" => -1)); //format
             }
