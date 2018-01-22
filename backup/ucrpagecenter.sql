@@ -1,7 +1,6 @@
 CREATE DATABASE ucrpagecenter;
 USE ucrpagecenter;
 
-CREATE TABLE tb
 
 CREATE TABLE tbstudent(
 	studentid INTEGER,

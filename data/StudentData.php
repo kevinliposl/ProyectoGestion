@@ -67,9 +67,9 @@ class StudentData {
     }
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE state=:state;");
+        $query = $this->db->prepare("SELECT * FROM tbstudent WHERE studentstate=:state;");
         $query->execute(array('state' => 0));
-        $result = $query->fetchAll();
+        $result = $query->fetchAll(); //PDO::FETCH_ASSOC
         $query->closeCursor();
         $students = [];
         $currentStudent = new Student();
@@ -110,7 +110,7 @@ class StudentData {
     function delete(Student $student) {
         $query = $this->db->prepare("UPDATE tbstudent SET state=:state WHERE studentid=:id;");
         $query->execute(array('state' => 1, 'id' => $student->getId()));
-        $result = $query->fetch();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
         if (!$result) {
             return 1;
         } else {

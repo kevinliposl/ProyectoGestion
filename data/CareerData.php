@@ -21,14 +21,14 @@ class CareerData {
             $nextId = (int) $resultLastId['careerid'] + 1;
         }
 
-        $query = $this->db->prepare("INSERT INTO tbcareer VALUES(". $nextId . "," .
+        $query = $this->db->prepare("INSERT INTO tbcareer VALUES(" . $nextId . "," .
                 $career->getCareercode() . ",'" .
                 $career->getCareername() . "','" .
                 $career->getCareerGrade() . "'," .
                 $career->getEnclosureid() .
                 ");"
-                );
-        $query->execute();
+        );
+        $query->execute(PDO::FETCH_ASSOC);
         $result = $query->fetch();
         $query->closeCursor();
 
@@ -68,21 +68,18 @@ class CareerData {
             $currentCareer->setCareername($row['careername']);
             array_push($careers, $currentCareer);
         }//End foreach ($result as $row)
-        
-      
-        
+
         return $careers;
-        
     }
-    
-     function selectByUniversity() {
-          
-         
+
+    function selectByUniversity() {
+
+
         $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername, h.headquarterid, e.enclosurename, e.enclosureid, c.careername, c.careerid from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid inner join tbenclosure as e on h.headquarterid = e.enclosureheadquarterid inner join tbcareer as c on e.enclosureid = c.careerenclosureid order by(u.universityid);");
         $queryCareer->execute();
         $result = $queryCareer->fetchAll();
         $queryCareer->closeCursor();
-        
+
         return $result;
     }
 
@@ -98,10 +95,10 @@ class CareerData {
     }
 
     ////// PONER SOLO ELIMINACIONES LOGICAS
-    public function delete(Career $career) {
-        $query = $this->db->prepare("DELETE FROM tbcareer WHERE careercode=" . $career->getCareercode() . ";");
-        $query->execute();
-        $result = $query->fetch();
+    function delete(Career $career) {
+        $query = $this->db->prepare("DELETE FROM tbcareer WHERE careercode = :code;");
+        $query->execute(array("code" => $career->getCareercode()));
+        $result = $query->fetch(PDO::FETCH_ASSOC);
         if (!$result) {
             return 1;
         } else {
