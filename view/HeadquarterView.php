@@ -137,22 +137,22 @@ include_once '../public/header.php';
             "universityid": $("#form-university").val(),
             "headquarterid": $('#input-headquarters').val(),
             "enclosurename": $("#form-headquarters-enclosure-name").val(),
-            "create": ""
+            "create": "create",
+            "action": ""
         };
 
         $.post('../business/EnclosureBusiness.php', args, function (data) {
-            alert(data.result);
-            if (data.result) {
-                $("#state").html(data.result);
-            } //else if (data.result === -1) {
-            // $("#state").html(message["format"]);
-//            } else if (data.result === -2) {
-//                $("#state").html(message["fail"]);
-//            } else {
-//                $("#state").html(message["emptyField"]);
-//            }
+            if (data.result === 1) {
+                $("#state").html(message['success']);
+            } else if (data.result === 0) {
+                $("#state").html(message["fail"]);
+            } else if (data.result === -1) {
+                $("#state").html(message["format"]);
+            } else {
+                $("#state").html(message["emptyField"]);
+            }
         }, "json").fail(function (jqXHR, textStatus, errorThrown) {
-            alert("La solicitud a fallado!!! " + textStatus);
+            alert("La solicitud a fallado!!!");
         });
     }
 

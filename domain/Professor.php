@@ -6,7 +6,7 @@ class Professor {
     private $professorlicense;
     private $professorname;
     private $professorlastname1;
-    private $profesorlastname2;
+    private $professorlastname2;
     private $professorpassword;
 
     function __construct() {
@@ -59,14 +59,6 @@ class Professor {
 
     function setProfessorpassword($password) {
         $this->professorpassword = $password;
-    }
-
-    function __toString() {
-        try {
-            return (string) $this->professorid . ' | ' . $this->professorname . ' | ' . $this->professorlastname1 . ' | ' . $this->profesorlastname2;
-        } catch (Exception $e) {
-            return '';
-        }
     }
 
 }
