@@ -1,6 +1,6 @@
 <?php
 
-class Student {
+class Professor {
 
     private $professorid;
     private $professorlicense;
