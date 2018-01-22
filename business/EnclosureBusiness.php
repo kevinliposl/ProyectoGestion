@@ -15,10 +15,10 @@ if (isset($_POST['create'])) {
 
                 echo json_encode(array("result" => $result));
             } else {
-                echo json_encode(array("result" => "error"));
+                echo json_encode(array("result" => -1));
             }
         } else {
-            echo json_encode(array("result" => "empty"));
+            echo json_encode(array("result" => -2));
         }
     } else {
         if (isset($_POST['enclosurename']) && isset($_POST['universityid']) && isset($_POST['headquarterid'])) {
