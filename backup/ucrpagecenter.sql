@@ -1,6 +1,8 @@
 CREATE DATABASE ucrpagecenter;
 USE ucrpagecenter;
 
+CREATE TABLE tb
+
 CREATE TABLE tbstudent(
 	studentid INTEGER,
 	studentlicense VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -47,6 +49,9 @@ CREATE TABLE tbenclosure(
         enclosureuniversityid INTEGER,
 	CONSTRAINT PRIMARY KEY(enclosureid)
 );
+
+
+
 
 -- DATOS DE PRUEBA
 
