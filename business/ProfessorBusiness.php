@@ -53,8 +53,8 @@ class ProfessorBusiness {
     private $data;
 
     function __construct() {
-        include_once '../data/';
-        $this->data = new ();
+        include_once '../data/ProfessorData.php';
+        $this->data = new ProfessorData();
     }
 
     function insert(Professor $professor) {
