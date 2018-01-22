@@ -103,6 +103,13 @@ class EnclosureBusiness {
     function select(Enclosure $enclosure) {
         return $this->data->select($enclosure);
     }
+    
+      /**
+     * Seleccionar un recinto
+     */
+    function selectAllByUniversity() {
+        return $this->data->selectByUniversity();
+    }
 
     /**
      * Eliminar un recinto

@@ -67,6 +67,17 @@ class EnclosureData {
             return 0;
         }
     }
+    
+        function selectByUniversity() {
+
+            
+        $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername, h.headquarterid, e.enclosurename, e.enclosureid from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid inner join tbenclosure as e on h.headquarterid = e.enclosureheadquarterid order by(u.universityid);");
+        $queryCareer->execute();
+        $result = $queryCareer->fetchAll();
+        $queryCareer->closeCursor();
+        
+        return $result;
+    }
 
     function selectAll() {
         $query = $this->db->prepare("SELECT * FROM tbenclosure;");

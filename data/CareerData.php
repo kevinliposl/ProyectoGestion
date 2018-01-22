@@ -21,8 +21,14 @@ class CareerData {
             $nextId = (int) $resultLastId['careerid'] + 1;
         }
 
-        $query = $this->db->prepare("INSERT INTO tbcareer VALUES(:id,:code,:name,'');");
-        $query->execute(array('id' => $nextId, 'code' => $career->getCareercode(), 'name' => $career->getCareername()));
+        $query = $this->db->prepare("INSERT INTO tbcareer VALUES(". $nextId . "," .
+                $career->getCareercode() . ",'" .
+                $career->getCareername() . "','" .
+                $career->getCareerGrade() . "'," .
+                $career->getEnclosureid() .
+                ");"
+                );
+        $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
 

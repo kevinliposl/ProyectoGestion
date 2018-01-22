@@ -3,13 +3,16 @@
 require '../domain/Career.php';
 
 if (isset($_POST['create'])) {
-    if (isset($_POST['code']) && isset($_POST['name'])) {
-        if (strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0) {
+    if (isset($_POST['code'])) {
+        if (strlen($_POST['code']) > 0) {
+            
             $CareerBusiness = new CareerBusiness();
 
             $Career = new Career();
             $Career->setCareercode($_POST['code']);
             $Career->setCareername($_POST['name']);
+            $Career->setCareerGrade($_POST['grade']);
+            $Career->setCareerEnclosureid($_POST['enclosure']);
             $result = $CareerBusiness->insert($Career);
 
             if ($result == 1) {

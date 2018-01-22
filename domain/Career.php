@@ -6,7 +6,8 @@ class Career {
     private $careerid;
     private $careercode;
     private $careername;
-    private $careerUniversity;
+    private $careergrade;
+    private $careerenclosureid;
 
     function __construct() {
         ;
@@ -16,7 +17,7 @@ class Career {
 
     function __toString() {
         try {
-            return (string) $this->careerid . ' | ' . $this->careercode . ' | ' . $this->careername;
+            return (string) $this->careerid . ' | ' . $this->careercode . ' | ' . $this->careername.' | '. $this->careergrade.' | '.$this->careerenclosureid;
         } catch (Exception $e) {
             return '';
         }//End try-catch (Exception $e)
@@ -34,8 +35,11 @@ class Career {
         return $this->careername;
     }
 
-    function getCareerUniversity() {
-        return $this->careerUniversity;
+    function getCareerGrade() {
+        return $this->careergrade;
+    }
+    function getEnclosureid() {
+        return $this->careerenclosureid;
     }
 
     function setCareerid($careerid) {
@@ -50,8 +54,12 @@ class Career {
         $this->careername = $careername;
     }
 
-    function setCareerUniversity($careerUniversity) {
-        $this->careerUniversity = $careerUniversity;
+    function setCareerGrade($careerGrade) {
+        $this->careergrade = $careerGrade;
+    }
+    
+    function setCareerEnclosureid($careerEnclosureid) {
+        $this->careerenclosureid = $careerEnclosureid;
     }
 }
 
