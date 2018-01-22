@@ -327,8 +327,8 @@ foreach ($enclosures as $enclosure) {
     echo "<form enctype='multipart/form-data' method='POST' action='../business/EnclosureBusiness.php'>";
     echo "<tr>";
     echo "<td>";
-    echo "<input type ='hidden' name='id' value='" . $enclosure->getEnclosurename() . "'/>";
-    echo "<input type ='text' name='name' value='" . $enclosure->getEnclosureid() . "'/>";
+    echo "<input type ='hidden' name='id' value='" . $enclosure->getEnclosureid() . "'/>";
+    echo "<input type ='text' name='name' value='" . $enclosure->getEnclosurename() . "'/>";
     echo "</td>";
     echo "<td>";
     echo "<input type ='submit' name='delete' value='Eliminar' disabled/>";
