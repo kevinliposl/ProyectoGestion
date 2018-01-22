@@ -28,8 +28,8 @@ class CareerData {
                 $career->getEnclosureid() .
                 ");"
         );
-        $query->execute(PDO::FETCH_ASSOC);
-        $result = $query->fetch();
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
         $query->closeCursor();
 
         if (!$result) {
@@ -58,7 +58,7 @@ class CareerData {
     function selectAll() {
         $query = $this->db->prepare("SELECT * FROM tbcareer;");
         $query->execute();
-        $result = $query->fetchAll();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
         $careers = [];
         foreach ($result as $row) {

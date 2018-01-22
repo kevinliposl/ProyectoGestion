@@ -137,14 +137,13 @@ include_once '../public/header.php';
             "universityid": $("#form-university").val(),
             "headquarterid": $('#input-headquarters').val(),
             "enclosurename": $("#form-headquarters-enclosure-name").val(),
-            "create": "create"
+            "create": ""
         };
-        alert(JSON.stringify(args));
 
         $.post('../business/EnclosureBusiness.php', args, function (data) {
             alert(data.result);
-            if (data.result === 1) {
-                $("#state").html(message["success"]);
+            if (data.result) {
+                $("#state").html(data.result);
             } //else if (data.result === -1) {
             // $("#state").html(message["format"]);
 //            } else if (data.result === -2) {
@@ -152,8 +151,8 @@ include_once '../public/header.php';
 //            } else {
 //                $("#state").html(message["emptyField"]);
 //            }
-        }, "json").fail(function () {
-            alert("La solicitud a fallado!!!");
+        }, "json").fail(function (jqXHR, textStatus, errorThrown) {
+            alert("La solicitud a fallado!!! " + textStatus);
         });
     }
 

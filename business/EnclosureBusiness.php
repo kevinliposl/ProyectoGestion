@@ -31,12 +31,12 @@ if (isset($_POST['create'])) {
                 $enclosure->setEnclosureheadquarterid($_POST['headquarterid']);
                 $result = $enclosureBusiness->insert($enclosure);
 
-                echo json_encode(array("result" => $result));
+                echo json_encode(array("result" => $result));//error or success
             } else {
-                echo json_encode(array("result" => -1));
+                echo json_encode(array("result" => -1)); //format
             }
         } else {
-            echo json_encode(array("result" => "empty"));
+            echo json_encode(array("result" => -2)); // empty
         }
     }
 } else if (isset($_POST['delete'])) {
@@ -103,8 +103,8 @@ class EnclosureBusiness {
     function select(Enclosure $enclosure) {
         return $this->data->select($enclosure);
     }
-    
-      /**
+
+    /**
      * Seleccionar un recinto
      */
     function selectAllByUniversity() {
