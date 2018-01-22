@@ -45,9 +45,8 @@ class EnclosureData {
         $query = $this->db->prepare("INSERT INTO tbenclosure VALUES(:enclosureid,:enclosurename,:enclosureheadquarterid,:enclosureuniversityid);");
         $query->execute(array("enclosureid" => $nextId, "enclosureheadquarterid" => $enclosure->getEnclosureheadquarterid(),
             "enclosureuniversityid" => $enclosure->getEnclosureuniversityid(), "enclosurename" => $enclosure->getEnclosurename()));
-        $result = $query->fetch(PDO::FETCH_ASSOC);
+        $result = $query->fetch();
         $query->closeCursor();
-
         if (!$result) {
             return 1;
         } else {
