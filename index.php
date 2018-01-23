@@ -15,6 +15,7 @@
                         <ul>
                             <li><a href="view/StudentView.php"><div>Gesti&oacute;n de Estudiantes</div></a></li>
                             <li><a href="view/ProfessorView.php"><div>Gesti&oacute;n de Profesores</div></a></li>
+                            <li><a href="view/AdministrativeView.php"><div>Gesti&oacute;n de Administrativos</div></a></li>
                         </ul>
                     </li>
 
