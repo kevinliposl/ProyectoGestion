@@ -62,7 +62,7 @@ class ProfessorData {
     }
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT * from tbprofessor where s.studentstate=:state;");
+        $query = $this->db->prepare("SELECT * from tbprofessor where professorstate=:state;");
         $query->execute(array('state' => 0));
         $result = $query->fetchAll(); //PDO::FETCH_ASSOC
         $query->closeCursor();
@@ -98,12 +98,12 @@ class ProfessorData {
         $professor->setProfessorname($result['professorname']);
         $professor->setProfessorlastname1($result['professorlastname1']);
         $professor->setProfessorlastname2($result['professorlastname2']);
-        $professor->getProfessorpassword($result['professorpassword']);
+        $professor->setProfessorpassword($result['professorpassword']);
         return $professor;
     }
 
     function delete(Professor $professor) {
-        $query = $this->db->prepare("UPDATE tbprofessor SET state=:state WHERE professorid=:id;");
+        $query = $this->db->prepare("UPDATE tbprofessor SET professorstate=:state WHERE professorid=:id;");
         $query->execute(array('state' => 1, 'id' => $professor->getProfessorid()));
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if (!$result) {

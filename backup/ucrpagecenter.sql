@@ -68,6 +68,7 @@ administrativelastname1 VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NUL
 administrativelastname2 VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 administrativearea VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 administrativepassword VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+administrativestate SMALLINT DEFAULT 1 NOT NULL,
 CONSTRAINT PRIMARY KEY(administrativeid)
 );
 
