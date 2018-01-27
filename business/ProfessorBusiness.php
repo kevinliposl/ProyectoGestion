@@ -11,12 +11,16 @@ if (isset($_POST['create'])) {
 
 
 
-            echo json_encode(array("result" => $result));
+            if ($result == 1) {
+                header("location: ../view/ProfessorView.php?success=inserted");
+            } else {
+                header("location: ../view/ProfessorView.php?error=dbError");
+            }
         } else {
-            echo json_encode(array("result" => -1));
+            header("location: ../view/ProfessorView.php?error=format");
         }
     } else {
-        echo json_encode(array("result" => -2));
+        header("location: ../view/ProfessorView.php?error=empty");
     }
 } else if (isset($_POST['delete'])) {
     if (isset($_POST[''])) {

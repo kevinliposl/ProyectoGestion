@@ -69,7 +69,7 @@ include_once '../public/header.php';
 
     <?php
     include '../business/CareerBusiness.php';
-
+    echo 'AGREGAR LOS DEMAS CAMPOS Y ACTUALIZAR POR ID NO POR CODIGO<br>';
     $careerBusiness = new CareerBusiness();
     $careers = $careerBusiness->selectAll();
 

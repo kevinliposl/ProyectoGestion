@@ -3,27 +3,30 @@
 require '../domain/Student.php';
 
 if (isset($_POST['create'])) {
-    if (isset($_POST['name']) && isset($_POST['password']) && isset($_POST['career1']) && isset($_POST['carnet'])) {        
-            
-        if (strlen($_POST['name']) > 0 && strlen($_POST['password']) > 0  && strlen($_POST['carnet']) > 0) {
-          
+    if (isset($_POST['studentname']) && isset($_POST['studentpassword']) && isset($_POST['studentcareer1']) && isset($_POST['studentlicense']) && isset($_POST['studentmail'])) {
+        if (strlen($_POST['studentname']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentlicense']) > 0 && strlen($_POST['studentmail']) > 0) {
+
             $studentBusiness = new StudentBusiness();
             $student = new Student();
-         
-            $student->setLicense($_POST['carnet']);
-            $student->setName($_POST['name']);
-            $student->setLastname1($_POST['lastname1']);
-            $student->setLastname2($_POST['lastname2']);
-            $student->setCareer1(intval($_POST['career1']));
-            $student->setCareer2(intval($_POST['career2']));
-            $student->setPassword($_POST['password']);
-            
+
+            $student->setStudentlicense($_POST['studentlicense']);
+            $student->setStudentmail($_POST['studentmail']);
+            $student->setStudentname($_POST['studentname']);
+            $student->setStudentlastname1($_POST['studentlastname1']);
+            $student->setStudentlastname2($_POST['studentlastname2']);
+            $student->setStudentcareer1(intval($_POST['studentcareer1']));
+            $student->setStudentcareer2(intval($_POST['studentcareer2']));
+            $student->setStudentpassword($_POST['studentpassword']);
+
+
+            echo print_r($_POST);
+
             $result = $studentBusiness->insert($student);
-            
+
             if ($result == 1) {
-                header("location: ../view/StudentView.php?success=inserted");
+                //header("location: ../view/StudentView.php?success=inserted");
             } else {
-                header("location: ../view/StudentView.php?error=dbError");
+                // header("location: ../view/StudentView.php?error=dbError");
             }
         } else {
             header("location: ../view/StudentView.php?error=format");
@@ -107,5 +110,5 @@ class StudentBusiness {
     function selectAll() {
         return $this->data->selectAll();
     }
- 
+
 }

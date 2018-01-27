@@ -9,7 +9,7 @@ class HeadquarterData {
         $this->db = SPDO::singleton();
     }
 
-    function lastID() {
+    private function lastID() {
         $queryLastId = $this->db->prepare("SELECT MAX(headquarterid) AS headquarterid  FROM tbheadquarter");
         $queryLastId->execute();
         $resultLastId = $queryLastId->fetch();

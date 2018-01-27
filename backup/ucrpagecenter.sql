@@ -1,3 +1,6 @@
+SELECT @@DATADIR;
+
+
 CREATE DATABASE ucrpagecenter;
 USE ucrpagecenter;
 

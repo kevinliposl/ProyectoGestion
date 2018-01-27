@@ -2,89 +2,90 @@
 
 class Student {
 
-    private $id;
-    private $license;
-    private $name;
-    private $lastname1;
-    private $lastname2;
-    private $career1;
-    private $career2;
-    private $password;
+    private $studentid;
+    private $studentmail;
+    private $studentlicense;
+    private $studentname;
+    private $studentlastname1;
+    private $studentlastname2;
+    private $studentcareer1;
+    private $studentcareer2;
+    private $studentpassword;
 
     function __construct() {
         ;
     }
 
-    function getLicense() {
-        return $this->license;
+    function getStudentid() {
+        return $this->studentid;
     }
 
-    function getId() {
-        return $this->id;
+    function getStudentmail() {
+        return $this->studentmail;
     }
 
-    function getName() {
-        return $this->name;
+    function getStudentlicense() {
+        return $this->studentlicense;
     }
 
-    function getLastName1() {
-        return $this->lastname1;
+    function getStudentname() {
+        return $this->studentname;
     }
 
-    function getLastName2() {
-        return $this->lastname2;
+    function getStudentlastname1() {
+        return $this->studentlastname1;
     }
 
-    function getCareer1() {
-        return $this->career1;
+    function getStudentlastname2() {
+        return $this->studentlastname2;
     }
 
-    function getCareer2() {
-        return $this->career2;
+    function getStudentcareer1() {
+        return $this->studentcareer1;
     }
 
-    function getPassword() {
-        return $this->password;
+    function getStudentcareer2() {
+        return $this->studentcareer2;
     }
 
-    function setId($id) {
-        $this->id = $id;
+    function getStudentpassword() {
+        return $this->studentpassword;
     }
 
-    function setLicense($license) {
-        $this->license = $license;
+    function setStudentid($studentid) {
+        $this->studentid = $studentid;
     }
 
-    function setName($name) {
-        $this->name = $name;
+    function setStudentmail($studentmail) {
+        $this->studentmail = $studentmail;
     }
 
-    function setLastname1($lastname1) {
-        $this->lastname1 = $lastname1;
+    function setStudentlicense($studentlicense) {
+        $this->studentlicense = $studentlicense;
     }
 
-    function setLastname2($lastname2) {
-        $this->lastname2 = $lastname2;
+    function setStudentname($studentname) {
+        $this->studentname = $studentname;
     }
 
-    function setCareer1($career1) {
-        $this->career1 = $career1;
+    function setStudentlastname1($studentlastname1) {
+        $this->studentlastname1 = $studentlastname1;
     }
 
-    function setCareer2($career2) {
-        $this->career2 = $career2;
+    function setStudentlastname2($studentlastname2) {
+        $this->studentlastname2 = $studentlastname2;
     }
 
-    function setPassword($password) {
-        $this->password = $password;
+    function setStudentcareer1($studentcareer1) {
+        $this->studentcareer1 = $studentcareer1;
     }
 
-    function __toString() {
-        try {
-            return (string) $this->id . ' | ' . $this->name . ' | ' . $this->lastname1 . ' | ' . $this->lastname2 . ' | ' . $this->career1;
-        } catch (Exception $e) {
-            return '';
-        }
+    function setStudentcareer2($studentcareer2) {
+        $this->studentcareer2 = $studentcareer2;
+    }
+
+    function setStudentpassword($studentpassword) {
+        $this->studentpassword = $studentpassword;
     }
 
 }
