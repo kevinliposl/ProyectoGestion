@@ -76,3 +76,22 @@ CREATE TABLE tbactor(
     actormail VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT PRIMARY KEY(actorid)
 );
+
+CREATE TABLE tbactivity(
+    activityid INTEGER,
+    createddate DATE,
+    updatedate DATE,
+    likecount INTEGER,
+    commentcount INTEGER,
+    activitytitle VARCHAR(50),
+    activitydescription varchar(255),
+    CONSTRAINT PRIMARY KEY(activityid)
+);
+
+CREATE TABLE tbevent(
+    activityid INTEGER,
+    eventplace VARCHAR(50),
+    eventdate DATE,
+    eventhour TIME,
+    CONSTRAINT PRIMARY KEY(activityid)
+);
