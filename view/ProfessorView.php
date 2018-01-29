@@ -3,32 +3,35 @@ include_once '../public/header.php';
 
 include_once '../business/ProfessorBusiness.php';
 $professorBusiness = new ProfessorBusiness();
-
 ?>
 <table>
     <tr>
+        <th>Mail</th>
         <th>Licencia</th>
         <th>Nombre</th>
         <th>Primer Apellido</th>
         <th>Segundo Apellido</th>
-        <th>Contrasenna</th>        
+        <th>Contrase&ncaron;a</th>        
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/ProfessorBusiness.php'>
         <tr>
             <td>
-                <input type ='text' name='license'/>
+                <input type ='text' name='professormail'/>
             </td>
             <td>
-                <input type="text" name="name" pattern="[a-zA-Z\s]+$"/>
+                <input type ='text' name='professorlicense'/>
             </td>
             <td>
-                <input type="text" name="lastname1" pattern="[a-zA-Z\s]+$"/>
+                <input type="text" name="professorname" pattern="[a-zA-Z\s]+$"/>
             </td>
             <td>
-                <input type="text" name="lastname2" pattern="[a-zA-Z\s]+$"/>
+                <input type="text" name="professorlastname1" pattern="[a-zA-Z\s]+$"/>
             </td>
             <td>
-                <input type="password" name="password"/>
+                <input type="text" name="professorlastname2" pattern="[a-zA-Z\s]+$"/>
+            </td>
+            <td>
+                <input type="password" name="professorpassword"/>
             </td>
             <td>
                 <input type="submit" name="create" value="Crear"/> 
@@ -39,7 +42,6 @@ $professorBusiness = new ProfessorBusiness();
     </form>
 
     <?php
-    
     $professors = $professorBusiness->selectAll();
 
     foreach ($professors as $professor) {
@@ -47,20 +49,23 @@ $professorBusiness = new ProfessorBusiness();
         echo "<form enctype='multipart/form-data' method='POST' action='../business/ProfessorBusiness.php'>";
         echo "<tr>";
         echo "<td>";
-        echo "<input type ='text' name='license' value='" . $professor['professorlicense'] . "'/>";
+        echo "<input type ='text' name='professormail' value='" . $professor['professormail'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type = 'hidden' name='id' value='" . $professor['professorid'] . "'/>";
-        echo "<input type = 'text' name='name' value='" . $professor['professorname'] . "' pattern ='[a-zA-Z\s]+$'/>";
+        echo "<input type ='text' name='professorlicense' value='" . $professor['professorlicense'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type ='text' name='lastname1' value='" . $professor['professorlastname1'] . "' pattern ='[a-zA-Z\s]+$'/>";
+        echo "<input type = 'hidden' name='professorid' value='" . $professor['professorid'] . "'/>";
+        echo "<input type = 'text' name='professorname' value='" . $professor['professorname'] . "' pattern ='[a-zA-Z\s]+$'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type ='text' name='lastname2' value='" . $professor['professorlastname2'] . "' pattern ='[a-zA-Z\s]+$'/>";
+        echo "<input type ='text' name='professorlastname1' value='" . $professor['professorlastname1'] . "' pattern ='[a-zA-Z\s]+$'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type ='password' name='password' value='" . $professor['professorpassword'] . "'/>";
+        echo "<input type ='text' name='professorlastname2' value='" . $professor['professorlastname2'] . "' pattern ='[a-zA-Z\s]+$'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type ='password' name='professorpassword' value='" . $professor['professorpassword'] . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type ='submit' name='delete' value ='Eliminar'/>";
@@ -94,3 +99,4 @@ $professorBusiness = new ProfessorBusiness();
 
     <?php
     include_once '../public/footer.php';
+    

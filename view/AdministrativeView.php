@@ -3,19 +3,22 @@ include_once '../public/header.php';
 
 //include_once '../business/ProfessorBusiness.php';
 //$professorBusiness = new ProfessorBusiness();
-
 ?>
 <table>
     <tr>
+        <th>Mail</th>
         <th>Licencia</th>
         <th>Nombre</th>
         <th>Primer Apellido</th>
         <th>Segundo Apellido</th>
         <th>Area</th>
-        <th>Contrasenna</th>        
+        <th>Contrase&ncaron;a</th>        
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/ProfessorBusiness.php'>
         <tr>
+            <td>
+                <input type ='text' name='mail'/>
+            </td>
             <td>
                 <input type ='text' name='license'/>
             </td>
@@ -78,7 +81,7 @@ include_once '../public/header.php';
 //        echo "</tr>";
 //        echo "</form>";
 //    }
-   ?>
+    ?>
 
     <tr>
         <td></td>
@@ -101,3 +104,4 @@ include_once '../public/header.php';
 
     <?php
     include_once '../public/footer.php';
+    

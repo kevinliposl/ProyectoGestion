@@ -14,7 +14,7 @@ $careerBusiness = new CareerBusiness();
         <th>Nombre</th>
         <th>Primer Apellido</th>
         <th>Segundo Apellido</th>
-        <th>Contrasenna</th>
+        <th>Contrase&ncaron;a</th>
         <th>Primer Carrera</th>
         <th>Segundo Carrera</th>
     </tr>
@@ -135,7 +135,7 @@ $careerBusiness = new CareerBusiness();
         echo "<input type ='password' name='studentpassword' value='" . $student['studentpassword'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type = 'text' name='studentcareer1' value='" . $student['careername'] . "'/>";
+        echo "<input type = 'text' name='studentcareer1' disabled value='" . $student['careername'] . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type ='submit' name='delete' value ='Eliminar'/>";
