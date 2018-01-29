@@ -7,7 +7,7 @@ include_once '../public/header.php';
         <th>Nombre</th>
         <th>Grado</th>
         <th>Recinto</th>
-       
+
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/CareerBusiness.php'>
         <tr>
@@ -17,48 +17,49 @@ include_once '../public/header.php';
             <td>
                 <input type="text" name="name" pattern="[a-zA-Z\s]+$"/>
             </td>
-             <td>
-                <input type="text" name="grade" pattern="[a-zA-Z\s]+$"/>
-            </td>
-             <td>
+            <td>
                 <select id="enclosure" name="enclosure" style="width: 100%">
-                    <option value="0">Ninguna</option>
-                    
-                        <?php     
-                        
-                        include '../business/EnclosureBusiness.php';
-                        $enclosureBusiness = new EnclosureBusiness();
-                                     
-                        $enclosures = $enclosureBusiness->selectAllByUniversity();
-                        $cambio=0;
-                    
-                        foreach ($enclosures as $enclosure) {
-                            if($cambio == 0 && strcmp(current($enclosures)['universityname'], $enclosure['universityname']) ===0){
-                                $cambio=1;                           
-                        ?>
-                    
-                    <optgroup label="<?= $enclosure['universityname']; ?>">
-                    <option value="<?= $enclosure['enclosureid']; ?>" ><?= $enclosure['enclosureid']." | ".$enclosure['enclosurename'].' | '.$enclosure['headquartername']; ?></option>
-                        
-                        <?php
-                            }else{
-                                if(current($enclosures)['universityname'] != "" and next($enclosures)['universityname'] != $enclosure['universityname'] && $cambio == 1){
-                                    $cambio=0;
-                                }
-                        ?>
-                        
-                    <option value="<?= $enclosure['enclosureid']; ?>" ><?= $enclosure['enclosureid']." | ".$enclosure['enclosurename'].' | '.$enclosure['headquartername']; ?></option>
-                        
-                        <?php
-                        
-                                }
-                                
-                                }
-                        ?>
-                    
+                    <option value="Diplomado">Diplomado</option>
+                    <option value="Bachillerato">Bachillerato</option>
+                    <option value="Licenciatura">Licenciatura</option>
+                    <option value="Maestria">Maestria</option>
+                    <option value="Doctorado">Doctorado</option>
                 </select>
             </td>
             <td>
+                <select id="enclosure" name="enclosure" style="width: 100%">
+                    <option value="0">Ninguna</option>
+
+                    <?php
+                    include '../business/EnclosureBusiness.php';
+                    $enclosureBusiness = new EnclosureBusiness();
+
+                    $enclosures = $enclosureBusiness->selectAllByUniversity();
+                    $cambio = 0;
+
+                    foreach ($enclosures as $enclosure) {
+                        if ($cambio == 0 && strcmp(current($enclosures)['universityname'], $enclosure['universityname']) === 0) {
+                            $cambio = 1;
+                            ?>
+
+                            <optgroup label="<?= $enclosure['universityname']; ?>">
+                                <option value="<?= $enclosure['enclosureid']; ?>" ><?= $enclosure['enclosureid'] . " | " . $enclosure['enclosurename'] . ' | ' . $enclosure['headquartername']; ?></option>
+
+                                <?php
+                            } else {
+                                if (current($enclosures)['universityname'] != "" and next($enclosures)['universityname'] != $enclosure['universityname'] && $cambio == 1) {
+                                    $cambio = 0;
+                                }
+                                ?>
+
+                                <option value="<?= $enclosure['enclosureid']; ?>" ><?= $enclosure['enclosureid'] . " | " . $enclosure['enclosurename'] . ' | ' . $enclosure['headquartername']; ?></option>
+
+                                <?php
+                            }
+                        }
+                        ?>
+                </select>
+            </td>
             <td>
                 <input type="submit" name="create" value="Crear"/> 
             </td>
@@ -81,6 +82,15 @@ include_once '../public/header.php';
         echo "</td>";
         echo "<td>";
         echo "<input type = 'text' name='name' value='" . $career->getCareername() . "' pattern ='[a-zA-Z\s]+$'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<select id='enclosure' name='enclosure' style='width: 100%'>";
+        echo "<option value='Diplomado'>Diplomado</option>";
+        echo "<option value='Bachillerato'>Bachillerato</option>";
+        echo "<option value='Licenciatura'>Licenciatura</option>";
+        echo "<option value='Maestria'>Maestria</option>";
+        echo "<option value ='Doctorado'>Doctorado</option>";
+        echo "</select>";
         echo "</td>";
         echo "<td>";
         echo "<input type ='submit' name='delete' value ='Eliminar'/>";
@@ -114,3 +124,4 @@ include_once '../public/header.php';
 
     <?php
     include_once '../public/footer.php';
+    
