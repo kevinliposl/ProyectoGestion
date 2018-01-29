@@ -10,7 +10,7 @@ $careerBusiness = new CareerBusiness();
 <table>
     <tr>
         <th>Mail</th>
-        <th>Carnet</th>
+        <th>Identificaci&oacute;n</th>
         <th>Nombre</th>
         <th>Primer Apellido</th>
         <th>Segundo Apellido</th>
@@ -75,15 +75,15 @@ $careerBusiness = new CareerBusiness();
                     <option value="0">Ninguna</option>
 
                     <?php
+                    
                     $cambio = 0;
-
                     foreach ($careers as $career) {
                         if ($cambio == 0 && strcmp(current($careers)['universityname'], $career['universityname']) === 0) {
                             $cambio = 1;
                             ?>
 
                             <optgroup label="<?= $career['universityname']; ?>">
-                                <option value="<?= $career['careerid']; ?>" ><?= $career['careerid'] . " | " . $career['careername']; ?></option>
+                                <option value="<?= $career['careerid']; ?>" ><?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?></option>
 
                                 <?php
                             } else {
@@ -92,7 +92,7 @@ $careerBusiness = new CareerBusiness();
                                 }
                                 ?>
 
-                                <option value="<?= $career['careerid']; ?>" ><?= $career['careerid'] . " | " . $career['careername']; ?></option>
+                                <option value="<?= $career['careerid']; ?>" ><?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?></option>
 
                                 <?php
                             }
@@ -135,18 +135,49 @@ $careerBusiness = new CareerBusiness();
         echo "<input type ='password' name='studentpassword' value='" . $student['studentpassword'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type = 'text' name='studentcareer1' disabled value='" . $student['careername'] . "'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='submit' name='delete' value ='Eliminar'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='submit' name='update' value ='Actualizar'/>";
-        echo "</td>";
-        echo "</tr>";
-        echo "</form>";
-    }
-    ?>
+        echo "<select name='studentcareer' style='width: 100%'>";
+        
+        $cambio = 0;
+        foreach ($careers as $career) {
+            if ($cambio == 0 && strcmp(current($careers)['universityname'], $career['universityname']) === 0) {
+                $cambio = 1;
+                ?>
+
+                <optgroup label="<?= $career['universityname']; ?>">
+                    <option <?php
+                    if (intval($career['careerid']) == intval($student['studentcareer1'])) {
+                        echo "selected='selected'";
+                    }
+                    ?>value="<?= $career['careerid']; ?>" ><?= $career['careername'] . " | " . $career['enclosurename']; ?></option>
+                        <?php
+                    } else {
+                        if (current($careers)['universityname'] != "" and next($careers)['universityname'] != $career['universityname'] && $cambio == 1) {
+                            $cambio = 0;
+                        }
+                        ?>
+
+                    <option <?php
+                    if (intval($career['careerid']) == intval($student['studentcareer1'])) {
+                        echo "selected='selected'";
+                    }
+                    ?> value="<?= $career['careerid']; ?>" ><?= $career['careername'] . " | " . $career['enclosurename']; ?></option>
+
+                    <?php
+                }
+            }
+
+            echo "</select>";
+            echo "</td>";
+            echo "<td>";
+            echo "<input type ='submit' name='delete' value ='Eliminar'/>";
+            echo "</td>";
+            echo "<td>";
+            echo "<input type ='submit' name='update' value ='Actualizar'/>";
+            echo "</td>";
+            echo "</tr>";
+            echo "</form>";
+            ?>
+        <?php } ?>
 
     <tr>
         <td></td>
