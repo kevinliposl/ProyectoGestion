@@ -78,20 +78,22 @@ CREATE TABLE tbactor(
 );
 
 CREATE TABLE tbactivity(
-    activityid INTEGER,
-    createddate DATE,
-    updatedate DATE,
-    likecount INTEGER,
-    commentcount INTEGER,
-    activitytitle VARCHAR(50),
-    activitydescription varchar(255),
+    activityid INTEGER NOT NULL,
+    createddate DATE NOT NULL,
+    updatedate DATE NOT NULL,
+    likecount INTEGER NOT NULL,
+    commentcount INTEGER NOT NULL,
+    activitytitle VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    activitydescription varchar(255) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    activityestate SMALLINT DEFAULT 1 NOT NULL,
     CONSTRAINT PRIMARY KEY(activityid)
 );
 
 CREATE TABLE tbevent(
-    activityid INTEGER,
-    eventplace VARCHAR(50),
-    eventdate DATE,
-    eventhour TIME,
+    activityid INTEGER NOT NULL,
+    eventplace VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    eventdate DATE NOT NULL,
+    eventhour TIME NOT NULL,
+    eventestate SMALLINT DEFAULT 1 NOT NULL,
     CONSTRAINT PRIMARY KEY(activityid)
 );
