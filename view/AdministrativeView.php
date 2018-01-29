@@ -1,7 +1,7 @@
 <?php
 include_once '../public/header.php';
 
-//include_once '../business/ProfessorBusiness.php';
+//include_once '../business/';
 //$professorBusiness = new ProfessorBusiness();
 ?>
 <table>
