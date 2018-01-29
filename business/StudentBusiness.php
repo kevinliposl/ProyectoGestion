@@ -18,15 +18,12 @@ if (isset($_POST['create'])) {
             $student->setStudentcareer2(intval($_POST['studentcareer2']));
             $student->setStudentpassword($_POST['studentpassword']);
 
-
-            echo print_r($_POST);
-
             $result = $studentBusiness->insert($student);
 
             if ($result == 1) {
-                //header("location: ../view/StudentView.php?success=inserted");
+                header("location: ../view/StudentView.php?success=inserted");
             } else {
-                // header("location: ../view/StudentView.php?error=dbError");
+                header("location: ../view/StudentView.php?error=dbError");
             }
         } else {
             header("location: ../view/StudentView.php?error=format");
@@ -35,13 +32,13 @@ if (isset($_POST['create'])) {
         header("location: ../view/StudentView.php?error=empty");
     }
 } else if (isset($_POST['delete'])) {
-    if (isset($_POST['id'])) {
-        if (strlen($_POST['name']) > 0) {
+    if (isset($_POST['studentid'])) {
+        if (strlen($_POST['studentid']) > 0) {
 
             $studentBusiness = new StudentBusiness();
 
             $student = new Student();
-            $student->setId($_POST['id']);
+            $student->setStudentid($_POST['studentid']);
             $result = $studentBusiness->delete($student);
 
             if ($result == 1) {
@@ -56,21 +53,22 @@ if (isset($_POST['create'])) {
         header("location: ../view/StudentView.php?error=empty");
     }
 } else if (isset($_POST['update'])) {
-    if (isset($_POST['id']) && isset($_POST['name']) && isset($_POST['lastname1']) && isset($_POST['lastname2']) && isset($_POST['password']) &&
-            isset($_POST['career1']) && isset($_POST['career2']) && isset($_POST['carnet'])) {
-        if (strlen($_POST['id']) > 0 && strlen($_POST['name']) > 0 && strlen($_POST['lastname1']) > 0 && strlen($_POST['lastname2']) > 0 &&
-                strlen($_POST['password']) > 0 && strlen($_POST['career1']) > 0 && strlen($_POST['career2']) > 0 && strlen($_POST['carnet']) > 0) {
+
+    if (isset($_POST['studentid']) && isset($_POST['studentmail']) && isset($_POST['studentpassword']) && isset($_POST['studentcareer1']) && isset($_POST['studentlicense'])) {
+        if (strlen($_POST['studentid']) > 0 && strlen($_POST['studentmail']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentcareer1']) > 0 && strlen($_POST['studentlicense']) > 0) {
             $studentBusiness = new StudentBusiness();
 
             $student = new Student();
-            $student->setId($_POST['id']);
-            $student->setCarnet($_POST['carnet']);
-            $student->setName($_POST['name']);
-            $student->setLastname1($_POST['lastname1']);
-            $student->setLastname2($_POST['lastname2']);
-            $student->setCareer1($_POST['career1']);
-            $student->setCareer2($_POST['career2']);
-            $student->setPassword($_POST['password']);
+            $student->setStudentid((int)$_POST['studentid']);
+            $student->setStudentlicense($_POST['studentlicense']);
+            $student->setStudentmail($_POST['studentmail']);
+            $student->setStudentname($_POST['studentname']);
+            $student->setStudentlastname1($_POST['studentlastname1']);
+            $student->setStudentlastname2($_POST['studentlastname2']);
+            //$student->setStudentcareer1((int)$_POST['studentcareer1']);
+            //$student->setStudentcareer2($_POST['studentcareer2']);
+            $student->setStudentpassword($_POST['studentpassword']);
+
             $result = $studentBusiness->update($student);
 
             if ($result == 1) {

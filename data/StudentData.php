@@ -24,21 +24,21 @@ class StudentData {
 
     function insert(Student $student) {
         $idStudent = $this->getLastId();
-
         $queryInsertStudent = $this->db->prepare("INSERT INTO tbstudent VALUES (:id,:license,:name,:lastname1,:lastname2,:career1,:career2,:password,:state);");
         $queryInsertStudent->execute(array('id' => $idStudent, 'license' => $student->getStudentlicense(), 'name' => $student->getStudentname(),
-            'lastname1' => $student->getStudentlastname1(), 'lastname2' => $student->getStudentlastname2(), 'career1' => $student->getStudentlastname2(),
+            'lastname1' => $student->getStudentlastname1(), 'lastname2' => $student->getStudentlastname2(), 'career1' => $student->getStudentcareer1(),
             'career2' => $student->getStudentcareer2(), 'password' => $student->getStudentpassword(), 'state' => 0));
         $queryInsertStudent->fetch();
 
         $queryInsertStudent->closeCursor();
         $resultStudent = $this->select($idStudent);
 
-        if (!$resultStudent->getId()) {
-            $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:id,:mail);");
-            $queryInsertActor->execute(array('id' => $idStudent, 'mail' => $student->getStudentmail()));
+        if ($resultStudent->getStudentid() !== NULL) {
+
+            $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
+            $queryInsertActor->execute(array('actorid' => $idStudent, 'actormail' => $student->getStudentmail()));
             $resultActor = $queryInsertActor->fetch();
-            $queryInsertStudent->closeCursor();
+            $queryInsertActor->closeCursor();
 
             if (!$resultActor) {
                 return 1;
@@ -51,11 +51,12 @@ class StudentData {
     }
 
     function update(Student $student) {
-        $query = $this->db->prepare("UPDATE tbstudent SET studentcarnet=:license,studentname=:name,studentlastname1=:lastname1,studentlastname2=:lastname2,"
-                . "studentcareer1=:career1, studentcareer2=:career2,studentpassword=:password WHERE studentid=:id;");
+        $query = $this->db->prepare("UPDATE tbstudent s INNER JOIN tbactor a ON a.actorid = s.studentid "
+                . "SET s.studentlicense=:license,s.studentname=:name,s.studentlastname1=:lastname1,s.studentlastname2=:lastname2,"
+                . "s.studentpassword=:password,a.actormail = :mail WHERE s.studentid=:id;");
         $query->execute(array("license" => $student->getStudentlicense(), "name" => $student->getStudentname(), "lastname1" => $student->getStudentlastname1(),
-            "lastname2" => $student->getStudentlastname2(), "career1" => $student->getStudentcareer1(), "career2" => $student->getStudentcareer2(),
-            "password" => $student->getStudentpassword(), "id" => $student->getStudentid()));
+            "lastname2" => $student->getStudentlastname2(),"password" => $student->getStudentpassword(),
+            "id" => $student->getStudentid(), "mail" => $student->getStudentmail()));
         $result = $query->fetch();
         $query->closeCursor();
 
@@ -67,29 +68,11 @@ class StudentData {
     }
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT s.studentid, s.studentname, s.studentlicense, s.studentlastname1, s.studentlastname2, 
-                                    s.studentpassword, c.careername FROM tbstudent AS s INNER JOIN tbcareer as c ON 
-                                    s.studentcareer1=c.careerid AND s.studentstate=:state;");
-        $query->execute(array('state' => 0));
-        $result = $query->fetchAll(); //PDO::FETCH_ASSOC
+        $query = $this->db->prepare("SELECT s.*,a.actormail, c.careername FROM tbstudent s INNER JOIN tbcareer c ON s.studentcareer1 = c.careerid"
+                . " INNER JOIN tbactor a ON a.actorid = s.studentid WHERE s.studentstate = 0;");
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
-
-        //$students = [];
-        //$currentStudent = new Student();
-
-        /* foreach ($result as $row) {
-
-          $currentStudent->setId($row['studentid']);
-          $currentStudent->setLicense($row['studentlicense']);
-          $currentStudent->setName($row['studentname']);
-          $currentStudent->setLastName1($row['studentlastname1']);
-          $currentStudent->setLastName2($row['studentlastname2']);
-          $currentStudent->setCareer1($row['studentcareer1']);
-          $currentStudent->setCareer2($row['studentcareer2']);
-          $currentStudent->getPassword($row['studentpassword']);
-
-          array_push($students, $currentStudent);
-          } */
 
         return $result;
     }
@@ -99,20 +82,21 @@ class StudentData {
         $query->execute(array("id" => $idStudent));
         $result = $query->fetch();
         $query->closeCursor();
-        $Student = new Student();
-        $Student->setStudentid($result['studentid']);
-        $Student->setStudentlicense($result['studentlicense']);
-        $Student->setStudentname($result['studentname']);
-        $Student->setStudentlastname1($result['studentlastname1']);
-        $Student->setStudentlastname2($result['studentlastname2']);
-        $Student->setStudentcareer1($result['studentcareer1']);
-        $Student->setStudentcareer2($result['studentcareer2']);
-        $Student->getStudentpassword($result['studentpassword']);
-        return $Student;
+        $student = new Student();
+        $student->setStudentid((int) $result['studentid']);
+        //$student->setStudentmail($result['studentid']); Mail
+        $student->setStudentlicense($result['studentlicense']);
+        $student->setStudentname($result['studentname']);
+        $student->setStudentlastname1($result['studentlastname1']);
+        $student->setStudentlastname2($result['studentlastname2']);
+        $student->setStudentcareer1($result['studentcareer1']);
+        $student->setStudentcareer2($result['studentcareer2']);
+        $student->getStudentpassword($result['studentpassword']);
+        return $student;
     }
 
     function delete(Student $student) {
-        $query = $this->db->prepare("UPDATE tbstudent SET state=:state WHERE studentid=:id;");
+        $query = $this->db->prepare("UPDATE tbstudent SET studentstate=:state WHERE studentid=:id;");
         $query->execute(array('state' => 1, 'id' => $student->getStudentid()));
         $result = $query->fetch();
         if (!$result) {
