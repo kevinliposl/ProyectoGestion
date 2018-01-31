@@ -39,6 +39,15 @@ class EventData {
         return $result;
     }//End selectALL
     
+    function selectAllTotal() {
+        $query = $this->db->prepare("SELECT a.*,e.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.activityid WHERE a.activityestate = 0 AND e.eventestate = 0;");
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+
+        return $result;
+    }//End selectALL
+    
     function select($idActivity) {
         $query = $this->db->prepare("SELECT * FROM tbevent WHERE activityid=" . $idActivity. ";");
         $query->execute();

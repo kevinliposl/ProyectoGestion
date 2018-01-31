@@ -129,4 +129,8 @@ class EventBusiness {
         return $this->data->selectAll();
     }//End selectAll
     
+    function selectAllTotal() {
+        return $this->data->selectAllTotal();
+    }//End selectAllTotal
+    
 }//End class EventBusiness
