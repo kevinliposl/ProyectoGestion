@@ -6,6 +6,9 @@ $studentBusiness = new StudentBusiness();
 
 include_once '../business/CareerBusiness.php';
 $careerBusiness = new CareerBusiness();
+
+include_once '../business/UniversityBusiness.php';
+$universityBusiness = new UniversityBusiness();
 ?>
 <table>
     <tr>
@@ -38,65 +41,60 @@ $careerBusiness = new CareerBusiness();
             <td>
                 <input type="password" name="studentpassword"/>
             </td>
+
             <td>
+
                 <select name="studentcareer1" style="width: 100%">
                     <option value="0">Ninguna</option>
 
                     <?php
+                    $universities = $universityBusiness->selectAll();
                     $careers = $careerBusiness->selectAllByUniversity();
-                    $cambio = 0;
 
-                    foreach ($careers as $career) {
-                        if ($cambio == 0 && strcmp(current($careers)['universityname'], $career['universityname']) === 0) {
-                            $cambio = 1;
-                            ?>
-
-                            <optgroup label="<?= $career['universityname']; ?>">
-                                <option value="<?= $career['careerid']; ?>" ><?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?></option>
-
-                                <?php
-                            } else {
-                                if (current($careers)['universityname'] != "" and next($careers)['universityname'] != $career['universityname'] && $cambio == 1) {
-                                    $cambio = 0;
-                                }
-                                ?>
-
-                                <option value="<?= $career['careerid']; ?>" ><?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?></option>
-
-                                <?php
-                            }
-                        }
+                    foreach ($universities as $university) {
+                        $universityname = $university->getUniversityname();
                         ?>
 
-                </select>
+                        <optgroup label="<?= $universityname; ?>">
+
+                            <?php
+                            foreach ($careers as $career) {
+                                if ($career['universityname'] == $universityname) {
+                                    ?>
+
+                                    <option value=" <?= $career['careerid']; ?> "> <?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?> </option>
+
+                                    <?php
+                                }
+                            }
+                    }
+                            ?>
+
+                    </select>
             </td>
             <td>
                 <select name="studentcareer2" style="width: 100%">
                     <option value="0">Ninguna</option>
 
                     <?php
-                    $cambio = 0;
-                    foreach ($careers as $career) {
-                        if ($cambio == 0 && strcmp(current($careers)['universityname'], $career['universityname']) === 0) {
-                            $cambio = 1;
-                            ?>
-
-                            <optgroup label="<?= $career['universityname']; ?>">
-                                <option value="<?= $career['careerid']; ?>" ><?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?></option>
-
-                                <?php
-                            } else {
-                                if (current($careers)['universityname'] != "" and next($careers)['universityname'] != $career['universityname'] && $cambio == 1) {
-                                    $cambio = 0;
-                                }
-                                ?>
-
-                                <option value="<?= $career['careerid']; ?>" ><?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?></option>
-
-                                <?php
-                            }
-                        }
+                    foreach ($universities as $university) {
+                        $universityname = $university->getUniversityname();
                         ?>
+
+                        <optgroup label="<?= $universityname; ?>">
+
+                            <?php
+                            foreach ($careers as $career) {
+                                if ($career['universityname'] == $universityname) {
+                                    ?>
+
+                                    <option value=" <?= $career['careerid']; ?> "> <?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?> </option>
+
+                                    <?php
+                                }
+                            }
+                    }
+                            ?>
                 </select>
             </td>
             <td>

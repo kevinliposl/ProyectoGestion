@@ -1,5 +1,11 @@
 <?php
 include_once '../public/header.php';
+
+include_once '../business/EnclosureBusiness.php';
+$enclosureBusiness = new EnclosureBusiness();   
+                    
+include_once '../business/UniversityBusiness.php';
+$universityBusiness = new UniversityBusiness();
 ?>
 <table>
     <tr>
@@ -31,32 +37,26 @@ include_once '../public/header.php';
                     <option value="0">Ninguna</option>
 
                     <?php
-                    include '../business/EnclosureBusiness.php';
-                    $enclosureBusiness = new EnclosureBusiness();
-
                     $enclosures = $enclosureBusiness->selectAllByUniversity();
-                    $cambio = 0;
+                    $universities = $universityBusiness->selectAll();   
 
+                    
+                    foreach ($universities as $university) {
+                        $universityname = $university->getUniversityname();
+                    ?>
+
+                        <optgroup label="<?= $universityname; ?>">
+
+                    <?php
                     foreach ($enclosures as $enclosure) {
-                        if ($cambio == 0 && strcmp(current($enclosures)['universityname'], $enclosure['universityname']) === 0) {
-                            $cambio = 1;
-                            ?>
+                        if ($enclosure['universityname'] == $universityname) {
+                    ?>
+                        <option value="<?= $enclosure['enclosureid']; ?>"><?= $enclosure['enclosureid'] . " | " . $enclosure['enclosurename'] . " | " . $enclosure['headquartername']; ?></option>
 
-                            <optgroup label="<?= $enclosure['universityname']; ?>">
-                                <option value="<?= $enclosure['enclosureid']; ?>" ><?= $enclosure['enclosureid'] . " | " . $enclosure['enclosurename'] . ' | ' . $enclosure['headquartername']; ?></option>
-
-                                <?php
-                            } else {
-                                if (current($enclosures)['universityname'] != "" and next($enclosures)['universityname'] != $enclosure['universityname'] && $cambio == 1) {
-                                    $cambio = 0;
-                                }
-                                ?>
-
-                                <option value="<?= $enclosure['enclosureid']; ?>" ><?= $enclosure['enclosureid'] . " | " . $enclosure['enclosurename'] . ' | ' . $enclosure['headquartername']; ?></option>
-
-                                <?php
-                            }
+                    <?php
+                            } 
                         }
+                    }
                         ?>
                 </select>
             </td>
