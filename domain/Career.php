@@ -13,16 +13,6 @@ class Career {
         ;
     }
 
-//End construct()
-
-    function __toString() {
-        try {
-            return (string) $this->careerid . ' | ' . $this->careercode . ' | ' . $this->careername.' | '. $this->careergrade.' | '.$this->careerenclosureid;
-        } catch (Exception $e) {
-            return '';
-        }//End try-catch (Exception $e)
-    }
-
     function getCareerid() {
         return $this->careerid;
     }
@@ -35,10 +25,11 @@ class Career {
         return $this->careername;
     }
 
-    function getCareerGrade() {
+    function getCareergrade() {
         return $this->careergrade;
     }
-    function getEnclosureid() {
+
+    function getCareerenclosureid() {
         return $this->careerenclosureid;
     }
 
@@ -54,13 +45,13 @@ class Career {
         $this->careername = $careername;
     }
 
-    function setCareerGrade($careerGrade) {
-        $this->careergrade = $careerGrade;
+    function setCareergrade($careergrade) {
+        $this->careergrade = $careergrade;
     }
-    
-    function setCareerEnclosureid($careerEnclosureid) {
-        $this->careerenclosureid = $careerEnclosureid;
+
+    function setCareerenclosureid($careerenclosureid) {
+        $this->careerenclosureid = $careerenclosureid;
     }
-}
 
 //End class Career
+}

@@ -3,16 +3,16 @@
 require '../domain/Career.php';
 
 if (isset($_POST['create'])) {
-    if (isset($_POST['code'])) {
-        if (strlen($_POST['code']) > 0) {
+    if (isset($_POST['careercode'])) {
+        if (strlen($_POST['careercode']) > 0) {
             
             $CareerBusiness = new CareerBusiness();
 
             $Career = new Career();
-            $Career->setCareercode($_POST['code']);
-            $Career->setCareername($_POST['name']);
-            $Career->setCareerGrade($_POST['grade']);
-            $Career->setCareerEnclosureid($_POST['enclosure']);
+            $Career->setCareercode($_POST['careercode']);
+            $Career->setCareername($_POST['careername']);
+            $Career->setCareergrade($_POST['careergrade']);
+            $Career->setCareerenclosureid($_POST['careerenclosure']);
             $result = $CareerBusiness->insert($Career);
 
             if ($result == 1) {
@@ -27,12 +27,12 @@ if (isset($_POST['create'])) {
         header("location: ../view/CareerView.php?error=empty");
     }
 } else if (isset($_POST['delete'])) {
-    if (isset($_POST['code']) && isset($_POST['name'])) {
-        if (strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0) {
+    if (isset($_POST['careercode']) && isset($_POST['careername'])) {
+        if (strlen($_POST['careercode']) > 0 && strlen($_POST['careername']) > 0) {
             $CareerBusiness = new CareerBusiness();
 
             $Career = new Career();
-            $Career->setCareercode($_POST['code']);
+            $Career->setCareercode($_POST['careercode']);
             $result = $CareerBusiness->delete($Career);
 
             if ($result == 1) {
@@ -48,13 +48,13 @@ if (isset($_POST['create'])) {
     }
 } else if (isset($_POST['update'])) {
     if (isset($_POST['code']) && isset($_POST['name'])) {
-        if (strlen($_POST['code']) > 0 && strlen($_POST['name']) > 0) {
+        if (strlen($_POST['careercode']) > 0 && strlen($_POST['careername']) > 0) {
             $CareerBusiness = new CareerBusiness();
 
             $Career = new Career();
             $Career->setCareerid(0);
-            $Career->setCareercode($_POST['code']);
-            $Career->setCareername($_POST['name']);
+            $Career->setCareercode($_POST['careercode']);
+            $Career->setCareername($_POST['careername']);
             $result = $CareerBusiness->update($Career);
 
             if ($result == 1) {

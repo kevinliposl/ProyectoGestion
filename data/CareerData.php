@@ -24,8 +24,8 @@ class CareerData {
         $query = $this->db->prepare("INSERT INTO tbcareer VALUES(" . $nextId . "," .
                 $career->getCareercode() . ",'" .
                 $career->getCareername() . "','" .
-                $career->getCareerGrade() . "'," .
-                $career->getEnclosureid() .
+                $career->getCareergrade() . "'," .
+                $career->getCareerenclosureid() .
                 ");"
         );
         $query->execute();
@@ -66,6 +66,8 @@ class CareerData {
             $currentCareer->setCareerid($row['careerid']);
             $currentCareer->setCareercode($row['careercode']);
             $currentCareer->setCareername($row['careername']);
+            $currentCareer->setCareerenclosureid($row['careerenclosureid']);
+            $currentCareer->setCareergrade($row['careergrade']);
             array_push($careers, $currentCareer);
         }//End foreach ($result as $row)
 
