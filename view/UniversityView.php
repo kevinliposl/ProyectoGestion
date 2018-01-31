@@ -50,10 +50,14 @@ include_once '../public/header.php';
         echo "<input type ='hidden' name='id' value='" . $university->getUniversityid() . "'/>";
         echo "<tr>";
         echo "<td>";
+        
         echo "<input type = 'text' name='name' value='" . $university->getUniversityName() . "' pattern ='[a-zA-Z\s]+$'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type = 'text' name='type' value='" . $university->getUniversityType() . "' pattern ='[0-1]{1}'/>";
+        echo "<select style='width: 100%' name='type'>";
+            echo "<option ";if($university->getUniversityType()== 1){ echo "selected='selected'";} echo">Publica</option>";
+            echo "<option ";if($university->getUniversityType()== 0){ echo "selected='selected'";} echo">Privada</option>";
+        echo "</select>";
         echo "</td>";
         echo "<td>";
         echo "<input type = 'text' name='type' value='" . $university->getUniversityhadheadquarter() . "' pattern ='[0-1]{1}'/>";
