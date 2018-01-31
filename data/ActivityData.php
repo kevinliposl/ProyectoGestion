@@ -1,14 +1,16 @@
 <?php
-
+require '../domain/Activity.php';
 
 class ActivityData {
     
     //Attributes
     private $db;
-
+    private $act;
+    
     function __construct() {
         include_once 'SPDO.php';
         $this->db = SPDO::singleton();
+        $this->act = new Activity();
     }//End construct
     
     function insert(Activity $activity) {    
@@ -22,19 +24,21 @@ class ActivityData {
         //ultimo id
         if ($resultLastId['activityid'] != NULL) {
             $nextId = (int) $resultLastId['activityid'] + 1;
-        }//End if ($resultLastId['activityid'] != NULL)
+        }//End if ($resultLastId['activityid'] != NULL)        
         $query = $this->db->prepare(
                 "INSERT INTO tbactivity VALUES (" . $nextId . ",'" .
                 $activity->getCreateDate() . "','" .
-                $activity->getUpdateDate() . "','" .
-                $activity->getLikeCount() . "','" .
-                $activity->getCommentCount() . "','" .
-                $activity->getActivityTitle() . "'," .
-                $activity->getActivityDescription() . ");"
+                $activity->getUpdateDate() . "'," .
+                $activity->getLikeCount() . "," .
+                $activity->getCommentCount() . ",'" .
+                $activity->getActivityTitle() . "','" .
+                $activity->getActivityDescription() . "'," .
+                0 . ");"
         );
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
+        $this->act->setActivityId($nextId);
 
         if (!$result) {
             return 1;
@@ -96,5 +100,9 @@ class ActivityData {
             return 0;
         }//End if (!$result)
     }//End delete
+    
+    function getActivity(){
+        return $this->act;
+    }//End getActivity
     
 }//End class ActivityData

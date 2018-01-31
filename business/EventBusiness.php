@@ -1,35 +1,44 @@
 <?php
 
 require '../domain/Event.php';
+require '../business/ActivityBusiness.php';
 
 if (isset($_POST['create'])) {
-    if (isset($_POST['studentname']) && isset($_POST['studentpassword']) && isset($_POST['studentcareer1']) && isset($_POST['studentlicense']) && isset($_POST['studentmail'])) {
-        if (strlen($_POST['studentname']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentlicense']) > 0 && strlen($_POST['studentmail']) > 0) {
+    if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['dateEvent']) && isset($_POST['hourEvent'])) {
+        if (strlen($_POST['title']) > 0 && strlen($_POST['description']) > 0 && strlen($_POST['place']) > 0 && strlen($_POST['dateEvent']) > 0 && strlen($_POST['hourEvent']) > 0) {
 
-            $studentBusiness = new StudentBusiness();
-            $student = new Student();
+            $EventBusiness = new EventBusiness();
+            $event = new Event();
+            $activityBusiness = new ActivityBusiness();
+            $activity = new Activity();
 
-            $student->setStudentlicense($_POST['studentlicense']);
-            $student->setStudentmail($_POST['studentmail']);
-            $student->setStudentname($_POST['studentname']);
-            $student->setStudentlastname1($_POST['studentlastname1']);
-            $student->setStudentlastname2($_POST['studentlastname2']);
-            $student->setStudentcareer1(intval($_POST['studentcareer1']));
-            $student->setStudentcareer2(intval($_POST['studentcareer2']));
-            $student->setStudentpassword($_POST['studentpassword']);
+            $activity->setActivityTitle($_POST['title']);
+            $activity->setActivityDescription($_POST['description']);
+            $activity->setCreateDate(date("Y-m-d"));
+            $activity->setUpdateDate(date("Y-m-d"));
+            $activity->setLikeCount(0);
+            $activity->setCommentCoun(0);
+            
+            $resulta = $activityBusiness->insert($activity);
+            $activityID = $activityBusiness->getActivity();
+            
+            $event->setActivityId($activityID->getActivityId());
+            $event->setEventPLace($_POST['place']);
+            $event->setEventDate($_POST['dateEvent']);
+            $event->setEventHour($_POST['hourEvent']);
 
-            $result = $studentBusiness->insert($student);
+            $result = $EventBusiness->insert($activityID,$event);
 
-            if ($result == 1) {
-                header("location: ../view/StudentView.php?success=inserted");
+            if ($resulta == 1) {
+                header("location: ../view/AdministrativeEventView.php?success=inserted");
             } else {
-                header("location: ../view/StudentView.php?error=dbError");
+                header("location: ../view/AdministrativeEventView.php?error=dbError");
             }
         } else {
-            header("location: ../view/StudentView.php?error=format");
+            header("location: ../view/AdministrativeEventView.php?error=format");
         }
     } else {
-        header("location: ../view/StudentView.php?error=empty");
+        header("location: ../view/AdministrativeEventView.php?error=empty");
     }
 } else if (isset($_POST['delete'])) {
     if (isset($_POST['studentid'])) {
@@ -94,8 +103,8 @@ class EventBusiness {
         $this->data = new EventData();
     }//End construct
 
-    function insert(Event $event) {
-        return $this->data->insert($event);
+    function insert(Activity $activ,Event $event) {
+        return $this->data->insert($activ,$event);
     }//End insert
 
     function delete(Event $event) {
