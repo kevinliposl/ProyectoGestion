@@ -21,10 +21,10 @@ class UniversityData {
             $nextId = (int) $resultLastId['universityid'] + 1;
         }
         //universityid, universityname, universitytype, universitystate, universityhadheadquarter
-        $query = $this->db->prepare("INSERT INTO tbuniversity VALUES(:id,:name,:type,:state,:headquarter);");
-        $query->execute(array('id' => $nextId, 'name' => (string) $university->getUniversityname(),
-            'type' => $university->getUniversityType(), 'state' => 1, 'headquarter' => $university->getUniversityhadheadquarter()));
 
+        $query = $this->db->prepare("INSERT INTO tbuniversity VALUES(:id,:name,:type,:state,:headquarter);");
+        $query->execute(array('id' => $nextId, 'name' => (string) $university->getUniversityname(), 'type' => $university->getUniversityType(), 'state' => 1,
+            'headquarter' => $university->getUniversityhadheadquarter()));
         $result = $query->fetchAll();
         $query->closeCursor();
 
@@ -36,13 +36,9 @@ class UniversityData {
     }
 
     function update(University $university) {
-        $query = $this->db->prepare("UPDATE tbuniversity "
-                . "SET universitycode=" . $university->getUniversitycode() .
-                ", universityname='" . $university->getUniversityname() .
-                "', universitytype=" . $university->getUniversitytype() .
-                ", universityheadquarter=" . $university->getUniversityHeadquarter() .
-                " WHERE universitycode=" . $university->getUniversitycode() . ";");
-        $query->execute();
+        $query = $this->db->prepare("UPDATE tbuniversity SET universityname=:name,universitytype=:type,universityhadheadquarter=:hadheadquarter WHERE universityid=:id;");
+        $query->execute(array('name' => $university->getUniversityname(), "type" => $university->getUniversitytype(), "hadheadquarter" => $university->getUniversityhadheadquarter(),
+            "id" => $university->getUniversityid()));
         $result = $query->fetch();
         $query->closeCursor();
 

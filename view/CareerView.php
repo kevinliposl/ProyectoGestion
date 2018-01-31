@@ -13,18 +13,17 @@ $universityBusiness = new UniversityBusiness();
         <th>Nombre</th>
         <th>Grado</th>
         <th>Recinto</th>
-
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/CareerBusiness.php'>
         <tr>
             <td>
-                <input type ='text' name='code' pattern="[0-9]{6}"/>
+                <input type ='text' name='careercode'/>
             </td>
             <td>
-                <input type="text" name="name" pattern="[a-zA-Z\s]+$"/>
+                <input type="text" name="careername" pattern="[a-zA-Z\s]+$"/>
             </td>
             <td>
-                <select id="enclosure" name="enclosure" style="width: 100%">
+                <select name="careergrade" style="width: 100%">
                     <option value="Diplomado">Diplomado</option>
                     <option value="Bachillerato">Bachillerato</option>
                     <option value="Licenciatura">Licenciatura</option>
@@ -33,7 +32,7 @@ $universityBusiness = new UniversityBusiness();
                 </select>
             </td>
             <td>
-                <select id="enclosure" name="enclosure" style="width: 100%">
+                <select name="careerenclosure" style="width: 100%">
                     <option value="0">Ninguna</option>
 
                     <?php
@@ -70,7 +69,6 @@ $universityBusiness = new UniversityBusiness();
 
     <?php
     include '../business/CareerBusiness.php';
-    echo 'AGREGAR LOS DEMAS CAMPOS Y ACTUALIZAR POR ID NO POR CODIGO<br>';
     $careerBusiness = new CareerBusiness();
     $careers = $careerBusiness->selectAll();
 
@@ -84,12 +82,12 @@ $universityBusiness = new UniversityBusiness();
         echo "<input type = 'text' name='name' value='" . $career->getCareername() . "' pattern ='[a-zA-Z\s]+$'/>";
         echo "</td>";
         echo "<td>";
-        echo "<select id='enclosure' name='enclosure' style='width: 100%'>";
-        echo "<option value='Diplomado'>Diplomado</option>";
-        echo "<option value='Bachillerato'>Bachillerato</option>";
-        echo "<option value='Licenciatura'>Licenciatura</option>";
-        echo "<option value='Maestria'>Maestria</option>";
-        echo "<option value ='Doctorado'>Doctorado</option>";
+        echo "<select name='enclosure' style='width: 100%'>";
+        echo "<option"; if($career->getCareergrade() == "Diplomado") {echo " selected='selected'";} echo" value='Diplomado'>Diplomado</option>";
+        echo "<option"; if($career->getCareergrade() == "Bachillerato") {echo " selected='selected'";} echo " value='Bachillerato'>Bachillerato</option>";
+        echo "<option"; if($career->getCareergrade() == "Licenciatura") {echo " selected='selected'";} echo " value='Licenciatura'>Licenciatura</option>";
+        echo "<option"; if($career->getCareergrade() == "Maestria") {echo " selected='selected'";} echo " value='Maestria'>Maestria</option>";
+        echo "<option"; if($career->getCareergrade() == "Doctorado") {echo " selected='selected'";} echo " value ='Doctorado'>Doctorado</option>";
         echo "</select>";
         echo "</td>";
         echo "<td>";

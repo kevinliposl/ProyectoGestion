@@ -44,28 +44,57 @@ class ActivityData {
     }//End insert
     
     function selectAll() {
-        $query = $this->db->prepare("SELECT * from tbactivity where administrativestate=:state;");
+        $query = $this->db->prepare("SELECT * from tbactivity where activityestate=:state;");
         $query->execute(array('state' => 0));
         $result = $query->fetchAll(); //PDO::FETCH_ASSOC
         $query->closeCursor();
         
-        $administratives = [];
-        $currentAdministrative = new Administrative();
+        $activities = [];
+        $currentActivity = new Activity();
         
         foreach ($result as $row) {
             
-            $currentAdministrative->setAdministrativeid($row['administrativeid']);
-            $currentAdministrative->setAdministrativelicense($row['administrativelicense']);
-            $currentAdministrative->setAdministrativename($row['administrativename']);
-            $currentAdministrative->setAdministrativelastname1($row['administrativelastname1']);
-            $currentAdministrative->setAdministrativelastname2($row['administrativelastname2']);
-            $currentAdministrative->setAdministrativearea($row['administrativearea']);
-            $currentAdministrative->setAdministrativepassword($row['administrativepassword']);
+            $currentActivity->setActivityId($row['activityid']);
+            $currentActivity->setCreateDate($row['createddate']);
+            $currentActivity->setUpdateDate($row['updatedate']);
+            $currentActivity->setLikeCount($row['likecount']);
+            $currentActivity->setCommentCoun($row['commentcount']);
+            $currentActivity->setActivityTitle($row['activitytitle']);
+            $currentActivity->setActivityDescription($row['activitydescription']);
             
-            array_push($administratives, $currentAdministrative);
+            array_push($activities, $currentActivity);
         }//End foreach ($result as $row)
         
-        return $administratives;
+        return $activities;
     }//End selectALL
+    
+    
+    function select($idActivity) {
+        $query = $this->db->prepare("SELECT * FROM tbactivity WHERE activityid=" . $idActivity. ";");
+        $query->execute();
+        $row = $query->fetch();
+        
+        $currentActivity= new Activity();
+        $currentActivity->setActivityId($row['activityid']);
+        $currentActivity->setCreateDate($row['createddate']);
+        $currentActivity->setUpdateDate($row['updatedate']);
+        $currentActivity->setLikeCount($row['likecount']);
+        $currentActivity->setCommentCoun($row['commentcount']);
+        $currentActivity->setActivityTitle($row['activitytitle']);
+        $currentActivity->setActivityDescription($row['activitydescription']);
+        
+        return $currentActivity;
+    }//End select
+    
+    function delete(Activity $activity) {
+        $query = $this->db->prepare("UPDATE tbactivity SET activityestate=:state WHERE activityid=:id;");
+        $query->execute(array('state' => 1, 'id' => $activity->getActivityId()));
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        if (!$result) {
+            return 1;
+        } else {
+            return 0;
+        }//End if (!$result)
+    }//End delete
     
 }//End class ActivityData

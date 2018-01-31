@@ -10,10 +10,10 @@ include_once '../public/header.php';
     <form enctype="multipart/form-data" method='POST' action='../business/UniversityBusiness.php'>
         <tr>
             <td>
-                <input type="text" name="name" pattern="[a-zA-Z\s]+$" placeholder="UCR &oacute; Universidad de Costa Rica"/>
+                <input type="text" name="universityname" pattern="[a-zA-Z\s]+$" placeholder="UCR &oacute; Universidad de Costa Rica"/>
             </td>
             <td>
-                <select style="width: 100%" name="type">
+                <select style="width: 100%" name="universitytype">
                     <option value="1">
                         Publica
                     </option>
@@ -23,7 +23,7 @@ include_once '../public/header.php';
                 </select>
             </td>
             <td>
-                <select style="width: 100%" name="hadheadquarter">
+                <select style="width: 100%" name="universityhadheadquarter">
                     <option value="1">
                         Sedes y Recintos
                     </option>
@@ -47,19 +47,23 @@ include_once '../public/header.php';
     foreach ($universities as $university) {
 
         echo "<form enctype='multipart/form-data' method='POST' action='../business/UniversityBusiness.php'>";
-        echo "<input type ='hidden' name='id' value='" . $university->getUniversityid() . "'/>";
+        echo "<input type ='hidden' name='universityid' value='" . $university->getUniversityid() . "'/>";
         echo "<tr>";
         echo "<td>";
-        echo "<input type = 'text' name='name' value='" . $university->getUniversityName() . "' pattern ='[a-zA-Z\s]+$'/>";
+        
+        echo "<input type = 'text' name='universityname' value='" . $university->getUniversityname() . "' pattern ='[a-zA-Z\s]+$'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type = 'text' name='type' value='" . $university->getUniversityType() . "' pattern ='[0-1]{1}'/>";
+        echo "<select style='width: 100%' name='universitytype'>";
+            echo "<option ";if($university->getUniversitytype()== 1){ echo "selected='selected'";} echo" value='1'>Publica</option>";
+            echo "<option ";if($university->getUniversitytype()== 0){ echo "selected='selected'";} echo" value='0'>Privada</option>";
+        echo "</select>";
         echo "</td>";
         echo "<td>";
-        echo "<input type = 'text' name='type' value='" . $university->getUniversityhadheadquarter() . "' pattern ='[0-1]{1}'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='submit' name='delete' value ='Eliminar'/>";
+        echo "<select style='width: 100%' name='universityhadheadquarter'>";
+            echo "<option ";if($university->getUniversityhadheadquarter()== 1){ echo "selected='selected'";} echo" value='1'>Sedes y Recintos</option>";
+            echo "<option ";if($university->getUniversityhadheadquarter()== 0){ echo "selected='selected'";} echo" value='0'>Recintos</option>";
+        echo "</select>";
         echo "</td>";
         echo "<td>";
         echo "<input type ='submit' name='update' value ='Actualizar'/>";

@@ -11,10 +11,10 @@ include_once '../public/header.php';
         <th>Nombre</th>
         <th>Primer Apellido</th>
         <th>Segundo Apellido</th>
-        <th>Area</th>
+        <th>Departamento</th>
         <th>Contrase&ncaron;a</th>        
     </tr>
-    <form enctype="multipart/form-data" method='POST' action='../business/ProfessorBusiness.php'>
+    <form enctype="multipart/form-data" method='POST' action='../business/.php'>
         <tr>
             <td>
                 <input type ='text' name='mail'/>
@@ -44,45 +44,7 @@ include_once '../public/header.php';
             </td>
         </tr>
     </form>
-
-    <?php
-//    
-//    $professors = $professorBusiness->selectAll();
-//
-//    foreach ($professors as $professor) {
-//
-//        echo "<form enctype='multipart/form-data' method='POST' action='../business/ProfessorBusiness.php'>";
-//        echo "<tr>";
-//        echo "<td>";
-//        echo "<input type ='text' name='license' value='" . $professor['professorlicense'] . "'/>";
-//        echo "</td>";
-//        echo "<td>";
-//        echo "<input type = 'hidden' name='id' value='" . $professor['professorid'] . "'/>";
-//        echo "<input type = 'text' name='name' value='" . $professor['professorname'] . "' pattern ='[a-zA-Z\s]+$'/>";
-//        echo "</td>";
-//        echo "<td>";
-//        echo "<input type ='text' name='lastname1' value='" . $professor['professorlastname1'] . "' pattern ='[a-zA-Z\s]+$'/>";
-//        echo "</td>";
-//        echo "<td>";
-//        echo "<input type ='text' name='lastname2' value='" . $professor['professorlastname2'] . "' pattern ='[a-zA-Z\s]+$'/>";
-//        echo "</td>";
-//        echo "<td>";
-//        echo "<input type ='text' name='area' value='" . $professor['professorarea'] . "' pattern ='[a-zA-Z\s]+$'/>";
-//        echo "</td>";
-//        echo "<td>";
-//        echo "<input type ='password' name='password' value='" . $professor['professorpassword'] . "'/>";
-//        echo "</td>";
-//        echo "<td>";
-//        echo "<input type ='submit' name='delete' value ='Eliminar'/>";
-//        echo "</td>";
-//        echo "<td>";
-//        echo "<input type ='submit' name='update' value ='Actualizar'/>";
-//        echo "</td>";
-//        echo "</tr>";
-//        echo "</form>";
-//    }
-    ?>
-
+    
     <tr>
         <td></td>
         <td>

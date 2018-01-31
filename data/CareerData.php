@@ -24,8 +24,8 @@ class CareerData {
         $query = $this->db->prepare("INSERT INTO tbcareer VALUES(" . $nextId . "," .
                 $career->getCareercode() . ",'" .
                 $career->getCareername() . "','" .
-                $career->getCareerGrade() . "'," .
-                $career->getEnclosureid() .
+                $career->getCareergrade() . "'," .
+                $career->getCareerenclosureid() .
                 ");"
         );
         $query->execute();
@@ -66,6 +66,8 @@ class CareerData {
             $currentCareer->setCareerid($row['careerid']);
             $currentCareer->setCareercode($row['careercode']);
             $currentCareer->setCareername($row['careername']);
+            $currentCareer->setCareerenclosureid($row['careerenclosureid']);
+            $currentCareer->setCareergrade($row['careergrade']);
             array_push($careers, $currentCareer);
         }//End foreach ($result as $row)
 
@@ -73,8 +75,6 @@ class CareerData {
     }
 
     function selectByUniversity() {
-
-
         $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername, h.headquarterid, e.enclosurename, e.enclosureid, c.careername, c.careerid from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid inner join tbenclosure as e on h.headquarterid = e.enclosureheadquarterid inner join tbcareer as c on e.enclosureid = c.careerenclosureid order by(u.universityid);");
         $queryCareer->execute();
         $result = $queryCareer->fetchAll();
@@ -83,14 +83,14 @@ class CareerData {
         return $result;
     }
 
-    function select($careerCode) {
-        $query = $this->db->prepare("SELECT * FROM tbcareer WHERE careercode=" . $careerCode . ";");
-        $query->execute();
+    function select(Career $career) {
+        $query = $this->db->prepare("SELECT * FROM tbcareer WHERE careercode=:careerid;");
+        $query->execute(array('careerid' => $career->getCareerid()));
         $result = $query->fetch();
-        $career = new Career();
-        $career->setCareerid($result['careerid']);
         $career->setCareercode($result['careercode']);
         $career->setCareername($result['careername']);
+        $career->setCareerenclosureid($result['careerenclosureid']);
+        $career->setCareergrade($result['careergrade']);
         return $career;
     }
 
