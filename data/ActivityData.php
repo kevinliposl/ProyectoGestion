@@ -105,4 +105,21 @@ class ActivityData {
         return $this->act;
     }//End getActivity
     
+    function update(Activity $activity) {
+        $query = $this->db->prepare("UPDATE tbactivity "
+                . "SET activityid =" . $activity->getActivityId() .
+                ", activitytitle='" . $activity->getActivityTitle() .
+                "', activitydescription='" . $activity->getActivityDescription().
+                "' WHERE activityid=" . $activity->getActivityId() . ";");
+        $query->execute();
+        $result = $query->fetch();
+        $query->closeCursor();
+
+        if (!$result) {
+            return 1;
+        } else {
+            return 0;
+        }//End if (!$result)
+    }//End update
+    
 }//End class ActivityData
