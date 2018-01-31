@@ -60,7 +60,7 @@ include_once '../public/header.php';
         echo "</select>";
         echo "</td>";
         echo "<td>";
-        echo "<select style='width: 100%' name='universityhadheadquarter'>";
+        echo "<select style='width: 100%' name='universityhadheadquarter' disabled>";
             echo "<option ";if($university->getUniversityhadheadquarter()== 1){ echo "selected='selected'";} echo" value='1'>Sedes y Recintos</option>";
             echo "<option ";if($university->getUniversityhadheadquarter()== 0){ echo "selected='selected'";} echo" value='0'>Recintos</option>";
         echo "</select>";
