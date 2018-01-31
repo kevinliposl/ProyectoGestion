@@ -283,7 +283,7 @@ echo "<table>";
 echo "<thead>";
 echo "<tr>";
 echo "<th>Universidad</th>";
-echo "<th>Nombre</th>";
+echo "<th>Sede</th>";
 echo "</tr>";
 echo "</thead>";
 foreach ($headquarters as $headquarter) {
@@ -296,9 +296,6 @@ foreach ($headquarters as $headquarter) {
     echo "<td>";
     echo "<input type ='hidden' name='id' value='" . $headquarter->getHeadquarterid() . "'/>";
     echo "<input type ='text' name='name' value='" . $headquarter->getHeadquartername() . "'/>";
-    echo "</td>";
-    echo "<td>";
-    echo "<input type ='submit' name='delete' value='Eliminar' disabled/>";
     echo "</td>";
     echo "<td>";
     echo "<input type ='submit' name='update' value='Actualizar' disabled/>";
