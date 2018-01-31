@@ -75,7 +75,6 @@ $careerBusiness = new CareerBusiness();
                     <option value="0">Ninguna</option>
 
                     <?php
-                    
                     $cambio = 0;
                     foreach ($careers as $career) {
                         if ($cambio == 0 && strcmp(current($careers)['universityname'], $career['universityname']) === 0) {
@@ -136,48 +135,38 @@ $careerBusiness = new CareerBusiness();
         echo "</td>";
         echo "<td>";
         echo "<select name='studentcareer' style='width: 100%'>";
-        
+
         $cambio = 0;
         foreach ($careers as $career) {
-            if ($cambio == 0 && strcmp(current($careers)['universityname'], $career['universityname']) === 0) {
-                $cambio = 1;
-                ?>
-
-                <optgroup label="<?= $career['universityname']; ?>">
-                    <option <?php
-                    if (intval($career['careerid']) == intval($student['studentcareer1'])) {
-                        echo "selected='selected'";
-                    }
-                    ?>value="<?= $career['careerid']; ?>" ><?= $career['careername'] . " | " . $career['enclosurename']; ?></option>
-                        <?php
-                    } else {
-                        if (current($careers)['universityname'] != "" and next($careers)['universityname'] != $career['universityname'] && $cambio == 1) {
-                            $cambio = 0;
-                        }
-                        ?>
-
-                    <option <?php
-                    if (intval($career['careerid']) == intval($student['studentcareer1'])) {
-                        echo "selected='selected'";
-                    }
-                    ?> value="<?= $career['careerid']; ?>" ><?= $career['careername'] . " | " . $career['enclosurename']; ?></option>
-
-                    <?php
-                }
+            if (intval($career['careerid']) == intval($student['studentcareer1'])) {
+                $var = "selected='selected'";
+            } else {
+                $var = "";
             }
 
-            echo "</select>";
-            echo "</td>";
-            echo "<td>";
-            echo "<input type ='submit' name='delete' value ='Eliminar'/>";
-            echo "</td>";
-            echo "<td>";
-            echo "<input type ='submit' name='update' value ='Actualizar'/>";
-            echo "</td>";
-            echo "</tr>";
-            echo "</form>";
-            ?>
-        <?php } ?>
+            if ($cambio === 0 && strcmp($career['universityname'], $career['universityname']) === 0) {
+                $cambio = 1;
+                echo "<optgroup label='" . $career['universityname'] . "'>";
+                echo "<option " . $var . " value='" . $career['careerid'] . "'>" . $career['careername'] . " | " . $career['enclosurename'] . "</option>";
+            } else {
+                if (current($careers)['universityname'] != "" and next($careers)['universityname'] != $career['universityname'] && $cambio === 1) {
+                    $cambio = 0;
+                }
+                echo "<option " . $var . " value='" . $career['careerid'] . "'>" . $career['careername'] . " | " . $career['enclosurename'] . "</option>";
+            }
+        }
+        echo "</select>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type ='submit' name='delete' value ='Eliminar'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type ='submit' name='update' value ='Actualizar'/>";
+        echo "</td>";
+        echo "</tr>";
+        echo "</form>";
+    }
+    ?>
 
     <tr>
         <td></td>
@@ -185,14 +174,14 @@ $careerBusiness = new CareerBusiness();
             <?php
             if (isset($_GET['error'])) {
                 if ($_GET['error'] == "empty") {
-                    echo '<p style="color: red">Campo(s) vacio(s)</p>';
+                    echo '<p style = "color: red">Campo(s) vacio(s)</p>';
                 } else if ($_GET['error'] == "format") {
-                    echo '<p style="color: red">Error, formato de numero</p>';
+                    echo '<p style = "color: red">Error, formato de numero</p>';
                 } else if ($_GET['error'] == "dbError") {
-                    echo '<center><p style="color: red">Error al procesar la transacción</p></center>';
+                    echo '<center><p style = "color: red">Error al procesar la transacción</p></center>';
                 }
             } else if (isset($_GET['success'])) {
-                echo '<p style="color: green">Transacción realizada</p>';
+                echo '<p style = "color: green">Transacción realizada</p>';
             }
             ?>
         </td>
@@ -200,4 +189,4 @@ $careerBusiness = new CareerBusiness();
 
     <?php
     include_once '../public/footer.php';
-    
+    ?>
