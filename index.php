@@ -26,6 +26,12 @@
                             <li><a href="view/HeadquarterView.php"><div>Gesti&oacute;n de Sedes y Recintos</div></a></li>
                         </ul>
                     </li>
+                    <li><a href="#"><div>Actividades</div></a>
+                        <ul>
+                            <li><a href="view/AdministrativeEventView.php"><div>Gesti&oacute;n de Eventos</div></a></li>
+                            <li><a href="view/EventView.php"><div>Ver Eventos</div></a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </header>
