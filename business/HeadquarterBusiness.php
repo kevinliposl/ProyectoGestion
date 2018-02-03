@@ -28,21 +28,20 @@ if (isset($_POST['create'])) {
             $headquarter->setHeadquarterid($_POST['headquarterid']);
             $headquarter->setHeadquartername($_POST['headquartername']);
 
-            $result = $headquarterBusiness->update($student);
+            $result = $headquarterBusiness->update($headquarter);
 
             if ($result == 1) {
-                header("location: ../view/StudentView.php?success=inserted");
+                header("location: ../view/HeadquarterView.php?success=inserted");
             } else {
-                header("location: ../view/StudentView.php?error=dbError");
+                header("location: ../view/HeadquarterView.php?error=dbError");
             }
         } else {
-            header("location: ../view/StudentView.php?error=format");
+            header("location: ../view/HeadquarterView.php?error=format");
         }
     } else {
-        header("location: ../view/StudentView.php?error=empty");
+        header("location: ../view/HeadquarterView.php?error=empty");
     }
 } else if (isset($_POST['select'])) {
-
     if (isset($_POST['universityid'])) {
         if (strlen($_POST['universityid']) > 0) {
             $headquarterBusiness = new HeadquarterBusiness;
