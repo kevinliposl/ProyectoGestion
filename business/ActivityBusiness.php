@@ -22,5 +22,13 @@ class ActivityBusiness {
         return $this->data->selectAll();
     }//End selectAll
     
+    function getActivity(){
+        return $this->data->getActivity();
+    }//End getActivity
+    
+    function update(Activity $activity){
+        return $this->data->update($activity);
+    }//End update
+    
 }//End class ActivityBusiness 
     

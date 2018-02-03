@@ -16,7 +16,8 @@ class EventData {
                 "INSERT INTO tbevent VALUES (" . $activity->getActivityId() . ",'" .
                 $event->getEventPLace() . "','" .
                 $event->getEventDate() . "','" .
-                $event->getEventHour() . ");"
+                $event->getEventHour() . "'," .
+                0 . ");"
         );
         $query->execute();
         $result = $query->fetch();
@@ -30,24 +31,21 @@ class EventData {
     }//End insert
     
     function selectAll() {
-        $query = $this->db->prepare("SELECT * from tbevent where eventestate=:state;");
-        $query->execute(array('state' => 0));
-        $result = $query->fetchAll(); //PDO::FETCH_ASSOC
+        $query = $this->db->prepare("SELECT a.activitytitle,a.activitydescription,e.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.activityid WHERE a.activityestate = 0 AND e.eventestate = 0;");
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
-        
-        $events = [];
-        $currentEvent = new Event();
-        
-        foreach ($result as $row) {
-            
-            $currentEvent->setActivityId($row['activityid']);
-            $currentEvent->setCreateDate($row['eventplace']);
-            $currentEvent->setUpdateDate($row['eventdate']);
-            $currentEvent->setLikeCount($row['eventhour']);
-            array_push($events , $currentEvent);
-        }//End foreach ($result as $row)
-        
-        return $events;
+
+        return $result;
+    }//End selectALL
+    
+    function selectAllTotal() {
+        $query = $this->db->prepare("SELECT a.*,e.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.activityid WHERE a.activityestate = 0 AND e.eventestate = 0;");
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+
+        return $result;
     }//End selectALL
     
     function select($idActivity) {
