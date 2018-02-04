@@ -1,7 +1,5 @@
 <?php
 
-require_once '../domain/Comment.php';
-
 class CommentData {
 
     //Attributes
@@ -12,39 +10,38 @@ class CommentData {
         $this->db = SPDO::singleton();
     }
 
-//End construct
-
-    function insert(Comment $comment) {
-
-       $queryLastId = $this->db->prepare("SELECT MAX(commentid) AS commentid  FROM tbcomment;");
+    function getlastid() {
+        $queryLastId = $this->db->prepare("SELECT MAX(commentid) AS commentid  FROM tbcomment;");
         $queryLastId->execute();
         $resultLastId = $queryLastId->fetch();
         $queryLastId->closeCursor();
         $nextId = 1;
 
-        //ultimo id
         if ($resultLastId['commentid'] != NULL) {
             $nextId = (int) $resultLastId['commentid'] + 1;
-        }//End if ($resultLastId['activityid'] != NULL)  
-         
-        
-        $query = $this->db->prepare(
-                "INSERT INTO tbcomment VALUES (" . $nextId . "," .
-                $comment->getActivityId() . ",'" .
-                $comment->getCommentDescription() . "','" .
-                $comment->getCommentDate() . "'," .
-                $comment->getCommentActor() . "," .
-                0 . ");"
-        );
-        $query->execute();
-        $result = $query->fetch();
+        }
+        return $nextId;
+    }
+
+    function insert(Comment $comment) {
+        $lastid = $this->getlastid();
+
+        $query = $this->db->prepare("INSERT INTO tbcomment VALUES(:commentid,:activityid,:commentdescription,:commentcreated,:commentactor,:commentstate);");
+        $query->execute(array('commentid' => $lastid, 'activityid' => $comment->getActivityId(), 'commentdescription' => $comment->getCommentDescription(),
+            'commentcreated' => $comment->getCommentDate(), 'commentstate' => 1, 'commentactor' => (int) $comment->getCommentActor()));
+        $query->fetch();
         $query->closeCursor();
 
-        if (!$result) {
+        $queryResult = $this->db->prepare("SELECT * FROM tbcomment WHERE commentid =:commentid;");
+        $queryResult->execute(array('commentid' => $lastid));
+        $verifierResult = $queryResult->fetch();
+        $queryResult->closeCursor();
+
+        if (!$verifierResult['commentid'] != NULL) {
             return 1;
         } else {
             return 0;
-        }//End if-else(!$result)
+        }
     }
 
 //End insert

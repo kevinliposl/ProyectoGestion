@@ -56,16 +56,17 @@ class HeadquarterData {
         $query = $this->db->prepare("SELECT h.*,u.universityname FROM tbheadquarter h INNER JOIN tbuniversity u ON u.universityid = h.headquarteruniversityid;");
         $query->execute();
         $result = $query->fetchAll();
-        $query->closeCursor();
-        $headquarters = [];
-        foreach ($result as $row) {
-            $currentheadquarter = new Headquarter();
-            $currentheadquarter->setHeadquarterid($row['headquarterid']);
-            $currentheadquarter->setHeadquartername($row['headquartername']);
-            $currentheadquarter->setHeadquarteruniversityid($row['universityname']);
-            array_push($headquarters, $currentheadquarter);
-        }//End foreach ($result as $row)
-        return $headquarters;
+        return $result;
+//        $query->closeCursor();
+//        $headquarters = [];
+//        foreach ($result as $row) {
+//            $currentheadquarter = new Headquarter();
+//            $currentheadquarter->setHeadquarterid($row['headquarterid']);
+//            $currentheadquarter->setHeadquartername($row['headquartername']);
+//            $currentheadquarter->setHeadquarteruniversityid($row['universityname']);
+//            array_push($headquarters, $currentheadquarter);
+//        }//End foreach ($result as $row)
+//        return $headquarters;
     }
 
     function selectbyUniversity(Headquarter $headquarter) {

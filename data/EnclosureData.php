@@ -25,7 +25,6 @@ class EnclosureData {
 
     function insertOnly(Enclosure $enclosure) {
         $nextId = $this->lastID();
-
         $query = $this->db->prepare("INSERT INTO tbenclosure VALUES(:enclosureid,:enclosurename,:enclosureheadquarterid,:enclosureuniversityid,:enclosurestate);");
         $query->execute(array("enclosureid" => $nextId, "enclosureheadquarterid" => 0, "enclosureuniversityid" => $enclosure->getEnclosureuniversityid(),
             "enclosurename" => $enclosure->getEnclosurename(), "enclosurestate" => 1));
@@ -41,7 +40,6 @@ class EnclosureData {
 
     function insert(Enclosure $enclosure) {
         $nextId = $this->lastID();
-
         $query = $this->db->prepare("INSERT INTO tbenclosure VALUES(:enclosureid,:enclosurename,:enclosureheadquarterid,:enclosureuniversityid,:enclosurestate);");
         $query->execute(array("enclosureid" => $nextId, "enclosureheadquarterid" => $enclosure->getEnclosureheadquarterid(),
             "enclosureuniversityid" => $enclosure->getEnclosureuniversityid(), "enclosurename" => $enclosure->getEnclosurename(), "enclosurestate" => 1));
@@ -93,16 +91,17 @@ class EnclosureData {
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
-        $enclosures = [];
-        foreach ($result as $row) {
-            $current = new Enclosure();
-            $current->setEnclosureid($row['enclosureid']);
-            $current->setEnclosurename($row['enclosurename']);
-            $current->setEnclosureheadquarterid($row['enclosureheadquarterid']);
-            $current->setEnclosureuniversityid($row['enclosureuniversityid']);
-            array_push($enclosures, $current);
-        }//End foreach ($result as $row)
-        return $enclosures;
+        return $result;
+//        $enclosures = [];
+//        foreach ($result as $row) {
+//            $current = new Enclosure();
+//            $current->setEnclosureid($row['enclosureid']);
+//            $current->setEnclosurename($row['enclosurename']);
+//            $current->setEnclosureheadquarterid($row['enclosureheadquarterid']);
+//            $current->setEnclosureuniversityid($row['enclosureuniversityid']);
+//            array_push($enclosures, $current);
+//        }//End foreach ($result as $row)
+//        return $enclosures;
     }
 
     function select(Enclosure $enclosure) {

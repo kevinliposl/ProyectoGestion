@@ -54,19 +54,19 @@ class UniversityData {
         $query->execute(array('state' => 1));
         $result = $query->fetchAll();
         $query->closeCursor();
-
-        $universities = [];
-
-        foreach ($result as $row) {
-            $currentuniversity = new University();
-            $currentuniversity->setUniversityid($row['universityid']);
-            $currentuniversity->setUniversityname($row['universityname']);
-            $currentuniversity->setUniversityType($row['universitytype']);
-            $currentuniversity->setUniversityhadheadquarter($row['universityhadheadquarter']);
-            array_push($universities, $currentuniversity);
-        }//End foreach ($result as $row)
-
-        return $universities;
+        return $result;
+//        $universities = [];
+//
+//        foreach ($result as $row) {
+//            $currentuniversity = new University();
+//            $currentuniversity->setUniversityid($row['universityid']);
+//            $currentuniversity->setUniversityname($row['universityname']);
+//            $currentuniversity->setUniversityType($row['universitytype']);
+//            $currentuniversity->setUniversityhadheadquarter($row['universityhadheadquarter']);
+//            array_push($universities, $currentuniversity);
+//        }//End foreach ($result as $row)
+//
+//        return $universities;
     }
 
     function select(University $university) {

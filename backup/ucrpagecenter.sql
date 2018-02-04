@@ -109,7 +109,7 @@ CREATE TABLE tbpublication(
 CREATE TABLE tbcomment(
     commentid INTEGER NOT NULL,
     activityid INTEGER NOT NULL,
-    commentdescription varchar(255) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    commentdescription VARCHAR(255) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     commentcreated DATE NOT NULL,
     commentactor INTEGER NOT NULL,
     commentstate SMALLINT DEFAULT 1 NOT NULL,

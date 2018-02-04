@@ -15,10 +15,8 @@ $activityBusiness = new ActivityBusiness();
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/CommentBusiness.php'>
         <tr>
-          
             <td>
-
-                <select name="activity" style="width: 100%">
+                <select name="activityid" style="width: 100%">
                     <option value="0">Ninguna</option>
 
                     <?php
@@ -36,10 +34,10 @@ $activityBusiness = new ActivityBusiness();
             </td>
             </td>
             <td>
-                <input type ='text' name="comment"/>
+                <input type ='text' name="commentdescription"/>
             </td>
             <td>
-                <input type="text" name="actor"/>
+                <input type="text" name="commentactor"/>
             </td>
 
             <td>
@@ -50,51 +48,51 @@ $activityBusiness = new ActivityBusiness();
         </tr>
     </form>
 
-<?php
- $comments = $commentBusiness->selectAll();
+    <?php
+    $comments = $commentBusiness->selectAll();
 
-  foreach ($comments as $comment) {
+    foreach ($comments as $comment) {
 
-  echo "<form enctype='multipart/form-data' method='POST' action='../business/CommentBusiness.php'>";
-  echo "<tr>";
-  echo "<td>";
-  echo "<input type ='text' name='activityid' value='" . $comment->getActivityId() . "'/>";
-  echo "</td>";
-  echo "<td>";
-  echo "<input type ='text' name='commentid' value='" . $comment->getCommentId() . "'/>";
-  echo "</td>";
-  echo "<td>";
-  echo "<input type = 'text' name='commentdescription' value='" . $comment->getCommentDescription() . "'/>";
-  echo "</td>";
-  
-  echo "<td>";
-  echo "<input type ='submit' name='delete' value ='Eliminar'/>";
-  echo "</td>";
- 
-  echo "</tr>";
-  echo "</form>";
-  } 
-?>
+        echo "<form enctype='multipart/form-data' method='POST' action='../business/CommentBusiness.php'>";
+        echo "<tr>";
+        echo "<td>";
+        echo "<input type ='text' name='activityid' value='" . $comment->getActivityId() . "'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type ='text' name='commentid' value='" . $comment->getCommentId() . "'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type = 'text' name='commentdescription' value='" . $comment->getCommentDescription() . "'/>";
+        echo "</td>";
+
+        echo "<td>";
+        echo "<input type ='submit' name='delete' value ='Eliminar'/>";
+        echo "</td>";
+
+        echo "</tr>";
+        echo "</form>";
+    }
+    ?>
 
     <tr>
         <td></td>
         <td>
-<?php
-if (isset($_GET['error'])) {
-    if ($_GET['error'] == "empty") {
-        echo '<p style = "color: red">Campo(s) vacio(s)</p>';
-    } else if ($_GET['error'] == "format") {
-        echo '<p style = "color: red">Error, formato de numero</p>';
-    } else if ($_GET['error'] == "dbError") {
-        echo '<center><p style = "color: red">Error al procesar la transacción</p></center>';
-    }
-} else if (isset($_GET['success'])) {
-    echo '<p style = "color: green">Transacción realizada</p>';
-}
-?>
+            <?php
+            if (isset($_GET['error'])) {
+                if ($_GET['error'] == "empty") {
+                    echo '<p style = "color: red">Campo(s) vacio(s)</p>';
+                } else if ($_GET['error'] == "format") {
+                    echo '<p style = "color: red">Error, formato de numero</p>';
+                } else if ($_GET['error'] == "dbError") {
+                    echo '<center><p style = "color: red">Error al procesar la transacción</p></center>';
+                }
+            } else if (isset($_GET['success'])) {
+                echo '<p style = "color: green">Transacción realizada</p>';
+            }
+            ?>
         </td>
     </tr>
 
-<?php
-include_once '../public/footer.php';
-?>    
+    <?php
+    include_once '../public/footer.php';
+    ?>    
