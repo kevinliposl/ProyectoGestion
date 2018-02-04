@@ -1,4 +1,4 @@
-.orgchart table{ border-collapse:collapse; padding:0; margin:0; top:0; background:#FFFFE8; width:100% }
+.orgchart table{ border-collapse:collapse; padding:0; margin:0; top:0; width:100% }
 .orgchart td{ vertical-align:top; text-align:center }
 .orgchart th{ height:20px; }
 .orgchart td .right{ border-right:1px solid #000; }

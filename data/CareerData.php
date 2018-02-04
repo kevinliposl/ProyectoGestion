@@ -67,6 +67,14 @@ class CareerData {
         return $careers;
     }
 
+    function selectAllNames() {
+        $query = $this->db->prepare("SELECT careername FROM tbcareer WHERE careerstate = 1;");
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+        return $result;
+    }
+
     function selectByUniversity() {
         $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername, h.headquarterid, e.enclosurename, e.enclosureid, c.careername, c.careerid from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid inner join tbenclosure as e on h.headquarterid = e.enclosureheadquarterid inner join tbcareer as c on e.enclosureid = c.careerenclosureid AND c.careerstate = 1 order by(u.universityid);");
         $queryCareer->execute();

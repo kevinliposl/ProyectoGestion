@@ -106,6 +106,13 @@ class CareerBusiness {
     }
 
     /**
+     * Funcion para seleccionar todas las carreras activas 
+     */
+    function selectAllNames() {
+        return $this->data->selectAllNames();
+    }
+
+    /**
      * Funcion para seleccionar una carrera especifica
      */
     function select($careerCode) {

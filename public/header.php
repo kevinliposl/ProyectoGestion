@@ -33,6 +33,7 @@
                             <li><a href="EventView.php"><div>Ver Eventos</div></a></li>
                         </ul>
                     </li>
+                    <li><a href="OrganChartView.php"><div>Organigrama</div></a></li> 
                 </ul>
             </nav>
         </header>
