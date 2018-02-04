@@ -70,9 +70,7 @@ $activityBusiness = new ActivityBusiness();
   echo "<td>";
   echo "<input type ='submit' name='delete' value ='Eliminar'/>";
   echo "</td>";
-  echo "<td>";
-  echo "<input type ='submit' name='update' value ='Actualizar'/>";
-  echo "</td>";
+ 
   echo "</tr>";
   echo "</form>";
   } 
