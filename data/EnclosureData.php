@@ -26,9 +26,9 @@ class EnclosureData {
     function insertOnly(Enclosure $enclosure) {
         $nextId = $this->lastID();
 
-        $query = $this->db->prepare("INSERT INTO tbenclosure VALUES(:enclosureid,:enclosurename,:enclosureheadquarterid,:enclosureuniversityid);");
+        $query = $this->db->prepare("INSERT INTO tbenclosure VALUES(:enclosureid,:enclosurename,:enclosureheadquarterid,:enclosureuniversityid,:enclosurestate);");
         $query->execute(array("enclosureid" => $nextId, "enclosureheadquarterid" => 0, "enclosureuniversityid" => $enclosure->getEnclosureuniversityid(),
-            "enclosurename" => $enclosure->getEnclosurename()));
+            "enclosurename" => $enclosure->getEnclosurename(), "enclosurestate" => 1));
         $result = $query->fetch();
         $query->closeCursor();
 
@@ -42,9 +42,9 @@ class EnclosureData {
     function insert(Enclosure $enclosure) {
         $nextId = $this->lastID();
 
-        $query = $this->db->prepare("INSERT INTO tbenclosure VALUES(:enclosureid,:enclosurename,:enclosureheadquarterid,:enclosureuniversityid);");
+        $query = $this->db->prepare("INSERT INTO tbenclosure VALUES(:enclosureid,:enclosurename,:enclosureheadquarterid,:enclosureuniversityid,:enclosurestate);");
         $query->execute(array("enclosureid" => $nextId, "enclosureheadquarterid" => $enclosure->getEnclosureheadquarterid(),
-            "enclosureuniversityid" => $enclosure->getEnclosureuniversityid(), "enclosurename" => $enclosure->getEnclosurename()));
+            "enclosureuniversityid" => $enclosure->getEnclosureuniversityid(), "enclosurename" => $enclosure->getEnclosurename(), "enclosurestate" => 1));
         $result = $query->fetch();
         $query->closeCursor();
         if (!$result) {
@@ -55,7 +55,7 @@ class EnclosureData {
     }
 
     function update(Enclosure $enclosure) {
-        $query = $this->db->prepare("UPDATE tbenclosure SET enclosurename = :enclosurename WHERE enclosureid = :enclosureid;");
+        $query = $this->db->prepare("UPDATE tbenclosure SET enclosurename = :enclosurename WHERE enclosureid = :enclosureid AND enclosurestate = 1;");
         $query->execute(array("enclosureid" => $enclosure->getEnclosureid(), "enclosurename" => $enclosure->getEnclosurename()));
         $result = $query->fetch();
         $query->closeCursor();
@@ -67,9 +67,19 @@ class EnclosureData {
         }
     }
 
+    function delete(Enclosure $enclosure) {
+        $query = $this->db->prepare("UPDATE tbenclosure SET enclosurestate = 0 WHERE enclosureid = :enclosureid;");
+        $query->execute(array("enclosureid" => $enclosure->getEnclosureid()));
+        $result = $query->fetch();
+        $query->closeCursor();
+        if (!$result) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     function selectByUniversity() {
-
-
         $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername, h.headquarterid, e.enclosurename, e.enclosureid from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid inner join tbenclosure as e on h.headquarterid = e.enclosureheadquarterid order by(u.universityid);");
         $queryCareer->execute();
         $result = $queryCareer->fetchAll();
@@ -79,7 +89,7 @@ class EnclosureData {
     }
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT * FROM tbenclosure;");
+        $query = $this->db->prepare("SELECT * FROM tbenclosure WHERE enclosurestate = 1;");
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();

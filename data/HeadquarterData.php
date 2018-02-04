@@ -40,13 +40,8 @@ class HeadquarterData {
     }
 
     function update(Headquarter $headquarter) {
-        $query = $this->db->prepare("UPDATE tbheadquarter "
-                . "SET  headquarterCode=" . $headquarter->getHeadquartercode() .
-                ", headquarterName='" . $headquarter->getHeadquartername() .
-                "', headquarterLocation='" . $headquarter->getHeadquarterlocation() .
-                "', headquarterUniversityId=" . $headquarter->getHeadquarteruniversityid() .
-                " WHERE headquarterCode=" . $headquarter->getHeadquartercode() . ";");
-        $query->execute();
+        $query = $this->db->prepare("UPDATE tbheadquarter SET headquartername=:headquartername WHERE headquarterid=:headquarterid;");
+        $query->execute(array('headquartername' => $headquarter->getHeadquartername(), "headquarterid" => $headquarter->getHeadquarterid()));
         $result = $query->fetch();
         $query->closeCursor();
 

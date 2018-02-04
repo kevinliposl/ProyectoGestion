@@ -291,14 +291,16 @@ foreach ($headquarters as $headquarter) {
     echo "<form enctype='multipart/form-data' method='POST' action='../business/HeadquarterBusiness.php'>";
     echo "<tr>";
     echo "<td>";
-    echo "<input type ='text' name='name' value='" . $headquarter->getHeadquarteruniversityid() . "'/>";
+    echo "<input type ='text' disabled name='name' value='" . $headquarter->getHeadquarteruniversityid() . "'/>";
     echo "</td>";
     echo "<td>";
-    echo "<input type ='hidden' name='id' value='" . $headquarter->getHeadquarterid() . "'/>";
-    echo "<input type ='text' name='name' value='" . $headquarter->getHeadquartername() . "'/>";
+    echo "<input type ='text' name='headquartername' value='" . $headquarter->getHeadquartername() . "'/>";
     echo "</td>";
     echo "<td>";
-    echo "<input type ='submit' name='update' value='Actualizar' disabled/>";
+    echo "<input type ='hidden' name='headquarterid' value='" . $headquarter->getHeadquarterid() . "'/>";
+    echo "</td>";
+    echo "<td>";
+    echo "<input type ='submit' name='update' value='Actualizar'/>";
     echo "</td>";
     echo "</tr>";
     echo "</form>";
@@ -324,14 +326,14 @@ foreach ($enclosures as $enclosure) {
     echo "<form enctype='multipart/form-data' method='POST' action='../business/EnclosureBusiness.php'>";
     echo "<tr>";
     echo "<td>";
-    echo "<input type ='hidden' name='id' value='" . $enclosure->getEnclosureid() . "'/>";
-    echo "<input type ='text' name='name' value='" . $enclosure->getEnclosurename() . "'/>";
+    echo "<input type ='hidden' name='enclosureid' value='" . $enclosure->getEnclosureid() . "'/>";
+    echo "<input type ='text' name='enclosurename' value='" . $enclosure->getEnclosurename() . "'/>";
     echo "</td>";
     echo "<td>";
-    echo "<input type ='submit' name='delete' value='Eliminar' disabled/>";
+    echo "<input type ='submit' name='delete' value='Eliminar'/>";
     echo "</td>";
     echo "<td>";
-    echo "<input type ='submit' name='update' value='Actualizar' disabled/>";
+    echo "<input type ='submit' name='update' value='Actualizar'/>";
     echo "</td>";
     echo "</tr>";
     echo "</form>";
@@ -339,5 +341,18 @@ foreach ($enclosures as $enclosure) {
 echo "</table>"
 ?>
 
+<?php
+if (isset($_GET['error'])) {
+    if ($_GET['error'] == "empty") {
+        echo '<p style="color: red">Campo(s) vacio(s)</p>';
+    } else if ($_GET['error'] == "format") {
+        echo '<p style="color: red">Error, formato de numero</p>';
+    } else if ($_GET['error'] == "dbError") {
+        echo '<center><p style="color: red">Error al procesar la transacción</p></center>';
+    }
+} else if (isset($_GET['success'])) {
+    echo '<p style="color: green">Transacción realizada</p>';
+}
+?>
 <?php
 include_once '../public/footer.php';

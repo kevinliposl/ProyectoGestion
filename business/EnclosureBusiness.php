@@ -47,15 +47,38 @@ if (isset($_POST['create'])) {
             $enclosure->setEnclosureid($_POST['enclosureid']);
             $result = $enclosureBusiness->delete($enclosure);
 
-            echo json_encode(array("result" => $result));
+            if ($result == 1) {
+                header("location: ../view/HeadquarterView.php?success=delete");
+            } else {
+                header("location: ../view/HeadquarterView.php?error=dbError");
+            }
         } else {
-            echo json_encode(array("result" => "error"));
+            header("location: ../view/HeadquarterView.php?error=format");
         }
     } else {
-        echo json_encode(array("result" => "empty"));
+        header("location: ../view/HeadquarterView.php?error=empty");
     }
 } else if (isset($_POST['update'])) {
-    
+    if (isset($_POST['enclosureid']) && isset($_POST['enclosurename'])) {
+        if (strlen($_POST['enclosureid']) > 0 && strlen($_POST['enclosurename'])) {
+            $enclosureBusiness = new EnclosureBusiness();
+
+            $enclosure = new Enclosure();
+            $enclosure->setEnclosureid($_POST['enclosureid']);
+            $enclosure->setEnclosurename($_POST['enclosurename']);
+            $result = $enclosureBusiness->update($enclosure);
+
+            if ($result == 1) {
+                header("location: ../view/HeadquarterView.php?success=update");
+            } else {
+                header("location: ../view/HeadquarterView.php?error=dbError");
+            }
+        } else {
+            header("location: ../view/HeadquarterView.php?error=format");
+        }
+    } else {
+        header("location: ../view/HeadquarterView.php?error=empty");
+    }
 }
 
 class EnclosureBusiness {
