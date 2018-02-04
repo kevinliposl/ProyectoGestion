@@ -7,7 +7,7 @@ if (isset($_POST['create'])) {
     if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['dateEvent']) && isset($_POST['hourEvent'])) {
         if (strlen($_POST['title']) > 0 && strlen($_POST['description']) > 0 && strlen($_POST['place']) > 0 && strlen($_POST['dateEvent']) > 0 && strlen($_POST['hourEvent']) > 0) {
 
-            $EventBusiness = new EventBusiness();
+            $eventBusiness = new EventBusiness();
             $event = new Event();
             $activityBusiness = new ActivityBusiness();
             $activity = new Activity();
@@ -27,7 +27,7 @@ if (isset($_POST['create'])) {
             $event->setEventDate($_POST['dateEvent']);
             $event->setEventHour($_POST['hourEvent']);
 
-            $result = $EventBusiness->insert($activityID,$event);
+            $result = $eventBusiness->insert($activityID,$event);
 
             if ($resulta == 1 and $result == 1) {
                 header("location: ../view/AdministrativeEventView.php?success=inserted");
@@ -44,13 +44,13 @@ if (isset($_POST['create'])) {
     if (isset($_POST['eventid'])) {
         if (strlen($_POST['eventid']) > 0) {
 
-            $EventBusiness = new EventBusiness();
+            $eventBusiness = new EventBusiness();
             $event = new Event();
             $activityBusiness = new ActivityBusiness();
             $activity = new Activity();
 
             $event->setActivityId($_POST['eventid']);
-            $result = $EventBusiness->delete($event);
+            $result = $eventBusiness->delete($event);
             
             $activity->setActivityId($_POST['eventid']);
             $resulta = $activityBusiness->delete($activity);
@@ -71,7 +71,7 @@ if (isset($_POST['create'])) {
     if (isset($_POST['eventid']) && isset($_POST['title']) && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['dateEvent']) && isset($_POST['hourEvent'])) {
         if (strlen($_POST['eventid']) > 0 && strlen($_POST['title']) > 0 && strlen($_POST['description']) > 0 && strlen($_POST['place']) > 0 && strlen($_POST['dateEvent']) > 0 && strlen($_POST['hourEvent']) > 0) {
             
-            $EventBusiness = new EventBusiness();
+            $eventBusiness = new EventBusiness();
             $event = new Event();
             $activityBusiness = new ActivityBusiness();
             $activity = new Activity();
@@ -88,7 +88,7 @@ if (isset($_POST['create'])) {
             $event->setEventDate($_POST['dateEvent']);
             $event->setEventHour($_POST['hourEvent']);
             
-            $result = $EventBusiness->update($event);
+            $result = $eventBusiness->update($event);
             
             if ($result == 1 and $resulta == 1) {
                 header("location: ../view/AdministrativeEventView.php?success=inserted");

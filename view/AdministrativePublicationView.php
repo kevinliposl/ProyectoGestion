@@ -1,33 +1,21 @@
 <?php
 include_once '../public/header.php';
 
-include_once '../business/EventBusiness.php';
-$eventBusiness = new EventBusiness();
+include_once '../business/PublicationBusiness.php';
+$eventBusiness = new PublicationBusiness();
 ?>
 <table>
     <tr>
         <th>Titulo</th>
         <th>Descripcion</th>
-        <th>Lugar</th>
-        <th>Dia del Evento</th>
-        <th>Hora del evento</th>
     </tr>
-    <form enctype="multipart/form-data" method='POST' action='../business/EventBusiness.php'>
+    <form enctype="multipart/form-data" method='POST' action='../business/PublicationBusiness.php'>
         <tr>
             <td>
                 <input type="text" name="title"/>
             </td>
             <td>
                 <input type ='text' name="description"/>
-            </td>
-            <td>
-                <input type="text" name="place"/>
-            </td>
-            <td>
-                <input type="date" name="dateEvent"/>
-            </td>
-            <td>
-                <input type="time" name="hourEvent"/>
             </td>
             <td>
                 <input type="submit" name="create" value="Crear"/> 
@@ -42,7 +30,7 @@ $eventBusiness = new EventBusiness();
 
     foreach ($event as $event) {
 
-        echo "<form enctype='multipart/form-data' method='POST' action='../business/EventBusiness.php'>";
+        echo "<form enctype='multipart/form-data' method='POST' action='../business/PublicationBusiness.php'>";
         echo "<tr>";
         echo "<td>";
         echo "<input type ='text' name='title' value='" . $event['activitytitle'] . "'/>";
@@ -52,13 +40,6 @@ $eventBusiness = new EventBusiness();
         echo "</td>";
         echo "<td>";
         echo "<input type = 'hidden' name='eventid' value='" . $event['activityid'] . "'/>";
-        echo "<input type = 'text' name='place' value='" . $event['eventplace'] . "'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='date' name='dateEvent' value='" . $event['eventdate'] . "'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='time' name='hourEvent' value='" . $event['eventhour'] . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type ='submit' name='delete' value ='Eliminar'/>";

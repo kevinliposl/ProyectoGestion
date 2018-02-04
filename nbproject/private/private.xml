@@ -3,9 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/view/AdministrativeCommentView.php</file>
+            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/view/StudentView.php</file>
+            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/domain/Comment.php</file>
+            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/business/CommentBusiness.php</file>
+            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/data/CommentData.php</file>
+            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/data/ActivityData.php</file>
+=======
             <file>file:/C:/xampp/htdocs/ProyectoGestion/business/HeadquarterBusiness.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoGestion/view/HeadquarterView.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoGestion/data/HeadquarterData.php</file>
+>>>>>>> e428511c6ac9de1b02656b8237a1bffd3898038d
         </group>
     </open-files>
 </project-private>
