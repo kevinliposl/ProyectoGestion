@@ -10,6 +10,7 @@ class Activity {
     private $commentCount;
     private $activityTitle;
     private $activityDescription;
+    private $activityType;
     
     function __construct() {
         
@@ -70,5 +71,13 @@ class Activity {
     function setActivityDescription($activityDescription){
         $this->activityDescription = $activityDescription;
     }//End SetActivityDescription
+    
+    function getActivityTyoe(){
+        return $this->activityType;
+    }//End getActivityId
+    
+    function setActivityType($activityType){
+        $this->activityType = $activityType;
+    }//End setActivityId
     
 }//End class Activity

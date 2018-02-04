@@ -99,3 +99,20 @@ CREATE TABLE tbevent(
     eventestate SMALLINT DEFAULT 1 NOT NULL,
     CONSTRAINT PRIMARY KEY(activityid)
 );
+
+
+CREATE TABLE tbpublication(
+    activityid INTEGER NOT NULL,
+	publicationstate SMALLINT DEFAULT 1 NOT NULL,
+    CONSTRAINT PRIMARY KEY(activityid)
+);
+
+CREATE TABLE tbcomment(
+    commentid INTEGER NOT NULL,
+    activityid INTEGER NOT NULL,
+    commentdescription varchar(255) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    commentcreated DATE NOT NULL,
+    commentactor INTEGER NOT NULL,
+    commentstate SMALLINT DEFAULT 1 NOT NULL,
+    CONSTRAINT PRIMARY KEY(commentid)
+);
