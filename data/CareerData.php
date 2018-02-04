@@ -21,14 +21,9 @@ class CareerData {
             $nextId = (int) $resultLastId['careerid'] + 1;
         }
 
-        $query = $this->db->prepare("INSERT INTO tbcareer VALUES(" . $nextId . "," .
-                $career->getCareercode() . ",'" .
-                $career->getCareername() . "','" .
-                $career->getCareergrade() . "'," .
-                $career->getCareerenclosureid() .
-                ");"
-        );
-        $query->execute();
+        $query = $this->db->prepare("INSERT INTO tbcareer VALUES(:careerid,:careercode,:careername,:careergrade,:careerenclosureid,:careerstate);");
+        $query->execute(array('careerid' => $nextId, 'careercode' => $career->getCareercode(), 'careername' => $career->getCareername(), 'careergrade' => $career->getCareergrade(),
+            'careerenclosureid' => $career->getCareerenclosureid(), 'careerstate' => 1));
         $result = $query->fetch(PDO::FETCH_ASSOC);
         $query->closeCursor();
 
@@ -40,11 +35,9 @@ class CareerData {
     }
 
     function update(Career $career) {
-        $query = $this->db->prepare("UPDATE tbcareer "
-                . "SET careercode=" . $career->getCareercode() .
-                ", careername='" . $career->getCareername() .
-                "' WHERE careercode=" . $career->getCareercode() . ";");
-        $query->execute();
+        $query = $this->db->prepare("UPDATE tbcareer SET careercode=:careercode,careername=:careername,careergrade=:careergrade WHERE careerid=:careerid;");
+        $query->execute(array('careerid' => $career->getCareerid(), 'careergrade' => $career->getCareergrade(), 'careername' => $career->getCareername(),
+            'careercode' => $career->getCareercode()));
         $result = $query->fetch();
         $query->closeCursor();
 
@@ -56,7 +49,7 @@ class CareerData {
     }
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT * FROM tbcareer;");
+        $query = $this->db->prepare("SELECT * FROM tbcareer WHERE careerstate = 1;");
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
@@ -75,7 +68,7 @@ class CareerData {
     }
 
     function selectByUniversity() {
-        $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername, h.headquarterid, e.enclosurename, e.enclosureid, c.careername, c.careerid from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid inner join tbenclosure as e on h.headquarterid = e.enclosureheadquarterid inner join tbcareer as c on e.enclosureid = c.careerenclosureid order by(u.universityid);");
+        $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername, h.headquarterid, e.enclosurename, e.enclosureid, c.careername, c.careerid from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid inner join tbenclosure as e on h.headquarterid = e.enclosureheadquarterid inner join tbcareer as c on e.enclosureid = c.careerenclosureid AND c.careerstate = 1 order by(u.universityid);");
         $queryCareer->execute();
         $result = $queryCareer->fetchAll();
         $queryCareer->closeCursor();
@@ -84,7 +77,7 @@ class CareerData {
     }
 
     function select(Career $career) {
-        $query = $this->db->prepare("SELECT * FROM tbcareer WHERE careercode=:careerid;");
+        $query = $this->db->prepare("SELECT * FROM tbcareer WHERE careercode=:careerid AND careerstate = 1;");
         $query->execute(array('careerid' => $career->getCareerid()));
         $result = $query->fetch();
         $career->setCareercode($result['careercode']);
@@ -94,10 +87,9 @@ class CareerData {
         return $career;
     }
 
-    ////// PONER SOLO ELIMINACIONES LOGICAS
     function delete(Career $career) {
-        $query = $this->db->prepare("DELETE FROM tbcareer WHERE careercode = :code;");
-        $query->execute(array("code" => $career->getCareercode()));
+        $query = $this->db->prepare("UPDATE tbcareer SET careerstate = :careerstate WHERE careerid= :careerid;");
+        $query->execute(array("careerid" => $career->getCareerid(), 'careerstate' => 0));
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if (!$result) {
             return 1;

@@ -23,25 +23,33 @@ class StudentData {
     }
 
     function insert(Student $student) {
-        $idStudent = $this->getLastId();
-        $queryInsertStudent = $this->db->prepare("INSERT INTO tbstudent VALUES (:id,:license,:name,:lastname1,:lastname2,:career1,:career2,:password,:state);");
-        $queryInsertStudent->execute(array('id' => $idStudent, 'license' => $student->getStudentlicense(), 'name' => $student->getStudentname(),
-            'lastname1' => $student->getStudentlastname1(), 'lastname2' => $student->getStudentlastname2(), 'career1' => $student->getStudentcareer1(),
-            'career2' => $student->getStudentcareer2(), 'password' => $student->getStudentpassword(), 'state' => 0));
-        $queryInsertStudent->fetch();
+        $queryExistsMail = $this->db->prepare("SELECT actormail FROM tbactor WHERE actormail=:mail;");
+        $queryExistsMail->execute(array('mail' => $student->getStudentmail()));
+        $resultMail = $queryExistsMail->fetch();
+        $queryExistsMail->closeCursor();
 
-        $queryInsertStudent->closeCursor();
-        $resultStudent = $this->select($idStudent);
+        if ($resultMail['actormail'] == NULL) {
+            $idStudent = $this->getLastId();
+            $queryInsertStudent = $this->db->prepare("INSERT INTO tbstudent VALUES (:id,:license,:name,:lastname1,:lastname2,:career1,:career2,:password,:state);");
+            $queryInsertStudent->execute(array('id' => $idStudent, 'license' => $student->getStudentlicense(), 'name' => $student->getStudentname(),
+                'lastname1' => $student->getStudentlastname1(), 'lastname2' => $student->getStudentlastname2(), 'career1' => $student->getStudentcareer1(),
+                'career2' => $student->getStudentcareer2(), 'password' => $student->getStudentpassword(), 'state' => 0));
+            $queryInsertStudent->fetch();
 
-        if ($resultStudent->getStudentid() !== NULL) {
+            $queryInsertStudent->closeCursor();
+            $resultStudent = $this->select($idStudent);
 
-            $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
-            $queryInsertActor->execute(array('actorid' => $idStudent, 'actormail' => $student->getStudentmail()));
-            $resultActor = $queryInsertActor->fetch();
-            $queryInsertActor->closeCursor();
+            if ($resultStudent->getStudentid() !== NULL) {
+                $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
+                $queryInsertActor->execute(array('actorid' => $idStudent, 'actormail' => $student->getStudentmail()));
+                $resultActor = $queryInsertActor->fetch();
+                $queryInsertActor->closeCursor();
 
-            if (!$resultActor) {
-                return 1;
+                if (!$resultActor) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             } else {
                 return 0;
             }
