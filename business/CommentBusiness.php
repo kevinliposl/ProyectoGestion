@@ -73,14 +73,14 @@ class CommentBusiness {
 
 //End insert
 
-    function delete(Event $event) {
-        return $this->data->delete($event);
+    function delete(Comment $comment) {
+        return $this->data->delete($comment);
     }
 
 //End delete
 
-    function update(Event $event) {
-        return $this->data->update($event);
+    function update(Comment $comment) {
+        return $this->data->update($comment);
     }
 
 //End update
