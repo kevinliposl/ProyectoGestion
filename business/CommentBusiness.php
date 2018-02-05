@@ -37,7 +37,7 @@ if (isset($_POST['create'])) {
             $result = $commentBusiness->delete($comment);
 
 
-            if ($result == 1 and $resulta == 1) {
+            if ($result == 1) {
                 header("location: ../view/AdministrativeCommentView.php?success=inserted");
             } else {
                 header("location: ../view/AdministrativeCommentView.php?error=dbError");
@@ -85,7 +85,13 @@ class CommentBusiness {
     }
 
 //End selectAll
+    
+    function selectAllEvents() {
+        return $this->data->selectAllEvents();
+    }
 
+    //End selectAllEvents
+    
     function selectAllTotal() {
         return $this->data->selectAllTotal();
     }
