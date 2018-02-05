@@ -23,12 +23,12 @@ class AdministrativeData {
         }
         $query = $this->db->prepare(
                 "INSERT INTO tbadministrative VALUES (" . $nextId . ",'" .
-                $administrative->getProfessorlicense() . "','" .
-                $administrative->getProfessorname() . "','" .
-                $administrative->getProfessorlastname1() . "','" .
-                $administrative->getProfessorlastname2() . "','" .
+                $administrative->getAdministrativelicense() . "','" .
+                $administrative->getAdministrativename() . "','" .
+                $administrative->getAdministrativelastname1() . "','" .
+                $administrative->getAdministrativelastname2() . "','" .
                 $administrative->getAdministrativearea() . "','" .
-                $administrative->getProfessorpassword() . "'," .
+                $administrative->getAdministrativepassword() . "'," .
                 0 . ");"
         );
         $query->execute();
