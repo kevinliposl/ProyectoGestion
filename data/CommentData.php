@@ -72,7 +72,7 @@ class CommentData {
     }
     
     function selectAllEvents() {
-        $query = $this->db->prepare(" SELECT a.activitytitle,a.activitydescription, e.*, c.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.activityid INNER JOIN tbcomment c ON a.activityid = c.activityid ;");
+        $query = $this->db->prepare(" SELECT a.activitytitle,a.activitydescription, e.*, c.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.activityid INNER JOIN tbcomment c ON a.activityid = c.activityid  ;");
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
