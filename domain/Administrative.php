@@ -2,11 +2,7 @@
 
 class Administrative {
 
-<<<<<<< HEAD
-    private $administrativeiid;
-=======
     private $administrativeid;
->>>>>>> 2b1409310acb6b4868bf86aeeda9375ec7530399
     private $administrativemail;
     private $administrativelicense;
     private $administrativename;
@@ -22,11 +18,7 @@ class Administrative {
     function getAdministrativemail() {
         return $this->administrativemail;
     }
-    
-    function getAdministrativemail() {
-        return $this->administrativemail;
-    }
-
+   
     function getAdministrativelicense() {
         return $this->administrativelicense;
     }
@@ -57,10 +49,6 @@ class Administrative {
 
     function setAdministrativeid($administrativeid) {
         $this->administrativeid = $administrativeid;
-    }
-
-    function setAdministrativemail($administrativemail) {
-        $this->administrativemail = $administrativemail;
     }
 
     function setAdministrativelicense($administrativelicense) {

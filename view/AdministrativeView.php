@@ -14,28 +14,28 @@ include_once '../public/header.php';
         <th>Departamento</th>
         <th>Contrase&ncaron;a</th>        
     </tr>
-    <form enctype="multipart/form-data" method='POST' action='../business/.php'>
+    <form enctype="multipart/form-data" method='POST' action='../business/AdministrativeBusiness.php'>
         <tr>
             <td>
-                <input type ='text' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name='mail'/>
+                <input type ='text' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name='administrativemail'/>
             </td>
             <td>
-                <input type ='text' name='license'/>
+                <input type ='text' name='administrativelicense'/>
             </td>
             <td>
-                <input type="text" name="name" pattern="[a-zA-Z\s]+$"/>
+                <input type="text" name="administrativename" pattern="[a-zA-Z\s]+$"/>
             </td>
             <td>
-                <input type="text" name="lastname1" pattern="[a-zA-Z\s]+$"/>
+                <input type="text" name="administrativelastname1" pattern="[a-zA-Z\s]+$"/>
             </td>
             <td>
-                <input type="text" name="lastname2" pattern="[a-zA-Z\s]+$"/>
+                <input type="text" name="administrativelastname2" pattern="[a-zA-Z\s]+$"/>
             </td>
             <td>
-                <input type="text" name="area" pattern="[a-zA-Z\s]+$"/>
+                <input type="text" name="administrativearea" pattern="[a-zA-Z\s]+$"/>
             </td>
             <td>
-                <input type="password" name="password"/>
+                <input type="password" name="administrativepassword"/>
             </td>
             <td>
                 <input type="submit" name="create" value="Crear"/> 
