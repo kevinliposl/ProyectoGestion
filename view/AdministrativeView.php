@@ -17,7 +17,7 @@ include_once '../public/header.php';
     <form enctype="multipart/form-data" method='POST' action='../business/.php'>
         <tr>
             <td>
-                <input type ='text' name='mail'/>
+                <input type ='text' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name='mail'/>
             </td>
             <td>
                 <input type ='text' name='license'/>

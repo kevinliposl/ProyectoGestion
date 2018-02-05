@@ -16,7 +16,7 @@ $professorBusiness = new ProfessorBusiness();
     <form enctype="multipart/form-data" method='POST' action='../business/ProfessorBusiness.php'>
         <tr>
             <td>
-                <input type ='email' name='professormail'/>
+                <input type ='email' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name='professormail'/>
             </td>
             <td>
                 <input type ='text' name='professorlicense'/>

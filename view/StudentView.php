@@ -24,7 +24,7 @@ $universityBusiness = new UniversityBusiness();
     <form enctype="multipart/form-data" method='POST' action='../business/StudentBusiness.php'>
         <tr>
             <td>
-                <input type="text" name="studentmail"/>
+                <input type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name="studentmail"/>
             </td>
             <td>
                 <input type ='text' name="studentlicense"/>

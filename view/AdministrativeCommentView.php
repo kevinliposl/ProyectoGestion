@@ -37,7 +37,7 @@ $activityBusiness = new ActivityBusiness();
                 <input type ='text' name="commentdescription"/>
             </td>
             <td>
-                <input type="text" name="commentactor"/>
+                <input type="text" pattern="[1-9]" name="commentactor"/>
             </td>
 
             <td>
