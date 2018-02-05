@@ -82,7 +82,7 @@ $activityBusiness = new ActivityBusiness();
         echo "<input readonly type ='text' name='commentid' value='" . $comment['commentid'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type = 'text' name='commentdescription' value='" . $comment['commentdescription'] . "'/>";
+        echo "<input readonly type = 'text' name='commentdescription' value='" . $comment['commentdescription'] . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input readonly type = 'text' name='commentcreated' value='" . $comment['commentcreated'] . "'/>";
