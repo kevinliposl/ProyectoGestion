@@ -9,17 +9,17 @@ class StudentData {
         $this->db = SPDO::singleton();
     }
 
-    private function getLastId() {
-        $queryLastId = $this->db->prepare("SELECT MAX(studentid) AS studentid  FROM tbstudent");
-        $queryLastId->execute();
-        $resultLastId = $queryLastId->fetch();
-        $queryLastId->closeCursor();
-        $nextId = 1;
+    private function getlastid() {
+        $query = $this->db->prepare("SELECT MAX(actorid) AS id FROM tbactor");
+        $query->execute();
+        $result = $query->fetch();
+        $query->closeCursor();
+        $id = 1;
 
-        if ($resultLastId['studentid'] != NULL) {
-            $nextId = (int) $resultLastId['studentid'] + 1;
+        if ($result['id'] != NULL) {
+            $id = (int) $result['id'] + 1;
         }
-        return $nextId;
+        return $id;
     }
 
     function insert(Student $student) {

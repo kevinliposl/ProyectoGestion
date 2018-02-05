@@ -41,7 +41,6 @@ $universityBusiness = new UniversityBusiness();
             <td>
                 <input type="password" name="studentpassword"/>
             </td>
-
             <td>
 
                 <select name="studentcareer1" style="width: 100%">
@@ -52,7 +51,7 @@ $universityBusiness = new UniversityBusiness();
                     $careers = $careerBusiness->selectAllByUniversity();
 
                     foreach ($universities as $university) {
-                        $universityname = $university->getUniversityname();
+                        $universityname = $university['universityname'];
                         ?>
 
                         <optgroup label="<?= $universityname; ?>">
@@ -67,10 +66,10 @@ $universityBusiness = new UniversityBusiness();
                                     <?php
                                 }
                             }
-                    }
-                            ?>
+                        }
+                        ?>
 
-                    </select>
+                </select>
             </td>
             <td>
                 <select name="studentcareer2" style="width: 100%">
@@ -78,7 +77,7 @@ $universityBusiness = new UniversityBusiness();
 
                     <?php
                     foreach ($universities as $university) {
-                        $universityname = $university->getUniversityname();
+                        $universityname = $university['universityname'];
                         ?>
 
                         <optgroup label="<?= $universityname; ?>">
@@ -93,14 +92,12 @@ $universityBusiness = new UniversityBusiness();
                                     <?php
                                 }
                             }
-                    }
-                            ?>
+                        }
+                        ?>
                 </select>
             </td>
             <td>
                 <input type="submit" name="create" value="Crear"/> 
-            </td>
-            <td>
             </td>
         </tr>
     </form>

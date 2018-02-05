@@ -16,7 +16,7 @@ $professorBusiness = new ProfessorBusiness();
     <form enctype="multipart/form-data" method='POST' action='../business/ProfessorBusiness.php'>
         <tr>
             <td>
-                <input type ='text' name='professormail'/>
+                <input type ='email' name='professormail'/>
             </td>
             <td>
                 <input type ='text' name='professorlicense'/>
@@ -49,7 +49,7 @@ $professorBusiness = new ProfessorBusiness();
         echo "<form enctype='multipart/form-data' method='POST' action='../business/ProfessorBusiness.php'>";
         echo "<tr>";
         echo "<td>";
-        echo "<input type ='text' name='professormail' value='" . $professor['professormail'] . "'/>";
+        echo "<input type ='text' name='professormail' value='" . $professor['actormail'] . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type ='text' name='professorlicense' value='" . $professor['professorlicense'] . "'/>";

@@ -3,6 +3,7 @@
 class Professor {
 
     private $professorid;
+    private $professormail;
     private $professorlicense;
     private $professorname;
     private $professorlastname1;
@@ -10,14 +11,18 @@ class Professor {
     private $professorstate;
     private $professorpassword;
 
-    function __construct() {
-        ;
+    function getProfessormail() {
+        return $this->professormail;
+    }
+
+    function setProfessormail($professormail) {
+        $this->professormail = $professormail;
     }
 
     function getProfessorlicense() {
         return $this->professorlicense;
     }
-    
+
     function getProfessorstate() {
         return $this->professorstate;
     }
@@ -49,8 +54,8 @@ class Professor {
     function setProfessorlicense($license) {
         $this->professorlicense = $license;
     }
-    
-     function setProfessorstate($state) {
+
+    function setProfessorstate($state) {
         $this->professorstate = $state;
     }
 
