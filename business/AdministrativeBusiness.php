@@ -54,7 +54,7 @@ if (isset($_POST['create'])) {
     }
 } else if (isset($_POST['update'])) {
     if (isset($_POST['administrativelicense']) && isset($_POST['administrativemail']) && isset($_POST['administrativename']) && isset($_POST['administrativelastname1']) &&
-            isset($_POST['administrativelastname2']) && isset($_POST['administrativearea']) && isset($_POST['administrativepassword'])) {
+            isset($_POST['administrativelastname2']) && isset($_POST['administrativearea']) && isset($_POST['administrativepassword']) && isset($_POST['administrativeid'])) {
         if (strlen($_POST['administrativelicense']) > 0 && strlen($_POST['administrativemail']) > 0 && strlen($_POST['administrativename']) > 0 && strlen($_POST['administrativelastname1']) > 0 && strlen($_POST['administrativelastname2']) > 0 && strlen($_POST['administrativearea']) > 0 &&
                 strlen($_POST['administrativepassword']) > 0 && filter_var($_POST['administrativemail'], FILTER_VALIDATE_EMAIL)) {
 
@@ -71,7 +71,6 @@ if (isset($_POST['create'])) {
             $administrative->setAdministrativepassword($_POST['administrativepassword']);
 
             $result = $administrativeBusiness->update($administrative);
-
             if ($result == 1) {
                 header("location: ../view/AdministrativeView.php?success=inserted");
             } else {

@@ -49,26 +49,29 @@ $administrativeBusiness = new AdministrativeBusiness();
 
     foreach ($administratives as $administrative) {
 
-        echo "<form enctype='multipart/form-data' method='POST' action='../business/ProfessorBusiness.php'>";
+        echo "<form enctype='multipart/form-data' method='POST' action='../business/AdministrativeBusiness.php'>";
         echo "<tr>";
         echo "<td>";
         echo "<input type ='text' name='administrativemail' value='" . $administrative['actormail'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type ='text' name='administrativelicense' value='" . $administrative['professorlicense'] . "'/>";
+        echo "<input type ='text' name='administrativelicense' value='" . $administrative['administrativelicense'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type = 'hidden' name='administrativeid' value='" . $administrative['professorid'] . "'/>";
-        echo "<input type = 'text' name='administrativename' value='" . $administrative['professorname'] . "' pattern ='[a-zA-Z\s]+$'/>";
+        echo "<input type = 'hidden' name='administrativeid' value='" . $administrative['administrativeid'] . "'/>";
+        echo "<input type = 'text' name='administrativename' value='" . $administrative['administrativename'] . "' pattern ='[a-zA-Z\s]+$'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type ='text' name='administrativelastname1' value='" . $administrative['professorlastname1'] . "' pattern ='[a-zA-Z\s]+$'/>";
+        echo "<input type ='text' name='administrativelastname1' value='" . $administrative['administrativelastname1'] . "' pattern ='[a-zA-Z\s]+$'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type ='text' name='administrativelastname2' value='" . $administrative['professorlastname2'] . "' pattern ='[a-zA-Z\s]+$'/>";
+        echo "<input type ='text' name='administrativelastname2' value='" . $administrative['administrativelastname2'] . "' pattern ='[a-zA-Z\s]+$'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type ='password' name='administrativepassword' value='" . $administrative['professorpassword'] . "'/>";
+        echo "<input type ='text' name='administrativearea' value='" . $administrative['administrativearea'] . "' pattern ='[a-zA-Z\s]+$'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type ='password' name='administrativepassword' value='" . $administrative['administrativepassword'] . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type ='submit' name='delete' value ='Eliminar'/>";

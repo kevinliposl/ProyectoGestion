@@ -60,15 +60,11 @@ class AdministrativeData {
 
     function update(Administrative $administrative) {
         $query = $this->db->prepare("UPDATE tbadministrative "
-                . "SET administrativeid =" . $administrative->getAdministrativeid() .
-                ", administrativelicense='" . $administrative->getAdministrativelicense() .
-                "', administrativename='" . $administrative->getAdministrativename() .
-                "', administrativelastname1='" . $administrative->getAdministrativelastname1() .
-                "', administrativelastname2='" . $administrative->getAdministrativelastname2() .
-                "', administrativepassword='" . $administrative->getAdministrativepassword() .
-                "', administrativearea='" . $administrative->getAdministrativearea() .
-                "' WHERE administrativeid=" . $administrative->getAdministrativeid() . ";");
-        $query->execute();
+                . "SET administrativelicense =:license, administrativename =:name, administrativelastname1=:lastname1,"
+                . "administrativelastname2 =:lastname2, administrativepassword =:password,administrativearea =:area WHERE administrativeid =:id;");
+        $query->execute(array('license' => $administrative->getAdministrativelicense(), 'name' => $administrative->getAdministrativename(), 'lastname1' => $administrative->getAdministrativelastname1(),
+            'lastname2' => $administrative->getAdministrativelastname2(), 'password' => $administrative->getAdministrativepassword(), 'area' => $administrative->getAdministrativearea(),
+            'id' => $administrative->getAdministrativeid()));
         $result = $query->fetch();
         $query->closeCursor();
 
@@ -84,22 +80,7 @@ class AdministrativeData {
         $query->execute(array('state' => 1));
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
-        $administratives = [];
-
-        foreach ($result as $row) {
-            $currentAdministrative = new Administrative();
-            $currentAdministrative->setAdministrativemail($row['actormail']);
-            $currentAdministrative->setAdministrativeid($row['administrativeid']);
-            $currentAdministrative->setAdministrativelicense($row['administrativelicense']);
-            $currentAdministrative->setAdministrativename($row['administrativename']);
-            $currentAdministrative->setAdministrativelastname1($row['administrativelastname1']);
-            $currentAdministrative->setAdministrativelastname2($row['administrativelastname2']);
-            $currentAdministrative->setAdministrativearea($row['administrativearea']);
-            $currentAdministrative->setAdministrativepassword($row['administrativepassword']);
-            array_push($administratives, $currentAdministrative);
-        }
-
-        return $administratives;
+        return $result;
     }
 
     function select($idAdministrative) {
