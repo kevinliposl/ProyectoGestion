@@ -3,6 +3,7 @@
 class Administrative {
 
     private $administrativeiid;
+    private $administrativemail;
     private $administrativelicense;
     private $administrativename;
     private $administrativelastname1;
@@ -16,6 +17,10 @@ class Administrative {
 
     function getAdministrativelicense() {
         return $this->administrativelicense;
+    }
+    
+    function getAdministrativemail() {
+        return $this->administrativemail;
     }
 
     function getAdministrativeid() {
@@ -44,6 +49,10 @@ class Administrative {
 
     function setAdministrativeid($id) {
         $this->administrativeiid = $id;
+    }
+    
+    function setAdministrativemail($administrativemail) {
+        $this->administrativemail = $administrativemail;
     }
 
     function setAdministrativelicense($license) {
