@@ -112,7 +112,7 @@ class AdministrativeData {
 
     function delete(Administrative $administrative) {
         $query = $this->db->prepare("UPDATE tbadministrative SET administrativestate=:state WHERE administrativeid=:id;");
-        $query->execute(array('state' => 1, 'id' => $administrative->getAdministrativeid()));
+        $query->execute(array('state' => 0, 'id' => $administrative->getAdministrativeid()));
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if (!$result) {
             return 1;

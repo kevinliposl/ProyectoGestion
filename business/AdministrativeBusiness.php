@@ -18,7 +18,7 @@ if (isset($_POST['create'])) {
             $administrative->setAdministrativelastname2($_POST['administrativelastname2']);
             $administrative->setAdministrativearea($_POST['administrativearea']);
             $administrative->setAdministrativepassword($_POST['administrativepassword']);
-            
+
             $result = $administrativeBusiness->insert($administrative);
 
             if ($result == 1) {
@@ -33,14 +33,13 @@ if (isset($_POST['create'])) {
         header("location: ../view/AdministrativeView.php?error=empty");
     }
 } else if (isset($_POST['delete'])) {
-    if (isset($_POST['studentid'])) {
-        if (strlen($_POST['studentid']) > 0) {
-
-            $studentBusiness = new StudentBusiness();
-
-            $student = new Student();
-            $student->setStudentid($_POST['studentid']);
-            $result = $studentBusiness->delete($student);
+    if (isset($_POST['administrativeid'])) {
+        if (strlen($_POST['administrativeid']) > 0) {
+            $administrativeBusiness = new AdministrativeBusiness();
+            $administrative = new Administrative;
+            
+            $administrative->setAdministrativeid($_POST['administrativeid']);
+            $result = $administrativeBusiness->delete($administrative);
 
             if ($result == 1) {
                 header("location: ../view/AdministrativeView.php?success=inserted");
