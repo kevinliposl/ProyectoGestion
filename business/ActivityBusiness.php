@@ -30,5 +30,9 @@ class ActivityBusiness {
         return $this->data->update($activity);
     }//End update
     
+    function updateComment(Activity $activity) {
+        return $this->data->updateComment($activity);
+    }//End updateComment
+    
 }//End class ActivityBusiness 
     
