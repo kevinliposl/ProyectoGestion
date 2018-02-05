@@ -24,11 +24,13 @@ class CommentData {
     }
 
     function insert(Comment $comment) {
+        
+        echo '<script language="javascript">alert("juas");</script>'; 
         $lastid = $this->getlastid();
 
         $query = $this->db->prepare("INSERT INTO tbcomment VALUES(:commentid,:activityid,:commentdescription,:commentcreated,:commentactor,:commentstate);");
         $query->execute(array('commentid' => $lastid, 'activityid' => $comment->getActivityId(), 'commentdescription' => $comment->getCommentDescription(),
-            'commentcreated' => $comment->getCommentDate(), 'commentstate' => 1, 'commentactor' => (int) $comment->getCommentActor()));
+            'commentcreated' => $comment->getCommentDate(), 'commentactor' => (int) $comment->getCommentActor(), 'commentstate' => 1));
         $query->fetch();
         $query->closeCursor();
 
@@ -37,7 +39,7 @@ class CommentData {
         $verifierResult = $queryResult->fetch();
         $queryResult->closeCursor();
 
-        if (!$verifierResult['commentid'] != NULL) {
+        if ($verifierResult['commentid'] != NULL) {
             return 1;
         } else {
             return 0;
@@ -68,6 +70,15 @@ class CommentData {
 
         return $comments;
     }
+    
+    function selectAllEvents() {
+        $query = $this->db->prepare(" SELECT a.activitytitle,a.activitydescription, e.*, c.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.activityid INNER JOIN tbcomment c ON a.activityid = c.activityid ;");
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+
+        return $result;
+    }//End selectALL
 
 //End selectALL
 

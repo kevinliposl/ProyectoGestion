@@ -47,24 +47,46 @@ $activityBusiness = new ActivityBusiness();
             </td>
         </tr>
     </form>
+    </table>
 
+<br>
+<br>
+
+ <table>
+     <tr>
+         <th>ID actividad</th>
+         <th>Titulo actividad</th>
+         <th>Descripción</th>
+         <th>Id comentario</th>
+         <th>Comentario</th>
+         <th>Fecha</th>
+     </tr>
     <?php
-    $comments = $commentBusiness->selectAll();
+   
+    $comments = $commentBusiness->selectAllEvents();
 
     foreach ($comments as $comment) {
 
         echo "<form enctype='multipart/form-data' method='POST' action='../business/CommentBusiness.php'>";
         echo "<tr>";
         echo "<td>";
-        echo "<input type ='text' name='activityid' value='" . $comment->getActivityId() . "'/>";
+        echo "<input readonly type ='text' name='activityid' value='" . $comment['activityid'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type ='text' name='commentid' value='" . $comment->getCommentId() . "'/>";
+        echo "<input readonly type ='text' name='activitytitle' value='" . $comment['activitytitle'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type = 'text' name='commentdescription' value='" . $comment->getCommentDescription() . "'/>";
+        echo "<input readonly type = 'text' name='activitydescription' value='" . $comment['activitydescription'] . "'/>";
         echo "</td>";
-
+        echo "<td>";
+        echo "<input readonly type ='text' name='commentid' value='" . $comment['commentid'] . "'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type = 'text' name='commentdescription' value='" . $comment['commentdescription'] . "'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input readonly type = 'text' name='commentcreated' value='" . $comment['commentcreated'] . "'/>";
+        echo "</td>";
         echo "<td>";
         echo "<input type ='submit' name='delete' value ='Eliminar'/>";
         echo "</td>";
@@ -73,6 +95,7 @@ $activityBusiness = new ActivityBusiness();
         echo "</form>";
     }
     ?>
+ </table>
 
     <tr>
         <td></td>
