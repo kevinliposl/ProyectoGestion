@@ -3,7 +3,6 @@ include_once '../public/header.php';
 include_once '../business/AdministrativeBusiness.php';
 
 $administrativeBusiness = new AdministrativeBusiness();
-
 ?>
 <table>
     <tr>
@@ -45,6 +44,42 @@ $administrativeBusiness = new AdministrativeBusiness();
             </td>
         </tr>
     </form>
+    <?php
+    $administratives = $administrativeBusiness->selectAll();
+
+    foreach ($administratives as $administrative) {
+
+        echo "<form enctype='multipart/form-data' method='POST' action='../business/ProfessorBusiness.php'>";
+        echo "<tr>";
+        echo "<td>";
+        echo "<input type ='text' name='administrativemail' value='" . $administrative['actormail'] . "'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type ='text' name='administrativelicense' value='" . $administrative['professorlicense'] . "'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type = 'hidden' name='administrativeid' value='" . $administrative['professorid'] . "'/>";
+        echo "<input type = 'text' name='administrativename' value='" . $administrative['professorname'] . "' pattern ='[a-zA-Z\s]+$'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type ='text' name='administrativelastname1' value='" . $administrative['professorlastname1'] . "' pattern ='[a-zA-Z\s]+$'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type ='text' name='administrativelastname2' value='" . $administrative['professorlastname2'] . "' pattern ='[a-zA-Z\s]+$'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type ='password' name='administrativepassword' value='" . $administrative['professorpassword'] . "'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type ='submit' name='delete' value ='Eliminar'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type ='submit' name='update' value ='Actualizar'/>";
+        echo "</td>";
+        echo "</tr>";
+        echo "</form>";
+    }
+    ?>
 
     <tr>
         <td></td>

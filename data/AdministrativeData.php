@@ -9,7 +9,7 @@ class AdministrativeData {
         $this->db = SPDO::singleton();
     }
 
-    function insert(Administrative $administrative) {    
+    function insert(Administrative $administrative) {
 
         $queryLastId = $this->db->prepare("SELECT MAX(administrativeid) AS administrativeid  FROM tbadministrative");
         $queryLastId->execute();
@@ -34,11 +34,11 @@ class AdministrativeData {
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
-        
-          $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
-                $queryInsertActor->execute(array('actorid' => $nextId, 'actormail' => $administrative->getAdministrativemail()));
-                $resultActor = $queryInsertActor->fetch();
-                $queryInsertActor->closeCursor();
+
+        $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
+        $queryInsertActor->execute(array('actorid' => $nextId, 'actormail' => $administrative->getAdministrativemail()));
+        $resultActor = $queryInsertActor->fetch();
+        $queryInsertActor->closeCursor();
 
         if (!$result) {
             return 1;
@@ -69,16 +69,15 @@ class AdministrativeData {
     }
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT * from tbadministrative where administrativestate=:state;");
-        $query->execute(array('state' => 0));
-        $result = $query->fetchAll(); //PDO::FETCH_ASSOC
+        $query = $this->db->prepare("SELECT ac.actormail,ad.* from tbadministrative ad INNER JOIN tbactor ac ON ac.actorid= ad.administrativeid WHERE administrativestate=:state;");
+        $query->execute(array('state' => 1));
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
-        
         $administratives = [];
-        $currentAdministrative = new Administrative();
-        
+
         foreach ($result as $row) {
-            
+            $currentAdministrative = new Administrative();
+            $currentAdministrative->setAdministrativemail($row['actormail']);
             $currentAdministrative->setAdministrativeid($row['administrativeid']);
             $currentAdministrative->setAdministrativelicense($row['administrativelicense']);
             $currentAdministrative->setAdministrativename($row['administrativename']);
@@ -86,10 +85,9 @@ class AdministrativeData {
             $currentAdministrative->setAdministrativelastname2($row['administrativelastname2']);
             $currentAdministrative->setAdministrativearea($row['administrativearea']);
             $currentAdministrative->setAdministrativepassword($row['administrativepassword']);
-            
             array_push($administratives, $currentAdministrative);
         }
-        
+
         return $administratives;
     }
 
@@ -97,7 +95,7 @@ class AdministrativeData {
         $query = $this->db->prepare("SELECT * FROM tbadministrative WHERE administrativeid=" . $idAdministrative . ";");
         $query->execute();
         $result = $query->fetch();
-        
+
         $administrative = new Administrative();
         $administrative->setAdministrativeid($result['administrativeid']);
         $administrative->setAdministrativelicense($result['administrativelicense']);
@@ -106,7 +104,7 @@ class AdministrativeData {
         $administrative->setAdministrativelastname2($result['administrativelastname2']);
         $administrative->setAdministrativearea($result['administrativearea']);
         $administrative->setAdministrativepassword($result['administrativepassword']);
-        
+
         return $administrative;
     }
 
@@ -122,4 +120,3 @@ class AdministrativeData {
     }
 
 }
-
