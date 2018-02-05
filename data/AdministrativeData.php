@@ -34,6 +34,11 @@ class AdministrativeData {
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
+        
+          $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
+                $queryInsertActor->execute(array('actorid' => $nextId, 'actormail' => $administrative->getAdministrativemail()));
+                $resultActor = $queryInsertActor->fetch();
+                $queryInsertActor->closeCursor();
 
         if (!$result) {
             return 1;
