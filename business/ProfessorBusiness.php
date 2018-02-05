@@ -5,7 +5,8 @@ require '../domain/Professor.php';
 if (isset($_POST['create'])) {
     if (isset($_POST['professormail']) && isset($_POST['professorlicense']) && isset($_POST['professorname']) &&
             isset($_POST['professorlastname1']) && isset($_POST['professorlastname2']) && isset($_POST['professorpassword'])) {
-        if (strlen($_POST['professormail']) > 0 && strlen($_POST['professorlicense']) > 0 && strlen($_POST['professorname']) > 0 && strlen($_POST['professorlastname1']) > 0 && strlen($_POST['professorlastname2']) > 0 && strlen($_POST['professorpassword']) > 0) {
+        if (strlen($_POST['professormail']) > 0 && strlen($_POST['professorlicense']) > 0 && strlen($_POST['professorname']) > 0 && strlen($_POST['professorlastname1']) > 0 &&
+                strlen($_POST['professorlastname2']) > 0 && strlen($_POST['professorpassword']) > 0 && filter_var($_POST['professormail'], FILTER_VALIDATE_EMAIL)) {
             $professorBusiness = new ProfessorBusiness;
             $professor = new Professor;
 
