@@ -1,8 +1,9 @@
 <?php
 include_once '../public/header.php';
+include_once '../business/AdministrativeBusiness.php';
 
-//include_once '../business/';
-//$professorBusiness = new ProfessorBusiness();
+$administrativeBusiness = new AdministrativeBusiness();
+
 ?>
 <table>
     <tr>
@@ -44,7 +45,7 @@ include_once '../public/header.php';
             </td>
         </tr>
     </form>
-    
+
     <tr>
         <td></td>
         <td>
