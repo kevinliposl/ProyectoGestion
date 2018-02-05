@@ -25,7 +25,7 @@ include_once '../public/header.php';
                     <?php
                     foreach ($universities as $currentUniversity) {
                         ?>
-                        <option value="<?= $currentUniversity->getUniversityid(); ?>"><?= $currentUniversity->getUniversityName(); ?></option>
+                        <option value="<?= $currentUniversity['universityid']; ?>"><?= $currentUniversity['universityname']; ?></option>
                         <?php
                     }
                     ?> 
@@ -291,13 +291,13 @@ foreach ($headquarters as $headquarter) {
     echo "<form enctype='multipart/form-data' method='POST' action='../business/HeadquarterBusiness.php'>";
     echo "<tr>";
     echo "<td>";
-    echo "<input type ='text' disabled name='name' value='" . $headquarter->getHeadquarteruniversityid() . "'/>";
+    echo "<input type ='text' disabled name='name' value='" . $headquarter['headquarteruniversityid'] . "'/>";
     echo "</td>";
     echo "<td>";
-    echo "<input type ='text' name='headquartername' value='" . $headquarter->getHeadquartername() . "'/>";
+    echo "<input type ='text' name='headquartername' value='" . $headquarter['headquartername'] . "'/>";
     echo "</td>";
     echo "<td>";
-    echo "<input type ='hidden' name='headquarterid' value='" . $headquarter->getHeadquarterid() . "'/>";
+    echo "<input type ='hidden' name='headquarterid' value='" . $headquarter['headquarterid'] . "'/>";
     echo "</td>";
     echo "<td>";
     echo "<input type ='submit' name='update' value='Actualizar'/>";
@@ -326,8 +326,8 @@ foreach ($enclosures as $enclosure) {
     echo "<form enctype='multipart/form-data' method='POST' action='../business/EnclosureBusiness.php'>";
     echo "<tr>";
     echo "<td>";
-    echo "<input type ='hidden' name='enclosureid' value='" . $enclosure->getEnclosureid() . "'/>";
-    echo "<input type ='text' name='enclosurename' value='" . $enclosure->getEnclosurename() . "'/>";
+    echo "<input type ='hidden' name='enclosureid' value='" . $enclosure['enclosureid'] . "'/>";
+    echo "<input type ='text' name='enclosurename' value='" . $enclosure['enclosurename'] . "'/>";
     echo "</td>";
     echo "<td>";
     echo "<input type ='submit' name='delete' value='Eliminar'/>";
