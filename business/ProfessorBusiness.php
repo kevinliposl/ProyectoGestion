@@ -31,32 +31,53 @@ if (isset($_POST['create'])) {
         header("location: ../view/ProfessorView.php?error=empty");
     }
 } else if (isset($_POST['delete'])) {
-    if (isset($_POST[''])) {
-        if (strlen($_POST['']) > 0) {
+    if (isset($_POST['professorid'])) {
+        if (strlen($_POST['professorid']) > 0) {
+            $professorBusiness = new ProfessorBusiness;
+            $professor = new Professor;
 
+            $professor->setProfessorid($_POST['professorid']);
+            $result = $professorBusiness->delete($professor);
 
-
-
-            echo json_encode(array("result" => $result));
+            if ($result === 1) {
+                header("location: ../view/ProfessorView.php?success=deleted");
+            } else {
+                header("location: ../view/ProfessorView.php?error=dbError");
+            }
         } else {
-            echo json_encode(array("result" => -1));
+            header("location: ../view/ProfessorView.php?error=format");
         }
     } else {
-        echo json_encode(array("result" => -2));
+        header("location: ../view/ProfessorView.php?error=empty");
     }
 } else if (isset($_POST['update'])) {
-    if (isset($_POST[''])) {
-        if (strlen($_POST['']) > 0) {
+    if (isset($_POST['professormail']) && isset($_POST['professorid']) && isset($_POST['professorlicense']) && isset($_POST['professorname']) &&
+            isset($_POST['professorlastname1']) && isset($_POST['professorlastname2']) && isset($_POST['professorpassword'])) {
+        if (strlen($_POST['professormail']) > 0 && strlen($_POST['professorid']) > 0 && strlen($_POST['professorlicense']) > 0 && strlen($_POST['professorname']) > 0 &&
+                strlen($_POST['professorlastname1']) > 0 && strlen($_POST['professorlastname2']) > 0 && strlen($_POST['professorpassword']) > 0) {
+            $professorBusiness = new ProfessorBusiness;
+            $professor = new Professor;
 
+            $professor->setProfessorid($_POST['professorid']);
+            $professor->setProfessormail($_POST['professormail']);
+            $professor->setProfessorname($_POST['professorname']);
+            $professor->setProfessorlastname1($_POST['professorlastname1']);
+            $professor->setProfessorlastname2($_POST['professorlastname2']);
+            $professor->setProfessorlicense($_POST['professorlicense']);
+            $professor->setProfessorpassword($_POST['professorpassword']);
 
+            $result = $professorBusiness->update($professor);
 
-
-            echo json_encode(array("result" => $result));
+            if ($result === 1) {
+                header("location: ../view/ProfessorView.php?success=update");
+            } else {
+                header("location: ../view/ProfessorView.php?error=dbError");
+            }
         } else {
-            echo json_encode(array("result" => -1));
+            header("location: ../view/ProfessorView.php?error=format");
         }
     } else {
-        echo json_encode(array("result" => -2));
+        header("location: ../view/ProfessorView.php?error=empty");
     }
 }
 
@@ -73,8 +94,8 @@ class ProfessorBusiness {
         return $this->data->insert($professor);
     }
 
-    function select(Professor $professor) {
-        
+    function update(Professor $professor) {
+        return $this->data->update($professor);
     }
 
     function selectAll() {
@@ -82,7 +103,7 @@ class ProfessorBusiness {
     }
 
     function delete(Professor $professor) {
-        
+        return $this->data->delete($professor);
     }
 
 }

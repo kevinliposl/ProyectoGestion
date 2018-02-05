@@ -21,15 +21,26 @@ $careers = $careerBusiness->selectAllByUniversity();
 //    if ($university['universityhadheadquarter'] === 1) {
 //        foreach ($headquarters as $headquarter) {
 //            if ($university['universityid'] == $headquarter['headquarteruniversityid']) {
+//                array_push($university, $headquarter['headquartername']);
+//                foreach ($enclosures as $enclosure) {
+//                    if ($enclosure['enclosureheadquarterid'] == $headquarter['headquarterid']) {
+//                        array_push($headquarter, $enclosure['enclosurename']);
+//                        foreach ($careers as $career) {
+//                            if ($enclosure['enclosureid'] == $career['careerenclosureid']) {
+//                                array_push($enclosure, $career['careername']);
+//                            }
+//                        }
+//                    }
+//                }
 //            }
 //        }
 //    } else {
 //        foreach ($enclosures as $enclosure) {
 //            if ($university['universityid'] == $enclosure['enclosureuniversityid']) {
-//                array_push($university, $enclosure);
+//                array_push($university, $enclosure['enclosurename']);
 //                foreach ($careers as $career) {
 //                    if ($enclosure['enclosureid'] == $career['careerenclosureid']) {
-//                        array_push($enclosure, $career);
+//                        array_push($enclosure, $career['careername']);
 //                    }
 //                }
 //            }
@@ -38,10 +49,7 @@ $careers = $careerBusiness->selectAllByUniversity();
 //}
 
 $data = array(
-//    $universities,
-//    $enclosures,
-//    $headquarters,
-//    $careers,
+    //$universities,
     'UNA' => array(
         'San Ramon' => array(
             'Economia' => 'Economia',
@@ -50,6 +58,24 @@ $data = array(
         'Liberia' => array(
             'Informatica' => 'Informatica',
             'Filosofia' => 'Filosofia'
+        ),
+    ),
+    'UCR' => array(
+        'Sede del Atlantico' => array(
+            'Turrialba' => array(
+                'Informatica Emplesarial' => 'Informatica Emplesarial',
+                'Contaduria Publica' => 'Contaduria Publica',
+            ),
+            'Paraiso' => array(
+                'Direccion de empresas' => 'Direccion de empresas',
+                'Enseñanza de las mantematicas' => 'Enseñanza de las mantematicas'
+            ),
+        ),
+        'Sede del Occidente' => array(
+            'San Ramon' => array(
+                'Informatica Emplesarial' => 'Informatica Emplesarial',
+                'Ingenieria Civil' => 'Ingenieria Civil',
+            ),
         ),
     ),
 );

@@ -3,12 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/view/AdministrativeCommentView.php</file>
             <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/view/UniversityView.php</file>
             <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/data/UniversityData.php</file>
             <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/domain/Comment.php</file>
             <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/business/CommentBusiness.php</file>
             <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/data/CommentData.php</file>
+=======
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/business/AdministrativeBusiness.php</file>
+>>>>>>> 328c90011faa6422317ce8fb1071c22d16ff4412
         </group>
     </open-files>
 </project-private>

@@ -58,15 +58,11 @@ class ProfessorData {
     }
 
     function update(Professor $professor) {
-        $query = $this->db->prepare("UPDATE tbprofessor "
-                . "SET professorid =" . $professor->getProfessorid() .
-                ", professorlicense='" . $professor->getProfessorlicense() .
-                "', professorname='" . $professor->getProfessorname() .
-                "', professorlastname1='" . $professor->getProfessorlastname1() .
-                "', professorlastname2='" . $professor->getProfessorlastname2() .
-                "', professorpassword='" . $professor->getProfessorpassword() .
-                "' WHERE professorid=" . $professor->getProfessorid() . ";");
-        $query->execute();
+        $query = $this->db->prepare("UPDATE tbprofessor p INNER JOIN tbactor a ON a.actorid = p.professorid "
+                . "SET p.professorlicense =:license, p.professorname=:name, p.professorlastname1=:lastname1, p.professorlastname2=:lastname2, p.professorpassword=:password,"
+                . " a.actormail=:mail WHERE p.professorid=:id;");
+        $query->execute(array('mail' => $professor->getProfessormail(), 'license' => $professor->getProfessorlicense(), 'name' => $professor->getProfessorname(), 'lastname1' => $professor->getProfessorlastname1(),
+            'lastname2' => $professor->getProfessorlastname2(), 'password' => $professor->getProfessorpassword(), 'id' => $professor->getProfessorid()));
         $result = $query->fetch();
         $query->closeCursor();
 
@@ -101,8 +97,8 @@ class ProfessorData {
     }
 
     function delete(Professor $professor) {
-        $query = $this->db->prepare("UPDATE tbprofessor SET professorstate=:state WHERE professorid=:id;");
-        $query->execute(array('state' => 1, 'id' => $professor->getProfessorid()));
+        $query = $this->db->prepare("UPDATE tbprofessor SET professorstate=:state WHERE professorid=:professorid;");
+        $query->execute(array('state' => 0, 'professorid' => $professor->getProfessorid()));
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if (!$result) {
             return 1;
