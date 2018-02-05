@@ -9,39 +9,37 @@ class AdministrativeData {
         $this->db = SPDO::singleton();
     }
 
-    function insert(Administrative $administrative) {
+    function insert(Administrative $administrative) {    
 
-        $queryLastId = $this->db->prepare("SELECT MAX(administrativeid) AS administrativeid  FROM tbadministrative");
-        $queryLastId->execute();
-        $resultLastId = $queryLastId->fetch();
-        $queryLastId->closeCursor();
-        $nextId = 1;
+        $queryChecking = $this->db->prepare("SELECT actorid FROM tbactor WHERE actormail=:actormail;");
+        $queryChecking->execute(array('actormail' => $administrative->getAdministrativemail()));
+        $resultChecking = $queryChecking->fetch();
+        $queryChecking->closeCursor();
+        
+        if (!isset($resultChecking['actorid'])) {
+            $lastid = $this->getlastid();
+            $queryAdministrative = $this->db->prepare("INSERT INTO tbadministrative VALUES (:administrativeid,:administrativelicense,:administrativename,:administrativelastname1,:administrativelastname2,:administrativepassword,:administrativearea);");
+            $queryAdministrative ->execute(array('administrativeid' => $lastid, 'administrativelicense' => $administrative->getAdministrativelicense(), 'administrativename' => $administrative->getAdministrativename(),
+                'administrativelastname1' => $administrative->getAdministrativelastname1(), 'administrativelastname2' => $administrative->getAdministrativelastname2(), 'administrativepassword' => $administrative->getAdministrativepassword(),
+                'administrativearea' => $administrative->getAdministrativearea()));
+            $queryAdministrative ->fetch();
+            $queryAdministrative ->closeCursor();
 
-        //ultimo id
-        if ($resultLastId['administrativeid'] != NULL) {
-            $nextId = (int) $resultLastId['administrativeid'] + 1;
-        }
-        $query = $this->db->prepare(
-                "INSERT INTO tbadministrative VALUES (" . $nextId . ",'" .
-                $administrative->getAdministrativelicense() . "','" .
-                $administrative->getAdministrativename() . "','" .
-                $administrative->getAdministrativelastname1() . "','" .
-                $administrative->getAdministrativelastname2() . "','" .
-                $administrative->getAdministrativearea() . "','" .
-                $administrative->getAdministrativepassword() . "'," .
-                0 . ");"
-        );
-        $query->execute();
-        $result = $query->fetch();
-        $query->closeCursor();
+            $queryActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
+            $queryActor->execute(array('actorid' => $lastid, 'actormail' => $administrative->getAdministrativemail()));
+            $queryActor->fetch();
+            $queryActor->closeCursor();
 
-        $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
-        $queryInsertActor->execute(array('actorid' => $nextId, 'actormail' => $administrative->getAdministrativemail()));
-        $resultActor = $queryInsertActor->fetch();
-        $queryInsertActor->closeCursor();
+            $queryVerifyResult = $this->db->prepare('SELECT adm.administrativename FROM tbadministrative adm INNER JOIN tbactor a ON a.actorid = adm.administrativeid WHERE adm.administrativeid=:administrativeid;');
+            $queryVerifyResult->execute(array('administrativeid' => $lastid));
+            $result = $queryVerifyResult->fetch();
+            $queryVerifyResult->closeCursor();
 
-        if (!$result) {
-            return 1;
+            if (isset($result['administrativename'])) {
+                return 1;
+            } else {
+                return 0;
+            }
         } else {
             return 0;
         }
