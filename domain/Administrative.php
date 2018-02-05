@@ -2,7 +2,8 @@
 
 class Administrative {
 
-    private $administrativeiid;
+    private $administrativeid;
+    private $administrativemail;
     private $administrativelicense;
     private $administrativename;
     private $administrativelastname1;
@@ -10,16 +11,16 @@ class Administrative {
     private $administrativearea;
     private $administrativepassword;
 
-    function __construct() {
-        ;
+    function getAdministrativeid() {
+        return $this->administrativeid;
+    }
+
+    function getAdministrativemail() {
+        return $this->administrativemail;
     }
 
     function getAdministrativelicense() {
         return $this->administrativelicense;
-    }
-
-    function getAdministrativeid() {
-        return $this->administrativeiid;
     }
 
     function getAdministrativename() {
@@ -34,48 +35,44 @@ class Administrative {
         return $this->administrativelastname2;
     }
 
-    function getAdministrativepassword() {
-        return $this->administrativepassword;
-    }
-    
     function getAdministrativearea() {
         return $this->administrativearea;
     }
 
-    function setAdministrativeid($id) {
-        $this->administrativeiid = $id;
+    function getAdministrativepassword() {
+        return $this->administrativepassword;
     }
 
-    function setAdministrativelicense($license) {
-        $this->administrativelicense = $license;
+    function setAdministrativeid($administrativeid) {
+        $this->administrativeid = $administrativeid;
     }
 
-    function setAdministrativename($name) {
-        $this->administrativename = $name;
+    function setAdministrativemail($administrativemail) {
+        $this->administrativemail = $administrativemail;
     }
 
-    function setAdministrativelastname1($lastname1) {
-        $this->administrativelastname1 = $lastname1;
+    function setAdministrativelicense($administrativelicense) {
+        $this->administrativelicense = $administrativelicense;
     }
 
-    function setAdministrativelastname2($lastname2) {
-        $this->administrativelastname2 = $lastname2;
+    function setAdministrativename($administrativename) {
+        $this->administrativename = $administrativename;
     }
 
-    function setAdministrativepassword($password) {
-        $this->administrativepassword = $password;
+    function setAdministrativelastname1($administrativelastname1) {
+        $this->administrativelastname1 = $administrativelastname1;
     }
 
-     function setAdministrativearea($area) {
-        $this->administrativearea = $area;
+    function setAdministrativelastname2($administrativelastname2) {
+        $this->administrativelastname2 = $administrativelastname2;
     }
-    
-    function __toString() {
-        try {
-            return (string) $this->administrativeiid . ' | ' . $this->administrativename . ' | ' . $this->administrativelastname1 . ' | ' . $this->administrativelastname2;
-        } catch (Exception $e) {
-            return '';
-        }
+
+    function setAdministrativearea($administrativearea) {
+        $this->administrativearea = $administrativearea;
+    }
+
+    function setAdministrativepassword($administrativepassword) {
+        $this->administrativepassword = $administrativepassword;
     }
 
 }

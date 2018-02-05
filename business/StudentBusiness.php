@@ -1,10 +1,10 @@
 <?php
-
 require '../domain/Student.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['studentname']) && isset($_POST['studentpassword']) && isset($_POST['studentcareer1']) && isset($_POST['studentlicense']) && isset($_POST['studentmail'])) {
-        if (strlen($_POST['studentname']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentlicense']) > 0 && strlen($_POST['studentmail']) > 0) {
+        if (strlen($_POST['studentname']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentlicense']) > 0 && strlen($_POST['studentmail']) > 0 &&
+                filter_var($_POST['studentmail'], FILTER_VALIDATE_EMAIL)) {
 
             $studentBusiness = new StudentBusiness();
             $student = new Student();
