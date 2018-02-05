@@ -9,21 +9,34 @@ class AdministrativeData {
         $this->db = SPDO::singleton();
     }
 
-    function insert(Administrative $administrative) {    
+    private function getlastid() {
+        $query = $this->db->prepare("SELECT MAX(actorid) AS id FROM tbactor");
+        $query->execute();
+        $result = $query->fetch();
+        $query->closeCursor();
+        $id = 1;
+
+        if ($result['id'] != NULL) {
+            $id = (int) $result['id'] + 1;
+        }
+        return $id;
+    }
+
+    function insert(Administrative $administrative) {
 
         $queryChecking = $this->db->prepare("SELECT actorid FROM tbactor WHERE actormail=:actormail;");
         $queryChecking->execute(array('actormail' => $administrative->getAdministrativemail()));
         $resultChecking = $queryChecking->fetch();
         $queryChecking->closeCursor();
-        
+
         if (!isset($resultChecking['actorid'])) {
             $lastid = $this->getlastid();
             $queryAdministrative = $this->db->prepare("INSERT INTO tbadministrative VALUES (:administrativeid,:administrativelicense,:administrativename,:administrativelastname1,:administrativelastname2,:administrativepassword,:administrativearea);");
-            $queryAdministrative ->execute(array('administrativeid' => $lastid, 'administrativelicense' => $administrative->getAdministrativelicense(), 'administrativename' => $administrative->getAdministrativename(),
+            $queryAdministrative->execute(array('administrativeid' => $lastid, 'administrativelicense' => $administrative->getAdministrativelicense(), 'administrativename' => $administrative->getAdministrativename(),
                 'administrativelastname1' => $administrative->getAdministrativelastname1(), 'administrativelastname2' => $administrative->getAdministrativelastname2(), 'administrativepassword' => $administrative->getAdministrativepassword(),
                 'administrativearea' => $administrative->getAdministrativearea()));
-            $queryAdministrative ->fetch();
-            $queryAdministrative ->closeCursor();
+            $queryAdministrative->fetch();
+            $queryAdministrative->closeCursor();
 
             $queryActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
             $queryActor->execute(array('actorid' => $lastid, 'actormail' => $administrative->getAdministrativemail()));
