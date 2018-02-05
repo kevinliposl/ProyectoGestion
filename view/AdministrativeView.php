@@ -1,8 +1,8 @@
 <?php
 include_once '../public/header.php';
 
-//include_once '../business/';
-//$professorBusiness = new ProfessorBusiness();
+include_once '../business/AdministrativeBusiness.php';
+$administrativeBusiness = new AdministrativeData();
 ?>
 <table>
     <tr>
@@ -14,7 +14,7 @@ include_once '../public/header.php';
         <th>Departamento</th>
         <th>Contrase&ncaron;a</th>        
     </tr>
-    <form enctype="multipart/form-data" method='POST' action='../business/.php'>
+    <form enctype="multipart/form-data" method='POST' action='../business/AdministrativeBusiness.php'>
         <tr>
             <td>
                 <input type ='text' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name='mail'/>
@@ -44,7 +44,7 @@ include_once '../public/header.php';
             </td>
         </tr>
     </form>
-    
+
     <tr>
         <td></td>
         <td>
