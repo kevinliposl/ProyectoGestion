@@ -4,9 +4,9 @@ require '../domain/Administrative.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['administrativelicense']) && isset($_POST['administrativemail']) && isset($_POST['administrativename']) && isset($_POST['administrativelastname1']) &&
-            isset($_POST['administrativelastname2']) && isset($_POST['administrativelastname2']) && isset($_POST['administrativelastname2'])) {
-        if (strlen($_POST['studentname']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentlicense']) > 0 && strlen($_POST['studentmail']) > 0 &&
-                filter_var($_POST['administrativemail'], FILTER_VALIDATE_EMAIL)) {
+            isset($_POST['administrativelastname2']) && isset($_POST['administrativearea']) && isset($_POST['administrativepassword'])) {
+        if (strlen($_POST['administrativelicense']) > 0 && strlen($_POST['administrativemail']) > 0 && strlen($_POST['administrativename']) > 0 && strlen($_POST['administrativelastname1']) > 0 && strlen($_POST['administrativelastname2']) > 0 && strlen($_POST['administrativearea']) > 0 &&
+                strlen($_POST['administrativepassword']) > 0 && filter_var($_POST['administrativemail'], FILTER_VALIDATE_EMAIL)) {
 
             $administrativeBusiness = new AdministrativeBusiness;
             $administrative = new Administrative;
@@ -19,7 +19,7 @@ if (isset($_POST['create'])) {
             $administrative->setAdministrativearea($_POST['administrativearea']);
             $administrative->setAdministrativepassword($_POST['administrativepassword']);
 
-            $result = $administrativeBusiness->insert($administrative);
+            //$result = $administrativeBusiness->insert($administrative);
 
             if ($result == 1) {
                 header("location: ../view/AdministrativeView.php?success=inserted");
@@ -93,16 +93,16 @@ class AdministrativeBusiness {
         $this->data = new AdministrativeData();
     }
 
-    function insert(Student $student) {
-        return $this->data->insert($student);
+    function insert(Administrative $administrative) {
+        return $this->data->insert($administrative);
     }
 
-    function delete(Student $student) {
-        return $this->data->delete($student);
+    function delete(Administrative $administrative) {
+        return $this->data->delete($administrative);
     }
 
-    function update(Student $student) {
-        return $this->data->update($student);
+    function update(Administrative $administrative) {
+        return $this->data->update($administrative);
     }
 
     function selectAll() {
