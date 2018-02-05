@@ -1,8 +1,9 @@
 <?php
 include_once '../public/header.php';
-
 include_once '../business/AdministrativeBusiness.php';
-$administrativeBusiness = new AdministrativeData();
+
+$administrativeBusiness = new AdministrativeBusiness();
+
 ?>
 <table>
     <tr>
