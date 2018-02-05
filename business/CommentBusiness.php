@@ -32,17 +32,21 @@ if (isset($_POST['create'])) {
         header("location: ../view/AdministrativeCommentView.php?error=empty");
     }
 } else if (isset($_POST['delete'])) {
-    if (isset($_POST['commentid'])) {
-        if (strlen($_POST['commentid']) > 0) {
+    if (isset($_POST['commentid']) && isset($_POST['activityid'])) {
+        if (strlen($_POST['commentid']) > 0 && strlen($_POST['activityid']) > 0) {
 
             $commentBusiness = new CommentBusiness();
             $comment = new Comment();
+            $activityBusiness = new ActivityBusiness();
+            $activity = new Activity();
 
             $comment->setCommentId($_POST['commentid']);
             $result = $commentBusiness->delete($comment);
+            $activity->setActivityId($_POST['activityid']);
+            $resulta = $activityBusiness->CountCommentDelete($activity);
 
 
-            if ($result == 1) {
+            if ($result == 1 and $resulta == 1) {
                 header("location: ../view/AdministrativeCommentView.php?success=inserted");
             } else {
                 header("location: ../view/AdministrativeCommentView.php?error=dbError");

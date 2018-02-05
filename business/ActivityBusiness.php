@@ -34,5 +34,9 @@ class ActivityBusiness {
         return $this->data->updateComment($activity);
     }//End updateComment
     
+    function CountCommentDelete(Activity $activity) {
+        return $this->data->CountCommentDelete($activity);
+    }//End CountCommentDelete
+    
 }//End class ActivityBusiness 
     

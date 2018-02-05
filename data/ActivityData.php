@@ -149,4 +149,31 @@ class ActivityData {
         }//End if (!$result)
     }//End update
     
+    function CountCommentDelete(Activity $activity) {
+        
+        $queryLastId = $this->db->prepare("SELECT MAX(commentcount) AS commentcount  FROM tbactivity");
+        $queryLastId->execute();
+        $resultLastId = $queryLastId->fetch();
+        $queryLastId->closeCursor();
+        $nextId = 1;
+
+        //ultimo id
+        if ($resultLastId['commentcount'] != NULL) {
+            $nextId = (int) $resultLastId['commentcount'] - 1;
+        }//End if ($resultLastId['activityid'] != NULL) 
+        $query = $this->db->prepare("UPDATE tbactivity "
+                . "SET activityid =" . $activity->getActivityId() .
+                ", commentcount='" . $nextId .
+                "' WHERE activityid=" . $activity->getActivityId() . ";");
+        $query->execute();
+        $result = $query->fetch();
+        $query->closeCursor();
+
+        if (!$result) {
+            return 1;
+        } else {
+            return 0;
+        }//End if (!$result)
+    }//End update
+    
 }//End class ActivityData
