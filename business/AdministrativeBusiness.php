@@ -19,12 +19,16 @@ if (isset($_POST['create'])) {
             $administrative->setAdministrativearea($_POST['administrativearea']);
             $administrative->setAdministrativepassword($_POST['administrativepassword']);
 
+            print_r($administrative);
+            echo'<br>';
+            print_r($_POST);
+            
             //$result = $administrativeBusiness->insert($administrative);
 
             if ($result == 1) {
-                header("location: ../view/AdministrativeView.php?success=inserted");
+                //header("location: ../view/AdministrativeView.php?success=inserted");
             } else {
-                header("location: ../view/AdministrativeView.php?error=dbError");
+                //header("location: ../view/AdministrativeView.php?error=dbError");
             }
         } else {
             header("location: ../view/AdministrativeView.php?error=format");
