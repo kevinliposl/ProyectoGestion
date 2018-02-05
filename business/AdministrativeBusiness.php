@@ -18,7 +18,7 @@ if (isset($_POST['create'])) {
             $administrative->setAdministrativelastname2($_POST['administrativelastname2']);
             $administrative->setAdministrativearea($_POST['administrativearea']);
             $administrative->setAdministrativepassword($_POST['administrativepassword']);
-            
+
             $result = $administrativeBusiness->insert($administrative);
 
             if ($result == 1) {
@@ -33,14 +33,13 @@ if (isset($_POST['create'])) {
         header("location: ../view/AdministrativeView.php?error=empty");
     }
 } else if (isset($_POST['delete'])) {
-    if (isset($_POST['studentid'])) {
-        if (strlen($_POST['studentid']) > 0) {
+    if (isset($_POST['administrativeid'])) {
+        if (strlen($_POST['administrativeid']) > 0) {
+            $administrativeBusiness = new AdministrativeBusiness();
+            $administrative = new Administrative;
 
-            $studentBusiness = new StudentBusiness();
-
-            $student = new Student();
-            $student->setStudentid($_POST['studentid']);
-            $result = $studentBusiness->delete($student);
+            $administrative->setAdministrativeid($_POST['administrativeid']);
+            $result = $administrativeBusiness->delete($administrative);
 
             if ($result == 1) {
                 header("location: ../view/AdministrativeView.php?success=inserted");
@@ -54,23 +53,24 @@ if (isset($_POST['create'])) {
         header("location: ../view/AdministrativeView.php?error=empty");
     }
 } else if (isset($_POST['update'])) {
-    if (isset($_POST['studentid']) && isset($_POST['studentmail']) && isset($_POST['studentpassword']) && isset($_POST['studentcareer1']) && isset($_POST['studentlicense'])) {
-        if (strlen($_POST['studentid']) > 0 && strlen($_POST['studentmail']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentcareer1']) > 0 && strlen($_POST['studentlicense']) > 0) {
-            $studentBusiness = new StudentBusiness();
+    if (isset($_POST['administrativelicense']) && isset($_POST['administrativemail']) && isset($_POST['administrativename']) && isset($_POST['administrativelastname1']) &&
+            isset($_POST['administrativelastname2']) && isset($_POST['administrativearea']) && isset($_POST['administrativepassword']) && isset($_POST['administrativeid'])) {
+        if (strlen($_POST['administrativelicense']) > 0 && strlen($_POST['administrativemail']) > 0 && strlen($_POST['administrativename']) > 0 && strlen($_POST['administrativelastname1']) > 0 && strlen($_POST['administrativelastname2']) > 0 && strlen($_POST['administrativearea']) > 0 &&
+                strlen($_POST['administrativepassword']) > 0 && filter_var($_POST['administrativemail'], FILTER_VALIDATE_EMAIL)) {
 
-            $student = new Student();
-            $student->setStudentid((int) $_POST['studentid']);
-            $student->setStudentlicense($_POST['studentlicense']);
-            $student->setStudentmail($_POST['studentmail']);
-            $student->setStudentname($_POST['studentname']);
-            $student->setStudentlastname1($_POST['studentlastname1']);
-            $student->setStudentlastname2($_POST['studentlastname2']);
-            //$student->setStudentcareer1((int)$_POST['studentcareer1']);
-            //$student->setStudentcareer2($_POST['studentcareer2']);
-            $student->setStudentpassword($_POST['studentpassword']);
+            $administrativeBusiness = new AdministrativeBusiness;
+            $administrative = new Administrative;
 
-            $result = $studentBusiness->update($student);
+            $administrative->setAdministrativeid($_POST['administrativeid']);
+            $administrative->setAdministrativelicense($_POST['administrativelicense']);
+            $administrative->setAdministrativemail($_POST['administrativemail']);
+            $administrative->setAdministrativename($_POST['administrativename']);
+            $administrative->setAdministrativelastname1($_POST['administrativelastname1']);
+            $administrative->setAdministrativelastname2($_POST['administrativelastname2']);
+            $administrative->setAdministrativearea($_POST['administrativearea']);
+            $administrative->setAdministrativepassword($_POST['administrativepassword']);
 
+            $result = $administrativeBusiness->update($administrative);
             if ($result == 1) {
                 header("location: ../view/AdministrativeView.php?success=inserted");
             } else {

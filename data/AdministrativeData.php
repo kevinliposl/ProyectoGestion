@@ -9,39 +9,50 @@ class AdministrativeData {
         $this->db = SPDO::singleton();
     }
 
-    function insert(Administrative $administrative) {    
-
-        $queryLastId = $this->db->prepare("SELECT MAX(administrativeid) AS administrativeid  FROM tbadministrative");
-        $queryLastId->execute();
-        $resultLastId = $queryLastId->fetch();
-        $queryLastId->closeCursor();
-        $nextId = 1;
-
-        //ultimo id
-        if ($resultLastId['administrativeid'] != NULL) {
-            $nextId = (int) $resultLastId['administrativeid'] + 1;
-        }
-        $query = $this->db->prepare(
-                "INSERT INTO tbadministrative VALUES (" . $nextId . ",'" .
-                $administrative->getAdministrativelicense() . "','" .
-                $administrative->getAdministrativename() . "','" .
-                $administrative->getAdministrativelastname1() . "','" .
-                $administrative->getAdministrativelastname2() . "','" .
-                $administrative->getAdministrativearea() . "','" .
-                $administrative->getAdministrativepassword() . "'," .
-                0 . ");"
-        );
+    private function getlastid() {
+        $query = $this->db->prepare("SELECT MAX(actorid) AS id FROM tbactor");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
-        
-          $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
-                $queryInsertActor->execute(array('actorid' => $nextId, 'actormail' => $administrative->getAdministrativemail()));
-                $resultActor = $queryInsertActor->fetch();
-                $queryInsertActor->closeCursor();
+        $id = 1;
 
-        if (!$result) {
-            return 1;
+        if ($result['id'] != NULL) {
+            $id = (int) $result['id'] + 1;
+        }
+        return $id;
+    }
+
+    function insert(Administrative $administrative) {
+
+        $queryChecking = $this->db->prepare("SELECT actorid FROM tbactor WHERE actormail=:actormail;");
+        $queryChecking->execute(array('actormail' => $administrative->getAdministrativemail()));
+        $resultChecking = $queryChecking->fetch();
+        $queryChecking->closeCursor();
+
+        if (!isset($resultChecking['actorid'])) {
+            $lastid = $this->getlastid();
+            $queryAdministrative = $this->db->prepare("INSERT INTO tbadministrative VALUES (:administrativeid,:administrativelicense,:administrativename,:administrativelastname1,:administrativelastname2,:administrativepassword,:administrativearea,:administrativestate);");
+            $queryAdministrative->execute(array('administrativeid' => $lastid, 'administrativelicense' => $administrative->getAdministrativelicense(), 'administrativename' => $administrative->getAdministrativename(),
+                'administrativelastname1' => $administrative->getAdministrativelastname1(), 'administrativelastname2' => $administrative->getAdministrativelastname2(), 'administrativepassword' => $administrative->getAdministrativepassword(),
+                'administrativearea' => $administrative->getAdministrativearea(), 'administrativestate' => 1));
+            $queryAdministrative->fetch();
+            $queryAdministrative->closeCursor();
+
+            $queryActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
+            $queryActor->execute(array('actorid' => $lastid, 'actormail' => $administrative->getAdministrativemail()));
+            $queryActor->fetch();
+            $queryActor->closeCursor();
+
+            $queryVerifyResult = $this->db->prepare('SELECT adm.administrativename FROM tbadministrative adm INNER JOIN tbactor a ON a.actorid = adm.administrativeid WHERE adm.administrativeid=:administrativeid;');
+            $queryVerifyResult->execute(array('administrativeid' => $lastid));
+            $result = $queryVerifyResult->fetch();
+            $queryVerifyResult->closeCursor();
+
+            if (isset($result['administrativename'])) {
+                return 1;
+            } else {
+                return 0;
+            }
         } else {
             return 0;
         }
@@ -49,15 +60,11 @@ class AdministrativeData {
 
     function update(Administrative $administrative) {
         $query = $this->db->prepare("UPDATE tbadministrative "
-                . "SET administrativeid =" . $administrative->getAdministrativeid() .
-                ", administrativelicense='" . $administrative->getAdministrativelicense() .
-                "', administrativename='" . $administrative->getAdministrativename() .
-                "', administrativelastname1='" . $administrative->getAdministrativelastname1() .
-                "', administrativelastname2='" . $administrative->getAdministrativelastname2() .
-                "', administrativepassword='" . $administrative->getAdministrativepassword() .
-                "', administrativearea='" . $administrative->getAdministrativearea() .
-                "' WHERE administrativeid=" . $administrative->getAdministrativeid() . ";");
-        $query->execute();
+                . "SET administrativelicense =:license, administrativename =:name, administrativelastname1=:lastname1,"
+                . "administrativelastname2 =:lastname2, administrativepassword =:password,administrativearea =:area WHERE administrativeid =:id;");
+        $query->execute(array('license' => $administrative->getAdministrativelicense(), 'name' => $administrative->getAdministrativename(), 'lastname1' => $administrative->getAdministrativelastname1(),
+            'lastname2' => $administrative->getAdministrativelastname2(), 'password' => $administrative->getAdministrativepassword(), 'area' => $administrative->getAdministrativearea(),
+            'id' => $administrative->getAdministrativeid()));
         $result = $query->fetch();
         $query->closeCursor();
 
@@ -69,35 +76,18 @@ class AdministrativeData {
     }
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT * from tbadministrative where administrativestate=:state;");
-        $query->execute(array('state' => 0));
-        $result = $query->fetchAll(); //PDO::FETCH_ASSOC
+        $query = $this->db->prepare("SELECT ac.actormail,ad.* from tbadministrative ad INNER JOIN tbactor ac ON ac.actorid= ad.administrativeid WHERE administrativestate=:state;");
+        $query->execute(array('state' => 1));
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
-        
-        $administratives = [];
-        $currentAdministrative = new Administrative();
-        
-        foreach ($result as $row) {
-            
-            $currentAdministrative->setAdministrativeid($row['administrativeid']);
-            $currentAdministrative->setAdministrativelicense($row['administrativelicense']);
-            $currentAdministrative->setAdministrativename($row['administrativename']);
-            $currentAdministrative->setAdministrativelastname1($row['administrativelastname1']);
-            $currentAdministrative->setAdministrativelastname2($row['administrativelastname2']);
-            $currentAdministrative->setAdministrativearea($row['administrativearea']);
-            $currentAdministrative->setAdministrativepassword($row['administrativepassword']);
-            
-            array_push($administratives, $currentAdministrative);
-        }
-        
-        return $administratives;
+        return $result;
     }
 
     function select($idAdministrative) {
         $query = $this->db->prepare("SELECT * FROM tbadministrative WHERE administrativeid=" . $idAdministrative . ";");
         $query->execute();
         $result = $query->fetch();
-        
+
         $administrative = new Administrative();
         $administrative->setAdministrativeid($result['administrativeid']);
         $administrative->setAdministrativelicense($result['administrativelicense']);
@@ -106,13 +96,13 @@ class AdministrativeData {
         $administrative->setAdministrativelastname2($result['administrativelastname2']);
         $administrative->setAdministrativearea($result['administrativearea']);
         $administrative->setAdministrativepassword($result['administrativepassword']);
-        
+
         return $administrative;
     }
 
     function delete(Administrative $administrative) {
         $query = $this->db->prepare("UPDATE tbadministrative SET administrativestate=:state WHERE administrativeid=:id;");
-        $query->execute(array('state' => 1, 'id' => $administrative->getAdministrativeid()));
+        $query->execute(array('state' => 0, 'id' => $administrative->getAdministrativeid()));
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if (!$result) {
             return 1;
@@ -122,4 +112,3 @@ class AdministrativeData {
     }
 
 }
-

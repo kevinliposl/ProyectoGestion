@@ -50,7 +50,7 @@ class CommentData {
 
     function selectAll() {
         $query = $this->db->prepare("SELECT * from tbcomment where commentstate=:state;");
-        $query->execute(array('state' => 0));
+        $query->execute(array('state' => 1));
         $result = $query->fetchAll(); //PDO::FETCH_ASSOC
         $query->closeCursor();
 
@@ -101,8 +101,8 @@ class CommentData {
 //End select
 
     function delete(Comment $comment) {
-        $query = $this->db->prepare("UPDATE tbcomment SET commentestate=:state WHERE commentid=:id;");
-        $query->execute(array('state' => 1, 'id' => $comment->getCommentId()));
+        $query = $this->db->prepare("UPDATE tbcomment SET commentstate=:state WHERE commentid=:id;");
+        $query->execute(array('state' => 0, 'id' => $comment->getCommentId()));
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if (!$result) {
             return 1;

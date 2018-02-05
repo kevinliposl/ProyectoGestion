@@ -1,21 +1,26 @@
 <?php
 
 require '../domain/Comment.php';
+require '../business/ActivityBusiness.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['commentactor']) && isset($_POST['activityid']) && isset($_POST['commentdescription'])) {
         if (strlen($_POST['activityid']) > 0 && strlen($_POST['commentdescription']) > 0 && strlen($_POST['commentactor']) > 0) {
             $commentBusiness = new CommentBusiness();
             $comment = new Comment();
+            $activityBusiness = new ActivityBusiness();
+            $activity = new Activity();
 
             $comment->setActivityId($_POST['activityid']);
             $comment->setCommentDescription($_POST['commentdescription']);
             $comment->setCommentActor($_POST['commentactor']);
             $comment->setCommentDate(date("Y-m-d"));
+            $activity->setActivityId($_POST['activityid']);
 
             $result = $commentBusiness->insert($comment);
+            $resulta = $activityBusiness->updateComment($activity);
 
-            if ($result == 1) {
+            if ($result == 1 and $resulta == 1) {
                 header("location: ../view/AdministrativeCommentView.php?success=inserted");
             } else {
                 header("location: ../view/AdministrativeCommentView.php?error=dbError");
@@ -68,14 +73,14 @@ class CommentBusiness {
 
 //End insert
 
-    function delete(Event $event) {
-        return $this->data->delete($event);
+    function delete(Comment $comment) {
+        return $this->data->delete($comment);
     }
 
 //End delete
 
-    function update(Event $event) {
-        return $this->data->update($event);
+    function update(Comment $comment) {
+        return $this->data->update($comment);
     }
 
 //End update
