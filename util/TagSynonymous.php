@@ -1,6 +1,6 @@
 <?php
 
-class TagsSynonymous {
+class TagSynonymous {
 
     function __construct() {
 //        $new = new TagsSynonymous();

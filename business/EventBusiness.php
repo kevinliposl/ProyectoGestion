@@ -4,6 +4,7 @@ require '../domain/Event.php';
 require '../domain/Tag.php';
 require '../business/ActivityBusiness.php';
 require '../business/TagBusiness.php';
+require '../util/TagSynonymous.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['dateEvent']) && isset($_POST['hourEvent'])) {
@@ -15,6 +16,7 @@ if (isset($_POST['create'])) {
             $activity = new Activity();
             $tagBusiness = new TagBusiness();
             $tag = new Tag();
+            $tagSynonymous = new TagSynonymous();
             
             $activity->setActivityTitle($_POST['title']);
             $activity->setActivityDescription($_POST['description']);
@@ -26,8 +28,8 @@ if (isset($_POST['create'])) {
             $resulta = $activityBusiness->insert($activity);
             $activityID = $activityBusiness->getActivity();
             
-               //separar las palabras del titulo y la descripcion 
-            $entireWord = $_POST['title']." ".$_POST['description'];
+            //separar las palabras del titulo y la descripcion 
+            $entireWord = strtolower($_POST['title']." ".$_POST['description']);
             $allWords = explode(" ", $entireWord);
             $words=array();
             
@@ -39,6 +41,8 @@ if (isset($_POST['create'])) {
                     array_push($words, $tag);
                 }
             }
+            
+            $synonymousWords = $tagSynonymous->sendGet($words);
             
   
             $event->setActivityId($activityID->getActivityId());
