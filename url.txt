@@ -1,2 +1,5 @@
-
+Sinonimos
 http://sesat.fdi.ucm.es:8080/servicios/rest/sinonimos/json/casa
+
+Definiciones
+http://raequel.sebastianoliva.com/
