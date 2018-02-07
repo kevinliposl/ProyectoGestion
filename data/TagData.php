@@ -19,7 +19,6 @@ class TagData {
             $queryInsertTag = $this->db->prepare("INSERT INTO tbtag VALUES (:idactivity,:word);");
             $queryInsertTag->execute(array());
             $queryInsertTag->fetch();
-
             $queryInsertTag->closeCursor();
         } else {
             return 0;
