@@ -1,22 +1,27 @@
 <?php
 
+require '../domain/Tag.php';
+
 class TagBusiness {
-    
+
     //Attributes
     private $data;
 
     function __construct() {
         include_once '../data/TagData.php';
         $this->data = new TagData();
-    }//End construct
+        //End construct
+    }
 
-    function insert($words=array()) {
+    function insert($words = array()) {
         return $this->data->insert($words);
-    }//End insert
+        //End insert
+    }
 
     function selectAll() {
         return $this->data->selectAll();
-    }//End selectAll
-    
-}//End class ActivityBusiness 
-    
+        //End selectAll
+    }
+
+//End class ActivityBusiness 
+}
