@@ -3,3 +3,19 @@ http://sesat.fdi.ucm.es:8080/servicios/rest/sinonimos/json/casa
 
 Definiciones
 http://raequel.sebastianoliva.com/
+
+https://github.com/tian2992/raequel
+
+
+
+
+
+
+Links
+
+https://github.com/mgp25/RAE-API
+http://thesaurus.altervista.org/testphp
+http://developer.wordnik.com/docs.html#!/word/getDefinitions_get_2
+http://words.bighugelabs.com/api.php
+http://osteele.com/projects/pywordnet/examples.html
+https://dictionary-api.cambridge.org/api/resources#php
