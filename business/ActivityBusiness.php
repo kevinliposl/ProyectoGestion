@@ -1,4 +1,5 @@
 <?php
+require '../domain/Activity.php';
 
 class ActivityBusiness {
     

@@ -17,11 +17,12 @@ class TagData {
 
         if ($resultTag['tagword'] == NULL) {
             $queryInsertTag = $this->db->prepare("INSERT INTO tbtag VALUES (:idactivity,:word);");
-            $queryInsertTag->execute(array());
+            $queryInsertTag->execute(array('idactivity' => $tag->getTagactivityid(), 'word' => $tag->getActivitytag()));
             $queryInsertTag->fetch();
             $queryInsertTag->closeCursor();
         } else {
             return 0;
         }
     }
+
 }
