@@ -1,6 +1,7 @@
 <?php
 
 require '../domain/Event.php';
+require '../domain/Tag.php';
 require '../business/ActivityBusiness.php';
 require '../business/TagBusiness.php';
 
@@ -15,8 +16,6 @@ if (isset($_POST['create'])) {
             $tagBusiness = new TagBusiness();
             $tag = new Tag();
             
-            
-
             $activity->setActivityTitle($_POST['title']);
             $activity->setActivityDescription($_POST['description']);
             $activity->setCreateDate(date("Y-m-d"));
@@ -27,6 +26,21 @@ if (isset($_POST['create'])) {
             $resulta = $activityBusiness->insert($activity);
             $activityID = $activityBusiness->getActivity();
             
+               //separar las palabras del titulo y la descripcion 
+            $entireWord = $_POST['title']." ".$_POST['description'];
+            $allWords = explode(" ", $entireWord);
+            $words=array();
+            
+            foreach($allWords as $word){
+                
+                if(strlen($word) >= 4){    
+                    $tag->setTagactivityid($activityID->getActivityId());
+                    $tag->setTagword($word);
+                    array_push($words, $tag);
+                }
+            }
+            
+  
             $event->setActivityId($activityID->getActivityId());
             $event->setEventPLace($_POST['place']);
             $event->setEventDate($_POST['dateEvent']);
