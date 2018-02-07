@@ -42,7 +42,28 @@ if (isset($_POST['create'])) {
                 }
             }
             
+            //retorna los sinonimos de las palabra
             $synonymousWords = $tagSynonymous->sendGet($words);
+            
+            //retorna los conceptos de las palabras
+            $entireConceptsWords = $tagSynonymous->sendGet($words);
+            
+            //separar los conceptos en palabras
+            $allConcets = explode(" ", $entireConceptsWords);
+            $concepts=array();
+            
+            foreach($allConcets as $concept){
+                
+                if(strlen($concept) >= 4){    
+                    $tag->setTagactivityid($activityID->getActivityId());
+                    $tag->setTagword($concept);
+                    array_push($concepts, $tag);
+                }
+            }
+            
+            
+            $entireArray = array_merge($words, $synonymousWords, $concepts);
+            
             
   
             $event->setActivityId($activityID->getActivityId());
