@@ -4,7 +4,7 @@ require '../domain/Event.php';
 require '../domain/Tag.php';
 require '../business/ActivityBusiness.php';
 require '../business/TagBusiness.php';
-require '../util/TagSynonymous.php';
+require '../util/TagReference.php.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['dateEvent']) && isset($_POST['hourEvent'])) {
@@ -16,7 +16,7 @@ if (isset($_POST['create'])) {
             $activity = new Activity();
             $tagBusiness = new TagBusiness();
             $tag = new Tag();
-            $tagSynonymous = new TagSynonymous();
+            $tagReference = new TagReference();
             
             $activity->setActivityTitle($_POST['title']);
             $activity->setActivityDescription($_POST['description']);
@@ -28,6 +28,7 @@ if (isset($_POST['create'])) {
             $resulta = $activityBusiness->insert($activity);
             $activityID = $activityBusiness->getActivity();
             
+            //////
             //separar las palabras del titulo y la descripcion 
             $entireWord = strtolower($_POST['title']." ".$_POST['description']);
             $allWords = explode(" ", $entireWord);
@@ -43,10 +44,19 @@ if (isset($_POST['create'])) {
             }
             
             //retorna los sinonimos de las palabra
-            $synonymousWords = $tagSynonymous->sendGet($words);
+            $allsynonymous = $tagReference->sendGet($words);
+            $synonymous = array();
+            
+            //relaciona los sinonimos con l actividad
+            foreach($allsynonymous as $synonym){
+
+                $tag->setTagactivityid($activityID->getActivityId());
+                $tag->setTagword($synonym);
+                array_push($synonymous, $tag);
+            }
             
             //retorna los conceptos de las palabras
-            $entireConceptsWords = $tagSynonymous->sendGet($words);
+            $entireConceptsWords = $tagReference->sendGet($words);
             
             //separar los conceptos en palabras
             $allConcets = explode(" ", $entireConceptsWords);
@@ -54,16 +64,17 @@ if (isset($_POST['create'])) {
             
             foreach($allConcets as $concept){
                 
-                if(strlen($concept) >= 4){    
+                if(strlen($concept) >= 4){   
+                    //relacionar los conceptos con la actividad
                     $tag->setTagactivityid($activityID->getActivityId());
                     $tag->setTagword($concept);
                     array_push($concepts, $tag);
                 }
             }
             
-            
-            $entireArray = array_merge($words, $synonymousWords, $concepts);
-            
+            //arreglo con: palabras, sus sinonimos y sus conceptos
+            $entireArray = array_merge($words, $synonymous, $concepts);
+            ////
             
   
             $event->setActivityId($activityID->getActivityId());
