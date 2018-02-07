@@ -1,0 +1,2 @@
+
+http://sesat.fdi.ucm.es:8080/servicios/rest/sinonimos/json/casa
