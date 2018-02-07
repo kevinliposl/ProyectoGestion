@@ -14,6 +14,8 @@ if (isset($_POST['create'])) {
             $activity = new Activity();
             $tagBusiness = new TagBusiness();
             $tag = new Tag();
+            
+            
 
             $activity->setActivityTitle($_POST['title']);
             $activity->setActivityDescription($_POST['description']);

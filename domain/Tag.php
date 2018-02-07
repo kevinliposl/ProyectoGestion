@@ -3,7 +3,7 @@
 class Tag{
 
 private $tagactivityid;
-private $activitytag;
+private $tagword;
 
 function __construct() {
     ;
@@ -12,16 +12,16 @@ function getTagactivityid() {
     return $this->tagactivityid;
 }//End getTagactivityid
 
-function getActivitytag() {
-    return $this->activitytag;
+function getTagword() {
+    return $this->tagword;
 }//End getActivitytag
 
 function setTagactivityid($tagactivityid) {
     $this->tagactivityid = $tagactivityid;
 }//End setTagactivity
 
-function setActivitytag($activitytag) {
-    $this->activitytag = $activitytag;
+function setTagword($tagword) {
+    $this->tagword = $tagword;
 }//End setActivitytag
 
 }
