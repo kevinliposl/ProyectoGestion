@@ -2,6 +2,7 @@
 
 require '../domain/Event.php';
 require '../business/ActivityBusiness.php';
+require '../business/TagBusiness.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['dateEvent']) && isset($_POST['hourEvent'])) {
@@ -11,6 +12,8 @@ if (isset($_POST['create'])) {
             $event = new Event();
             $activityBusiness = new ActivityBusiness();
             $activity = new Activity();
+            $tagBusiness = new TagBusiness();
+            $tag = new Tag();
 
             $activity->setActivityTitle($_POST['title']);
             $activity->setActivityDescription($_POST['description']);
