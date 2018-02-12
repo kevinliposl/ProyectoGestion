@@ -13,7 +13,7 @@ class TagBusiness {
         //End construct
     }
 
-    function insert($words = array()) {
+    function insert($words) {
         return $this->data->insert($words);
         //End insert
     }
