@@ -9,16 +9,13 @@ class TagData {
         $this->db = SPDO::singleton();
     }
 
-    function insert($words=array()) {
-      
+    function insert(Tag $words = array()) {
         foreach ($words as $word) {
             $queryInsertTag = $this->db->prepare("INSERT INTO tbtag VALUES (:idactivity,:word);");
-            $queryInsertTag->execute(array('idactivity' => $word->getActivityId(), 'word' => $word->getActivitytag()));
+            $queryInsertTag->execute(array('idactivity' => $word->getTagactivityid(), 'word' => $word->getTagword()));
             $queryInsertTag->fetch();
             $queryInsertTag->closeCursor();
         }
-            
-      
     }
 
 }
