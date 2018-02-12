@@ -52,8 +52,8 @@ include_once '../public/header.php';
 
         $.post('../business/SearchBusiness.php', args, function () {
 
-
-
+        }).fail(function () {
+            alert('Error al acceder al servidor');
         });
     });
 </script>
