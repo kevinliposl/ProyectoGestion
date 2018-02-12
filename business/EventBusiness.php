@@ -51,7 +51,7 @@ if (isset($_POST['create'])) {
             foreach ($allsynonymous as $synonym) {
                 $tag = new Tag();
                 $tag->setTagactivityid($activityID->getActivityId());
-                $tag->setTagword($synonym);
+                $tag->setTagword($synonym['sinonimo']);
                 array_push($synonymous, $tag);
             }
 

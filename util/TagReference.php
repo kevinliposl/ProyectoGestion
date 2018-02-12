@@ -12,7 +12,7 @@ class TagReference {
         
         foreach ($entradas as $entrada) {
             
-            $data = array("a" => "a");
+            $data = array();
         
             $ch = curl_init("http://sesat.fdi.ucm.es:8080/servicios/rest/sinonimos/json/".$entrada->getTagword());
 
