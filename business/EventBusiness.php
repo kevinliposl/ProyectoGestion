@@ -48,7 +48,7 @@ if (isset($_POST['create'])) {
             $synonymous = array();
 
             //relaciona los sinonimos con la actividad
-            foreach ($allsynonymous as $synonym) {
+            foreach ($allsynonymous[0] as $synonym) {
                 $tag = new Tag();
                 $tag->setTagactivityid($activityID->getActivityId());
                 $tag->setTagword($synonym['sinonimo']);
