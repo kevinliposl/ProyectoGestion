@@ -76,7 +76,7 @@ if (isset($_POST['create'])) {
             //arreglo con: palabras, sus sinonimos y sus conceptos
             $entireArray = array_merge($words, $synonymous); //, $concepts);
             ////
-            print_r($entireArray);
+          
             $tagBusiness->insert($entireArray);
 
             $event->setActivityId($activityID->getActivityId());
@@ -87,9 +87,7 @@ if (isset($_POST['create'])) {
             $result = $eventBusiness->insert($activityID, $event);
 
             if ($resulta == 1 and $result == 1) {
-                
-
-//header("location: ../view/AdministrativeEventView.php?success=inserted");
+                header("location: ../view/AdministrativeEventView.php?success=inserted");
             } else {
                 header("location: ../view/AdministrativeEventView.php?error=dbError");
             }

@@ -14,7 +14,7 @@ https://github.com/tian2992/raequel
 Links
 
 https://github.com/mgp25/RAE-API
-http://thesaurus.altervista.org/testphp
+http://thesaurus.altervista.org/testphp----key  vvMBO2KqEU5Re1pY5afM
 http://developer.wordnik.com/docs.html#!/word/getDefinitions_get_2
 http://words.bighugelabs.com/api.php
 http://osteele.com/projects/pywordnet/examples.html
