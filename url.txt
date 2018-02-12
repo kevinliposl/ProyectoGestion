@@ -19,3 +19,6 @@ http://developer.wordnik.com/docs.html#!/word/getDefinitions_get_2
 http://words.bighugelabs.com/api.php
 http://osteele.com/projects/pywordnet/examples.html
 https://dictionary-api.cambridge.org/api/resources#php
+
+
+https://www.programmableweb.com/category/dictionary/api
