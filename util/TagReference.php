@@ -14,7 +14,7 @@ class TagReference {
             
             $data = array("a" => "a");
         
-            $ch = curl_init("http://sesat.fdi.ucm.es:8080/servicios/rest/sinonimos/json/".$entrada);
+            $ch = curl_init("http://sesat.fdi.ucm.es:8080/servicios/rest/sinonimos/json/".$entrada->getTagword());
 
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
