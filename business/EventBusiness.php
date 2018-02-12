@@ -48,12 +48,13 @@ if (isset($_POST['create'])) {
             $synonymous = array();
 
             //relaciona los sinonimos con la actividad
-            foreach ($allsynonymous[0] as $synonym) {
+            foreach ($allsynonymous as $synonym) {
                 $tag = new Tag();
                 $tag->setTagactivityid($activityID->getActivityId());
-                $tag->setTagword($synonym['sinonimo']);
+                $tag->setTagword($synonym);
                 array_push($synonymous, $tag);
             }
+
 
             //retorna los conceptos de las palabras
             /* $entireConceptsWords = $tagReference->sendGet($words);
@@ -75,7 +76,7 @@ if (isset($_POST['create'])) {
             //arreglo con: palabras, sus sinonimos y sus conceptos
             $entireArray = array_merge($words, $synonymous); //, $concepts);
             ////
-
+            print_r($entireArray);
             $tagBusiness->insert($entireArray);
 
             $event->setActivityId($activityID->getActivityId());
@@ -86,7 +87,9 @@ if (isset($_POST['create'])) {
             $result = $eventBusiness->insert($activityID, $event);
 
             if ($resulta == 1 and $result == 1) {
-                header("location: ../view/AdministrativeEventView.php?success=inserted");
+                
+
+//header("location: ../view/AdministrativeEventView.php?success=inserted");
             } else {
                 header("location: ../view/AdministrativeEventView.php?error=dbError");
             }
