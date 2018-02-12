@@ -1,5 +1,5 @@
 <?php
-require '../domain/Activity.php';
+require_once '../domain/Activity.php';
 
 class ActivityData {
     

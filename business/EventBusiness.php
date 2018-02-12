@@ -2,9 +2,10 @@
 
 require '../domain/Event.php';
 require '../domain/Tag.php';
+require '../domain/Activity.php';
 require '../business/ActivityBusiness.php';
 require '../business/TagBusiness.php';
-require '../util/TagReference.php.php';
+require '../util/TagReference.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['dateEvent']) && isset($_POST['hourEvent'])) {
@@ -44,10 +45,10 @@ if (isset($_POST['create'])) {
             }
             
             //retorna los sinonimos de las palabra
-            $allsynonymous = $tagReference->sendGet($words);
+            $allsynonymous = $tagReference->sendGetSynonymous($words);
             $synonymous = array();
             
-            //relaciona los sinonimos con l actividad
+            //relaciona los sinonimos con la actividad
             foreach($allsynonymous as $synonym){
 
                 $tag->setTagactivityid($activityID->getActivityId());
@@ -76,6 +77,7 @@ if (isset($_POST['create'])) {
             $entireArray = array_merge($words, $synonymous, $concepts);
             ////
             
+            $tagBusiness->insert($entireArray);
   
             $event->setActivityId($activityID->getActivityId());
             $event->setEventPLace($_POST['place']);

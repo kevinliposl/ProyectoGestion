@@ -1,6 +1,6 @@
 <?php
 
-require '../domain/Tag.php';
+require_once '../domain/Tag.php';
 
 class TagBusiness {
 
