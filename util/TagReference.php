@@ -29,7 +29,13 @@ class TagReference {
             if(!$response) {
                 return false;
             }else{
-                array_push($retorna,$response);
+                foreach (json_decode($response,true) as $value) {
+                    foreach ($value as $v){
+                        foreach ($v as $va){
+                            array_push($retorna,$va );
+                        }                        
+                    }                    
+                }                
             }//End if(!$response)
             
         }//End foreach ($entradas as $entrada)
