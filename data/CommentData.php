@@ -99,6 +99,17 @@ class CommentData {
     }
 
 //End select
+    
+    function selectidActivity($idActivity) {
+        $query = $this->db->prepare("SELECT * FROM tbcomment WHERE activityid=" . $idActivity . ";");
+        $query->execute();        
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+
+        return $result;
+    }
+
+//End select
 
     function delete(Comment $comment) {
         $query = $this->db->prepare("UPDATE tbcomment SET commentstate=:state WHERE commentid=:id;");

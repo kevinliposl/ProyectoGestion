@@ -77,6 +77,11 @@ class CommentBusiness {
 
 //End insert
 
+    function selectidActivity($idActivity) {
+        return $this->data->selectidActivity($idActivity);
+    }//End selectidActivity
+
+    
     function delete(Comment $comment) {
         return $this->data->delete($comment);
     }
