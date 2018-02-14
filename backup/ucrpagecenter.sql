@@ -99,7 +99,6 @@ CREATE TABLE tbevent(
     CONSTRAINT PRIMARY KEY(activityid)
 );
 
-
 CREATE TABLE tbpublication(
     activityid INTEGER NOT NULL,
 	publicationstate SMALLINT DEFAULT 1 NOT NULL,
@@ -116,9 +115,8 @@ CREATE TABLE tbcomment(
     CONSTRAINT PRIMARY KEY(commentid)
 );
 
-
 CREATE TABLE tbtag(
-    tagactivityid INTEGER NOT NULL,
-    tagword VARCHAR(100) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+tagactivityid INTEGER NOT NULL,
+tagword VARCHAR(100) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
 CONSTRAINT PRIMARY KEY(tagactivityid, tagword)
 );
