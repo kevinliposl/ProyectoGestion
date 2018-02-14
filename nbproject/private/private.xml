@@ -3,14 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/business/TagBusiness.php</file>
-            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/data/TagData.php</file>
-            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/business/EventBusiness.php</file>
-            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/util/TagReference.php</file>
-            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/domain/Tag.php</file>
-            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/domain/Activity.php</file>
-            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/data/ActivityData.php</file>
-            <file>file:/C:/Program%20Files%20(x86)/EasyPHP-Devserver-17/eds-www/ProyectoGestion/business/ActivityBusiness.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/business/EventBusiness.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/util/TagReference.php</file>
         </group>
     </open-files>
 </project-private>
