@@ -6,6 +6,8 @@ require '../domain/Activity.php';
 require '../business/ActivityBusiness.php';
 require '../business/TagBusiness.php';
 require '../util/TagReference.php';
+require '../util/TranslateEToS.php';
+require '../util/TranslateSToE.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['dateEvent']) && isset($_POST['hourEvent'])) {
@@ -17,7 +19,9 @@ if (isset($_POST['create'])) {
             $activity = new Activity();
             $tagBusiness = new TagBusiness();
             $tagReference = new TagReference();
-
+            $translateSToE = new TranslateSToE();
+            $translateEToS = new TranslateEToS();
+            
             $activity->setActivityTitle($_POST['title']);
             $activity->setActivityDescription($_POST['description']);
             $activity->setCreateDate(date("Y-m-d"));
@@ -54,29 +58,42 @@ if (isset($_POST['create'])) {
                 $tag->setTagword($synonym);
                 array_push($synonymous, $tag);
             }
-
-
             //retorna los conceptos de las palabras
-            /* $entireConceptsWords = $tagReference->sendGet($words);
-
-              //separar los conceptos en palabras
-              $allConcets = explode(" ", $entireConceptsWords);
-              $concepts=array();
-
-              foreach($allConcets as $concept){
-
-              if(strlen($concept) >= 4){
-              //relacionar los conceptos con la actividad
-              $tag->setTagactivityid($activityID->getActivityId());
-              $tag->setTagword($concept);
-              array_push($concepts, $tag);
-              }
-              }
-             */
-            //arreglo con: palabras, sus sinonimos y sus conceptos
-            $entireArray = array_merge($words, $synonymous); //, $concepts);
-            ////
+            $entireConceptsWords = $tagReference->sendGetConcepts($words);
+            $uniteConcepts='';
+             
+             foreach($entireConceptsWords as $divConcepts){
+                 if($uniteConcepts==''){
+                     $uniteConcepts = $divConcepts;
+                 }else{
+                    $uniteConcepts = $uniteConcepts.'- '.$divConcepts." "; 
+                 }
+                 
+             }
+            
+            //separar y limpiar los conceptos en palabras
+            $allConcepts = str_replace(',',' ',explode(" ", $uniteConcepts));
+            $allConcepts = str_replace('.',' ',$allConcepts);
+            $allConcepts = str_replace('-',' ',$allConcepts);
+            $allConcepts = str_replace(':',' ',$allConcepts);
           
+            $concepts=array();
+
+            foreach($allConcepts as $concept){
+                if(strlen($concept) >= 4){
+                    //relacionar los conceptos con la actividad
+                    $tag = new Tag();
+                    $tag->setTagactivityid($activityID->getActivityId());
+                    $tag->setTagword($concept);
+                    array_push($concepts, $tag);
+                }
+            }
+             
+            //arreglo con: palabras, sus sinonimos y sus conceptos
+            $entireArray = array_merge($words, $synonymous, $concepts);
+            ////
+            
+            //inserta todo el arreglo con posibles palabras relacionadas
             $tagBusiness->insert($entireArray);
 
             $event->setActivityId($activityID->getActivityId());
@@ -87,7 +104,7 @@ if (isset($_POST['create'])) {
             $result = $eventBusiness->insert($activityID, $event);
 
             if ($resulta == 1 and $result == 1) {
-                header("location: ../view/AdministrativeEventView.php?success=inserted");
+                //header("location: ../view/AdministrativeEventView.php?success=inserted");
             } else {
                 header("location: ../view/AdministrativeEventView.php?error=dbError");
             }
