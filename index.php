@@ -34,6 +34,7 @@
                         </ul>
                     </li>
                     <li><a href="view/OrganChartView.php"><div>Organigrama</div></a></li> 
+                    <li><a href="view/SearchView.php"><div>Busqueda</div></a></li> 
                 </ul>
             </nav>
         </header>
