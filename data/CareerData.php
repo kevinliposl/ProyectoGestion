@@ -22,7 +22,7 @@ class CareerData {
         }
 
         $query = $this->db->prepare("INSERT INTO tbcareer VALUES(:careerid,:careercode,:careername,:careergrade,:careerenclosureid,:careerstate);");
-        $query->execute(array('careerid' => $nextId, 'careercode' => $career->getCareercode(), 'careername' => $career->getCareername(), 'careergrade' => $career->getCareergrade(),
+        $query->execute(array('careerid' => $nextId, 'careercode' => (int) $career->getCareercode(), 'careername' => $career->getCareername(), 'careergrade' => $career->getCareergrade(),
             'careerenclosureid' => $career->getCareerenclosureid(), 'careerstate' => 1));
         $result = $query->fetch(PDO::FETCH_ASSOC);
         $query->closeCursor();
@@ -76,7 +76,7 @@ class CareerData {
     }
 
     function selectByUniversity() {
-        $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername, h.headquarterid, e.enclosurename, e.enclosureid, c.careername, c.careerid from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid inner join tbenclosure as e on h.headquarterid = e.enclosureheadquarterid inner join tbcareer as c on e.enclosureid = c.careerenclosureid AND c.careerstate = 1 order by(u.universityid);");
+        $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername, h.headquarterid, e.enclosurename, e.enclosureid, c.careername, c.careerid, c.careergrade, c.careercode, c.careerenclosureid from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid inner join tbenclosure as e on h.headquarterid = e.enclosureheadquarterid inner join tbcareer as c on e.enclosureid = c.careerenclosureid AND c.careerstate = 1 order by(u.universityid);");
         $queryCareer->execute();
         $result = $queryCareer->fetchAll();
         $queryCareer->closeCursor();
