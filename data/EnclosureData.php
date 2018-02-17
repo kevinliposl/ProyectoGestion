@@ -87,7 +87,7 @@ class EnclosureData {
     }
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT * FROM tbenclosure WHERE enclosurestate = 1;");
+        $query = $this->db->prepare("SELECT e.*,u.* FROM tbenclosure e INNER JOIN tbuniversity u ON u.universityid = e.enclosureuniversityid WHERE enclosurestate = 1;");
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();

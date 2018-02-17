@@ -47,6 +47,19 @@ foreach ($universities as $university) {
         }
     } else {
         echo '<ul>';
+        foreach ($enclosures as $enclosure) {
+            if ($enclosure['enclosureuniversityid'] == $university['universityid']) {
+                echo '<li><a href="#"><div>' . $enclosure['enclosurename'] . '</div></a>';
+                echo '<ul>';
+                foreach ($careers as $career) {
+                    if ($enclosure['enclosureid'] == $career['careerenclosureid']) {
+                        echo '<li><a href="#"><div>' . $career['careercode'] . ' | ' . $career['careername'] . ' | ' . $career['careergrade'] . '</div></a></li>';
+                    }
+                }
+                echo '</ul>';
+                echo '</li>';
+            }
+        }
         echo '</ul>';
     }
     echo '</li>';

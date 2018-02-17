@@ -291,7 +291,7 @@ foreach ($headquarters as $headquarter) {
     echo "<form enctype='multipart/form-data' method='POST' action='../business/HeadquarterBusiness.php'>";
     echo "<tr>";
     echo "<td>";
-    echo "<input type ='text' disabled name='name' value='" . $headquarter['headquarteruniversityid'] . "'/>";
+    echo "<input type ='text' disabled value='" . $headquarter['universityname'] . "'/>";
     echo "</td>";
     echo "<td>";
     echo "<input type ='text' name='headquartername' value='" . $headquarter['headquartername'] . "'/>";
@@ -318,6 +318,7 @@ $enclosures = $enclosureBusiness->selectAll();
 echo "<table>";
 echo "<thead>";
 echo "<tr>";
+echo "<th>Universidad</th>";
 echo "<th>Nombre</th>";
 echo "</tr>";
 echo "</thead>";
@@ -325,6 +326,9 @@ foreach ($enclosures as $enclosure) {
 
     echo "<form enctype='multipart/form-data' method='POST' action='../business/EnclosureBusiness.php'>";
     echo "<tr>";
+    echo "<td>";
+    echo "<input type ='text' value='" . $enclosure['universityname'] . "' disabled/>";
+    echo "</td>";
     echo "<td>";
     echo "<input type ='hidden' name='enclosureid' value='" . $enclosure['enclosureid'] . "'/>";
     echo "<input type ='text' name='enclosurename' value='" . $enclosure['enclosurename'] . "'/>";
