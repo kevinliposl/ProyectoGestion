@@ -47,32 +47,22 @@ include_once '../public/header.php';
         </tr>
     </tbody>
 </table>
-
+</br>
 
 <table id="form-enclosure" style="display: none;">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-        </tr>
-    </thead>
     <form method="POST" onsubmit="submitHeadquarter(); return false">
         <tr>
             <td>
                 <input id="form-name-headquarter"type="text" placeholder="Sede"/>
             </td>
             <td>
-                <input type="submit" value="Insertar"/>
+                <input type="submit" value="Registrar"/>
             </td>
         </tr>
     </form>
 </table>
 
 <table id="form-headquarters" style="display: none;">
-    <thead>
-        <tr>
-            <th>Sede</th>
-        </tr>
-    </thead>
     <form method="POST" onsubmit="submitHeadquarterEnclosure(); return false">
         <tr>
             <td>
@@ -83,25 +73,20 @@ include_once '../public/header.php';
                 <input id="form-headquarters-enclosure-name" type="text" placeholder="Recinto"/>
             </td>
             <td>
-                <input type="submit" value="Insertar"/>
+                <input type="submit" value="Registrar"/>
             </td>
         </tr>
     </form>
 </table>
 
 <table id="form-only-enclosure" style="display: none;">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-        </tr>
-    </thead>
     <form method="POST" onsubmit="submitOnlyEnclosure(); return false">
         <tr>
             <td>
                 <input id="form-only-enclosure-name"type="text" placeholder="Recinto" required/>
             </td>
             <td>
-                <input type="submit" value="Insertar"/>
+                <input type="submit" value="Registrar"/>
             </td>
         </tr>
     </form>

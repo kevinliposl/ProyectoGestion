@@ -48,15 +48,15 @@ if (isset($_POST['create'])) {
             $result = $enclosureBusiness->delete($enclosure);
 
             if ($result == 1) {
-                header("location: ../view/HeadquarterView.php?success=delete");
+                header("location: ../view/AdministrationInstallationView.php?success=delete");
             } else {
-                header("location: ../view/HeadquarterView.php?error=dbError");
+                header("location: ../view/AdministrationInstallationView.php?error=dbError");
             }
         } else {
-            header("location: ../view/HeadquarterView.php?error=format");
+            header("location: ../view/AdministrationInstallationView.php?error=format");
         }
     } else {
-        header("location: ../view/HeadquarterView.php?error=empty");
+        header("location: ../view/AdministrationInstallationView.php?error=empty");
     }
 } else if (isset($_POST['update'])) {
     if (isset($_POST['enclosureid']) && isset($_POST['enclosurename'])) {
@@ -69,15 +69,15 @@ if (isset($_POST['create'])) {
             $result = $enclosureBusiness->update($enclosure);
 
             if ($result == 1) {
-                header("location: ../view/HeadquarterView.php?success=update");
+                header("location: ../view/AdministrationInstallationView.php?success=update");
             } else {
-                header("location: ../view/HeadquarterView.php?error=dbError");
+                header("location: ../view/AdministrationInstallationView.php?error=dbError");
             }
         } else {
-            header("location: ../view/HeadquarterView.php?error=format");
+            header("location: ../view/AdministrationInstallationView.php?error=format");
         }
     } else {
-        header("location: ../view/HeadquarterView.php?error=empty");
+        header("location: ../view/AdministrationInstallationView.php?error=empty");
     }
 }
 

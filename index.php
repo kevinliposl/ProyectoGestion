@@ -1,3 +1,8 @@
+<?php
+require_once 'util/RandomPassGenerator.php';
+RandomPassGenerator::getInstance();
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,7 +15,12 @@
         <header>
             <nav>
                 <ul>
-                    <li><a href="index.php"><div>Home</div></a></li> 
+                    <li><a href="index.php"><div>Home</div></a></li>
+                    <li><a href="#"><div>Sesion</div></a>
+                        <ul>
+                            <li><a href="view/RegisterView.php"><div>Registro</div></a></li>
+                        </ul>
+                    </li>
                     <li><a href="#"><div>Usuarios</div></a>
                         <ul>
                             <li><a href="view/StudentView.php"><div>Gesti&oacute;n de Estudiantes</div></a></li>
@@ -18,7 +28,6 @@
                             <li><a href="view/AdministrativeView.php"><div>Gesti&oacute;n de Administrativos</div></a></li>
                         </ul>
                     </li>
-
                     <li><a href="#"><div>Universidades</div></a>
                         <ul>
                             <li><a href="view/CareerView.php"><div>Gesti&oacute;n de Carreras</div></a></li>
@@ -29,7 +38,7 @@
                     <li><a href="#"><div>Actividades</div></a>
                         <ul>
                             <li><a href="view/AdministrativeEventView.php"><div>Gesti&oacute;n de Eventos</div></a></li>
-                            <li><a href="view/AdministrativeCommentView.php"><div>Gesti&oacute;n de Commentarios</div></a></li>
+                            <li><a href="view/AdministrativeCommentView.php"><div>Gesti&oacute;n de Comentarios</div></a></li>
                             <li><a href="view/EventView.php"><div>Ver Eventos</div></a></li>
                         </ul>
                     </li>
