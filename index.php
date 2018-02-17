@@ -23,7 +23,7 @@
                         <ul>
                             <li><a href="view/CareerView.php"><div>Gesti&oacute;n de Carreras</div></a></li>
                             <li><a href="view/UniversityView.php"><div>Gesti&oacute;n de Universidades</div></a></li>
-                            <li><a href="view/HeadquarterView.php"><div>Gesti&oacute;n de Sedes y Recintos</div></a></li>
+                            <li><a href="view/AdministrationInstallationView.php"><div>Gesti&oacute;n de Sedes y Recintos</div></a></li>
                         </ul>
                     </li>
                     <li><a href="#"><div>Actividades</div></a>
