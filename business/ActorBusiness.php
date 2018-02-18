@@ -2,6 +2,7 @@
 
 require '../domain/Actor.php';
 require_once '../util/RandomPassGenerator.php';
+require_once '../util/SMail.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['actorname']) && isset($_POST['actortype']) && isset($_POST['actormail']) && isset($_POST['actorlastname1'])) {

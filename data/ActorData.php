@@ -95,7 +95,27 @@ class ActorData {
     }
 
     function insertAdministrative(Actor $actor) {
-        
+        if ($this->existsActor($actor)) {
+            $actor->setActorid($this->getlastid());
+            if ($this->insertActor($actor)) {
+                $queryInsertProfessor = $this->db->prepare("INSERT INTO tbadministrative VALUES (:id,:license,:name,:lastname1,:lastname2,:area,:password,:state);");
+                $queryInsertProfessor->execute(array('id' => $actor->getActorid(), 'license' => ' ', 'name' => $actor->getActorname(), 'area' => ' ',
+                    'lastname1' => $actor->getActorlastname1(), 'lastname2' => ' ', 'password' => $actor->getActorpassword(), 'state' => 0));
+                $queryInsertProfessor->fetch();
+                $queryInsertProfessor->closeCursor();
+
+                $queryExistsProfessor = $this->db->prepare("SELECT administrativeid FROM tbadministrative WHERE administrativeid=:id;");
+                $queryExistsProfessor->execute(array('id' => $actor->getActorid()));
+                $resultProfessor = $queryExistsProfessor->fetch();
+                $queryExistsProfessor->closeCursor();
+
+                return $resultProfessor['administrativeid'] ? 1 : 0;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
     }
 
 }
