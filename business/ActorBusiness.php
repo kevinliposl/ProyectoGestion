@@ -24,8 +24,9 @@ if (isset($_POST['create'])) {
             } else {
                 $result = $actorBusiness->insertAdministrative($actor);
             }
-            
+
             if ($result == 1) {
+                while (!SMail::getInstance()->sendMail($actor->getActormail(), 'Contraseña temporal', 'La contraseña del sitio es la siguiente ' . $actor->getActorpassword()));
                 header("location: ../view/RegisterView.php?success=inserted");
             } else {
                 header("location: ../view/RegisterView.php?error=dbError");
