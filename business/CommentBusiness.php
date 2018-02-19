@@ -2,6 +2,7 @@
 
 require '../domain/Comment.php';
 require '../business/ActivityBusiness.php';
+require_once '../util/SSession.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['commentactor']) && isset($_POST['activityid']) && isset($_POST['commentdescription'])) {
@@ -13,6 +14,7 @@ if (isset($_POST['create'])) {
 
             $comment->setActivityId($_POST['activityid']);
             $comment->setCommentDescription($_POST['commentdescription']);
+//            $comment->setCommentActor(SSession::getInstance()->user['actorid']);
             $comment->setCommentActor($_POST['commentactor']);
             $comment->setCommentDate(date("Y-m-d"));
             $activity->setActivityId($_POST['activityid']);

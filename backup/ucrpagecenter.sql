@@ -83,6 +83,8 @@ CREATE TABLE tbactivity(
     createddate DATE NOT NULL,
     updatedate DATE NOT NULL,
     likecount INTEGER NOT NULL,
+    dayafter INTEGER NOT NULL,
+    daybefore INTEGER NOT NULL,
     commentcount INTEGER NOT NULL,
     activitytitle VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     activitydescription varchar(255) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
