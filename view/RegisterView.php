@@ -15,11 +15,12 @@ $universityBusiness = new UniversityBusiness();
         <th>Nombre</th>
         <th>Primer Apellido</th>
         <th>Segundo Apellido</th>
-        <th>Primer Carrera</th>
-        <th>Segunda Carrera</th>
+        <th>*</th>
+        <th id="tactorcareer1" style="display: none">Primer Carrera</th>
+        <th id="tactorcareer2" style="display: none">Segunda Carrera</th>
+        <th id="tactorarea" style="display: none">Area</th>
     </tr>
-    <form enctype="multipart/form-data" method='POST' action='../business/ActorBusiness.php'>
-        <!--<form enctype="multipart/form-data" onsubmit="validate(); return false">-->
+    <form enctype="multipart/form-data" onsubmit="validate(); return false">
         <tr>
             <td>
                 <input type="email" id="actormail" name="actormail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
@@ -40,8 +41,8 @@ $universityBusiness = new UniversityBusiness();
                     <option value="Administrative">Administrativo</option>
                 </select>
             </td>
-            <td>
-                <select name="studentcareer1" style="width: 100%">
+            <td id="tactorcareer1" style="display: none;">
+                <select id="actorcareer1" name="actorcareer1" style="width: 100%">
                     <option value="0">Ninguna</option>
                     <?php
                     $universities = $universityBusiness->selectAll();
@@ -62,8 +63,8 @@ $universityBusiness = new UniversityBusiness();
                         ?>
                 </select>
             </td>
-            <td>
-                <select name="studentcareer2" style="width: 100%">
+            <td id="tactorcareer2" style="display: none;">
+                <select id="actorcareer2" name="actorcareer2" style="width: 100%">
                     <option value="0">Ninguna</option>
                     <?php
                     foreach ($universities as $university) {
@@ -82,6 +83,9 @@ $universityBusiness = new UniversityBusiness();
                         ?>
                 </select>
             </td>
+            <td id="tactorarea" style="display: none;">
+                <input id="actorarea" name="actorarea" />
+            </td>
             <td>
                 <input type="submit" name="create" value="Registrar"/> 
             </td>
@@ -90,16 +94,24 @@ $universityBusiness = new UniversityBusiness();
     <script>
         function validate() {
 
-            var args = {};
             var url = '../business/' + $('#actortype').val() + 'Business.php';
-            alert(url);
-//            $.post(url, args, function (data) {
-//
-//
-//            }, 'json').fail(function () {
-//
-//
-//            });
+            var args = {
+                'actormail': $('#actormail').val(),
+                'actorname': $('#actorname').val(),
+                'actorlastname1': $('#actorlastname1').val(),
+                'actorlastname2': $('#actorlastname2').val(),
+                'actorcareer1': $('#actorcareer1').val(),
+                'actorcareer2': $('#actorcareer2').val(),
+                'actorarea': $('#actorarea').val()
+            };
+
+            $.post(url, args, function (data) {
+
+
+            }, 'json').fail(function () {
+
+
+            });
         }
     </script>
 
