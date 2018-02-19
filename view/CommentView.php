@@ -20,7 +20,7 @@ $activityBusiness = new ActivityBusiness();
     echo "<h4>Comentarios</h4>";
     
     foreach ($comments as $comment) {
-        echo "<li><a href='#'><div>".$comment['commentcreated'].",".$comment['commentactor'].",".$comment['commentdescription']."</div></a></li>";
+        echo "<li><a href='#'><div>".$comment['commentcreated'].",".$comment['actormail'].",".$comment['commentdescription']."</div></a></li>";
     }//End foreach ($comments as $comment) 
     
 ?>
@@ -34,7 +34,7 @@ $activityBusiness = new ActivityBusiness();
                 <input type ='text' name="commentdescription"/>
             </td>
             <td>
-                <input type="submit" name="create" value="Crear"/> 
+                <input type="submit" name="create" value="Publicar"/> 
             </td>
             <td>
             </td>
