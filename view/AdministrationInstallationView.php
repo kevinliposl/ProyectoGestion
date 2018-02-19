@@ -47,32 +47,22 @@ include_once '../public/header.php';
         </tr>
     </tbody>
 </table>
-
+</br>
 
 <table id="form-enclosure" style="display: none;">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-        </tr>
-    </thead>
     <form method="POST" onsubmit="submitHeadquarter(); return false">
         <tr>
             <td>
                 <input id="form-name-headquarter"type="text" placeholder="Sede"/>
             </td>
             <td>
-                <input type="submit" value="Insertar"/>
+                <input type="submit" value="Registrar"/>
             </td>
         </tr>
     </form>
 </table>
 
 <table id="form-headquarters" style="display: none;">
-    <thead>
-        <tr>
-            <th>Sede</th>
-        </tr>
-    </thead>
     <form method="POST" onsubmit="submitHeadquarterEnclosure(); return false">
         <tr>
             <td>
@@ -83,25 +73,20 @@ include_once '../public/header.php';
                 <input id="form-headquarters-enclosure-name" type="text" placeholder="Recinto"/>
             </td>
             <td>
-                <input type="submit" value="Insertar"/>
+                <input type="submit" value="Registrar"/>
             </td>
         </tr>
     </form>
 </table>
 
 <table id="form-only-enclosure" style="display: none;">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-        </tr>
-    </thead>
     <form method="POST" onsubmit="submitOnlyEnclosure(); return false">
         <tr>
             <td>
                 <input id="form-only-enclosure-name"type="text" placeholder="Recinto" required/>
             </td>
             <td>
-                <input type="submit" value="Insertar"/>
+                <input type="submit" value="Registrar"/>
             </td>
         </tr>
     </form>
@@ -291,7 +276,7 @@ foreach ($headquarters as $headquarter) {
     echo "<form enctype='multipart/form-data' method='POST' action='../business/HeadquarterBusiness.php'>";
     echo "<tr>";
     echo "<td>";
-    echo "<input type ='text' disabled name='name' value='" . $headquarter['headquarteruniversityid'] . "'/>";
+    echo "<input type ='text' disabled value='" . $headquarter['universityname'] . "'/>";
     echo "</td>";
     echo "<td>";
     echo "<input type ='text' name='headquartername' value='" . $headquarter['headquartername'] . "'/>";
@@ -318,6 +303,7 @@ $enclosures = $enclosureBusiness->selectAll();
 echo "<table>";
 echo "<thead>";
 echo "<tr>";
+echo "<th>Universidad</th>";
 echo "<th>Nombre</th>";
 echo "</tr>";
 echo "</thead>";
@@ -325,6 +311,9 @@ foreach ($enclosures as $enclosure) {
 
     echo "<form enctype='multipart/form-data' method='POST' action='../business/EnclosureBusiness.php'>";
     echo "<tr>";
+    echo "<td>";
+    echo "<input type ='text' value='" . $enclosure['universityname'] . "' disabled/>";
+    echo "</td>";
     echo "<td>";
     echo "<input type ='hidden' name='enclosureid' value='" . $enclosure['enclosureid'] . "'/>";
     echo "<input type ='text' name='enclosurename' value='" . $enclosure['enclosurename'] . "'/>";

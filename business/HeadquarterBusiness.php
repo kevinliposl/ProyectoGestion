@@ -31,15 +31,15 @@ if (isset($_POST['create'])) {
             $result = $headquarterBusiness->update($headquarter);
 
             if ($result == 1) {
-                header("location: ../view/HeadquarterView.php?success=inserted");
+                header("location: ../view/AdministrationInstallationView.php?success=inserted");
             } else {
-                header("location: ../view/HeadquarterView.php?error=dbError");
+                header("location: ../view/AdministrationInstallationView.php?error=dbError");
             }
         } else {
-            header("location: ../view/HeadquarterView.php?error=format");
+            header("location: ../view/AdministrationInstallationView.php?error=format");
         }
     } else {
-        header("location: ../view/HeadquarterView.php?error=empty");
+        header("location: ../view/AdministrationInstallationView.php?error=empty");
     }
 } else if (isset($_POST['select'])) {
     if (isset($_POST['universityid'])) {

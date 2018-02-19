@@ -32,7 +32,7 @@ CREATE TABLE tbheadquarter(
 
 CREATE TABLE tbcareer(
     careerid INTEGER,
-    careercode INTEGER,
+    careercode VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci,
     careername VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     careergrade VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci,
     careerenclosureid INTEGER,
@@ -116,7 +116,7 @@ CREATE TABLE tbcomment(
 );
 
 CREATE TABLE tbtag(
-tagactivityid INTEGER NOT NULL,
-tagword VARCHAR(100) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-CONSTRAINT PRIMARY KEY(tagactivityid, tagword)
+	tagactivityid INTEGER NOT NULL,
+	tagword VARCHAR(100) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+	CONSTRAINT PRIMARY KEY(tagactivityid, tagword)
 );

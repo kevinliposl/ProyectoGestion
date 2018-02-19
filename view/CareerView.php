@@ -41,7 +41,7 @@ $universityBusiness = new UniversityBusiness();
 
                     
                     foreach ($universities as $university) {
-                        $universityname = $university->getUniversityname();
+                        $universityname = $university['universityname'];
                     ?>
 
                         <optgroup label="<?= $universityname; ?>">

@@ -22,7 +22,7 @@ class StudentData {
         return $id;
     }
 
-    function insert(Student $student) {
+    function insertStudent(Student $student) {
         $queryExistsMail = $this->db->prepare("SELECT actormail FROM tbactor WHERE actormail=:mail;");
         $queryExistsMail->execute(array('mail' => $student->getStudentmail()));
         $resultMail = $queryExistsMail->fetch();
