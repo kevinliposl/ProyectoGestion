@@ -15,6 +15,7 @@
                     <li><a href="../index.php"><div>Home</div></a></li> 
                     <li><a href="#"><div>Usuarios</div></a>
                         <ul>
+                            <li><a href="loginView.php"><div>Iniciar sesion</div></a></li>
                             <li><a href="StudentView.php"><div>Gesti&oacute;n de Estudiantes</div></a></li>
                             <li><a href="ProfessorView.php"><div>Gesti&oacute;n de Profesores</div></a></li>
                             <li><a href="AdministrativeView.php"><div>Gesti&oacute;n de Administrativos</div></a></li>
