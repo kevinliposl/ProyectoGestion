@@ -1,35 +1,32 @@
 <?php
+
 require '../domain/Student.php';
 
 if (isset($_POST['create'])) {
-    if (isset($_POST['studentname']) && isset($_POST['studentpassword']) && isset($_POST['studentcareer1']) && isset($_POST['studentlicense']) && isset($_POST['studentmail'])) {
-        if (strlen($_POST['studentname']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentlicense']) > 0 && strlen($_POST['studentmail']) > 0 &&
-                filter_var($_POST['studentmail'], FILTER_VALIDATE_EMAIL)) {
+    if (isset($_POST['actorname']) && isset($_POST['actorpassword']) && isset($_POST['actorcareer1']) && isset($_POST['actormail'])) {
+        if (strlen($_POST['actorname']) > 0 && strlen($_POST['actorpassword']) > 0 && strlen($_POST['actormail']) > 0 && filter_var($_POST['actormail'], FILTER_VALIDATE_EMAIL)) {
 
             $studentBusiness = new StudentBusiness();
             $student = new Student();
 
-            $student->setStudentlicense($_POST['studentlicense']);
-            $student->setStudentmail($_POST['studentmail']);
-            $student->setStudentname($_POST['studentname']);
-            $student->setStudentlastname1($_POST['studentlastname1']);
-            $student->setStudentlastname2($_POST['studentlastname2']);
-            $student->setStudentcareer1(intval($_POST['studentcareer1']));
-            $student->setStudentcareer2(intval($_POST['studentcareer2']));
-            $student->setStudentpassword($_POST['studentpassword']);
+            $student->setStudentmail($_POST['actormail']);
+            $student->setStudentname($_POST['actorname']);
+            $student->setStudentlastname1($_POST['actorlastname1']);
+            $student->setStudentlastname2($_POST['actorlastname2']);
+            $student->setStudentcareer1(intval($_POST['actorcareer1']));
+            $student->setStudentcareer2(intval($_POST['actorcareer2']));
+            $student->setStudentpassword();
 
             $result = $studentBusiness->insert($student);
 
-            if ($result == 1) {
-                header("location: ../view/StudentView.php?success=inserted");
-            } else {
-                header("location: ../view/StudentView.php?error=dbError");
-            }
+            echo json_encode(array('result' => $result));
         } else {
-            header("location: ../view/StudentView.php?error=format");
+            echo json_encode(array('result' => -1));
+          //  header("location: ../view/StudentView.php?error=format");
         }
     } else {
-        header("location: ../view/StudentView.php?error=empty");
+        echo json_encode(array('result' => -1));
+        //header("location: ../view/StudentView.php?error=empty");
     }
 } else if (isset($_POST['delete'])) {
     if (isset($_POST['studentid'])) {
