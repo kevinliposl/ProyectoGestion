@@ -30,6 +30,8 @@ class ActivityData {
                 $activity->getCreateDate() . "','" .
                 $activity->getUpdateDate() . "'," .
                 $activity->getLikeCount() . "," .
+                $activity->getDayAfther() . "," .
+                $activity->getDayBefore() . "," .
                 $activity->getCommentCount() . ",'" .
                 $activity->getActivityTitle() . "','" .
                 $activity->getActivityDescription() . "'," .
@@ -62,6 +64,8 @@ class ActivityData {
             $currentActivity->setCreateDate($row['createddate']);
             $currentActivity->setUpdateDate($row['updatedate']);
             $currentActivity->setLikeCount($row['likecount']);
+            $currentActivity->setDayAfther($row['dayafter']);
+            $currentActivity->setDayBefore($row['daybefore']);
             $currentActivity->setCommentCoun($row['commentcount']);
             $currentActivity->setActivityTitle($row['activitytitle']);
             $currentActivity->setActivityDescription($row['activitydescription']);
@@ -83,6 +87,8 @@ class ActivityData {
         $currentActivity->setCreateDate($row['createddate']);
         $currentActivity->setUpdateDate($row['updatedate']);
         $currentActivity->setLikeCount($row['likecount']);
+        $currentActivity->setDayAfther($row['dayafter']);
+        $currentActivity->setDayBefore($row['daybefore']);
         $currentActivity->setCommentCoun($row['commentcount']);
         $currentActivity->setActivityTitle($row['activitytitle']);
         $currentActivity->setActivityDescription($row['activitydescription']);
@@ -108,6 +114,8 @@ class ActivityData {
     function update(Activity $activity) {
         $query = $this->db->prepare("UPDATE tbactivity "
                 . "SET activityid =" . $activity->getActivityId() .
+                ", dayafter=" . $activity->getDayAfther().
+                ", daybefore=" . $activity->getDayBefore().
                 ", activitytitle='" . $activity->getActivityTitle() .
                 "', activitydescription='" . $activity->getActivityDescription().
                 "' WHERE activityid=" . $activity->getActivityId() . ";");

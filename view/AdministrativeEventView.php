@@ -11,6 +11,8 @@ $eventBusiness = new EventBusiness();
         <th>Lugar</th>
         <th>Dia del Evento</th>
         <th>Hora del evento</th>
+        <th>Dias despues</th>
+        <th>Dias antes</th>
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/EventBusiness.php'>
         <tr>
@@ -28,6 +30,12 @@ $eventBusiness = new EventBusiness();
             </td>
             <td>
                 <input type="time" name="hourEvent"/>
+            </td>
+            <td>
+                <input type="number" name="hourAfter"/>
+            </td>
+            <td>
+                <input type="number" name="hourBefore"/>
             </td>
             <td>
                 <input type="submit" name="create" value="Crear"/> 
@@ -59,6 +67,12 @@ $eventBusiness = new EventBusiness();
         echo "</td>";
         echo "<td>";
         echo "<input type ='time' name='hourEvent' value='" . $event['eventhour'] . "'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type ='number' name='hourAfter' value='" . $event['dayafter'] . "'/>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type ='number' name='hourBefore' value='" . $event['daybefore'] . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type ='submit' name='delete' value ='Eliminar'/>";

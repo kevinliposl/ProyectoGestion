@@ -2,6 +2,10 @@
 include_once '../public/header.php';
 
 include_once '../business/CommentBusiness.php';
+$commentBusinessF = new CommentBusiness();
+
+include_once '../business/ActivityBusiness.php';
+$activityBusiness = new ActivityBusiness();
 ?>
 
 <?php
@@ -20,6 +24,23 @@ include_once '../business/CommentBusiness.php';
     }//End foreach ($comments as $comment) 
     
 ?>
+<table>
+    <tr>
+        <th>Comentario</th>
+    </tr>
+    <form enctype="multipart/form-data" method='POST' action='../business/CommentBusiness.php'>
+        <tr>
+            <td>
+                <input type ='text' name="commentdescription"/>
+            </td>
+            <td>
+                <input type="submit" name="create" value="Crear"/> 
+            </td>
+            <td>
+            </td>
+        </tr>
+    </form>
+    </table>
 
 <?php
     include_once '../public/footer.php';

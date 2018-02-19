@@ -10,8 +10,8 @@ require '../util/TranslateEToS.php';
 require '../util/TranslateSToE.php';
 
 if (isset($_POST['create'])) {
-    if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['dateEvent']) && isset($_POST['hourEvent'])) {
-        if (strlen($_POST['title']) > 0 && strlen($_POST['description']) > 0 && strlen($_POST['place']) > 0 && strlen($_POST['dateEvent']) > 0 && strlen($_POST['hourEvent']) > 0) {
+    if (isset($_POST['hourAfter']) && isset($_POST['hourBefore']) && isset($_POST['title']) && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['dateEvent']) && isset($_POST['hourEvent'])) {
+        if (strlen($_POST['hourBefore']) > 0 && strlen($_POST['hourAfter']) > 0 && strlen($_POST['title']) > 0 && strlen($_POST['description']) > 0 && strlen($_POST['place']) > 0 && strlen($_POST['dateEvent']) > 0 && strlen($_POST['hourEvent']) > 0) {
 
             $eventBusiness = new EventBusiness();
             $event = new Event();
@@ -27,6 +27,8 @@ if (isset($_POST['create'])) {
             $activity->setCreateDate(date("Y-m-d"));
             $activity->setUpdateDate(date("Y-m-d"));
             $activity->setLikeCount(0);
+            $activity->setDayAfther($_POST['hourAfter']);
+            $activity->setDayBefore($_POST['hourBefore']);
             $activity->setCommentCoun(0);
 
             $resulta = $activityBusiness->insert($activity);
@@ -104,7 +106,7 @@ if (isset($_POST['create'])) {
             $result = $eventBusiness->insert($activityID, $event);
 
             if ($resulta == 1 and $result == 1) {
-                //header("location: ../view/AdministrativeEventView.php?success=inserted");
+                header("location: ../view/AdministrativeEventView.php?success=inserted");
             } else {
                 header("location: ../view/AdministrativeEventView.php?error=dbError");
             }
@@ -142,8 +144,8 @@ if (isset($_POST['create'])) {
     }
 } else if (isset($_POST['update'])) {
 
-    if (isset($_POST['eventid']) && isset($_POST['title']) && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['dateEvent']) && isset($_POST['hourEvent'])) {
-        if (strlen($_POST['eventid']) > 0 && strlen($_POST['title']) > 0 && strlen($_POST['description']) > 0 && strlen($_POST['place']) > 0 && strlen($_POST['dateEvent']) > 0 && strlen($_POST['hourEvent']) > 0) {
+    if (isset($_POST['hourAfter']) && isset($_POST['hourBefore']) && isset($_POST['eventid']) && isset($_POST['title']) && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['dateEvent']) && isset($_POST['hourEvent'])) {
+        if (strlen($_POST['hourBefore']) > 0 && strlen($_POST['hourAfter']) > 0 && strlen($_POST['eventid']) > 0 && strlen($_POST['title']) > 0 && strlen($_POST['description']) > 0 && strlen($_POST['place']) > 0 && strlen($_POST['dateEvent']) > 0 && strlen($_POST['hourEvent']) > 0) {
 
             $eventBusiness = new EventBusiness();
             $event = new Event();
@@ -154,6 +156,8 @@ if (isset($_POST['create'])) {
             $activity->setActivityTitle($_POST['title']);
             $activity->setActivityDescription($_POST['description']);
             $activity->setActivityId($_POST['eventid']);
+             $activity->setDayAfther($_POST['hourAfter']);
+            $activity->setDayBefore($_POST['hourBefore']);
 
             $resulta = $activityBusiness->update($activity);
 
