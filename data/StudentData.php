@@ -73,10 +73,10 @@ class StudentData {
     function update(Student $student) {
         $query = $this->db->prepare("UPDATE tbstudent s INNER JOIN tbactor a ON a.actorid = s.studentid "
                 . "SET s.studentlicense=:license, s.studentname=:name, s.studentlastname1=:lastname1, s.studentlastname2=:lastname2,"
-                . "s.studentpassword=:password, s.studentcareer1=:career, a.actormail=:mail WHERE s.studentid=:id;");
+                . "s.studentpassword=:password, s.studentcareer1=:career1, s.studentcareer2=:career2, a.actormail=:mail WHERE s.studentid=:id;");
         $query->execute(array("license" => $student->getStudentlicense(), "name" => $student->getStudentname(), "lastname1" => $student->getStudentlastname1(),
             "lastname2" => $student->getStudentlastname2(), "password" => $student->getStudentpassword(), "id" => $student->getStudentid(),
-            "mail" => $student->getStudentmail(), "career" => $student->getStudentcareer1()));
+            "mail" => $student->getStudentmail(), "career1" => $student->getStudentcareer1(), "career2" => $student->getStudentcareer2()));
         $result = $query->fetch();
         $query->closeCursor();
 

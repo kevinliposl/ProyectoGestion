@@ -22,33 +22,46 @@ class ProfessorData {
         return $id;
     }
 
+    private function existsActor(Professor $professor) {
+        $queryExistsActor = $this->db->prepare("SELECT actormail FROM tbactor WHERE actormail=:mail;");
+        $queryExistsActor->execute(array('mail' => $professor->getProfessormail()));
+        $resultActor = $queryExistsActor->fetch();
+        $queryExistsActor->closeCursor();
+
+        return !$resultActor['actormail'] ? 1 : 0;
+    }
+
+    private function insertActor(Professor $professor) {
+        $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
+        $queryInsertActor->execute(array('actorid' => $professor->getProfessorid(), 'actormail' => $professor->getProfessormail()));
+        $queryInsertActor->fetch();
+        $queryInsertActor->closeCursor();
+
+        $queryExistsActor = $this->db->prepare("SELECT actormail FROM tbactor WHERE actorid = :actorid;");
+        $queryExistsActor->execute(array('actorid' => $professor->getProfessorid()));
+        $resultActor = $queryExistsActor->fetch();
+        $queryExistsActor->closeCursor();
+
+        return $resultActor['actormail'] ? 1 : 0;
+    }
+
     function insert(Professor $professor) {
-        $queryChecking = $this->db->prepare("SELECT actorid FROM tbactor WHERE actormail=:actormail;");
-        $queryChecking->execute(array('actormail' => $professor->getProfessormail()));
-        $resultChecking = $queryChecking->fetch();
-        $queryChecking->closeCursor();
+        if ($this->existsActor($professor)) {
+            $professor->setProfessorid($this->getlastid());
+            if ($this->insertActor($professor)) {
+                $queryInsertProfessor = $this->db->prepare("INSERT INTO tbprofessor VALUES (:id,:license,:name,:lastname1,:lastname2,:password,:state);");
+                $queryInsertProfessor->execute(array('id' => $professor->getProfessorid(), 'license' => ' ', 'name' => $professor->getProfessorname(),
+                    'lastname1' => $professor->getProfessorlastname1(), 'lastname2' => $professor->getProfessorlastname2(),
+                    'password' => $professor->getProfessorpassword(), 'state' => 0));
+                $queryInsertProfessor->fetch();
+                $queryInsertProfessor->closeCursor();
 
-        if (!isset($resultChecking['actorid'])) {
-            $lastid = $this->getlastid();
-            $queryProfessor = $this->db->prepare("INSERT INTO tbprofessor VALUES (:professorid,:professorlicense,:professorname,:professorlastname1,:professorlastname2,:professorpassword,:professorstate);");
-            $queryProfessor->execute(array('professorid' => $lastid, 'professorlicense' => $professor->getProfessorlicense(), 'professorname' => $professor->getProfessorname(),
-                'professorlastname1' => $professor->getProfessorlastname1(), 'professorlastname2' => $professor->getProfessorlastname2(), 'professorpassword' => $professor->getProfessorpassword(),
-                'professorstate' => 1));
-            $queryProfessor->fetch();
-            $queryProfessor->closeCursor();
+                $queryExistsProfessor = $this->db->prepare("SELECT professorid FROM tbprofessor WHERE professorid =:id;");
+                $queryExistsProfessor->execute(array('id' => $professor->getProfessorid()));
+                $resultProfessor = $queryExistsProfessor->fetch();
+                $queryExistsProfessor->closeCursor();
 
-            $queryActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
-            $queryActor->execute(array('actorid' => $lastid, 'actormail' => $professor->getProfessormail()));
-            $queryActor->fetch();
-            $queryActor->closeCursor();
-
-            $queryVerifyResult = $this->db->prepare('SELECT p.professorname FROM tbprofessor p INNER JOIN tbactor a ON a.actorid = p.professorid WHERE p.professorid=:professorid;');
-            $queryVerifyResult->execute(array('professorid' => $lastid));
-            $result = $queryVerifyResult->fetch();
-            $queryVerifyResult->closeCursor();
-
-            if (isset($result['professorname'])) {
-                return 1;
+                return $resultProfessor['professorid'] ? 1 : 0;
             } else {
                 return 0;
             }
@@ -75,7 +88,7 @@ class ProfessorData {
 
     function selectAll() {
         $query = $this->db->prepare("SELECT a.actormail,p.* from tbprofessor p INNER JOIN tbactor a ON a.actorid = p.professorid WHERE professorstate=:state;");
-        $query->execute(array('state' => 1));
+        $query->execute(array('state' => 0));
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
         return $result;

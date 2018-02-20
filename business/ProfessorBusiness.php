@@ -1,9 +1,10 @@
 <?php
 
 require '../domain/Professor.php';
+require_once '../util/RandomPassGenerator.php';
 
 if (isset($_POST['create'])) {
-    if (isset($_POST['actormail']) && isset($_POST['actorname']) && isset($_POST['actorlastname1']) && isset($_POST['actorlastname2']) && isset($_POST['actorcareer1'])) {
+    if (isset($_POST['actormail']) && isset($_POST['actorname']) && isset($_POST['actorlastname1']) && isset($_POST['actorlastname2'])) {
         if (strlen($_POST['actormail']) > 0 && strlen($_POST['actorname']) > 0 && strlen($_POST['actorlastname1']) > 0 && strlen($_POST['actorlastname2']) > 0 &&
                 filter_var($_POST['actormail'], FILTER_VALIDATE_EMAIL)) {
             $professorBusiness = new ProfessorBusiness;

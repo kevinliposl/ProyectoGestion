@@ -45,55 +45,6 @@ class ActorData {
         return $resultActor['actormail'] ? 1 : 0;
     }
 
-    function insertStudent(Actor $actor) {
-        if ($this->existsActor($actor)) {
-            $actor->setActorid($this->getlastid());
-            if ($this->insertActor($actor)) {
-                $queryInsertStudent = $this->db->prepare("INSERT INTO tbstudent VALUES (:id,:license,:name,:lastname1,:lastname2,:career1,:career2,:password,:state);");
-                $queryInsertStudent->execute(array('id' => $actor->getActorid(), 'license' => ' ', 'name' => $actor->getActorname(),
-                    'lastname1' => $actor->getActorlastname1(), 'lastname2' => ' ', 'career1' => 0, 'career2' => 0, 'password' => $actor->getActorpassword(),
-                    'state' => 0));
-                $queryInsertStudent->fetch();
-                $queryInsertStudent->closeCursor();
-
-                $queryExistsStudent = $this->db->prepare("SELECT studentid FROM tbstudent WHERE studentid =:id;");
-                $queryExistsStudent->execute(array('id' => $actor->getActorid()));
-                $resultStudent = $queryExistsStudent->fetch();
-                $queryExistsStudent->closeCursor();
-
-                return $resultStudent['studentid'] ? 1 : 0;
-            } else {
-                return 0;
-            }
-        } else {
-            return 0;
-        }
-    }
-
-    function insertProfessor(Actor $actor) {
-        if ($this->existsActor($actor)) {
-            $actor->setActorid($this->getlastid());
-            if ($this->insertActor($actor)) {
-                $queryInsertProfessor = $this->db->prepare("INSERT INTO tbprofessor VALUES (:id,:license,:name,:lastname1,:lastname2,:password,:state);");
-                $queryInsertProfessor->execute(array('id' => $actor->getActorid(), 'license' => ' ', 'name' => $actor->getActorname(),
-                    'lastname1' => $actor->getActorlastname1(), 'lastname2' => ' ', 'password' => $actor->getActorpassword(), 'state' => 0));
-                $queryInsertProfessor->fetch();
-                $queryInsertProfessor->closeCursor();
-
-                $queryExistsProfessor = $this->db->prepare("SELECT professorid FROM tbprofessor WHERE professorid =:id;");
-                $queryExistsProfessor->execute(array('id' => $actor->getActorid()));
-                $resultProfessor = $queryExistsProfessor->fetch();
-                $queryExistsProfessor->closeCursor();
-
-                return $resultProfessor['professorid'] ? 1 : 0;
-            } else {
-                return 0;
-            }
-        } else {
-            return 0;
-        }
-    }
-
     function insertAdministrative(Actor $actor) {
         if ($this->existsActor($actor)) {
             $actor->setActorid($this->getlastid());

@@ -13,33 +13,33 @@ $professorBusiness = new ProfessorBusiness();
         <th>Segundo Apellido</th>
         <th>Contrase&ncaron;a</th>        
     </tr>
-    <form enctype="multipart/form-data" method='POST' action='../business/ProfessorBusiness.php'>
-        <tr>
-            <td>
-                <input type ='email' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name='professormail'/>
-            </td>
-            <td>
-                <input type ='text' name='professorlicense'/>
-            </td>
-            <td>
-                <input type="text" name="professorname" pattern="[a-zA-Z\s]+$"/>
-            </td>
-            <td>
-                <input type="text" name="professorlastname1" pattern="[a-zA-Z\s]+$"/>
-            </td>
-            <td>
-                <input type="text" name="professorlastname2" pattern="[a-zA-Z\s]+$"/>
-            </td>
-            <td>
-                <input type="password" name="professorpassword"/>
-            </td>
-            <td>
-                <input type="submit" name="create" value="Crear"/> 
-            </td>
-            <td>
-            </td>
-        </tr>
-    </form>
+    <!--    <form enctype="multipart/form-data" method='POST' action='../business/ProfessorBusiness.php'>
+            <tr>
+                <td>
+                    <input type ='email' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name='professormail'/>
+                </td>
+                <td>
+                    <input type ='text' name='professorlicense'/>
+                </td>
+                <td>
+                    <input type="text" name="professorname" pattern="[a-zA-Z\s]+$"/>
+                </td>
+                <td>
+                    <input type="text" name="professorlastname1" pattern="[a-zA-Z\s]+$"/>
+                </td>
+                <td>
+                    <input type="text" name="professorlastname2" pattern="[a-zA-Z\s]+$"/>
+                </td>
+                <td>
+                    <input type="password" name="professorpassword"/>
+                </td>
+                <td>
+                    <input type="submit" name="create" value="Crear"/> 
+                </td>
+                <td>
+                </td>
+            </tr>
+        </form>-->
 
     <?php
     $professors = $professorBusiness->selectAll();

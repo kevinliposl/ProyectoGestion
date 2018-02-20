@@ -48,8 +48,8 @@ if (isset($_POST['create'])) {
         header("location: ../view/StudentView.php?error=empty");
     }
 } else if (isset($_POST['update'])) {
-    if (isset($_POST['studentid']) && isset($_POST['studentmail']) && isset($_POST['studentpassword']) && isset($_POST['studentcareer']) && isset($_POST['studentlicense'])) {
-        if (strlen($_POST['studentid']) > 0 && strlen($_POST['studentmail']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentcareer']) > 0 && strlen($_POST['studentlicense']) > 0) {
+    if (isset($_POST['studentid']) && isset($_POST['studentmail']) && isset($_POST['studentpassword']) && isset($_POST['studentcareer1']) && isset($_POST['studentlicense'])) {
+        if (strlen($_POST['studentid']) > 0 && strlen($_POST['studentmail']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentcareer1']) > 0 && strlen($_POST['studentlicense']) > 0) {
             $studentBusiness = new StudentBusiness();
 
             $student = new Student();
@@ -59,7 +59,8 @@ if (isset($_POST['create'])) {
             $student->setStudentname($_POST['studentname']);
             $student->setStudentlastname1($_POST['studentlastname1']);
             $student->setStudentlastname2($_POST['studentlastname2']);
-            $student->setStudentcareer1((int) $_POST['studentcareer']);
+            $student->setStudentcareer1((int) $_POST['studentcareer1']);
+            $student->setStudentcareer2((int) $_POST['studentcareer2']);
             $student->setStudentpassword($_POST['studentpassword']);
 
             $result = $studentBusiness->update($student);
