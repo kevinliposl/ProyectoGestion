@@ -39,7 +39,7 @@ $universityBusiness = new UniversityBusiness();
                     $enclosures = $enclosureBusiness->selectAllByUniversity();
                     $universities = $universityBusiness->selectAll();   
 
-                    
+             
                     foreach ($universities as $university) {
                         $universityname = $university['universityname'];
                     ?>
@@ -48,7 +48,7 @@ $universityBusiness = new UniversityBusiness();
 
                     <?php
                     foreach ($enclosures as $enclosure) {
-                        if ($enclosure['universityname'] == $universityname) {
+                        if (strcmp($enclosure['universityname'], $universityname) === 0) {
                     ?>
                         <option value="<?= $enclosure['enclosureid']; ?>"><?= $enclosure['enclosureid'] . " | " . $enclosure['enclosurename'] . " | " . $enclosure['headquartername']; ?></option>
 

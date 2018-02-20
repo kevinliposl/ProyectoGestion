@@ -81,8 +81,27 @@ class EnclosureData {
         $enclosures = $this->selectEnclosureByUniversity();
         $headquarters = $this->selectHeadquarterByUniversity();
         $allPlaces=array(); 
+        foreach($headquarters as $headquarter){ 
+                foreach($enclosures as $enclosure){
+                    $enclosureheadquarterid = $enclosure['7'];
+                    if($enclosureheadquarterid == $headquarter['headquarterid']){
+                        if($enclosure['universityid'] == $headquarter['universityid']){
+                        $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>$headquarter['headquarterid'], 'headquartername'=>$headquarter['headquartername']];
+                        array_push($allPlaces, $union);
+                        }
+ 
+            }else{
+                if($enclosure['enclosureheadquarterid'] == 0){
+                    if(strcmp($allPlaces[count($allPlaces)-1]['enclosurename'], $enclosure['enclosurename']) != 0){
+                     $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>0, 'headquartername'=>'Sin sede'];
+                           array_push($allPlaces, $union);   
+                }
+                }
+            }
+        }
+        }
         
-        foreach($enclosures as $enclosure){
+       /* foreach($enclosures as $enclosure){
             if($enclosure['enclosureheadquarterid'] != 0){
                 foreach($headquarters as $headquarter){
                     if(strcmp($headquarter['headquarterid'], $enclosure['enclosureheadquarterid']) === 0){
@@ -91,10 +110,10 @@ class EnclosureData {
                     }
                 }
             }else{
-                 $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>0, 'headquartername'=>'Sin Sede'];
+                 $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureheadquarterid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>0, 'headquartername'=>'Sin Sede'];
                  array_push($allPlaces, $union);
             }
-        }
+        }*/
         
         return $allPlaces;
         
@@ -102,7 +121,7 @@ class EnclosureData {
     
     //recinto
     function selectEnclosureByUniversity() {
-        $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, e.enclosurename, e.enclosureid from tbuniversity as u inner join tbenclosure as e on u.universityid = e.enclosureuniversityid order by(u.universityid);");
+        $queryCareer = $this->db->prepare("SELECT u.*, e.* from tbuniversity as u inner join tbenclosure as e on u.universityid = e.enclosureuniversityid order by(u.universityid);");
         $queryCareer->execute();
         $result = $queryCareer->fetchAll();
         $queryCareer->closeCursor();
@@ -112,7 +131,7 @@ class EnclosureData {
     
     //sede
     function selectHeadquarterByUniversity() {
-        $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername, h.headquarterid from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid order by(u.universityid);");
+        $queryCareer = $this->db->prepare("SELECT u.*, h.* from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid order by(u.universityid);");
         $queryCareer->execute();
         $result = $queryCareer->fetchAll();
         $queryCareer->closeCursor();
