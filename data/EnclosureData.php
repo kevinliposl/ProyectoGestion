@@ -83,19 +83,18 @@ class EnclosureData {
         $allPlaces=array(); 
         
         foreach($enclosures as $enclosure){
-            if($enclosure['enclosureheadquarterid'] > 0){
+            if($enclosure['enclosureheadquarterid'] != 0){
                 foreach($headquarters as $headquarter){
-                    if($enclosure['enclosureheadquarterid'] == $headquarter['headquarterid']){
+                    if(strcmp($headquarter['headquarterid'], $enclosure['enclosureheadquarterid']) === 0){
                         $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>$headquarter['headquarterid'], 'headquartername'=>$headquarter['headquartername']];
                         array_push($allPlaces, $union);
                     }
                 }
             }else{
                  $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>0, 'headquartername'=>'Sin Sede'];
-                        array_push($allPlaces, $union);
+                 array_push($allPlaces, $union);
             }
         }
-        print_r($allPlaces);
         
         return $allPlaces;
         
