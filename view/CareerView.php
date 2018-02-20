@@ -44,7 +44,7 @@ $universityBusiness = new UniversityBusiness();
                         $universityname = $university['universityname'];
                     ?>
 
-                        <optgroup label="<?= $enclosures; ?>">
+                        <optgroup label="<?= $universityname; ?>">
 
                     <?php
                     foreach ($enclosures as $enclosure) {
