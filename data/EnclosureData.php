@@ -76,51 +76,49 @@ class EnclosureData {
             return 0;
         }
     }
-    
-    function selectEnclosurexHeadquarter(){
+
+    function selectEnclosurexHeadquarter() {
         $enclosures = $this->selectEnclosureByUniversity();
         $headquarters = $this->selectHeadquarterByUniversity();
-        $allPlaces=array(); 
-        foreach($headquarters as $headquarter){
-                foreach($enclosures as $enclosure){
-                    
-                    if($enclosure['enclosureheadquarterid'] == $headquarter['headquarterid']){
-                        if($enclosure['universityid'] == $headquarter['universityid']){
-                        $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>$headquarter['headquarterid'], 'headquartername'=>$headquarter['headquartername']];
-                        array_push($allPlaces, $union);
-                        }
- 
-            }else{
-                if($enclosure['enclosureheadquarterid'] == 0){
-                    if(strcmp($allPlaces[count($allPlaces)-1]['enclosurename'], $enclosure['enclosurename']) != 0){
-                     $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>0, 'headquartername'=>'Sin sede'];
-                           array_push($allPlaces, $union);   
-                }else{
-                
-                }
-                }
-            }
-        }
-        }
-        
-       /* foreach($enclosures as $enclosure){
-            if($enclosure['enclosureheadquarterid'] != 0){
-                foreach($headquarters as $headquarter){
-                    if(strcmp($headquarter['headquarterid'], $enclosure['enclosureheadquarterid']) === 0){
-                        $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>$headquarter['headquarterid'], 'headquartername'=>$headquarter['headquartername']];
+        $allPlaces = array();
+        foreach ($headquarters as $headquarter) {
+            foreach ($enclosures as $enclosure) {
+
+                if ($enclosure['enclosureheadquarterid'] == $headquarter['headquarterid']) {
+                    if ($enclosure['universityid'] == $headquarter['universityid']) {
+                        $union = ['universityid' => $enclosure['universityid'], 'universityname' => $enclosure['universityname'], 'enclosureid' => $enclosure['enclosureid'], 'enclosurename' => $enclosure['enclosurename'], 'headquarterid' => $headquarter['headquarterid'], 'headquartername' => $headquarter['headquartername']];
                         array_push($allPlaces, $union);
                     }
+                } else {
+                    if ($enclosure['enclosureheadquarterid'] == 0) {
+                        if (strcmp($allPlaces[count($allPlaces) - 1]['enclosurename'], $enclosure['enclosurename']) != 0) {
+                            $union = ['universityid' => $enclosure['universityid'], 'universityname' => $enclosure['universityname'], 'enclosureid' => $enclosure['enclosureid'], 'enclosurename' => $enclosure['enclosurename'], 'headquarterid' => 0, 'headquartername' => 'Sin sede'];
+                            array_push($allPlaces, $union);
+                        } else {
+                            
+                        }
+                    }
                 }
-            }else{
-                 $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureheadquarterid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>0, 'headquartername'=>'Sin Sede'];
-                 array_push($allPlaces, $union);
             }
-        }*/
-        
+        }
+
+        /* foreach($enclosures as $enclosure){
+          if($enclosure['enclosureheadquarterid'] != 0){
+          foreach($headquarters as $headquarter){
+          if(strcmp($headquarter['headquarterid'], $enclosure['enclosureheadquarterid']) === 0){
+          $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>$headquarter['headquarterid'], 'headquartername'=>$headquarter['headquartername']];
+          array_push($allPlaces, $union);
+          }
+          }
+          }else{
+          $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureheadquarterid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>0, 'headquartername'=>'Sin Sede'];
+          array_push($allPlaces, $union);
+          }
+          } */
+
         return $allPlaces;
-        
     }
-    
+
     //recinto
     function selectEnclosureByUniversity() {
         $queryCareer = $this->db->prepare("SELECT u.*, e.* from tbuniversity as u inner join tbenclosure as e on u.universityid = e.enclosureuniversityid order by(u.universityid);");
@@ -130,7 +128,7 @@ class EnclosureData {
 
         return $result;
     }
-    
+
     //sede
     function selectHeadquarterByUniversity() {
         $queryCareer = $this->db->prepare("SELECT u.*, h.* from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid order by(u.universityid);");
@@ -141,7 +139,6 @@ class EnclosureData {
         return $result;
     }
 
-    
     function selectAll() {
         $query = $this->db->prepare("SELECT e.*,u.* FROM tbenclosure e INNER JOIN tbuniversity u ON u.universityid = e.enclosureuniversityid WHERE enclosurestate = 1;");
         $query->execute();
