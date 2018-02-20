@@ -17,39 +17,51 @@ class StudentData {
         $id = 1;
 
         if ($result['id'] != NULL) {
-            $id = (int) $result['id'] + 1;
+            $id = intval($result['id']) + 1;
         }
         return $id;
     }
 
-    function insertStudent(Student $student) {
-        $queryExistsMail = $this->db->prepare("SELECT actormail FROM tbactor WHERE actormail=:mail;");
-        $queryExistsMail->execute(array('mail' => $student->getStudentmail()));
-        $resultMail = $queryExistsMail->fetch();
-        $queryExistsMail->closeCursor();
+    private function existsActor(Student $student) {
+        $queryExistsActor = $this->db->prepare("SELECT actormail FROM tbactor WHERE actormail=:mail;");
+        $queryExistsActor->execute(array('mail' => $student->getStudentmail()));
+        $resultActor = $queryExistsActor->fetch();
+        $queryExistsActor->closeCursor();
 
-        if ($resultMail['actormail'] == NULL) {
-            $idStudent = $this->getLastId();
-            $queryInsertStudent = $this->db->prepare("INSERT INTO tbstudent VALUES (:id,:license,:name,:lastname1,:lastname2,:career1,:career2,:password,:state);");
-            $queryInsertStudent->execute(array('id' => $idStudent, 'license' => $student->getStudentlicense(), 'name' => $student->getStudentname(),
-                'lastname1' => $student->getStudentlastname1(), 'lastname2' => $student->getStudentlastname2(), 'career1' => $student->getStudentcareer1(),
-                'career2' => $student->getStudentcareer2(), 'password' => $student->getStudentpassword(), 'state' => 0));
-            $queryInsertStudent->fetch();
+        return !$resultActor['actormail'] ? 1 : 0;
+    }
 
-            $queryInsertStudent->closeCursor();
-            $resultStudent = $this->select($idStudent);
+    private function insertActor(Student $student) {
+        $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
+        $queryInsertActor->execute(array('actorid' => $student->getStudentid(), 'actormail' => $student->getStudentmail()));
+        $queryInsertActor->fetch();
+        $queryInsertActor->closeCursor();
 
-            if ($resultStudent->getStudentid() !== NULL) {
-                $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
-                $queryInsertActor->execute(array('actorid' => $idStudent, 'actormail' => $student->getStudentmail()));
-                $resultActor = $queryInsertActor->fetch();
-                $queryInsertActor->closeCursor();
+        $queryExistsActor = $this->db->prepare("SELECT actormail FROM tbactor WHERE actorid = :actorid;");
+        $queryExistsActor->execute(array('actorid' => $student->getStudentid()));
+        $resultActor = $queryExistsActor->fetch();
+        $queryExistsActor->closeCursor();
 
-                if (!$resultActor) {
-                    return 1;
-                } else {
-                    return 0;
-                }
+        return $resultActor['actormail'] ? 1 : 0;
+    }
+
+    function insert(Student $student) {
+        if ($this->existsActor($student)) {
+            $student->setStudentid($this->getlastid());
+            if ($this->insertActor($student)) {
+                $queryInsertStudent = $this->db->prepare("INSERT INTO tbstudent VALUES (:id,:license,:name,:lastname1,:lastname2,:career1,:career2,:password,:state);");
+                $queryInsertStudent->execute(array('id' => $student->getStudentid(), 'license' => ' ', 'name' => $student->getStudentname(),
+                    'lastname1' => $student->getStudentlastname1(), 'lastname2' => $student->getStudentlastname2(), 'career1' => $student->getStudentcareer1(),
+                    'career2' => 0, 'password' => $student->getStudentpassword(), 'state' => 0));
+                $queryInsertStudent->fetch();
+                $queryInsertStudent->closeCursor();
+
+                $queryExistsStudent = $this->db->prepare("SELECT studentid FROM tbstudent WHERE studentid =:id;");
+                $queryExistsStudent->execute(array('id' => $student->getStudentid()));
+                $resultStudent = $queryExistsStudent->fetch();
+                $queryExistsStudent->closeCursor();
+
+                return $resultStudent['studentid'] ? 1 : 0;
             } else {
                 return 0;
             }
