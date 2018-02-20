@@ -81,10 +81,10 @@ class EnclosureData {
         $enclosures = $this->selectEnclosureByUniversity();
         $headquarters = $this->selectHeadquarterByUniversity();
         $allPlaces=array(); 
-        foreach($headquarters as $headquarter){ 
+        foreach($headquarters as $headquarter){
                 foreach($enclosures as $enclosure){
-                    $enclosureheadquarterid = $enclosure['7'];
-                    if($enclosureheadquarterid == $headquarter['headquarterid']){
+                    
+                    if($enclosure['enclosureheadquarterid'] == $headquarter['headquarterid']){
                         if($enclosure['universityid'] == $headquarter['universityid']){
                         $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>$headquarter['headquarterid'], 'headquartername'=>$headquarter['headquartername']];
                         array_push($allPlaces, $union);
@@ -95,6 +95,8 @@ class EnclosureData {
                     if(strcmp($allPlaces[count($allPlaces)-1]['enclosurename'], $enclosure['enclosurename']) != 0){
                      $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>0, 'headquartername'=>'Sin sede'];
                            array_push($allPlaces, $union);   
+                }else{
+                
                 }
                 }
             }
