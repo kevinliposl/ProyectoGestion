@@ -16,12 +16,9 @@ if (isset($_POST['login'])) {
 
             if (isset($result)) {
                 
-                SSession::getInstance()->$user=$result;
-                
-                print_r(SSession::getInstance()->$user);
-                
-                return $result;
-               // header("location: ../view/LoginView.php?success=inserted");
+                SSession::getInstance()->user=$result;
+               
+                header("location: ../view/LoginView.php?success=inserted");
             } else {
           
                 header("location: ../view/LoginView.php?error=dbError");
