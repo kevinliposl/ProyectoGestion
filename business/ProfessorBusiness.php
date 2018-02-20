@@ -15,7 +15,7 @@ if (isset($_POST['create'])) {
             $professor->setProfessorlastname2($_POST['actorlastname2']);
             $professor->setProfessorpassword(RandomPassGenerator::getInstance()->keygen(10));
 
-            $result = $studentBusiness->insert($student);
+            $result = $professorBusiness->insert($professor);
 
             echo json_encode(array('result' => $result));
         } else {
