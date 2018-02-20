@@ -78,19 +78,31 @@ class EnclosureData {
     }
     
     function selectEnclosurexHeadquarter(){
-        $enclosure = self::selectEnclosureByUniversity();
-        $headquarter = self::selectHeadquarterByUniversity();
-        $headquarterxenclosure = self::selectHeadquarterxEnclosureByUniversity();
+        $enclosures = $this->selectEnclosureByUniversity();
+        $headquarters = $this->selectHeadquarterByUniversity();
+        $allPlaces=array(); 
         
+        foreach($enclosures as $enclosure){
+            if($enclosure['enclosureheadquarterid'] > 0){
+                foreach($headquarters as $headquarter){
+                    if($enclosure['enclosureheadquarterid'] == $headquarter['headquarterid']){
+                        $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>$headquarter['headquarterid'], 'headquartername'=>$headquarter['headquartername']];
+                        array_push($allPlaces, $union);
+                    }
+                }
+            }else{
+                 $union= ['universityid'=>$enclosure['universityid'], 'universityname'=>$enclosure['universityname'], 'enclosureid'=>$enclosure['enclosureid'], 'enclosurename'=>$enclosure['enclosurename'], 'headquarterid'=>0, 'headquartername'=>'Sin Sede'];
+                        array_push($allPlaces, $union);
+            }
+        }
+        print_r($allPlaces);
         
-        
-        $all = array_merge($enclosure, $headquarter);
-        
-        return $all;
+        return $allPlaces;
         
     }
     
-    protected static function selectEnclosureByUniversity() {
+    //recinto
+    function selectEnclosureByUniversity() {
         $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, e.enclosurename, e.enclosureid from tbuniversity as u inner join tbenclosure as e on u.universityid = e.enclosureuniversityid order by(u.universityid);");
         $queryCareer->execute();
         $result = $queryCareer->fetchAll();
@@ -99,7 +111,8 @@ class EnclosureData {
         return $result;
     }
     
-    protected static function selectHeadquarterByUniversity() {
+    //sede
+    function selectHeadquarterByUniversity() {
         $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername, h.headquarterid from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid order by(u.universityid);");
         $queryCareer->execute();
         $result = $queryCareer->fetchAll();
@@ -108,14 +121,6 @@ class EnclosureData {
         return $result;
     }
 
-    protected static function selectHeadquarterxEnclosureByUniversity(){
-        $queryCareer = $this->db->prepare("SELECT u.universityname, u.universityid, h.headquartername, h.headquarterid, e.enclosurename, e.enclosureid from tbuniversity as u inner join tbheadquarter as h on u.universityid = h.headquarteruniversityid inner join tbenclosure as e on h.headquarterid=e.enclosureheadquarterid order by(u.universityid);");
-        $queryCareer->execute();
-        $result = $queryCareer->fetchAll();
-        $queryCareer->closeCursor();
-
-        return $result;    
-    }
     
     function selectAll() {
         $query = $this->db->prepare("SELECT e.*,u.* FROM tbenclosure e INNER JOIN tbuniversity u ON u.universityid = e.enclosureuniversityid WHERE enclosurestate = 1;");
