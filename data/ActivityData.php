@@ -55,25 +55,7 @@ class ActivityData {
         $result = $query->fetchAll(); //PDO::FETCH_ASSOC
         $query->closeCursor();
         
-        $activities = [];
-        $currentActivity = new Activity();
-        
-        foreach ($result as $row) {
-            
-            $currentActivity->setActivityId($row['activityid']);
-            $currentActivity->setCreateDate($row['createddate']);
-            $currentActivity->setUpdateDate($row['updatedate']);
-            $currentActivity->setLikeCount($row['likecount']);
-            $currentActivity->setDayAfther($row['dayafter']);
-            $currentActivity->setDayBefore($row['daybefore']);
-            $currentActivity->setCommentCoun($row['commentcount']);
-            $currentActivity->setActivityTitle($row['activitytitle']);
-            $currentActivity->setActivityDescription($row['activitydescription']);
-            
-            array_push($activities, $currentActivity);
-        }//End foreach ($result as $row)
-        
-        return $activities;
+        return $result;
     }//End selectALL
     
     

@@ -71,8 +71,27 @@ class CommentData {
         return $comments;
     }
     
+    function  selectAllActivities(){
+        $events= $this->selectAllEvents();
+        $posts= $this->selectAllPost();
+        
+        $activities= array_merge($events,$posts);
+        
+        return $activities;
+    }
+            
     function selectAllEvents() {
         $query = $this->db->prepare(" SELECT a.activitytitle,a.activitydescription, e.*, c.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.activityid INNER JOIN tbcomment c ON a.activityid = c.activityid  where c.commentstate!=0;");
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+
+        return $result;
+    }//End selectALL
+    
+        
+    function selectAllPost() {
+        $query = $this->db->prepare(" SELECT a.activitytitle,a.activitydescription, p.*, c.* FROM tbactivity a INNER JOIN tbpost p ON a.activityid = p.activityid INNER JOIN tbcomment c ON a.activityid = c.activityid  where c.commentstate!=0;");
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();

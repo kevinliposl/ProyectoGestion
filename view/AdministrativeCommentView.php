@@ -24,7 +24,7 @@ $activityBusiness = new ActivityBusiness();
 
                     foreach ($activities as $activity) {
                         ?>
-                        <option value=" <?= $activity->getActivityId(); ?> "> <?= $activity->getActivityDescription(); ?> </option>
+                        <option value=" <?= $activity['activityid']; ?> "> <?= $activity['activitytitle']; ?> </option>
 
                         <?php
                     }
@@ -63,7 +63,7 @@ $activityBusiness = new ActivityBusiness();
      </tr>
     <?php
    
-    $comments = $commentBusiness->selectAllEvents();
+    $comments = $commentBusiness->selectAllActivities();
 
     foreach ($comments as $comment) {
 

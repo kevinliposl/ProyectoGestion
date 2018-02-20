@@ -129,8 +129,8 @@ class CommentBusiness {
 
 //End selectAll
     
-    function selectAllEvents() {
-        return $this->data->selectAllEvents();
+    function selectAllActivities() {
+        return $this->data->selectAllActivities();
     }
 
     //End selectAllEvents
