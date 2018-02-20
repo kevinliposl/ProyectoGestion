@@ -108,9 +108,9 @@ CREATE TABLE tbevent(
     CONSTRAINT PRIMARY KEY(activityid)
 );
 
-CREATE TABLE tbpublication(
+CREATE TABLE tbpost(
     activityid INTEGER NOT NULL,
-	publicationstate SMALLINT DEFAULT 1 NOT NULL,
+	poststate SMALLINT DEFAULT 1 NOT NULL,
     CONSTRAINT PRIMARY KEY(activityid)
 );
 
