@@ -133,5 +133,11 @@ class CareerBusiness {
         return $this->data->selectByUniversity();
     }
 
+    function selectByEnclosure() {
+        return $this->data->selectByEnclosure();
+    }
+
+    
+
 //End class CareerBusiness 
 }

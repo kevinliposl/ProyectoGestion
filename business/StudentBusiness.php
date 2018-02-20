@@ -1,11 +1,12 @@
 <?php
 
 require '../domain/Student.php';
+require_once '../util/RandomPassGenerator.php';
 
 if (isset($_POST['create'])) {
-    if (isset($_POST['actorname']) && isset($_POST['actorpassword']) && isset($_POST['actorcareer1']) && isset($_POST['actormail'])) {
-        if (strlen($_POST['actorname']) > 0 && strlen($_POST['actorpassword']) > 0 && strlen($_POST['actormail']) > 0 && filter_var($_POST['actormail'], FILTER_VALIDATE_EMAIL)) {
-
+    if (isset($_POST['actormail']) && isset($_POST['actorname']) && isset($_POST['actorlastname1']) && isset($_POST['actorlastname2']) && isset($_POST['actorcareer1'])) {
+        if (strlen($_POST['actormail']) > 0 && strlen($_POST['actorname']) > 0 && strlen($_POST['actorlastname1']) > 0 && strlen($_POST['actorlastname2']) > 0 &&
+                filter_var($_POST['actormail'], FILTER_VALIDATE_EMAIL)) {
             $studentBusiness = new StudentBusiness();
             $student = new Student();
 
@@ -14,19 +15,16 @@ if (isset($_POST['create'])) {
             $student->setStudentlastname1($_POST['actorlastname1']);
             $student->setStudentlastname2($_POST['actorlastname2']);
             $student->setStudentcareer1(intval($_POST['actorcareer1']));
-            $student->setStudentcareer2(intval($_POST['actorcareer2']));
-            $student->setStudentpassword();
+            $student->setStudentpassword(RandomPassGenerator::getInstance()->keygen(10));
 
             $result = $studentBusiness->insert($student);
-
+            
             echo json_encode(array('result' => $result));
         } else {
             echo json_encode(array('result' => -1));
-          //  header("location: ../view/StudentView.php?error=format");
         }
     } else {
-        echo json_encode(array('result' => -1));
-        //header("location: ../view/StudentView.php?error=empty");
+        echo json_encode(array('result' => -2));
     }
 } else if (isset($_POST['delete'])) {
     if (isset($_POST['studentid'])) {
@@ -50,8 +48,8 @@ if (isset($_POST['create'])) {
         header("location: ../view/StudentView.php?error=empty");
     }
 } else if (isset($_POST['update'])) {
-    if (isset($_POST['studentid']) && isset($_POST['studentmail']) && isset($_POST['studentpassword']) && isset($_POST['studentcareer']) && isset($_POST['studentlicense'])) {
-        if (strlen($_POST['studentid']) > 0 && strlen($_POST['studentmail']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentcareer']) > 0 && strlen($_POST['studentlicense']) > 0) {
+    if (isset($_POST['studentid']) && isset($_POST['studentmail']) && isset($_POST['studentpassword']) && isset($_POST['studentcareer1']) && isset($_POST['studentlicense'])) {
+        if (strlen($_POST['studentid']) > 0 && strlen($_POST['studentmail']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentcareer1']) > 0 && strlen($_POST['studentlicense']) > 0) {
             $studentBusiness = new StudentBusiness();
 
             $student = new Student();
@@ -61,7 +59,8 @@ if (isset($_POST['create'])) {
             $student->setStudentname($_POST['studentname']);
             $student->setStudentlastname1($_POST['studentlastname1']);
             $student->setStudentlastname2($_POST['studentlastname2']);
-            $student->setStudentcareer1((int) $_POST['studentcareer']);
+            $student->setStudentcareer1((int) $_POST['studentcareer1']);
+            $student->setStudentcareer2((int) $_POST['studentcareer2']);
             $student->setStudentpassword($_POST['studentpassword']);
 
             $result = $studentBusiness->update($student);

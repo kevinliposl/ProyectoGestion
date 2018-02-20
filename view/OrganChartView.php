@@ -16,7 +16,7 @@ $enclosureBusiness = new EnclosureBusiness;
 $universities = $universityBusiness->selectAll();
 $headquarters = $headquarterBusiness->selectAll();
 $enclosures = $enclosureBusiness->selectAll();
-$careers = $careerBusiness->selectAllByUniversity();
+$careers1 = $careerBusiness->selectAllByUniversity();
 
 echo '<ul>';
 foreach ($universities as $university) {
@@ -31,7 +31,7 @@ foreach ($universities as $university) {
                     if ($enclosure['enclosureheadquarterid'] == $headquarter['headquarterid']) {
                         echo '<li><a href="#"><div>' . $enclosure['enclosurename'] . '</div></a>';
                         echo '<ul>';
-                        foreach ($careers as $career) {
+                        foreach ($careers1 as $career) {
                             if ($enclosure['enclosureid'] == $career['careerenclosureid']) {
                                 echo '<li><a href="#"><div>' . $career['careercode'] . ' | ' . $career['careername'] . ' | ' . $career['careergrade'] . '</div></a></li>';
                             }
@@ -47,11 +47,12 @@ foreach ($universities as $university) {
         }
     } else {
         echo '<ul>';
+        $careers2 = $careerBusiness->selectByEnclosure();
         foreach ($enclosures as $enclosure) {
-            if ($enclosure['enclosureuniversityid'] == $university['universityid']) {
+            if ($university['universityid'] == $enclosure['enclosureuniversityid']) {
                 echo '<li><a href="#"><div>' . $enclosure['enclosurename'] . '</div></a>';
                 echo '<ul>';
-                foreach ($careers as $career) {
+                foreach ($careers2 as $career) {
                     if ($enclosure['enclosureid'] == $career['careerenclosureid']) {
                         echo '<li><a href="#"><div>' . $career['careercode'] . ' | ' . $career['careername'] . ' | ' . $career['careergrade'] . '</div></a></li>';
                     }

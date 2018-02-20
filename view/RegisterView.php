@@ -16,8 +16,7 @@ $universityBusiness = new UniversityBusiness();
         <th>Primer Apellido</th>
         <th>Segundo Apellido</th>
         <th>*</th>
-        <th id="thactorcareer1" style="display: none">Primer Carrera</th>
-        <th id="thactorcareer2" style="display: none">Segunda Carrera</th>
+        <th id="thactorcareer1" style="display: none">Carrera</th>
         <th id="thactorarea" style="display: none">Area</th>
     </tr>
     <form enctype="multipart/form-data" onsubmit="validate(); return false">
@@ -64,26 +63,6 @@ $universityBusiness = new UniversityBusiness();
                         ?>
                 </select>
             </td>
-            <td id="tdactorcareer2" style="display: none;">
-                <select id="actorcareer2" name="actorcareer2" style="width: 100%">
-                    <option value="0">Ninguna</option>
-                    <?php
-                    foreach ($universities as $university) {
-                        $universityname = $university['universityname'];
-                        ?>
-                        <optgroup label="<?= $universityname; ?>">
-                            <?php
-                            foreach ($careers as $career) {
-                                if ($career['universityname'] == $universityname) {
-                                    ?>
-                                    <option value=" <?= $career['careerid']; ?> "> <?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?> </option>
-                                    <?php
-                                }
-                            }
-                        }
-                        ?>
-                </select>
-            </td>
             <td id="tdactorarea" style="display: none;">
                 <input id="actorarea" name="actorarea" />
             </td>
@@ -94,24 +73,34 @@ $universityBusiness = new UniversityBusiness();
     </form>
     <script>
         function validate() {
+            if ($('#actortype').val() !== 'invalidate') {
+                var url = '../business/' + $('#actortype').val() + 'Business.php';
+                var args = {
+                    'actormail': $('#actormail').val().trim(),
+                    'actorname': $('#actorname').val().trim(),
+                    'actorlastname1': $('#actorlastname1').val().trim(),
+                    'actorlastname2': $('#actorlastname2').val().trim(),
+                    'actorcareer1': $('#actorcareer1').val().trim(),
+                    'actorarea': $('#actorarea').val().trim(),
+                    'create': 'create'
+                };
 
-            var url = '../business/' + $('#actortype').val() + 'Business.php';
-            var args = {
-                'actormail': $('#actormail').val(),
-                'actorname': $('#actorname').val(),
-                'actorlastname1': $('#actorlastname1').val(),
-                'actorlastname2': $('#actorlastname2').val(),
-                'actorcareer1': $('#actorcareer1').val(),
-                'actorcareer2': $('#actorcareer2').val(),
-                'actorarea': $('#actorarea').val(),
-                'create': 'create'
-            };
-            //$.post(url, args, function (data) {
-            //  alert(JSON.stringify(data));
-            //}, 'json').fail(function () {
-
-
-            //});
+                $.post(url, args, function (data) {
+                    if (data.result === 1) {
+                        $("#state").html(message["success"]);
+                    } else if (data.result === -1) {
+                        $("#state").html(message["format"]);
+                    } else if (data.result === -2) {
+                        $("#state").html(message["emptyField"]);
+                    } else {
+                        $("#state").html(message["fail"]);
+                    }
+                }, 'json').fail(function () {
+                    alert('Error de Envio');
+                });
+            } else {
+                alert('Seleccione un tipo');
+            }
         }
 
 
@@ -127,17 +116,13 @@ $universityBusiness = new UniversityBusiness();
         function hiddenAll() {
             $('#tdactorarea').css('display', 'none');
             $('#tdactorcareer1').css('display', 'none');
-            $('#tdactorcareer2').css('display', 'none');
             $('#thactorarea').css('display', 'none');
             $('#thactorcareer1').css('display', 'none');
-            $('#thactorcareer2').css('display', 'none');
         }
 
         function showStudent() {
             $('#thactorcareer1').css('display', 'inline-block');
-            $('#thactorcareer2').css('display', 'inline-block');
             $('#tdactorcareer1').css('display', 'inline-block');
-            $('#tdactorcareer2').css('display', 'inline-block');
         }
 
         function showAdministrative() {
@@ -149,19 +134,7 @@ $universityBusiness = new UniversityBusiness();
     <tr>
         <td></td>
         <td>
-            <?php
-            if (isset($_GET['error'])) {
-                if ($_GET['error'] == "empty") {
-                    echo '<p style = "color: red">Campo(s) vacio(s)</p>';
-                } else if ($_GET['error'] == "format") {
-                    echo '<p style = "color: red">Error, formato de numero</p>';
-                } else if ($_GET['error'] == "dbError") {
-                    echo '<center><p style = "color: red">Error al procesar la transacción</p></center>';
-                }
-            } else if (isset($_GET['success'])) {
-                echo '<p style = "color: green">Transacción realizada</p>';
-            }
-            ?>
+            <div id="state"></div>
         </td>
     </tr>
 

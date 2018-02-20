@@ -84,6 +84,16 @@ class CareerData {
         return $result;
     }
 
+    function selectByEnclosure() {
+        $queryCareer = $this->db->prepare("SELECT u.*, e.*,c.* FROM tbuniversity u INNER JOIN tbenclosure e ON u.universityid = e.enclosureuniversityid INNER JOIN tbcareer as c ON e.enclosureid = c.careerenclosureid WHERE c.careerstate = 1 AND u.universityhadheadquarter=0
+ORDER By(u.universityid);");
+        $queryCareer->execute();
+        $result = $queryCareer->fetchAll();
+        $queryCareer->closeCursor();
+
+        return $result;
+    }
+
     function select(Career $career) {
         $query = $this->db->prepare("SELECT * FROM tbcareer WHERE careercode=:careerid AND careerstate = 1;");
         $query->execute(array('careerid' => $career->getCareerid()));
