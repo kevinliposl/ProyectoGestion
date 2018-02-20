@@ -52,6 +52,25 @@ echo "<table>";
         echo "</tr>";
     echo "</form>";
     echo "</table>";
-
+?>
+    <tr>
+        <td></td>
+        <td>
+            <?php
+            if (isset($_GET['error'])) {
+                if ($_GET['error'] == "empty") {
+                    echo '<p style="color: red">Campo(s) vacio(s)</p>';
+                } else if ($_GET['error'] == "format") {
+                    echo '<p style="color: red">Error, formato de numero</p>';
+                } else if ($_GET['error'] == "dbError") {
+                    echo '<center><p style="color: red">Error al procesar la transacción</p></center>';
+                }
+            } else if (isset($_GET['success'])) {
+                echo '<p style="color: green">Transacción realizada</p>';
+            }
+            ?>
+        </td>
+    </tr>
+<?php  
     include_once '../public/footer.php';
 ?>  
