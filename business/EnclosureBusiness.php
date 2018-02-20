@@ -130,7 +130,7 @@ class EnclosureBusiness {
      * Seleccionar un recinto
      */
     function selectAllByUniversity() {
-        return $this->data->selectByUniversity();
+        return $this->data->selectEnclosurexHeadquarter();
     }
 
     /**

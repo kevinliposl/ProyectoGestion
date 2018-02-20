@@ -31,7 +31,7 @@ class AdministrativeData {
 
         if (!isset($resultChecking['actorid'])) {
             $lastid = $this->getlastid();
-            $queryAdministrative = $this->db->prepare("INSERT INTO tbadministrative VALUES (:administrativeid,:administrativelicense,:administrativename,:administrativelastname1,:administrativelastname2,:administrativepassword,:administrativearea,:administrativestate);");
+            $queryAdministrative = $this->db->prepare("INSERT INTO tbadministrative VALUES (:administrativeid,:administrativelicense,:administrativename,:administrativelastname1,:administrativelastname2, :administrativearea,:administrativepassword,:administrativestate);");
             $queryAdministrative->execute(array('administrativeid' => $lastid, 'administrativelicense' => $administrative->getAdministrativelicense(), 'administrativename' => $administrative->getAdministrativename(),
                 'administrativelastname1' => $administrative->getAdministrativelastname1(), 'administrativelastname2' => $administrative->getAdministrativelastname2(), 'administrativepassword' => $administrative->getAdministrativepassword(),
                 'administrativearea' => $administrative->getAdministrativearea(), 'administrativestate' => 1));

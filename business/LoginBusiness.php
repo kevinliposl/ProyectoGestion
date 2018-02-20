@@ -1,110 +1,50 @@
 <?php
-require '../domain/Student.php';
+require '../domain/Login.php';
+require_once '../util/SSession.php';
 
-if (isset($_POST['Login                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       '])) {
-    if (isset($_POST['studentname']) && isset($_POST['studentpassword']) && isset($_POST['studentcareer1']) && isset($_POST['studentlicense']) && isset($_POST['studentmail'])) {
-        if (strlen($_POST['studentname']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentlicense']) > 0 && strlen($_POST['studentmail']) > 0 &&
-                filter_var($_POST['studentmail'], FILTER_VALIDATE_EMAIL)) {
+if (isset($_POST['login'])) {
+    if (isset($_POST['loginPassword'])) {
+        if (strlen($_POST['loginPassword']) > 0) {
 
-            $studentBusiness = new StudentBusiness();
-            $student = new Student();
+            $loginBusiness = new LoginBusiness();
+            $login = new Login();
 
-            $student->setStudentlicense($_POST['studentlicense']);
-            $student->setStudentmail($_POST['studentmail']);
-            $student->setStudentname($_POST['studentname']);
-            $student->setStudentlastname1($_POST['studentlastname1']);
-            $student->setStudentlastname2($_POST['studentlastname2']);
-            $student->setStudentcareer1(intval($_POST['studentcareer1']));
-            $student->setStudentcareer2(intval($_POST['studentcareer2']));
-            $student->setStudentpassword($_POST['studentpassword']);
+            $login->setLoginMail($_POST['loginMail']);
+            $login->setLoginPassword($_POST['loginPassword']);
+            
+            $result = $loginBusiness->authenticate($login);
 
-            $result = $studentBusiness->insert($student);
-
-            if ($result == 1) {
-                header("location: ../view/StudentView.php?success=inserted");
+            if (isset($result)) {
+                
+                SSession::getInstance()->$user=$result;
+                
+                print_r(SSession::getInstance()->$user);
+                
+                return $result;
+               // header("location: ../view/LoginView.php?success=inserted");
             } else {
-                header("location: ../view/StudentView.php?error=dbError");
+          
+                header("location: ../view/LoginView.php?error=dbError");
             }
         } else {
-            header("location: ../view/StudentView.php?error=format");
+            header("location: ../view/LoginView.php?error=format");
         }
     } else {
-        header("location: ../view/StudentView.php?error=empty");
+        header("location: ../view/LoginView.php?error=empty");
     }
-} else if (isset($_POST['delete'])) {
-    if (isset($_POST['studentid'])) {
-        if (strlen($_POST['studentid']) > 0) {
+} 
 
-            $studentBusiness = new StudentBusiness();
-
-            $student = new Student();
-            $student->setStudentid($_POST['studentid']);
-            $result = $studentBusiness->delete($student);
-
-            if ($result == 1) {
-                header("location: ../view/StudentView.php?success=inserted");
-            } else {
-                header("location: ../view/StudentView.php?error=dbError");
-            }
-        } else {
-            header("location: ../view/StudentView.php?error=format");
-        }
-    } else {
-        header("location: ../view/StudentView.php?error=empty");
-    }
-} else if (isset($_POST['update'])) {
-    if (isset($_POST['studentid']) && isset($_POST['studentmail']) && isset($_POST['studentpassword']) && isset($_POST['studentcareer']) && isset($_POST['studentlicense'])) {
-        if (strlen($_POST['studentid']) > 0 && strlen($_POST['studentmail']) > 0 && strlen($_POST['studentpassword']) > 0 && strlen($_POST['studentcareer']) > 0 && strlen($_POST['studentlicense']) > 0) {
-            $studentBusiness = new StudentBusiness();
-
-            $student = new Student();
-            $student->setStudentid((int) $_POST['studentid']);
-            $student->setStudentlicense($_POST['studentlicense']);
-            $student->setStudentmail($_POST['studentmail']);
-            $student->setStudentname($_POST['studentname']);
-            $student->setStudentlastname1($_POST['studentlastname1']);
-            $student->setStudentlastname2($_POST['studentlastname2']);
-            $student->setStudentcareer1((int) $_POST['studentcareer']);
-            $student->setStudentpassword($_POST['studentpassword']);
-
-            $result = $studentBusiness->update($student);
-
-            if ($result == 1) {
-                header("location: ../view/StudentView.php?success=inserted");
-            } else {
-                header("location: ../view/StudentView.php?error=dbError");
-            }
-        } else {
-            header("location: ../view/StudentView.php?error=format");
-        }
-    } else {
-        header("location: ../view/StudentView.php?error=empty");
-    }
-}
-
-class StudentBusiness {
+class LoginBusiness {
 
     private $data;
 
     function __construct() {
-        include_once '../data/StudentData.php';
-        $this->data = new StudentData();
+        include_once '../data/LoginData.php';
+        $this->data = new LoginData();
     }
 
-    function insert(Student $student) {
-        return $this->data->insert($student);
-    }
-
-    function delete(Student $student) {
-        return $this->data->delete($student);
-    }
-
-    function update(Student $student) {
-        return $this->data->update($student);
-    }
-
-    function selectAll() {
-        return $this->data->selectAll();
+    function authenticate(Login $login) {
+        return $this->data->authenticate($login);
     }
 
 }
