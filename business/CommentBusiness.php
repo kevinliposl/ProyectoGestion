@@ -14,7 +14,6 @@ if (isset($_POST['create'])) {
 
             $comment->setActivityId($_POST['activityid']);
             $comment->setCommentDescription($_POST['commentdescription']);
-//            $comment->setCommentActor(SSession::getInstance()->user['actorid']);
             $comment->setCommentActor($_POST['commentactor']);
             $comment->setCommentDate(date("Y-m-d"));
             $activity->setActivityId($_POST['activityid']);
@@ -58,6 +57,34 @@ if (isset($_POST['create'])) {
         }
     } else {
         header("location: ../view/AdministrativeCommentView.php?error=empty");
+    }
+}else if(isset($_POST['public'])){
+    if (isset($_POST['commentdescription'])) {
+        if (strlen($_POST['commentdescription']) > 0) {
+            $commentBusiness = new CommentBusiness();
+            $comment = new Comment();
+            $activityBusiness = new ActivityBusiness();
+            $activity = new Activity();
+
+            $comment->setActivityId($_POST['activityid']);
+            $comment->setCommentDescription($_POST['commentdescription']);
+            $comment->setCommentActor(SSession::getInstance()->user['actorid']);
+            $comment->setCommentDate(date("Y-m-d"));
+            $activity->setActivityId($_POST['activityid']);
+
+            $result = $commentBusiness->insert($comment);
+            $resulta = $activityBusiness->updateComment($activity);
+
+            if ($result == 1 and $resulta == 1) {
+                header("location: ../view/CommentView.php?id=".$_POST['activityid']."&title=".$_POST['activitytitle']."&des=".$_POST['activitydes']."&success=inserted");
+            } else {
+                header("location: ../view/CommentView.php?id=".$_POST['activityid']."&title=".$_POST['activitytitle']."&des=".$_POST['activitydes']."&error=dbError");
+            }
+        } else {
+            header("location: ../view/CommentView.php?id=".$_POST['activityid']."&title=".$_POST['activitytitle']."&des=".$_POST['activitydes']."&error=format");
+        }
+    } else {
+        header("location: ../view/CommentView.php?error=empty");
     }
 }
 
