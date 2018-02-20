@@ -42,6 +42,9 @@ RandomPassGenerator::getInstance();
                             <li><a href="AdministrativeEventView.php"><div>Gesti&oacute;n de Eventos</div></a></li>
                             <li><a href="AdministrativeCommentView.php"><div>Gesti&oacute;n de Comentarios</div></a></li>
                             <li><a href="EventView.php"><div>Ver Eventos</div></a></li>
+                             <li><a href="AdministrativePostView.php"><div>Gesti&oacute;n de Publicaciones</div></a></li>
+                              <li><a href="PostView.php"><div>Ver Publicaciones</div></a></li>
+                            
                         </ul>
                     </li>
                     <li><a href="OrganChartView.php"><div>Organigrama</div></a></li> 

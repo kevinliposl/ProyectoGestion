@@ -1,6 +1,13 @@
 CREATE DATABASE ucrpagecenter;
 USE ucrpagecenter;
 
+select * from tbuniversity;
+select * from tbheadquarter;
+select * from tbenclosure;
+select * from tbcareer;
+
+delete from tbuniversity where universityid =5;
+
 CREATE TABLE tbstudent(
     studentid INTEGER,
     studentlicense VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
