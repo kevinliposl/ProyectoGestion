@@ -7,6 +7,8 @@ class Event {
     private $eventPlace;
     private $eventDate;
     private $eventHour;
+    private $daybefore;
+    private $dayafther;
     
     function __construct() {
         
@@ -43,6 +45,22 @@ class Event {
     function setEventHour($eventHour){
         $this->eventHour = $eventHour;
     }//End setEventHour
+    
+    function getDayAfther(){
+        return $this->dayafther;
+    }//End getDayAfther
+    
+    function setDayAfther($dayafther){
+        $this->dayafther = $dayafther;
+    }//End SetDayAfther
+    
+    function getDayBefore(){
+        return $this->daybefore;
+    }//End getDayBefore
+    
+    function setDayBefore($daybefore){
+        $this->daybefore = $daybefore;
+    }//End setDayBefore
     
 }//End class Event
 

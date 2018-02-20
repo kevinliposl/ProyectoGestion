@@ -32,10 +32,10 @@ $eventBusiness = new EventBusiness();
                 <input type="time" name="hourEvent"/>
             </td>
             <td>
-                <input type="number" name="hourAfter"/>
+                <input type="number" name="hourAfter" min="0" step="1"/>
             </td>
             <td>
-                <input type="number" name="hourBefore"/>
+                <input type="number" name="hourBefore" min="0" step="1"/>
             </td>
             <td>
                 <input type="submit" name="create" value="Crear"/> 
@@ -69,10 +69,10 @@ $eventBusiness = new EventBusiness();
         echo "<input type ='time' name='hourEvent' value='" . $event['eventhour'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type ='number' name='hourAfter' value='" . $event['dayafter'] . "'/>";
+        echo "<input type ='number' name='hourAfter' value='" . $event['dayafter'] . "' min='0' step='1'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type ='number' name='hourBefore' value='" . $event['daybefore'] . "'/>";
+        echo "<input type ='number' name='hourBefore' value='" . $event['daybefore'] . "' min='0' step='1'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type ='submit' name='delete' value ='Eliminar'/>";

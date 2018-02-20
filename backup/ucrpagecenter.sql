@@ -90,8 +90,6 @@ CREATE TABLE tbactivity(
     createddate DATE NOT NULL,
     updatedate DATE NOT NULL,
     likecount INTEGER NOT NULL,
-    dayafter INTEGER NOT NULL,
-    daybefore INTEGER NOT NULL,
     commentcount INTEGER NOT NULL,
     activitytitle VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     activitydescription varchar(255) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -104,6 +102,8 @@ CREATE TABLE tbevent(
     eventplace VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     eventdate DATE NOT NULL,
     eventhour TIME NOT NULL,
+    dayafter INTEGER NOT NULL,
+    daybefore INTEGER NOT NULL,
     eventestate SMALLINT DEFAULT 1 NOT NULL,
     CONSTRAINT PRIMARY KEY(activityid)
 );

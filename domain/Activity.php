@@ -7,8 +7,6 @@ class Activity {
     private $createDate;
     private $updateDate;
     private $likecount;
-    private $daybefore;
-    private $dayafther;
     private $commentCount;
     private $activityTitle;
     private $activityDescription;
@@ -81,21 +79,5 @@ class Activity {
     function setActivityType($activityType){
         $this->activityType = $activityType;
     }//End setActivityId
-    
-    function getDayAfther(){
-        return $this->dayafther;
-    }//End getDayAfther
-    
-    function setDayAfther($dayafther){
-        $this->dayafther = $dayafther;
-    }//End SetDayAfther
-    
-    function getDayBefore(){
-        return $this->daybefore;
-    }//End getDayBefore
-    
-    function setDayBefore($daybefore){
-        $this->daybefore = $daybefore;
-    }//End setDayBefore
     
 }//End class Activity

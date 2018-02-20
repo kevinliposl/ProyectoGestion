@@ -27,8 +27,6 @@ if (isset($_POST['create'])) {
             $activity->setCreateDate(date("Y-m-d"));
             $activity->setUpdateDate(date("Y-m-d"));
             $activity->setLikeCount(0);
-            $activity->setDayAfther($_POST['hourAfter']);
-            $activity->setDayBefore($_POST['hourBefore']);
             $activity->setCommentCoun(0);
 
             $resulta = $activityBusiness->insert($activity);
@@ -102,6 +100,8 @@ if (isset($_POST['create'])) {
             $event->setEventPLace($_POST['place']);
             $event->setEventDate($_POST['dateEvent']);
             $event->setEventHour($_POST['hourEvent']);
+            $event->setDayAfther($_POST['hourAfter']);
+            $event->setDayBefore($_POST['hourBefore']);
 
             $result = $eventBusiness->insert($activityID, $event);
 
@@ -156,8 +156,6 @@ if (isset($_POST['create'])) {
             $activity->setActivityTitle($_POST['title']);
             $activity->setActivityDescription($_POST['description']);
             $activity->setActivityId($_POST['eventid']);
-             $activity->setDayAfther($_POST['hourAfter']);
-            $activity->setDayBefore($_POST['hourBefore']);
 
             $resulta = $activityBusiness->update($activity);
 
@@ -165,6 +163,8 @@ if (isset($_POST['create'])) {
             $event->setEventPLace($_POST['place']);
             $event->setEventDate($_POST['dateEvent']);
             $event->setEventHour($_POST['hourEvent']);
+            $event->setDayAfther($_POST['hourAfter']);
+            $event->setDayBefore($_POST['hourBefore']);
 
             $result = $eventBusiness->update($event);
 

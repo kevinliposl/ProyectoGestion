@@ -17,6 +17,8 @@ class EventData {
                 $event->getEventPLace() . "','" .
                 $event->getEventDate() . "','" .
                 $event->getEventHour() . "'," .
+                $event->getDayAfther() . "," .
+                $event->getDayBefore() . "," .
                 0 . ");"
         );
         $query->execute();
@@ -31,7 +33,7 @@ class EventData {
     }//End insert
     
     function selectAll() {
-        $query = $this->db->prepare("SELECT a.activitytitle,a.activitydescription,a.dayafter,a.daybefore,e.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.activityid WHERE a.activityestate = 0 AND e.eventestate = 0;");
+        $query = $this->db->prepare("SELECT a.activitytitle,a.activitydescription,e.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.activityid WHERE a.activityestate = 0 AND e.eventestate = 0;");
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
@@ -58,6 +60,8 @@ class EventData {
         $currentEvent->setCreateDate($row['eventplace']);
         $currentEvent->setUpdateDate($row['eventdate']);
         $currentEvent->setLikeCount($row['eventhour']);
+        $currentEvent->setDayAfther($row['dayafter']);
+        $currentEvent->setDayBefore($row['daybefore']);
         
         return $currentEvent;
     }//End select
@@ -65,6 +69,8 @@ class EventData {
     function update(Event $event) {
         $query = $this->db->prepare("UPDATE tbevent "
                 . "SET activityid =" . $event->getActivityId() .
+                ", dayafter=" . $event->getDayAfther().
+                ", daybefore=" . $event->getDayBefore().
                 ", eventplace='" . $event->getEventPLace() .
                 "', eventdate='" . $event->getEventDate() .
                 "', eventhour='" . $event->getEventHour() .

@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/ProyectoGestion/data/EnclosureData.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoGestion/business/EventBusiness.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoGestion/view/CareerView.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoGestion/business/CareerBusiness.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoGestion/business/EnclosureBusiness.php</file>
+            <file>file:/opt/lampp/htdocs/ProyectoGestion/view/EventViewDay.php</file>
+            <file>file:/opt/lampp/htdocs/ProyectoGestion/data/CommentData.php</file>
+            <file>file:/opt/lampp/htdocs/ProyectoGestion/view/EventViewWeek.php</file>
+            <file>file:/opt/lampp/htdocs/ProyectoGestion/business/CommentBusiness.php</file>
+            <file>file:/opt/lampp/htdocs/ProyectoGestion/view/EventView.php</file>
+            <file>file:/opt/lampp/htdocs/ProyectoGestion/view/CommentView.php</file>
+            <file>file:/opt/lampp/htdocs/ProyectoGestion/view/EventViewMonth.php</file>
         </group>
     </open-files>
 </project-private>
