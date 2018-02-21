@@ -17,6 +17,34 @@ $postBusiness = new PostBusiness();
             <td>
                 <input type ='text' name="description"/>
             </td>
+                <td>
+                <select name="careerenclosure" style="width: 100%">
+                    <option value="0">Ninguna</option>
+
+                    <?php
+                    $enclosures = $enclosureBusiness->selectAllByUniversity();
+                    $universities = $universityBusiness->selectAll();   
+
+             
+                    foreach ($universities as $university) {
+                        $universityname = $university['universityname'];
+                    ?>
+
+                        <optgroup label="<?= $universityname; ?>">
+
+                    <?php
+                    foreach ($enclosures as $enclosure) {
+                        if (strcmp($enclosure['universityname'], $universityname) === 0) {
+                    ?>
+                        <option value="<?= $enclosure['enclosureid']; ?>"><?= $enclosure['enclosureid'] . " | " . $enclosure['enclosurename'] . " | " . $enclosure['headquartername']; ?></option>
+
+                    <?php
+                            } 
+                        }
+                    }
+                        ?>
+                </select>
+            </td>
             
             <td>
                 <input type="submit" name="create" value="Crear"/> 
