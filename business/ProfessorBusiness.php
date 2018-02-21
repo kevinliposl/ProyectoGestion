@@ -2,6 +2,7 @@
 
 require '../domain/Professor.php';
 require_once '../util/RandomPassGenerator.php';
+require_once '../util/SMail.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['actormail']) && isset($_POST['actorname']) && isset($_POST['actorlastname1']) && isset($_POST['actorlastname2'])) {
@@ -17,6 +18,9 @@ if (isset($_POST['create'])) {
             $professor->setProfessorpassword(RandomPassGenerator::getInstance()->keygen(10));
 
             $result = $professorBusiness->insert($professor);
+            if ($result) {
+                while (!SMail::getInstance()->sendMail($professor->getProfessormail(), 'Contraseña temporal', 'La contraseña del sitio es la siguiente ' . $professor->getProfessorpassword()));
+            }
 
             echo json_encode(array('result' => $result));
         } else {

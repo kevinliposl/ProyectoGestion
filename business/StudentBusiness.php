@@ -2,6 +2,7 @@
 
 require '../domain/Student.php';
 require_once '../util/RandomPassGenerator.php';
+require_once '../util/SMail.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['actormail']) && isset($_POST['actorname']) && isset($_POST['actorlastname1']) && isset($_POST['actorlastname2']) && isset($_POST['actorcareer1'])) {
@@ -18,7 +19,9 @@ if (isset($_POST['create'])) {
             $student->setStudentpassword(RandomPassGenerator::getInstance()->keygen(10));
 
             $result = $studentBusiness->insert($student);
-            
+            if ($result) {
+                while (!SMail::getInstance()->sendMail($student->getStudentmail(), 'Contraseña temporal', 'La contraseña del sitio es la siguiente ' . $student->getStudentpassword()));
+            }
             echo json_encode(array('result' => $result));
         } else {
             echo json_encode(array('result' => -1));

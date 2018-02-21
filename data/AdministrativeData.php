@@ -22,34 +22,46 @@ class AdministrativeData {
         return $id;
     }
 
+    private function existsActor(Administrative $administrative) {
+        $queryExistsActor = $this->db->prepare("SELECT actormail FROM tbactor WHERE actormail=:mail;");
+        $queryExistsActor->execute(array('mail' => $administrative->getAdministrativemail()));
+        $resultActor = $queryExistsActor->fetch();
+        $queryExistsActor->closeCursor();
+
+        return !$resultActor['actormail'] ? 1 : 0;
+    }
+
+    private function insertActor(Administrative $administrative) {
+        $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
+        $queryInsertActor->execute(array('actorid' => $administrative->getAdministrativeid(), 'actormail' => $administrative->getAdministrativemail()));
+        $queryInsertActor->fetch();
+        $queryInsertActor->closeCursor();
+
+        $queryExistsActor = $this->db->prepare("SELECT actormail FROM tbactor WHERE actorid = :actorid;");
+        $queryExistsActor->execute(array('actorid' => $administrative->getAdministrativeid()));
+        $resultActor = $queryExistsActor->fetch();
+        $queryExistsActor->closeCursor();
+
+        return $resultActor['actormail'] ? 1 : 0;
+    }
+
     function insert(Administrative $administrative) {
+        if ($this->existsActor($administrative)) {
+            $administrative->setAdministrativeid($this->getlastid());
+            if ($this->insertActor($administrative)) {
+                $queryInsertProfessor = $this->db->prepare("INSERT INTO tbadministrative VALUES (:id,:license,:name,:lastname1,:lastname2,:area,:password,:state);");
+                $queryInsertProfessor->execute(array('id' => $administrative->getAdministrativeid(), 'license' => ' ', 'name' => $administrative->getAdministrativename(),
+                    'lastname1' => $administrative->getAdministrativelastname1(), 'lastname2' => $administrative->getAdministrativelastname2(),
+                    'password' => $administrative->getAdministrativepassword(), 'state' => 0, 'area' => $administrative->getAdministrativearea()));
+                $queryInsertProfessor->fetch();
+                $queryInsertProfessor->closeCursor();
 
-        $queryChecking = $this->db->prepare("SELECT actorid FROM tbactor WHERE actormail=:actormail;");
-        $queryChecking->execute(array('actormail' => $administrative->getAdministrativemail()));
-        $resultChecking = $queryChecking->fetch();
-        $queryChecking->closeCursor();
+                $queryExistsProfessor = $this->db->prepare("SELECT administrativeid FROM tbadministrative WHERE administrativeid =:id;");
+                $queryExistsProfessor->execute(array('id' => $administrative->getAdministrativeid()));
+                $resultProfessor = $queryExistsProfessor->fetch();
+                $queryExistsProfessor->closeCursor();
 
-        if (!isset($resultChecking['actorid'])) {
-            $lastid = $this->getlastid();
-            $queryAdministrative = $this->db->prepare("INSERT INTO tbadministrative VALUES (:administrativeid,:administrativelicense,:administrativename,:administrativelastname1,:administrativelastname2, :administrativearea,:administrativepassword,:administrativestate);");
-            $queryAdministrative->execute(array('administrativeid' => $lastid, 'administrativelicense' => $administrative->getAdministrativelicense(), 'administrativename' => $administrative->getAdministrativename(),
-                'administrativelastname1' => $administrative->getAdministrativelastname1(), 'administrativelastname2' => $administrative->getAdministrativelastname2(), 'administrativepassword' => $administrative->getAdministrativepassword(),
-                'administrativearea' => $administrative->getAdministrativearea(), 'administrativestate' => 1));
-            $queryAdministrative->fetch();
-            $queryAdministrative->closeCursor();
-
-            $queryActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
-            $queryActor->execute(array('actorid' => $lastid, 'actormail' => $administrative->getAdministrativemail()));
-            $queryActor->fetch();
-            $queryActor->closeCursor();
-
-            $queryVerifyResult = $this->db->prepare('SELECT adm.administrativename FROM tbadministrative adm INNER JOIN tbactor a ON a.actorid = adm.administrativeid WHERE adm.administrativeid=:administrativeid;');
-            $queryVerifyResult->execute(array('administrativeid' => $lastid));
-            $result = $queryVerifyResult->fetch();
-            $queryVerifyResult->closeCursor();
-
-            if (isset($result['administrativename'])) {
-                return 1;
+                return $resultProfessor['administrativeid'] ? 1 : 0;
             } else {
                 return 0;
             }
@@ -76,8 +88,8 @@ class AdministrativeData {
     }
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT ac.actormail,ad.* from tbadministrative ad INNER JOIN tbactor ac ON ac.actorid= ad.administrativeid WHERE administrativestate=:state;");
-        $query->execute(array('state' => 1));
+        $query = $this->db->prepare("SELECT ac.actormail,ad.* from tbadministrative ad INNER JOIN tbactor ac ON ac.actorid = ad.administrativeid WHERE administrativestate=:state;");
+        $query->execute(array('state' => 0));
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
         return $result;

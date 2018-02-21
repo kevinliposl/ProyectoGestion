@@ -4,23 +4,19 @@ require '../domain/Event.php';
 require '../domain/Publication.php';
 require '../domain/Search.php';
 
-if (isset($_POST['create'])) {
+if (isset($_POST['select'])) {
     $searchBusiness = new SearchBusiness;
     $search = new Search;
 
     $search->setTypeActivity(isset($_POST['typeActivity']) ? $_POST['typeActivity'] : NULL);
     $search->setSearchGeneral(isset($_POST['searchGeneral']) ? explode(' ', $_POST['searchGeneral']) : NULL);
-    $search->setSearchData(isset($_POST['searchData']) ? $_POST['searchData'] : NULL);
+    $search->setSearchDate(isset($_POST['searchDate']) ? $_POST['searchDate'] : NULL);
     $search->setSearchPlays(isset($_POST['searchPlays']) ? $_POST['searchPlays'] : NULL);
     $search->setSearchActor(isset($_POST['searchActor']) ? $_POST['searchActor'] : NULL);
 
-    $searchBusiness->startSearch($search);
+    $result = $searchBusiness->select($search);
 
-    if ($result == 1) {
-        header("location: ../view/SearchView.php?success=inserted");
-    } else {
-        header("location: ../view/SearchView.php?error=dbError");
-    }
+    echo json_encode(array('result' => $result));
 }
 
 class SearchBusiness {
@@ -39,8 +35,8 @@ class SearchBusiness {
     /**
      * Funcion para insertar la carrera
      */
-    function startSearch(Search $search) {
-        return $this->data->startSearch($search);
+    function select(Search $search) {
+        return $this->data->select($search);
     }
 
 //End class CareerBusiness 
