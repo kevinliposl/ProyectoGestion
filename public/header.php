@@ -21,7 +21,8 @@ RandomPassGenerator::getInstance();
                     <?php if (!isset(SSession::getInstance()->user)) { ?>
                         <li><a href="RegisterView.php"><div>Registro</div></a></li>
                         <li><a href="LoginView.php"><div>Iniciar sesion</div></a></li>
-                    <?php }if (isset(SSession::getInstance()->user)) { ?>
+                    <?php }if (isset(SSession::getInstance()->user)) {
+                        if(SSession::getInstance()->user['type'] == "adm"){?>
                         <li><a href="#"><div>Usuarios</div></a>
                             <ul>
                                 <li><a href="StudentView.php"><div>Gesti&oacute;n de Estudiantes</div></a></li>
@@ -49,6 +50,23 @@ RandomPassGenerator::getInstance();
                         </li>
                         <li><a href="OrganChartView.php"><div>Organigrama</div></a></li> 
                         <li><a href="SearchView.php"><div>Busqueda</div></a></li>
+                        <?php }else{?>
+                            <li><a href="#"><div>Usuario</div></a>
+                            <ul>
+                                <li><a href="profileView.php"><div>Perfil</div></a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><div>Actividades</div></a>
+                            <ul>
+                                <li><a href="AdministrativeEventView.php"><div>Gesti&oacute;n de Eventos</div></a></li>
+                                <li><a href="EventView.php"><div>Ver Eventos</div></a></li>
+                                <li><a href="AdministrativePostView.php"><div>Gesti&oacute;n de Publicaciones</div></a></li>
+                                <li><a href="PostView.php"><div>Ver Publicaciones</div></a></li>
+                            </ul>
+                        </li>
+                        <li><a href="OrganChartView.php"><div>Organigrama</div></a></li> 
+                        <li><a href="SearchView.php"><div>Busqueda</div></a></li>
+                        <?php }?>
                         <li><a href="../business/LoginBusiness.php?signout=''"><div>Cerrar Sesi&oacute;n</div></a></li>
                     <?php } ?>
                 </ul>
