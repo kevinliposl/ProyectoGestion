@@ -112,6 +112,15 @@ if(SSession::getInstance()->user['type'] == "student"){//estudiante
 }else if(SSession::getInstance()->user['type'] == "professor"){//profesor
     
         if(SSession::getInstance()->user['actorid'] ){
+            echo "<table>";
+            echo "<tr>";
+            echo "<th>Mail</th>";
+            echo "<th>Licencia</th>";
+            echo "<th>Nombre</th>";
+            echo "<th>Primer Apellido</th>";
+            echo "<th>Segundo Apellido</th>";
+            echo "<th>Contrase&ncaron;a</th>";        
+            echo "</tr>";
             echo "<form enctype='multipart/form-data' method='POST' action='../business/ProfessorBusiness.php'>";
             echo "<tr>";
             echo "<td>";
@@ -142,7 +151,16 @@ if(SSession::getInstance()->user['type'] == "student"){//estudiante
     
 }else if (SSession::getInstance()->user['type'] == "administrative"){//administrativo
         if(SSession::getInstance()->user['actorid']){
-
+            echo "<table>";
+    echo "<tr>";
+        echo "<th>Mail</th>";
+        echo "<th>Licencia</th>";
+        echo "<th>Nombre</th>";
+        echo "<th>Primer Apellido</th>";
+        echo "<th>Segundo Apellido</th>";
+        echo "<th>Departamento</th>";
+        echo "<th>Contrase&ncaron;a</th>";        
+    echo "</tr>";
             echo "<form enctype='multipart/form-data' method='POST' action='../business/AdministrativeBusiness.php'>";
             echo "<tr>";
             echo "<td>";
