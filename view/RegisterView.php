@@ -64,7 +64,19 @@ $universityBusiness = new UniversityBusiness();
                 </select>
             </td>
             <td id="tdactorarea" style="display: none;">
-                <input id="actorarea" name="actorarea" />
+                <select id="typeadministrative" name="administrativearea" style="width: 100%;">
+                    <option value="invalidate">Seleccione un tipo</option>
+                    <option value="admision">admision</option>
+                    <option value="matricula">matricula</option>
+                    <option value="becas">becas</option>
+                    <option value="serviciosEstudiantiles">Servicios Estudiantiles</option>
+                    <option value="infraestructura">Infraestructura</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="trabajoComunal">Trabajo comunal</option>
+                    <option value="proyectosInvestigacion">Proyectos de Investigacion</option>
+                    <option value="AccionSocial">Accion Social</option>
+                    <option value="ExtensionCultural">Extension Cultural</option>
+                </select>
             </td>
             <td>
                 <input type="submit" name="create" value="Registrar"/> 
@@ -81,7 +93,7 @@ $universityBusiness = new UniversityBusiness();
                     'actorlastname1': $('#actorlastname1').val().trim(),
                     'actorlastname2': $('#actorlastname2').val().trim(),
                     'actorcareer1': $('#actorcareer1').val().trim(),
-                    'actorarea': $('#actorarea').val().trim(),
+                    'actorarea': $('#typeadministrative').val().trim(),
                     'create': 'create'
                 };
 
