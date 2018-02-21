@@ -55,8 +55,7 @@ include_once '../public/header.php';
         $('#message').text('Espere...');
 
         $.post('../business/SearchBusiness.php', args, function (data) {
-            $('#message').text(data.result);
-
+            $('#message').text(JSON.stringify(data.result));
         }, 'json').fail(function () {
             alert('Error al acceder al servidor');
         });
