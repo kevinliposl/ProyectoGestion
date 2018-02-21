@@ -111,30 +111,27 @@ if(SSession::getInstance()->user['type'] == "student"){//estudiante
     
 }else if(SSession::getInstance()->user['type'] == "professor"){//profesor
     
-    $professors = $professorBusiness->selectAll();
-    
-    foreach ($professors as $professor) {
-        if(SSession::getInstance()->user['actorid'] == $professor['professorid']){
+        if(SSession::getInstance()->user['actorid'] ){
             echo "<form enctype='multipart/form-data' method='POST' action='../business/ProfessorBusiness.php'>";
             echo "<tr>";
             echo "<td>";
-            echo "<input type ='text' name='professormail' value='" . $professor['actormail'] . "'/>";
+            echo "<input type ='text' name='professormail' value='" . SSession::getInstance()->user['actormail'] . "'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type ='text' name='professorlicense' value='" . $professor['professorlicense'] . "'/>";
+            echo "<input type ='text' name='professorlicense' value='" . SSession::getInstance()->user['professorlicense'] . "'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type = 'hidden' name='professorid' value='" . $professor['professorid'] . "'/>";
-            echo "<input type = 'text' name='professorname' value='" . $professor['professorname'] . "' pattern ='[a-zA-Z\s]+$'/>";
+            echo "<input type = 'hidden' name='professorid' value='" .SSession::getInstance()->user['professorid'] . "'/>";
+            echo "<input type = 'text' name='professorname' value='" . SSession::getInstance()->user['professorname'] . "' pattern ='[a-zA-Z\s]+$'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type ='text' name='professorlastname1' value='" . $professor['professorlastname1'] . "' pattern ='[a-zA-Z\s]+$'/>";
+            echo "<input type ='text' name='professorlastname1' value='" . SSession::getInstance()->user['professorlastname1'] . "' pattern ='[a-zA-Z\s]+$'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type ='text' name='professorlastname2' value='" . $professor['professorlastname2'] . "' pattern ='[a-zA-Z\s]+$'/>";
+            echo "<input type ='text' name='professorlastname2' value='" . SSession::getInstance()->user['professorlastname2'] . "' pattern ='[a-zA-Z\s]+$'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type ='password' name='professorpassword' value='" . $professor['professorpassword'] . "'/>";
+            echo "<input type ='password' name='professorpassword' value='" . SSession::getInstance()->user['professorpassword'] . "'/>";
             echo "</td>";
             echo "<td>";
             echo "<input type ='submit' name='update' value ='Actualizar'/>";
@@ -142,36 +139,33 @@ if(SSession::getInstance()->user['type'] == "student"){//estudiante
             echo "</tr>";
             echo "</form>";
         }//End if
-    }//End foreach
     
 }else if (SSession::getInstance()->user['type'] == "administrative"){//administrativo
-    $administratives = $administrativeBusiness->selectAll();
-    foreach ($administratives as $administrative) {
-        if(SSession::getInstance()->user['actorid'] == $professor['administrativeid']){
+        if(SSession::getInstance()->user['actorid']){
 
             echo "<form enctype='multipart/form-data' method='POST' action='../business/AdministrativeBusiness.php'>";
             echo "<tr>";
             echo "<td>";
-            echo "<input type ='text' name='administrativemail' value='" . $administrative['actormail'] . "'/>";
+            echo "<input type ='text' name='administrativemail' value='" . SSession::getInstance()->user['actormail'] . "'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type ='text' name='administrativelicense' value='" . $administrative['administrativelicense'] . "'/>";
+            echo "<input type ='text' name='administrativelicense' value='" . SSession::getInstance()->user['administrativelicense'] . "'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type = 'hidden' name='administrativeid' value='" . $administrative['administrativeid'] . "'/>";
-            echo "<input type = 'text' name='administrativename' value='" . $administrative['administrativename'] . "' pattern ='[a-zA-Z\s]+$'/>";
+            echo "<input type = 'hidden' name='administrativeid' value='" . SSession::getInstance()->user['administrativeid'] . "'/>";
+            echo "<input type = 'text' name='administrativename' value='" . SSession::getInstance()->user['administrativename'] . "' pattern ='[a-zA-Z\s]+$'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type ='text' name='administrativelastname1' value='" . $administrative['administrativelastname1'] . "' pattern ='[a-zA-Z\s]+$'/>";
+            echo "<input type ='text' name='administrativelastname1' value='" . SSession::getInstance()->user['administrativelastname1'] . "' pattern ='[a-zA-Z\s]+$'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type ='text' name='administrativelastname2' value='" . $administrative['administrativelastname2'] . "' pattern ='[a-zA-Z\s]+$'/>";
+            echo "<input type ='text' name='administrativelastname2' value='" . SSession::getInstance()->user['administrativelastname2'] . "' pattern ='[a-zA-Z\s]+$'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type ='text' name='administrativearea' value='" . $administrative['administrativearea'] . "' pattern ='[a-zA-Z\s]+$'/>";
+            echo "<input type ='text' name='administrativearea' value='" . SSession::getInstance()->user['administrativearea'] . "' pattern ='[a-zA-Z\s]+$'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type ='password' name='administrativepassword' value='" . $administrative['administrativepassword'] . "'/>";
+            echo "<input type ='password' name='administrativepassword' value='" . SSession::getInstance()->user['administrativepassword'] . "'/>";
             echo "</td>";
             echo "<td>";
             echo "<input type ='submit' name='update' value ='Actualizar'/>";
@@ -179,7 +173,6 @@ if(SSession::getInstance()->user['type'] == "student"){//estudiante
             echo "</tr>";
             echo "</form>";
         }
-    }
 }//End if-else-if-else
 ?>
 <?php
