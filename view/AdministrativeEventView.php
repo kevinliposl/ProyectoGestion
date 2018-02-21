@@ -19,7 +19,7 @@ $universityBusiness = new UniversityBusiness();
         <th>Hora del evento</th>
         <th>Dias despues</th>
         <th>Dias antes</th>
-        <th>Sede del evento</th>
+        <th>Recinto del evento</th>
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/EventBusiness.php'>
         <tr>

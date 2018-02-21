@@ -14,7 +14,7 @@ $universityBusiness = new UniversityBusiness();
     <tr>
         <th>Titulo</th>
         <th>Descripcion</th>
-        <th>Sede de la publicación<th>
+        <th>Recinto de la publicación<th>
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/PostBusiness.php'>
         <tr>
