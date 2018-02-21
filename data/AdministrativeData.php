@@ -49,19 +49,19 @@ class AdministrativeData {
         if ($this->existsActor($administrative)) {
             $administrative->setAdministrativeid($this->getlastid());
             if ($this->insertActor($administrative)) {
-                $queryInsertProfessor = $this->db->prepare("INSERT INTO tbprofessor VALUES (:id,:license,:name,:lastname1,:lastname2,:password,:state);");
+                $queryInsertProfessor = $this->db->prepare("INSERT INTO tbadministrative VALUES (:id,:license,:name,:lastname1,:lastname2,:area,:password,:state);");
                 $queryInsertProfessor->execute(array('id' => $administrative->getAdministrativeid(), 'license' => ' ', 'name' => $administrative->getAdministrativename(),
                     'lastname1' => $administrative->getAdministrativelastname1(), 'lastname2' => $administrative->getAdministrativelastname2(),
-                    'password' => $administrative->getAdministrativepassword(), 'state' => 0));
+                    'password' => $administrative->getAdministrativepassword(), 'state' => 0, 'area' => $administrative->getAdministrativearea()));
                 $queryInsertProfessor->fetch();
                 $queryInsertProfessor->closeCursor();
 
-                $queryExistsProfessor = $this->db->prepare("SELECT professorid FROM tbprofessor WHERE professorid =:id;");
+                $queryExistsProfessor = $this->db->prepare("SELECT administrativeid FROM tbadministrative WHERE administrativeid =:id;");
                 $queryExistsProfessor->execute(array('id' => $administrative->getAdministrativeid()));
                 $resultProfessor = $queryExistsProfessor->fetch();
                 $queryExistsProfessor->closeCursor();
 
-                return $resultProfessor['professorid'] ? 1 : 0;
+                return $resultProfessor['administrativeid'] ? 1 : 0;
             } else {
                 return 0;
             }
