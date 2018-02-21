@@ -3,6 +3,12 @@ include_once '../public/header.php';
 
 include_once '../business/EventBusiness.php';
 $eventBusiness = new EventBusiness();
+
+include_once '../business/EnclosureBusiness.php';
+$enclosureBusiness = new EnclosureBusiness();   
+                    
+include_once '../business/UniversityBusiness.php';
+$universityBusiness = new UniversityBusiness();
 ?>
 <table>
     <tr>
@@ -13,6 +19,7 @@ $eventBusiness = new EventBusiness();
         <th>Hora del evento</th>
         <th>Dias despues</th>
         <th>Dias antes</th>
+        <th>Sede de la publicación</th>
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/EventBusiness.php'>
         <tr>
@@ -36,6 +43,34 @@ $eventBusiness = new EventBusiness();
             </td>
             <td>
                 <input type="number" name="hourBefore" min="0" step="1"/>
+            </td>
+                <td>
+                <select name="careerenclosure" style="width: 100%">
+                    <option value="0">Ninguna</option>
+
+                    <?php
+                    $enclosures = $enclosureBusiness->selectAllByUniversity();
+                    $universities = $universityBusiness->selectAll();   
+
+             
+                    foreach ($universities as $university) {
+                        $universityname = $university['universityname'];
+                    ?>
+
+                        <optgroup label="<?= $universityname; ?>">
+
+                    <?php
+                    foreach ($enclosures as $enclosure) {
+                        if (strcmp($enclosure['universityname'], $universityname) === 0) {
+                    ?>
+                        <option value="<?= $enclosure['enclosureid']; ?>"><?= $enclosure['enclosureid'] . " | " . $enclosure['enclosurename'] . " | " . $enclosure['headquartername']; ?></option>
+
+                    <?php
+                            } 
+                        }
+                    }
+                        ?>
+                </select>
             </td>
             <td>
                 <input type="submit" name="create" value="Crear"/> 

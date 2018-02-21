@@ -87,6 +87,7 @@ CREATE TABLE tbactivity(
     activitytitle VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     activitydescription varchar(255) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     activityestate SMALLINT DEFAULT 1 NOT NULL,
+    activityheadquarterid INTEGER NOT NULL,
     CONSTRAINT PRIMARY KEY(activityid)
 );
 
