@@ -65,6 +65,16 @@ if (isset($_POST['create'])) {
             $student->setStudentcareer1((int) $_POST['studentcareer1']);
             $student->setStudentcareer2((int) $_POST['studentcareer2']);
             $student->setStudentpassword($_POST['studentpassword']);
+//            SSession::getInstance()->user['studentid'] = $_POST['studentid'];
+//            SSession::getInstance()->user['studentlicense'] = $_POST['studentlicense'];
+//            SSession::getInstance()->user['studentmail'] = $_POST['studentmail'];
+//            SSession::getInstance()->user['studentname'] = $_POST['studentname'];
+//            SSession::getInstance()->user['studentlastname1'] = $_POST['studentlastname1'];
+//            SSession::getInstance()->user['studentlastname2'] = $_POST['studentlastname2'];
+//            SSession::getInstance()->user['studentcareer1'] = $_POST['studentcareer1'];
+//            SSession::getInstance()->user['studentcareer2'] = $_POST['studentcareer2'];
+//            SSession::getInstance()->user['studentpassword'] = $_POST['studentpassword'];
+                
 
             $result = $studentBusiness->update($student);
 
