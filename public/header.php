@@ -20,7 +20,7 @@ RandomPassGenerator::getInstance();
                     <li><a href="../index.php"><div>Home</div></a></li> 
                     <?php if (!isset(SSession::getInstance()->user)) { ?>
                         <li><a href="RegisterView.php"><div>Registro</div></a></li>
-                        <li><a href="loginView.php"><div>Iniciar sesion</div></a></li>
+                        <li><a href="LoginView.php"><div>Iniciar sesion</div></a></li>
                     <?php }if (isset(SSession::getInstance()->user)) { ?>
                         <li><a href="#"><div>Usuarios</div></a>
                             <ul>
@@ -48,6 +48,7 @@ RandomPassGenerator::getInstance();
                         </li>
                         <li><a href="OrganChartView.php"><div>Organigrama</div></a></li> 
                         <li><a href="SearchView.php"><div>Busqueda</div></a></li>
+                        <li><a href="../business/LoginBusiness.php?signout=''"><div>Cerrar Sesi&oacute;n</div></a></li>
                     <?php } ?>
                 </ul>
             </nav>

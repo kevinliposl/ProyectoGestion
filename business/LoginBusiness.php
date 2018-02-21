@@ -1,4 +1,5 @@
 <?php
+
 require '../domain/Login.php';
 require_once '../util/SSession.php';
 
@@ -11,16 +12,16 @@ if (isset($_POST['login'])) {
 
             $login->setLoginMail($_POST['loginMail']);
             $login->setLoginPassword($_POST['loginPassword']);
-            
+
             $result = $loginBusiness->authenticate($login);
 
             if (isset($result)) {
-                
-                SSession::getInstance()->user=$result;
-               
-                header("location: ../view/LoginView.php?success=inserted");
+
+                SSession::getInstance()->user = $result;
+
+                header("location: ../index.php");
             } else {
-          
+
                 header("location: ../view/LoginView.php?error=dbError");
             }
         } else {
@@ -29,7 +30,15 @@ if (isset($_POST['login'])) {
     } else {
         header("location: ../view/LoginView.php?error=empty");
     }
-} 
+}
+if (isset($_GET['signout'])) {
+    SSession::getInstance()->destroy();
+    if ($_GET['signout'] == 'i') {
+        header("location: ../index.php");
+    } else {
+        header("location: ../index.php");
+    }
+}
 
 class LoginBusiness {
 
