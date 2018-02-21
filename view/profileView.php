@@ -20,93 +20,47 @@ $universityBusiness = new UniversityBusiness();
 <?php
 
 if(SSession::getInstance()->user['type'] == "student"){//estudiante
+    echo "<table>";
+    echo "<tr>";
+        echo "<th>Mail</th>";
+        echo "<th>Identificaci&oacute;n</th>";
+        echo "<th>Nombre</th>";
+        echo "<th>Primer Apellido</th>";
+        echo "<th>Segundo Apellido</th>";
+        echo "<th>Contrase&ncaron;a</th>";
+        echo "<th>Primer Carrera</th>";
+        echo "<th>Segundo Carrera</th>";
+    echo "</tr>";
     $universities = $universityBusiness->selectAll();
     $careers = $careerBusiness->selectAllByUniversity();
-
-    foreach ($universities as $university) {
-        $universityname = $university['universityname'];
-        ?>
-            
-                                    <optgroup label="<?= $universityname; ?>">
-            
-        <?php
-        foreach ($careers as $career) {
-            if ($career['universityname'] == $universityname) {
-                ?>
-                            
-                                                                <option value=" <?= $career['careerid']; ?> "> <?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?> </option>
-                            
-                <?php
-            }
-        }
-    }
-    ?>
-    
-                    </select>
-                </td>
-                <td>
-                    <select name="studentcareer2" style="width: 100%">
-                        <option value="0">Ninguna</option>
-    
-    <?php
-    foreach ($universities as $university) {
-        $universityname = $university['universityname'];
-        ?>
-            
-                                    <optgroup label="<?= $universityname; ?>">
-            
-        <?php
-        foreach ($careers as $career) {
-            if ($career['universityname'] == $universityname) {
-                ?>
-                            
-                                                                <option value=" <?= $career['careerid']; ?> "> <?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?> </option>
-                            
-                <?php
-            }
-        }
-    }
-    ?>
-                    </select>
-                </td>
-                <td>
-                    <input type="submit" name="create" value="Crear"/> 
-                </td>
-            </tr>
-        </form>-->
-
-    <?php
-    $students = $studentBusiness->selectAll();
-
-    foreach ($students as $student) {
-        if(SSession::getInstance()->user['actorid'] == $professor['studentid']){
+        if(SSession::getInstance()->user['actorid']){
             echo "<form enctype='multipart/form-data' method='POST' action='../business/StudentBusiness.php'>";
             echo "<tr>";
             echo "<td>";
-            echo "<input type ='text' name='studentmail' value='" . $student['actormail'] . "'/>";
+            echo "<input type ='text' name='studentmail' value='" . SSession::getInstance()->user['actormail'] . "'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type ='text' name='studentlicense' value='" . $student['studentlicense'] . "'/>";
+            echo "<input type ='text' name='studentlicense' value='" . SSession::getInstance()->user['studentlicense'] . "'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type = 'hidden' name='studentid' value='" . $student['studentid'] . "'/>";
-            echo "<input type = 'text' name='studentname' value='" . $student['studentname'] . "' pattern ='[a-zA-Z\s]+$'/>";
+            echo "<input type = 'hidden' name='studentid' value='" . SSession::getInstance()->user['studentid'] . "'/>";
+            echo "<input type = 'text' name='studentname' value='" . SSession::getInstance()->user['studentname'] . "' pattern ='[a-zA-Z\s]+$'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type ='text' name='studentlastname1' value='" . $student['studentlastname1'] . "' pattern ='[a-zA-Z\s]+$'/>";
+            echo "<input type ='text' name='studentlastname1' value='" . SSession::getInstance()->user['studentlastname1'] . "' pattern ='[a-zA-Z\s]+$'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type ='text' name='studentlastname2' value='" . $student['studentlastname2'] . "' pattern ='[a-zA-Z\s]+$'/>";
+            echo "<input type ='text' name='studentlastname2' value='" . SSession::getInstance()->user['studentlastname2'] . "' pattern ='[a-zA-Z\s]+$'/>";
             echo "</td>";
             echo "<td>";
-            echo "<input type ='password' name='studentpassword' value='" . $student['studentpassword'] . "'/>";
+            echo "<input type ='password' name='studentpassword' value='" . SSession::getInstance()->user['studentpassword'] . "'/>";
             echo "</td>";
             echo "<td>";
             echo "<select name='studentcareer1' style='width: 100%'>";
 
             $cambio = 0;
             foreach ($careers as $career) {
-                if (intval($career['careerid']) == intval($student['studentcareer1'])) {
+                if (intval($career['careerid']) == intval(SSession::getInstance()->user['studentcareer1'])) {
                     $var = "selected='selected'";
                 } else {
                     $var = "";
@@ -129,7 +83,7 @@ if(SSession::getInstance()->user['type'] == "student"){//estudiante
             echo "<option value='0'>Ninguna</option>";
             $cambio = 0;
             foreach ($careers as $career) {
-                if (intval($career['careerid']) == intval($student['studentcareer2'])) {
+                if (intval($career['careerid']) == intval(SSession::getInstance()->user['studentcareer2'])) {
                     $var = "selected='selected'";
                 } else {
                     $var = "";
@@ -154,7 +108,7 @@ if(SSession::getInstance()->user['type'] == "student"){//estudiante
             echo "</tr>";
             echo "</form>";
         }
-    }
+    
 }else if(SSession::getInstance()->user['type'] == "professor"){//profesor
     
     $professors = $professorBusiness->selectAll();
