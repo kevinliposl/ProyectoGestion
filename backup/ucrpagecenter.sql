@@ -104,7 +104,7 @@ CREATE TABLE tbevent(
 
 CREATE TABLE tbpost(
     activityid INTEGER NOT NULL,
-	poststate SMALLINT DEFAULT 1 NOT NULL,
+    poststate SMALLINT DEFAULT 1 NOT NULL,
     CONSTRAINT PRIMARY KEY(activityid)
 );
 
@@ -119,7 +119,7 @@ CREATE TABLE tbcomment(
 );
 
 CREATE TABLE tbtag(
-	tagactivityid INTEGER NOT NULL,
-	tagword VARCHAR(100) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-	CONSTRAINT PRIMARY KEY(tagactivityid, tagword)
+    tagactivityid INTEGER NOT NULL,
+    tagword VARCHAR(100) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    CONSTRAINT PRIMARY KEY(tagactivityid, tagword)
 );
