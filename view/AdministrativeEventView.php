@@ -19,7 +19,7 @@ $universityBusiness = new UniversityBusiness();
         <th>Hora del evento</th>
         <th>Dias despues</th>
         <th>Dias antes</th>
-        <th>Sede de la publicación</th>
+        <th>Sede del evento</th>
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/EventBusiness.php'>
         <tr>
@@ -45,7 +45,7 @@ $universityBusiness = new UniversityBusiness();
                 <input type="number" name="hourBefore" min="0" step="1"/>
             </td>
                 <td>
-                <select name="careerenclosure" style="width: 100%">
+                <select name="postenclosure" style="width: 100%">
                     <option value="0">Ninguna</option>
 
                     <?php

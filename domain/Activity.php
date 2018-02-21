@@ -11,7 +11,7 @@ class Activity {
     private $activityTitle;
     private $activityDescription;
     private $activityType;
-    private $activityheadquarterid;
+    private $activityEnclosureId;
     
     function __construct() {
         
@@ -81,14 +81,14 @@ class Activity {
         $this->activityType = $activityType;
     }//End setActivityId
     
-    function getActivityheadquarterid() {
-        return $this->activityheadquarterid;
-    }//end getActivityheadquarterid
+    function getActivityEnclosureId() {
+        return $this->activityEnclosureId;
+    }//end getActivityEnclosureId
 
-    function setActivityheadquarterid($activityheadquarterid) {
-        $this->activityheadquarterid = $activityheadquarterid;
-    }//end setActivityheadquarterid
+    function setActivityEnclosureId($activityEnclosureId) {
+        $this->activityEnclosureId = $activityEnclosureId;
+    }//end setActivityEnclosureId
 
 
-    
+
 }//End class Activity

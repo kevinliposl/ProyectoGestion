@@ -3,11 +3,18 @@ include_once '../public/header.php';
 
 include_once '../business/PostBusiness.php';
 $postBusiness = new PostBusiness();
+
+include_once '../business/EnclosureBusiness.php';
+$enclosureBusiness = new EnclosureBusiness();   
+                    
+include_once '../business/UniversityBusiness.php';
+$universityBusiness = new UniversityBusiness();
 ?>
 <table>
     <tr>
         <th>Titulo</th>
         <th>Descripcion</th>
+        <th>Sede de la publicación<th>
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/PostBusiness.php'>
         <tr>
@@ -18,7 +25,7 @@ $postBusiness = new PostBusiness();
                 <input type ='text' name="description"/>
             </td>
                 <td>
-                <select name="careerenclosure" style="width: 100%">
+                <select name="postenclosure" style="width: 100%">
                     <option value="0">Ninguna</option>
 
                     <?php

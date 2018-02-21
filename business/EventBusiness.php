@@ -26,6 +26,7 @@ if (isset($_POST['create'])) {
             $activity->setActivityDescription($_POST['description']);
             $activity->setCreateDate(date("Y-m-d"));
             $activity->setUpdateDate(date("Y-m-d"));
+            $activity->setActivityEnclosureId($_POST['postenclosure']);
             $activity->setLikeCount(0);
             $activity->setCommentCoun(0);
 

@@ -33,7 +33,8 @@ class ActivityData {
                 $activity->getCommentCount() . ",'" .
                 $activity->getActivityTitle() . "','" .
                 $activity->getActivityDescription() . "'," .
-                0 . ");"
+                0 .",".
+                $activity->getActivityEnclosureId() .");"
         );
         $query->execute();
         $result = $query->fetch();

@@ -78,6 +78,7 @@ CREATE TABLE tbactor(
     CONSTRAINT PRIMARY KEY(actorid)
 );
 
+
 CREATE TABLE tbactivity(
     activityid INTEGER NOT NULL,
     createddate DATE NOT NULL,
@@ -87,7 +88,7 @@ CREATE TABLE tbactivity(
     activitytitle VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     activitydescription varchar(255) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     activityestate SMALLINT DEFAULT 1 NOT NULL,
-    activityheadquarterid INTEGER NOT NULL,
+    activityenclosureid INTEGER NOT NULL,
     CONSTRAINT PRIMARY KEY(activityid)
 );
 
