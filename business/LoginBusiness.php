@@ -21,7 +21,6 @@ if (isset($_POST['login'])) {
 
                 header("location: ../index.php");
             } else {
-
                 header("location: ../view/LoginView.php?error=dbError");
             }
         } else {
@@ -40,6 +39,23 @@ if (isset($_GET['signout'])) {
     }
 }
 
+if (isset($_GET['recover'])) {
+    if (isset($_POST['actormail'])) {
+        if (filter_var($_POST['actormail'], FILTER_VALIDATE_EMAIL)) {
+            $loginBusiness = new LoginBusiness();
+            $login = new Login();
+
+            $login->setLoginMail($_POST['loginMail']);
+
+            $result = $loginBusiness->authenticate($login);
+        } else {
+            header("location: ../view/LoginView.php?error=dbError");
+        }
+    } else {
+        header("location: ../view/LoginView.php?error=empty");
+    }
+}
+
 class LoginBusiness {
 
     private $data;
@@ -50,6 +66,10 @@ class LoginBusiness {
     }
 
     function authenticate(Login $login) {
+        return $this->data->authenticate($login);
+    }
+
+    function recoverPassword(Login $login) {
         return $this->data->authenticate($login);
     }
 

@@ -21,7 +21,7 @@ include_once '../public/header.php';
             <input type="submit" name="login" value="Login"/> 
         </td>
         <td>
-            <a href="#">Recuperar contrasena</a>
+            <a href="RecoverPasswordView.php">Recuperar contrasena</a>
         </td>
         
     </tr>

@@ -12,56 +12,63 @@ class LoginData {
     function authenticate(Login $login) {
 
         $user = $this->studentLogin($login);
-        
-        if($user != NULL){
+
+        if ($user != NULL) {
             return $user;
-        }else{
+        } else {
             $user = $this->professorLogin($login);
-            if($user != NULL){
+            if ($user != NULL) {
                 return $user;
-            }else{
+            } else {
                 $user = $this->administrativeLogin($login);
-                 if($user != NULL){
-                     return $user;
-                }else {
+                if ($user != NULL) {
+                    return $user;
+                } else {
                     $user['Estado'] = 'Usuario invalido o inexistente';
-                } 
+                }
             }
-           
         }
-        
+
         return $user;
     }
-    
-    function studentLogin(Login $login){
-      
-        $query = $this->db->prepare("select ac.*, st.* from tbactor as ac, tbstudent as st where ac.actorid=st.studentid and st.studentpassword='".$login->getLoginPassword()."' and ac.actormail='".$login->getLoginMail()."';");
+
+    function recoverPassword(Login $login) {
+        $query = $this->db->prepare("select ac.*, st.* from tbactor as ac, tbstudent as st where ac.actorid=st.studentid and st.studentpassword='" . $login->getLoginPassword() . "' and ac.actormail='" . $login->getLoginMail() . "';");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
-        
-        return $result;
+
+        return$result;
     }
-    
-    function professorLogin(Login $login){
-      
-        $query = $this->db->prepare("select ac.*, pr.* from tbactor as ac, tbprofessor as pr where ac.actorid=pr.professorid and pr.professorpassword='".$login->getLoginPassword()."' and ac.actormail='".$login->getLoginMail()."';");
+
+    function studentLogin(Login $login) {
+
+        $query = $this->db->prepare("select ac.*, st.* from tbactor as ac, tbstudent as st where ac.actorid=st.studentid and st.studentpassword='" . $login->getLoginPassword() . "' and ac.actormail='" . $login->getLoginMail() . "';");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
-        
+
         return $result;
     }
-    
-     function administrativeLogin(Login $login){
-      
-        $query = $this->db->prepare("select ac.*, ad.* from tbactor as ac, tbadministrative as ad where ac.actorid=ad.administrativeid and ad.administrativepassword='".$login->getLoginPassword()."' and ac.actormail='".$login->getLoginMail()."';");
+
+    function professorLogin(Login $login) {
+
+        $query = $this->db->prepare("select ac.*, pr.* from tbactor as ac, tbprofessor as pr where ac.actorid=pr.professorid and pr.professorpassword='" . $login->getLoginPassword() . "' and ac.actormail='" . $login->getLoginMail() . "';");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
-        
+
         return $result;
     }
-    
-    
+
+    function administrativeLogin(Login $login) {
+
+        $query = $this->db->prepare("select ac.*, ad.* from tbactor as ac, tbadministrative as ad where ac.actorid=ad.administrativeid and ad.administrativepassword='" . $login->getLoginPassword() . "' and ac.actormail='" . $login->getLoginMail() . "';");
+        $query->execute();
+        $result = $query->fetch();
+        $query->closeCursor();
+
+        return $result;
+    }
+
 }
