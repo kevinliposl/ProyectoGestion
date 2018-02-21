@@ -68,5 +68,14 @@ class LoginData {
 
         return $result;
     }
+    
+    function admLogin(Login $login){
+        $query = $this->db->prepare("select ac.*, ad.*, 'administrative' as type from tbactor as ac, tbadministrative as ad where ac.actorid=ad.administrativeid and ad.administrativepassword='" . $login->getLoginPassword() . "' and ac.actormail='" . $login->getLoginMail() . "';");
+        $query->execute();
+        $result = $query->fetch();
+        $query->closeCursor();
+
+        return $result;
+    }
 
 }
