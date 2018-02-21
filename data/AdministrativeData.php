@@ -88,8 +88,8 @@ class AdministrativeData {
     }
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT ac.actormail,ad.* from tbadministrative ad INNER JOIN tbactor ac ON ac.actorid= ad.administrativeid WHERE administrativestate=:state;");
-        $query->execute(array('state' => 1));
+        $query = $this->db->prepare("SELECT ac.actormail,ad.* from tbadministrative ad INNER JOIN tbactor ac ON ac.actorid = ad.administrativeid WHERE administrativestate=:state;");
+        $query->execute(array('state' => 0));
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
         return $result;

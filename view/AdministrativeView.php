@@ -14,7 +14,7 @@ $administrativeBusiness = new AdministrativeBusiness();
         <th>Departamento</th>
         <th>Contrase&ncaron;a</th>        
     </tr>
-    <form enctype="multipart/form-data" method='POST' action='../business/AdministrativeBusiness.php'>
+<!--    <form enctype="multipart/form-data" method='POST' action='../business/AdministrativeBusiness.php'>
         <tr>
             <td>
                 <input type ='text' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name='administrativemail'/>
@@ -43,7 +43,7 @@ $administrativeBusiness = new AdministrativeBusiness();
             <td>
             </td>
         </tr>
-    </form>
+    </form>-->
     <?php
     $administratives = $administrativeBusiness->selectAll();
 

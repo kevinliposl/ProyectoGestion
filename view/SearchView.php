@@ -2,6 +2,7 @@
 
 include_once '../public/header.php';
 ?>
+
 <table>
     <tr>
         <th>Busqueda General</th>
@@ -16,12 +17,12 @@ include_once '../public/header.php';
             <input type ='text' id="searchGeneral" placeholder="Busqueda General"/>
         </td>
         <td>
-            <input type ='text' id="searchDate" placeholder="Fecha"/>
+            <input type ='date' id="searchDate" placeholder="Fecha"/>
         </td>
         <td>
             <select id="typeActivity"style="width: 100%;">
-                <option value="0">Evento</option>
-                <option value="1">Actividad</option>
+                <option value="event">Evento</option>
+                <option value="post">Publicaci&oacute;n</option>
             </select>
         </td>
         <td>
@@ -45,15 +46,18 @@ include_once '../public/header.php';
         var args = {
             'typeActivity': $('#typeActivity').val(),
             'searchGeneral': $('#searchGeneral').val(),
-            'searchData': $('#searchDate').val(),
+            'searchDate': $('#searchDate').val().trim(),
             'searchPlays': $('#searchPlays').val(),
-            'searchActor': $('#searchActor').val()
+            'searchActor': $('#searchActor').val(),
+            'select': 'select'
         };
 
-        $.post('../business/SearchBusiness.php', args, function () {
-            
-            
-        }).fail(function () {
+        $('#message').text('Espere...');
+
+        $.post('../business/SearchBusiness.php', args, function (data) {
+            $('#message').text(data.result);
+
+        }, 'json').fail(function () {
             alert('Error al acceder al servidor');
         });
     });
