@@ -1,26 +1,21 @@
 <?php
 
 require '../domain/Event.php';
-require '../domain/Tag.php';
 require '../domain/Activity.php';
 require '../business/ActivityBusiness.php';
 require '../business/TagBusiness.php';
-require '../util/TagReference.php';
-require '../util/TranslateEToS.php';
-require '../util/TranslateSToE.php';
+require '../util/TagMaker.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['hourAfter']) && isset($_POST['hourBefore']) && isset($_POST['title']) && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['dateEvent']) && isset($_POST['hourEvent'])) {
         if (strlen($_POST['hourBefore']) > 0 && strlen($_POST['hourAfter']) > 0 && strlen($_POST['title']) > 0 && strlen($_POST['description']) > 0 && strlen($_POST['place']) > 0 && strlen($_POST['dateEvent']) > 0 && strlen($_POST['hourEvent']) > 0) {
 
-            $eventBusiness = new EventBusiness();
             $event = new Event();
-            $activityBusiness = new ActivityBusiness();
             $activity = new Activity();
+            $eventBusiness = new EventBusiness();
+            $activityBusiness = new ActivityBusiness();
             $tagBusiness = new TagBusiness();
-            $tagReference = new TagReference();
-            $translateSToE = new TranslateSToE();
-            $translateEToS = new TranslateEToS();
+            $tagMaker = new TagMaker();
             
             $activity->setActivityTitle($_POST['title']);
             $activity->setActivityDescription($_POST['description']);
@@ -36,69 +31,7 @@ if (isset($_POST['create'])) {
             //////
             //separar las palabras del titulo y la descripcion 
             $entireWord = strtolower($_POST['title'] . " " . $_POST['description']);
-            $allWords = explode(" ", $entireWord);
-            $words = array();
-
-            foreach ($allWords as $word) {
-                if (strlen($word) >= 4) {
-                    $tag = new Tag();
-                    $tag->setTagactivityid($activityID->getActivityId());
-                    $tag->setTagword($word);
-                    array_push($words, $tag);
-                }
-            }
-
-            //retorna los sinonimos de las palabra
-            $allsynonymous = $tagReference->sendGetSynonymous($words);
-            $synonymous = array();
-
-            //relaciona los sinonimos con la actividad
-            foreach ($allsynonymous as $synonym) {
-                $tag = new Tag();
-                $tag->setTagactivityid($activityID->getActivityId());
-                $tag->setTagword($synonym);
-                array_push($synonymous, $tag);
-            }
-            //retorna los conceptos de las palabras
-            $entireConceptsWords = $tagReference->sendGetConcepts($words);
-            $uniteConcepts='';
-             
-             foreach($entireConceptsWords as $divConcepts){
-                 if($uniteConcepts==''){
-                     $uniteConcepts = $divConcepts;
-                 }else{
-                    $uniteConcepts = $uniteConcepts.'- '.$divConcepts." "; 
-                 }
-                 
-             }
-            
-            //separar y limpiar los conceptos en palabras
-              $uniteConcepts = str_replace(',',' ',$uniteConcepts);
-             $uniteConcepts = str_replace('.',' ',$uniteConcepts);
-             $uniteConcepts = str_replace('-',' ',$uniteConcepts);
-             $uniteConcepts = str_replace(':',' ',$uniteConcepts);
-             $uniteConcepts = str_replace(';',' ',$uniteConcepts);
-              $uniteConcepts = str_replace('[',' ',$uniteConcepts);
-             $uniteConcepts = str_replace(']',' ',$uniteConcepts);
-              $uniteConcepts = str_replace("'",' ',$uniteConcepts);
-              $uniteConcepts = strtolower($uniteConcepts);
-            $allConcepts = explode(" ", $uniteConcepts);
-          
-            $concepts=array();
-
-            foreach($allConcepts as $concept){
-                if(strlen($concept) >= 4){
-                    //relacionar los conceptos con la actividad
-                    $tag = new Tag();
-                    $tag->setTagactivityid($activityID->getActivityId());
-                    $tag->setTagword($concept);
-                    array_push($concepts, $tag);
-                }
-            }
-             
-            //arreglo con: palabras, sus sinonimos y sus conceptos
-            $entireArray = array_merge($words, $synonymous, $concepts);
-            ////
+            $entireArray = $tagMaker->makeTags($entireWord, $activityID->getActivityId());
             
             //inserta todo el arreglo con posibles palabras relacionadas
             $tagBusiness->insert($entireArray);
