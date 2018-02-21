@@ -70,7 +70,7 @@ class LoginBusiness {
     }
 
     function recoverPassword(Login $login) {
-        return $this->data->authenticate($login);
+        return $this->data->recoverPassword($login);
     }
 
 }
