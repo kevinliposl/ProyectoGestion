@@ -48,6 +48,7 @@ RandomPassGenerator::getInstance();
                         </li>
                         <li><a href="OrganChartView.php"><div>Organigrama</div></a></li> 
                         <li><a href="SearchView.php"><div>Busqueda</div></a></li>
+                        <li><a href="../business/LoginBusiness.php?signout=''"><div>Cerrar Sesi&oacute;n</div></a></li>
                     <?php } ?>
                 </ul>
             </nav>
