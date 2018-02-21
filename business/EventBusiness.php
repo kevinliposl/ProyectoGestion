@@ -73,10 +73,16 @@ if (isset($_POST['create'])) {
              }
             
             //separar y limpiar los conceptos en palabras
-            $allConcepts = str_replace(',',' ',explode(" ", $uniteConcepts));
-            $allConcepts = str_replace('.',' ',$allConcepts);
-            $allConcepts = str_replace('-',' ',$allConcepts);
-            $allConcepts = str_replace(':',' ',$allConcepts);
+              $uniteConcepts = str_replace(',',' ',$uniteConcepts);
+             $uniteConcepts = str_replace('.',' ',$uniteConcepts);
+             $uniteConcepts = str_replace('-',' ',$uniteConcepts);
+             $uniteConcepts = str_replace(':',' ',$uniteConcepts);
+             $uniteConcepts = str_replace(';',' ',$uniteConcepts);
+              $uniteConcepts = str_replace('[',' ',$uniteConcepts);
+             $uniteConcepts = str_replace(']',' ',$uniteConcepts);
+              $uniteConcepts = str_replace("'",' ',$uniteConcepts);
+              $uniteConcepts = strtolower($uniteConcepts);
+            $allConcepts = explode(" ", $uniteConcepts);
           
             $concepts=array();
 
