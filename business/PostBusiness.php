@@ -78,6 +78,10 @@ if (isset($_POST['create'])) {
              $uniteConcepts = str_replace('-',' ',$uniteConcepts);
              $uniteConcepts = str_replace(':',' ',$uniteConcepts);
              $uniteConcepts = str_replace(';',' ',$uniteConcepts);
+              $uniteConcepts = str_replace('[',' ',$uniteConcepts);
+             $uniteConcepts = str_replace(']',' ',$uniteConcepts);
+              $uniteConcepts = str_replace("'",' ',$uniteConcepts);
+                $uniteConcepts = strtolower($uniteConcepts);
             $allConcepts = explode(" ", $uniteConcepts);
           
             $concepts=array();
