@@ -27,8 +27,6 @@ if (isset($_POST['create'])) {
             $activity->setCreateDate(date("Y-m-d"));
             $activity->setUpdateDate(date("Y-m-d"));
             $activity->setLikeCount(0);
-            $activity->setDayAfther($_POST['hourAfter']);
-            $activity->setDayBefore($_POST['hourBefore']);
             $activity->setCommentCoun(0);
 
             $resulta = $activityBusiness->insert($activity);

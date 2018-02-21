@@ -8,8 +8,6 @@ $postBusiness = new PostBusiness();
     <tr>
         <th>Titulo</th>
         <th>Descripcion</th>
-          <th>Dias despues</th>
-        <th>Dias antes</th>
     </tr>
     <form enctype="multipart/form-data" method='POST' action='../business/PostBusiness.php'>
         <tr>
@@ -19,12 +17,7 @@ $postBusiness = new PostBusiness();
             <td>
                 <input type ='text' name="description"/>
             </td>
-                <td>
-                <input type="number" name="hourAfter"/>
-            </td>
-            <td>
-                <input type="number" name="hourBefore"/>
-            </td>
+            
             <td>
                 <input type="submit" name="create" value="Crear"/> 
             </td>
@@ -46,12 +39,6 @@ $postBusiness = new PostBusiness();
         echo "<td>";
         echo "<input type = 'hidden' name='postid' value='" . $post['activityid'] . "'/>";
         echo "<input type ='text' name='description' value='" . $post['activitydescription'] . "'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='number' name='hourAfter' value='" . $post['dayafter'] . "'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='number' name='hourBefore' value='" . $post['daybefore'] . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type ='submit' name='delete' value ='Eliminar'/>";
