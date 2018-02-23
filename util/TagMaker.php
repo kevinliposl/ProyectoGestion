@@ -35,7 +35,8 @@ class TagMaker{
                 $tag->setTagword($synonym);
                 array_push($synonymous, $tag);
             }
-            //retorna los conceptos de las palabras
+            
+//retorna los conceptos de las palabras
             $entireConceptsWords = $tagReference->sendGetConcepts($words);
             $uniteConcepts='';
              
@@ -47,6 +48,8 @@ class TagMaker{
                  }
                  
              }
+             
+             
             
             //separar y limpiar los conceptos en palabras
              $uniteConcepts = str_replace(',',' ',$uniteConcepts);
@@ -54,8 +57,6 @@ class TagMaker{
              $uniteConcepts = str_replace('-',' ',$uniteConcepts);
              $uniteConcepts = str_replace(':',' ',$uniteConcepts);
              $uniteConcepts = str_replace(';',' ',$uniteConcepts);
-              $uniteConcepts = str_replace('[',' ',$uniteConcepts);
-             $uniteConcepts = str_replace(']',' ',$uniteConcepts);
               $uniteConcepts = str_replace("'",' ',$uniteConcepts);
                 $uniteConcepts = strtolower($uniteConcepts);
             $allConcepts = explode(" ", $uniteConcepts);
@@ -63,7 +64,7 @@ class TagMaker{
             $concepts=array();
 
             foreach($allConcepts as $concept){
-                if(strlen($concept) >= 4){
+                if(strlen($concept) >= 4 and (strcmp($concept[0], '[') != 0) and (strcmp($concept[strlen($concept)-1], ']') != 0)){
                     //relacionar los conceptos con la actividad
                     $tag = new Tag();
                     $tag->setTagactivityid($activityId);
