@@ -1,6 +1,21 @@
 CREATE DATABASE ucrpagecenter;
 USE ucrpagecenter;
 
+truncate table tbtag;
+truncate table tbactivity;
+truncate table tbevent;
+truncate table tbpost;
+truncate table tbactor;
+truncate table tbprofessor;
+truncate table tbadministrative;
+truncate table tbstudent;
+
+select count(*) from tbtag;
+select * from tbtag;
+select * from tbactivity;
+select * from tbevent;
+select * from tbpost;
+
 CREATE TABLE tbstudent(
     studentid INTEGER,
     studentlicense VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -29,6 +44,11 @@ CREATE TABLE tbheadquarter(
     headquarteruniversityid INTEGER,
     CONSTRAINT PRIMARY KEY(headquarterid)
 );
+
+select * from tbstudent;
+update tbstudent set studentcareer1=1 where studentid=1;
+
+select ac.*, st.*, 'student' as type from tbactor as ac, tbstudent as st where ac.actorid=st.studentid and st.studentpassword='12345678' and ac.actormail='jonat2719hh@gmail.com';
 
 CREATE TABLE tbcareer(
     careerid INTEGER,
@@ -125,12 +145,3 @@ CREATE TABLE tbtag(
     tagword VARCHAR(100) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT PRIMARY KEY(tagactivityid, tagword)
 );
-
-CREATE TABLE tbadm(
-    adminid INTEGER,
-    password VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    CONSTRAINT PRIMARY KEY(adminid)
-);
-
-insert into tbactor values(4,'admin@adm.com');
-insert into tbadm values(4,'1234')
