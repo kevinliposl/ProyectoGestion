@@ -50,19 +50,31 @@ include_once '../public/header.php';
         echo "<input type ='hidden' name='universityid' value='" . $university['universityid'] . "'/>";
         echo "<tr>";
         echo "<td>";
-        
+
         echo "<input type = 'text' name='universityname' value='" . $university['universityname'] . "' pattern ='[a-zA-Z\s]+$'/>";
         echo "</td>";
         echo "<td>";
         echo "<select style='width: 100%' name='universitytype'>";
-            echo "<option ";if($university['universitytype']== 1){ echo "selected='selected'";} echo" value='1'>Publica</option>";
-            echo "<option ";if($university['universitytype']== 0){ echo "selected='selected'";} echo" value='0'>Privada</option>";
+        echo "<option ";
+        if ($university['universitytype'] == 1) {
+            echo "selected='selected'";
+        } echo" value='1'>Publica</option>";
+        echo "<option ";
+        if ($university['universitytype'] == 0) {
+            echo "selected='selected'";
+        } echo" value='0'>Privada</option>";
         echo "</select>";
         echo "</td>";
         echo "<td>";
         echo "<select style='width: 100%' name='universityhadheadquarter' disabled>";
-            echo "<option ";if($university['universityhadheadquarter']== 1){ echo "selected='selected'";} echo" value='1'>Sedes y Recintos</option>";
-            echo "<option ";if($university['universityhadheadquarter']== 0){ echo "selected='selected'";} echo" value='0'>Recintos</option>";
+        echo "<option ";
+        if ($university['universityhadheadquarter'] == 1) {
+            echo "selected='selected'";
+        } echo" value='1'>Sedes y Recintos</option>";
+        echo "<option ";
+        if ($university['universityhadheadquarter'] == 0) {
+            echo "selected='selected'";
+        } echo" value='0'>Recintos</option>";
         echo "</select>";
         echo "</td>";
         echo "<td>";

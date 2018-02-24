@@ -74,7 +74,7 @@ if (isset($_POST['create'])) {
 //            SSession::getInstance()->user['studentcareer1'] = $_POST['studentcareer1'];
 //            SSession::getInstance()->user['studentcareer2'] = $_POST['studentcareer2'];
 //            SSession::getInstance()->user['studentpassword'] = $_POST['studentpassword'];
-                
+
 
             $result = $studentBusiness->update($student);
 

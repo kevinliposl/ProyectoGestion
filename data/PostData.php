@@ -1,16 +1,18 @@
 <?php
 
 class PostData {
-    
+
     //Attributes
     private $db;
 
     function __construct() {
         include_once 'SPDO.php';
         $this->db = SPDO::singleton();
-    }//End construct
-    
-    function insert(Activity $activity,Post $post) {    
+    }
+
+//End construct
+
+    function insert(Activity $activity, Post $post) {
 
         $query = $this->db->prepare(
                 "INSERT INTO tbpost VALUES (" . $activity->getActivityId() . "," .
@@ -25,8 +27,10 @@ class PostData {
         } else {
             return 0;
         }//End if-else(!$result)
-    }//End insert
-    
+    }
+
+//End insert
+
     function selectAll() {
         $query = $this->db->prepare("SELECT a.*, p.* FROM tbactivity a INNER JOIN tbpost p ON a.activityid = p.activityid WHERE a.activityestate = 0 AND p.poststate = 0;");
         $query->execute();
@@ -34,8 +38,10 @@ class PostData {
         $query->closeCursor();
 
         return $result;
-    }//End selectALL
-    
+    }
+
+//End selectALL
+
     function selectAllTotal() {
         $query = $this->db->prepare("SELECT a.*,p.* FROM tbactivity a INNER JOIN tbpost p ON a.activityid = p.activityid WHERE a.activityestate = 0 AND p.poststate = 0;");
         $query->execute();
@@ -43,12 +49,13 @@ class PostData {
         $query->closeCursor();
 
         return $result;
-    }//End selectALL
-    
-    
+    }
+
+//End selectALL
+
     function update(Post $post) {
         $query = $this->db->prepare("UPDATE tbpost "
-                . "SET activityid =" . $post->getActivityId().
+                . "SET activityid =" . $post->getActivityId() .
                 " WHERE activityid=" . $post->getActivityId() . ";");
         $query->execute();
         $result = $query->fetch();
@@ -59,8 +66,10 @@ class PostData {
         } else {
             return 0;
         }//End if (!$result)
-    }//End update
-    
+    }
+
+//End update
+
     function delete(Post $post) {
         $query = $this->db->prepare("UPDATE tbpost SET poststate=:state WHERE activityid=:id;");
         $query->execute(array('state' => 1, 'id' => $post->getActivityId()));
@@ -70,6 +79,9 @@ class PostData {
         } else {
             return 0;
         }//End if (!$result)
-    }//End delete
-    
-}//End class EventData
+    }
+
+//End delete
+}
+
+//End class EventData

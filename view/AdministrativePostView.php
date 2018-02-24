@@ -5,8 +5,8 @@ include_once '../business/PostBusiness.php';
 $postBusiness = new PostBusiness();
 
 include_once '../business/EnclosureBusiness.php';
-$enclosureBusiness = new EnclosureBusiness();   
-                    
+$enclosureBusiness = new EnclosureBusiness();
+
 include_once '../business/UniversityBusiness.php';
 $universityBusiness = new UniversityBusiness();
 ?>
@@ -24,35 +24,35 @@ $universityBusiness = new UniversityBusiness();
             <td>
                 <input type ='text' name="description"/>
             </td>
-                <td>
+            <td>
                 <select name="postenclosure" style="width: 100%">
                     <option value="0">Ninguna</option>
 
                     <?php
                     $enclosures = $enclosureBusiness->selectAllByUniversity();
-                    $universities = $universityBusiness->selectAll();   
+                    $universities = $universityBusiness->selectAll();
 
-             
+
                     foreach ($universities as $university) {
                         $universityname = $university['universityname'];
-                    ?>
+                        ?>
 
                         <optgroup label="<?= $universityname; ?>">
 
-                    <?php
-                    foreach ($enclosures as $enclosure) {
-                        if (strcmp($enclosure['universityname'], $universityname) === 0) {
-                    ?>
-                        <option value="<?= $enclosure['enclosureid']; ?>"><?= $enclosure['enclosureid'] . " | " . $enclosure['enclosurename'] . " | " . $enclosure['headquartername']; ?></option>
+                            <?php
+                            foreach ($enclosures as $enclosure) {
+                                if (strcmp($enclosure['universityname'], $universityname) === 0) {
+                                    ?>
+                                    <option value="<?= $enclosure['enclosureid']; ?>"><?= $enclosure['enclosureid'] . " | " . $enclosure['enclosurename'] . " | " . $enclosure['headquartername']; ?></option>
 
-                    <?php
-                            } 
+                                    <?php
+                                }
+                            }
                         }
-                    }
                         ?>
                 </select>
             </td>
-            
+
             <td>
                 <input type="submit" name="create" value="Crear"/> 
             </td>

@@ -44,7 +44,7 @@ $universityBusiness = new UniversityBusiness();
             <td id="tdactorcareer1" style="display: none;">
                 <select id="actorcareer1" name="actorcareer1" style="width: 100%">
                     <option value="0">Ninguna</option>
-                           <?php
+                    <?php
                     $universities = $universityBusiness->selectAll();
                     $careers = $careerBusiness->selectAllByUniversity();
                     foreach ($universities as $university) {
@@ -61,7 +61,7 @@ $universityBusiness = new UniversityBusiness();
                             }
                         }
                         ?>
-                    
+
                 </select>
             </td>
             <td id="tdactorarea" style="display: none;">

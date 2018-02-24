@@ -2,8 +2,8 @@
 include_once '../public/header.php';
 
 include_once '../business/EnclosureBusiness.php';
-$enclosureBusiness = new EnclosureBusiness();   
-                    
+$enclosureBusiness = new EnclosureBusiness();
+
 include_once '../business/UniversityBusiness.php';
 $universityBusiness = new UniversityBusiness();
 ?>
@@ -37,25 +37,25 @@ $universityBusiness = new UniversityBusiness();
 
                     <?php
                     $enclosures = $enclosureBusiness->selectAllByUniversity();
-                    $universities = $universityBusiness->selectAll();   
+                    $universities = $universityBusiness->selectAll();
 
-             
+
                     foreach ($universities as $university) {
                         $universityname = $university['universityname'];
-                    ?>
+                        ?>
 
                         <optgroup label="<?= $universityname; ?>">
 
-                    <?php
-                    foreach ($enclosures as $enclosure) {
-                        if (strcmp($enclosure['universityname'], $universityname) === 0) {
-                    ?>
-                        <option value="<?= $enclosure['enclosureid']; ?>"><?= $enclosure['enclosureid'] . " | " . $enclosure['enclosurename'] . " | " . $enclosure['headquartername']; ?></option>
+                            <?php
+                            foreach ($enclosures as $enclosure) {
+                                if (strcmp($enclosure['universityname'], $universityname) === 0) {
+                                    ?>
+                                    <option value="<?= $enclosure['enclosureid']; ?>"><?= $enclosure['enclosureid'] . " | " . $enclosure['enclosurename'] . " | " . $enclosure['headquartername']; ?></option>
 
-                    <?php
-                            } 
+                                    <?php
+                                }
+                            }
                         }
-                    }
                         ?>
                 </select>
             </td>
@@ -84,11 +84,26 @@ $universityBusiness = new UniversityBusiness();
         echo "</td>";
         echo "<td>";
         echo "<select name='careergrade' style='width: 100%'>";
-        echo "<option"; if($career->getCareergrade() == "Diplomado") {echo " selected='selected'";} echo" value='Diplomado'>Diplomado</option>";
-        echo "<option"; if($career->getCareergrade() == "Bachillerato") {echo " selected='selected'";} echo " value='Bachillerato'>Bachillerato</option>";
-        echo "<option"; if($career->getCareergrade() == "Licenciatura") {echo " selected='selected'";} echo " value='Licenciatura'>Licenciatura</option>";
-        echo "<option"; if($career->getCareergrade() == "Maestria") {echo " selected='selected'";} echo " value='Maestria'>Maestria</option>";
-        echo "<option"; if($career->getCareergrade() == "Doctorado") {echo " selected='selected'";} echo " value ='Doctorado'>Doctorado</option>";
+        echo "<option";
+        if ($career->getCareergrade() == "Diplomado") {
+            echo " selected='selected'";
+        } echo" value='Diplomado'>Diplomado</option>";
+        echo "<option";
+        if ($career->getCareergrade() == "Bachillerato") {
+            echo " selected='selected'";
+        } echo " value='Bachillerato'>Bachillerato</option>";
+        echo "<option";
+        if ($career->getCareergrade() == "Licenciatura") {
+            echo " selected='selected'";
+        } echo " value='Licenciatura'>Licenciatura</option>";
+        echo "<option";
+        if ($career->getCareergrade() == "Maestria") {
+            echo " selected='selected'";
+        } echo " value='Maestria'>Maestria</option>";
+        echo "<option";
+        if ($career->getCareergrade() == "Doctorado") {
+            echo " selected='selected'";
+        } echo " value ='Doctorado'>Doctorado</option>";
         echo "</select>";
         echo "</td>";
         echo "<td>";

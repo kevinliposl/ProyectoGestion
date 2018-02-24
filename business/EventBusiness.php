@@ -16,7 +16,7 @@ if (isset($_POST['create'])) {
             $activityBusiness = new ActivityBusiness();
             $tagBusiness = new TagBusiness();
             $tagMaker = new TagMaker();
-            
+
             $activity->setActivityTitle($_POST['title']);
             $activity->setActivityDescription($_POST['description']);
             $activity->setCreateDate(date("Y-m-d"));
@@ -32,7 +32,7 @@ if (isset($_POST['create'])) {
             //separar las palabras del titulo y la descripcion 
             $entireWord = strtolower($_POST['title'] . " " . $_POST['description']);
             $entireArray = $tagMaker->makeTags($entireWord, $activityID->getActivityId());
-            
+
             //inserta todo el arreglo con posibles palabras relacionadas
             $tagBusiness->insert($entireArray);
 

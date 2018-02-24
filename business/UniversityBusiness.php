@@ -60,11 +60,11 @@ if (isset($_POST['create'])) {
             //echo json_encode(array("result"=>"select"));
             return;
         } else {
-            echo json_encode(array("result"=>"select"));
+            echo json_encode(array("result" => "select"));
             return;
         }
     } else {
-        echo json_encode(array("result"=>"Error"));
+        echo json_encode(array("result" => "Error"));
         return;
     }
 }
@@ -97,4 +97,5 @@ class UniversityBusiness {
     function delete(University $university) {
         return $this->universityData->delete($university);
     }
+
 }

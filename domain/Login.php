@@ -12,21 +12,26 @@ class Login {
 
     function getLoginMail() {
         return $this->loginMail;
-    }//end getLoginMail()
+    }
+
+//end getLoginMail()
 
     function getLoginPassword() {
         return $this->loginPassword;
-    }//end getLoginPassword()
+    }
+
+//end getLoginPassword()
 
     function setLoginMail($loginMail) {
         $this->loginMail = $loginMail;
-    }//end setLoginMail($loginMail)
+    }
+
+//end setLoginMail($loginMail)
 
     function setLoginPassword($loginPassword) {
         $this->loginPassword = $loginPassword;
-    }//end setLoginPassword($loginPassword)
+    }
 
-
-
+//end setLoginPassword($loginPassword)
 //End class Career
 }

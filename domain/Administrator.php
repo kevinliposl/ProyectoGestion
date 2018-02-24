@@ -3,6 +3,7 @@
 class Administrator {
 
     function __construct() {
+        
     }
 
 }

@@ -24,8 +24,8 @@ class CommentData {
     }
 
     function insert(Comment $comment) {
-        
-        echo '<script language="javascript">alert("juas");</script>'; 
+
+        echo '<script language="javascript">alert("juas");</script>';
         $lastid = $this->getlastid();
 
         $query = $this->db->prepare("INSERT INTO tbcomment VALUES(:commentid,:activityid,:commentdescription,:commentcreated,:commentactor,:commentstate);");
@@ -70,16 +70,16 @@ class CommentData {
 
         return $comments;
     }
-    
-    function  selectAllActivities(){
-        $events= $this->selectAllEvents();
-        $posts= $this->selectAllPost();
-        
-        $activities= array_merge($events,$posts);
-        
+
+    function selectAllActivities() {
+        $events = $this->selectAllEvents();
+        $posts = $this->selectAllPost();
+
+        $activities = array_merge($events, $posts);
+
         return $activities;
     }
-            
+
     function selectAllEvents() {
         $query = $this->db->prepare(" SELECT a.activitytitle,a.activitydescription, e.*, c.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.activityid INNER JOIN tbcomment c ON a.activityid = c.activityid  where c.commentstate!=0;");
         $query->execute();
@@ -87,9 +87,10 @@ class CommentData {
         $query->closeCursor();
 
         return $result;
-    }//End selectALL
-    
-        
+    }
+
+//End selectALL
+
     function selectAllPost() {
         $query = $this->db->prepare(" SELECT a.activitytitle,a.activitydescription, p.*, c.* FROM tbactivity a INNER JOIN tbpost p ON a.activityid = p.activityid INNER JOIN tbcomment c ON a.activityid = c.activityid  where c.commentstate!=0;");
         $query->execute();
@@ -97,8 +98,9 @@ class CommentData {
         $query->closeCursor();
 
         return $result;
-    }//End selectALL
+    }
 
+//End selectALL
 //End selectALL
 
     function select($idComment) {
@@ -118,10 +120,10 @@ class CommentData {
     }
 
 //End select
-    
+
     function selectidActivity($idActivity) {
         $query = $this->db->prepare("SELECT c.commentid,c.activityid,c.commentdescription,c.commentcreated,c.commentstate,a.actormail FROM tbcomment c INNER JOIN tbactor a on c.commentactor = a.actorid and c.commentstate = 1 WHERE c.activityid =" . $idActivity . ";");
-        $query->execute();        
+        $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
 

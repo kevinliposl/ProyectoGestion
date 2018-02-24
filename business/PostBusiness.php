@@ -16,7 +16,7 @@ if (isset($_POST['create'])) {
             $postBusiness = new PostBusiness();
             $activityBusiness = new ActivityBusiness();
             $tagMaker = new TagMaker();
-            
+
             $activity->setActivityTitle($_POST['title']);
             $activity->setActivityDescription($_POST['description']);
             $activity->setCreateDate(date("Y-m-d"));
@@ -28,9 +28,9 @@ if (isset($_POST['create'])) {
             $resulta = $activityBusiness->insert($activity);
             $activityID = $activityBusiness->getActivity();
 
-             $entireWord = strtolower($_POST['title'] . " " . $_POST['description']);
-             $entireArray = $tagMaker->makeTags($entireWord, $activityID->getActivityId());
-            
+            $entireWord = strtolower($_POST['title'] . " " . $_POST['description']);
+            $entireArray = $tagMaker->makeTags($entireWord, $activityID->getActivityId());
+
             //inserta todo el arreglo con posibles palabras relacionadas
             $tagBusiness->insert($entireArray);
 
@@ -77,7 +77,7 @@ if (isset($_POST['create'])) {
     }
 } else if (isset($_POST['update'])) {
 
-    if (isset($_POST['hourAfter']) && isset($_POST['hourBefore']) && isset($_POST['postid']) && isset($_POST['title']) && isset($_POST['description']) ){
+    if (isset($_POST['hourAfter']) && isset($_POST['hourBefore']) && isset($_POST['postid']) && isset($_POST['title']) && isset($_POST['description'])) {
         if (strlen($_POST['hourBefore']) > 0 && strlen($_POST['hourAfter']) > 0 && strlen($_POST['postid']) > 0 && strlen($_POST['title']) > 0 && strlen($_POST['description']) > 0) {
 
             $postBusiness = new PostBusiness();
@@ -89,14 +89,14 @@ if (isset($_POST['create'])) {
             $activity->setActivityTitle($_POST['title']);
             $activity->setActivityDescription($_POST['description']);
             $activity->setActivityId($_POST['postid']);
-             $activity->setDayAfther($_POST['hourAfter']);
+            $activity->setDayAfther($_POST['hourAfter']);
             $activity->setDayBefore($_POST['hourBefore']);
 
             $resulta = $activityBusiness->update($activity);
 
             $post->setActivityId($_POST['postid']);
-            
-            
+
+
             $result = $postBusiness->update($post);
 
             if ($result == 1 and $resulta == 1) {

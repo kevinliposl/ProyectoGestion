@@ -1,19 +1,22 @@
 <?php
+
 require_once '../domain/Activity.php';
 
 class ActivityData {
-    
+
     //Attributes
     private $db;
     private $act;
-    
+
     function __construct() {
         include_once 'SPDO.php';
         $this->db = SPDO::singleton();
         $this->act = new Activity();
-    }//End construct
-    
-    function insert(Activity $activity) {    
+    }
+
+//End construct
+
+    function insert(Activity $activity) {
 
         $queryLastId = $this->db->prepare("SELECT MAX(activityid) AS activityid  FROM tbactivity");
         $queryLastId->execute();
@@ -33,8 +36,8 @@ class ActivityData {
                 $activity->getCommentCount() . ",'" .
                 $activity->getActivityTitle() . "','" .
                 $activity->getActivityDescription() . "'," .
-                0 .",".
-                $activity->getActivityEnclosureId() .");"
+                0 . "," .
+                $activity->getActivityEnclosureId() . ");"
         );
         $query->execute();
         $result = $query->fetch();
@@ -46,24 +49,27 @@ class ActivityData {
         } else {
             return 0;
         }//End if-else(!$result)
-    }//End insert
-    
+    }
+
+//End insert
+
     function selectAll() {
         $query = $this->db->prepare("SELECT * from tbactivity where activityestate=:state;");
         $query->execute(array('state' => 0));
         $result = $query->fetchAll(); //PDO::FETCH_ASSOC
         $query->closeCursor();
-        
+
         return $result;
-    }//End selectALL
-    
-    
+    }
+
+//End selectALL
+
     function select($idActivity) {
-        $query = $this->db->prepare("SELECT * FROM tbactivity WHERE activityid=" . $idActivity. ";");
+        $query = $this->db->prepare("SELECT * FROM tbactivity WHERE activityid=" . $idActivity . ";");
         $query->execute();
         $row = $query->fetch();
-        
-        $currentActivity= new Activity();
+
+        $currentActivity = new Activity();
         $currentActivity->setActivityId($row['activityid']);
         $currentActivity->setCreateDate($row['createddate']);
         $currentActivity->setUpdateDate($row['updatedate']);
@@ -71,10 +77,12 @@ class ActivityData {
         $currentActivity->setCommentCoun($row['commentcount']);
         $currentActivity->setActivityTitle($row['activitytitle']);
         $currentActivity->setActivityDescription($row['activitydescription']);
-        
+
         return $currentActivity;
-    }//End select
-    
+    }
+
+//End select
+
     function delete(Activity $activity) {
         $query = $this->db->prepare("UPDATE tbactivity SET activityestate=:state WHERE activityid=:id;");
         $query->execute(array('state' => 1, 'id' => $activity->getActivityId()));
@@ -84,17 +92,21 @@ class ActivityData {
         } else {
             return 0;
         }//End if (!$result)
-    }//End delete
-    
-    function getActivity(){
+    }
+
+//End delete
+
+    function getActivity() {
         return $this->act;
-    }//End getActivity
-    
+    }
+
+//End getActivity
+
     function update(Activity $activity) {
         $query = $this->db->prepare("UPDATE tbactivity "
                 . "SET activityid =" . $activity->getActivityId() .
                 ", activitytitle='" . $activity->getActivityTitle() .
-                "', activitydescription='" . $activity->getActivityDescription().
+                "', activitydescription='" . $activity->getActivityDescription() .
                 "' WHERE activityid=" . $activity->getActivityId() . ";");
         $query->execute();
         $result = $query->fetch();
@@ -105,10 +117,12 @@ class ActivityData {
         } else {
             return 0;
         }//End if (!$result)
-    }//End update
-    
+    }
+
+//End update
+
     function updateComment(Activity $activity) {
-        
+
         $queryLastId = $this->db->prepare("SELECT MAX(commentcount) AS commentcount  FROM tbactivity");
         $queryLastId->execute();
         $resultLastId = $queryLastId->fetch();
@@ -132,10 +146,12 @@ class ActivityData {
         } else {
             return 0;
         }//End if (!$result)
-    }//End update
-    
+    }
+
+//End update
+
     function CountCommentDelete(Activity $activity) {
-        
+
         $queryLastId = $this->db->prepare("SELECT MAX(commentcount) AS commentcount  FROM tbactivity");
         $queryLastId->execute();
         $resultLastId = $queryLastId->fetch();
@@ -159,6 +175,9 @@ class ActivityData {
         } else {
             return 0;
         }//End if (!$result)
-    }//End update
-    
-}//End class ActivityData
+    }
+
+//End update
+}
+
+//End class ActivityData

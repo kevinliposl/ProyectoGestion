@@ -25,10 +25,10 @@ class LoginData {
                     return $user;
                 } else {
                     $user = $this->admLogin($login);
-                    if($user != NULL){
+                    if ($user != NULL) {
                         return $user;
-                    }else{
-                        $user['Estado'] = 'Usuario invalido o inexistente';   
+                    } else {
+                        $user['Estado'] = 'Usuario invalido o inexistente';
                     }
                 }
             }
@@ -73,8 +73,8 @@ class LoginData {
 
         return $result;
     }
-    
-    function admLogin(Login $login){
+
+    function admLogin(Login $login) {
         $query = $this->db->prepare("select ac.*, ad.*, 'adm' as type from tbactor as ac, tbadm as ad where ac.actorid=ad.adminid and ad.password='" . $login->getLoginPassword() . "' and ac.actormail='" . $login->getLoginMail() . "';");
         $query->execute();
         $result = $query->fetch();

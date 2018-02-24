@@ -12,10 +12,10 @@ class TagData {
     function insert(array $words) {
         foreach ($words as $word) {
             $queryInsertTag = $this->db->prepare("INSERT INTO tbtag VALUES (:idactivity,:word);");
-         
-           $queryInsertTag->execute(array('idactivity' => $word->getTagactivityid(), 'word' => $word->getTagword()));
-           $queryInsertTag->fetch();
-           $queryInsertTag->closeCursor();
+
+            $queryInsertTag->execute(array('idactivity' => $word->getTagactivityid(), 'word' => $word->getTagword()));
+            $queryInsertTag->fetch();
+            $queryInsertTag->closeCursor();
         }
     }
 

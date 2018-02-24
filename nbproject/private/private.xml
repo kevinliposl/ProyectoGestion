@@ -3,16 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/opt/lampp/htdocs/ProyectoGestion/index.php</file>
-            <file>file:/opt/lampp/htdocs/ProyectoGestion/view/profileView.php</file>
-            <file>file:/opt/lampp/htdocs/ProyectoGestion/data/LoginData.php</file>
-            <file>file:/opt/lampp/htdocs/ProyectoGestion/public/header.php</file>
-            <file>file:/opt/lampp/htdocs/ProyectoGestion/view/AdministrativeView.php</file>
-            <file>file:/opt/lampp/htdocs/ProyectoGestion/view/LoginView.php</file>
-            <file>file:/opt/lampp/htdocs/ProyectoGestion/view/ProfessorView.php</file>
-            <file>file:/opt/lampp/htdocs/ProyectoGestion/view/RegisterView.php</file>
-            <file>file:/opt/lampp/htdocs/ProyectoGestion/business/LoginBusiness.php</file>
-            <file>file:/opt/lampp/htdocs/ProyectoGestion/view/StudentView.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/business/EventBusiness.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/view/EventView.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/data/PostData.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/view/AdministrativeEventView.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/business/CommentBusiness.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/domain/Post.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/data/ActivityData.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/view/AdministrativeCommentView.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/view/PostView.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/data/EnclosureData.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/util/TagMaker.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/business/PostBusiness.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/view/CareerView.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/data/CommentData.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/business/CareerBusiness.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/business/ActivityBusiness.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/public/header.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/index.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoGestion/view/AdministrativePostView.php</file>
         </group>
     </open-files>
 </project-private>

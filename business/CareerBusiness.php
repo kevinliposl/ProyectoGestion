@@ -137,7 +137,5 @@ class CareerBusiness {
         return $this->data->selectByEnclosure();
     }
 
-    
-
 //End class CareerBusiness 
 }

@@ -5,8 +5,8 @@ include_once '../business/EventBusiness.php';
 $eventBusiness = new EventBusiness();
 
 include_once '../business/EnclosureBusiness.php';
-$enclosureBusiness = new EnclosureBusiness();   
-                    
+$enclosureBusiness = new EnclosureBusiness();
+
 include_once '../business/UniversityBusiness.php';
 $universityBusiness = new UniversityBusiness();
 ?>
@@ -44,32 +44,32 @@ $universityBusiness = new UniversityBusiness();
             <td>
                 <input type="number" name="hourBefore" min="0" step="1"/>
             </td>
-                <td>
+            <td>
                 <select name="postenclosure" style="width: 100%">
                     <option value="0">Ninguna</option>
 
                     <?php
                     $enclosures = $enclosureBusiness->selectAllByUniversity();
-                    $universities = $universityBusiness->selectAll();   
+                    $universities = $universityBusiness->selectAll();
 
-             
+
                     foreach ($universities as $university) {
                         $universityname = $university['universityname'];
-                    ?>
+                        ?>
 
                         <optgroup label="<?= $universityname; ?>">
 
-                    <?php
-                    foreach ($enclosures as $enclosure) {
-                        if (strcmp($enclosure['universityname'], $universityname) === 0) {
-                    ?>
-                        <option value="<?= $enclosure['enclosureid']; ?>"><?= $enclosure['enclosureid'] . " | " . $enclosure['enclosurename'] . " | " . $enclosure['headquartername']; ?></option>
+                            <?php
+                            foreach ($enclosures as $enclosure) {
+                            if (strcmp($enclosure['universityname'], $universityname) === 0 ) {
+                            ?>
+                            <option value="<?= $enclosure['enclosureid']; ?>"><?= $enclosure['enclosureid'] . " | " . $enclosure [ 'enclosurename'] . " | " . $enclosure [ 'headquartername']; ?></option>
 
-                    <?php
-                            } 
+                            <?php
                         }
                     }
-                        ?>
+                }
+                ?>
                 </select>
             </td>
             <td>
@@ -80,65 +80,66 @@ $universityBusiness = new UniversityBusiness();
         </tr>
     </form>
 
-    <?php
-    $event = $eventBusiness->selectAll();
+<?php
+$event = $eventBusiness->selectAll();
 
-    foreach ($event as $event) {
+    foreach($event as $event) {
 
-        echo "<form enctype='multipart/form-data' method='POST' action='../business/EventBusiness.php'>";
-        echo "<tr>";
-        echo "<td>";
-        echo "<input type ='text' name='title' value='" . $event['activitytitle'] . "'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='text' name='description' value='" . $event['activitydescription'] . "'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type = 'hidden' name='eventid' value='" . $event['activityid'] . "'/>";
-        echo "<input type = 'text' name='place' value='" . $event['eventplace'] . "'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='date' name='dateEvent' value='" . $event['eventdate'] . "'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='time' name='hourEvent' value='" . $event['eventhour'] . "'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='number' name='hourAfter' value='" . $event['dayafter'] . "' min='0' step='1'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='number' name='hourBefore' value='" . $event['daybefore'] . "' min='0' step='1'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='submit' name='delete' value ='Eliminar'/>";
-        echo "</td>";
-        echo "<td>";
-        echo "<input type ='submit' name='update' value ='Actualizar'/>";
-        echo "</td>";
-        echo "</tr>";
-        echo "</form>";
-    }
-    ?>
+
+    echo "<form enctype='multipart/form-data' method='POST' action='../business/EventBusiness.php'>";
+echo "<tr>";
+echo "<td>";
+echo "<input type ='text' name='title' value='" . $event['activitytitle'] . "'/>";
+echo "</td>";
+echo "<td>";
+echo "<input type ='text' name='description' value='" . $event['activitydescription'] . "'/>";
+echo "</td>";
+echo "<td>";
+echo "<input type = 'hidden' name='eventid' value='" . $event['activityid'] . "'/>";
+echo "<input type = 'text' name='place' value='" . $event['eventplace'] . "'/>";
+echo "</td>";
+echo "<td>";
+echo "<input type ='date' name='dateEvent' value='" . $event['eventdate'] . "'/>";
+echo "</td>";
+echo "<td>";
+echo "<input type ='time' name='hourEvent' value='" . $event['eventhour'] . "'/>";
+echo "</td>";
+echo "<td>";
+echo "<input type ='number' name='hourAfter' value='" . $event['dayafter'] . "' min='0' step='1'/>";
+echo "</td>";
+echo "<td>";
+echo "<input type ='number' name='hourBefore' value='" . $event['daybefore'] . "' min='0' step='1'/>";
+echo "</td>";
+echo "<td>";
+echo "<input type ='submit' name='delete' value ='Eliminar'/>";
+echo "</td>";
+echo "<td>";
+echo "<input type ='submit' name='update' value ='Actualizar'/>";
+echo "</td>";
+echo "</tr>";
+echo "</form>";
+}
+?>
 
     <tr>
         <td></td>
         <td>
-            <?php
-            if (isset($_GET['error'])) {
-                if ($_GET['error'] == "empty") {
-                    echo '<p style = "color: red">Campo(s) vacio(s)</p>';
-                } else if ($_GET['error'] == "format") {
-                    echo '<p style = "color: red">Error, formato de numero</p>';
-                } else if ($_GET['error'] == "dbError") {
-                    echo '<center><p style = "color: red">Error al procesar la transacción</p></center>';
-                }
-            } else if (isset($_GET['success'])) {
-                echo '<p style = "color: green">Transacción realizada</p>';
-            }
-            ?>
+    <?php
+    if (isset($_GET['error'])) {
+    if ($_GET['error'] == "empty") {
+    echo '<p style = "color: red">Campo(s) vacio(s)</p>';
+} else if ($_GET['error'] == "format") {
+echo '<p style = "color: red">Error, formato de numero</p>';
+} else if ($_GET['error'] == "dbError") {
+echo '<center><p style = "color: red">Error al procesar la transacción</p></center>';
+}
+} else if (isset($_GET['success'])) {
+echo '<p style = "color: green">Transacción realizada</p>';
+}
+?>
         </td>
     </tr>
 
-    <?php
-    include_once '../public/footer.php';
-    ?>    
+<?php
+include_once '../public/footer.php';
+?>    

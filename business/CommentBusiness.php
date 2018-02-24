@@ -58,7 +58,7 @@ if (isset($_POST['create'])) {
     } else {
         header("location: ../view/AdministrativeCommentView.php?error=empty");
     }
-}else if(isset($_POST['public'])){
+} else if (isset($_POST['public'])) {
     if (isset($_POST['commentdescription'])) {
         if (strlen($_POST['commentdescription']) > 0) {
             $commentBusiness = new CommentBusiness();
@@ -76,12 +76,12 @@ if (isset($_POST['create'])) {
             $resulta = $activityBusiness->updateComment($activity);
 
             if ($result == 1 and $resulta == 1) {
-                header("location: ../view/CommentView.php?id=".$_POST['activityid']."&title=".$_POST['activitytitle']."&des=".$_POST['activitydes']."&success=inserted");
+                header("location: ../view/CommentView.php?id=" . $_POST['activityid'] . "&title=" . $_POST['activitytitle'] . "&des=" . $_POST['activitydes'] . "&success=inserted");
             } else {
-                header("location: ../view/CommentView.php?id=".$_POST['activityid']."&title=".$_POST['activitytitle']."&des=".$_POST['activitydes']."&error=dbError");
+                header("location: ../view/CommentView.php?id=" . $_POST['activityid'] . "&title=" . $_POST['activitytitle'] . "&des=" . $_POST['activitydes'] . "&error=dbError");
             }
         } else {
-            header("location: ../view/CommentView.php?id=".$_POST['activityid']."&title=".$_POST['activitytitle']."&des=".$_POST['activitydes']."&error=format");
+            header("location: ../view/CommentView.php?id=" . $_POST['activityid'] . "&title=" . $_POST['activitytitle'] . "&des=" . $_POST['activitydes'] . "&error=format");
         }
     } else {
         header("location: ../view/CommentView.php?error=empty");
@@ -108,9 +108,10 @@ class CommentBusiness {
 
     function selectidActivity($idActivity) {
         return $this->data->selectidActivity($idActivity);
-    }//End selectidActivity
+    }
 
-    
+//End selectidActivity
+
     function delete(Comment $comment) {
         return $this->data->delete($comment);
     }
@@ -128,13 +129,13 @@ class CommentBusiness {
     }
 
 //End selectAll
-    
+
     function selectAllActivities() {
         return $this->data->selectAllActivities();
     }
 
     //End selectAllEvents
-    
+
     function selectAllTotal() {
         return $this->data->selectAllTotal();
     }

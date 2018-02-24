@@ -47,22 +47,21 @@ $activityBusiness = new ActivityBusiness();
             </td>
         </tr>
     </form>
-    </table>
+</table>
 
 <br>
 <br>
 
- <table>
-     <tr>
-         <th>ID actividad</th>
-         <th>Titulo actividad</th>
-         <th>Descripción</th>
-         <th>Id comentario</th>
-         <th>Comentario</th>
-         <th>Fecha</th>
-     </tr>
+<table>
+    <tr>
+        <th>ID actividad</th>
+        <th>Titulo actividad</th>
+        <th>Descripción</th>
+        <th>Id comentario</th>
+        <th>Comentario</th>
+        <th>Fecha</th>
+    </tr>
     <?php
-   
     $comments = $commentBusiness->selectAllActivities();
 
     foreach ($comments as $comment) {
@@ -95,27 +94,27 @@ $activityBusiness = new ActivityBusiness();
         echo "</form>";
     }
     ?>
- </table>
+</table>
 
-    <tr>
-        <td></td>
-        <td>
-            <?php
-            if (isset($_GET['error'])) {
-                if ($_GET['error'] == "empty") {
-                    echo '<p style = "color: red">Campo(s) vacio(s)</p>';
-                } else if ($_GET['error'] == "format") {
-                    echo '<p style = "color: red">Error, formato de numero</p>';
-                } else if ($_GET['error'] == "dbError") {
-                    echo '<center><p style = "color: red">Error al procesar la transacción</p></center>';
-                }
-            } else if (isset($_GET['success'])) {
-                echo '<p style = "color: green">Transacción realizada</p>';
+<tr>
+    <td></td>
+    <td>
+        <?php
+        if (isset($_GET['error'])) {
+            if ($_GET['error'] == "empty") {
+                echo '<p style = "color: red">Campo(s) vacio(s)</p>';
+            } else if ($_GET['error'] == "format") {
+                echo '<p style = "color: red">Error, formato de numero</p>';
+            } else if ($_GET['error'] == "dbError") {
+                echo '<center><p style = "color: red">Error al procesar la transacción</p></center>';
             }
-            ?>
-        </td>
-    </tr>
+        } else if (isset($_GET['success'])) {
+            echo '<p style = "color: green">Transacción realizada</p>';
+        }
+        ?>
+    </td>
+</tr>
 
-    <?php
-    include_once '../public/footer.php';
-    ?>    
+<?php
+include_once '../public/footer.php';
+?>    

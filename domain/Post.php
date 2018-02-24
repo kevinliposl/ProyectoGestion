@@ -1,23 +1,29 @@
 <?php
 
 class Post {
-    
+
     //Attributes
     private $activityId;
     private $postState;
-    
+
     function __construct() {
         
-    }//End construct
-    
-    function getActivityId(){
+    }
+
+//End construct
+
+    function getActivityId() {
         return $this->activityId;
-    }//End getActivityId
-    
-    function setActivityId($activityId){
+    }
+
+//End getActivityId
+
+    function setActivityId($activityId) {
         $this->activityId = $activityId;
-    }//End setActivityId
-    
+    }
+
+//End setActivityId
+
     function getPostState() {
         return $this->postState;
     }
@@ -26,7 +32,8 @@ class Post {
         $this->postState = $postState;
     }
 
-    
-}//End class Event
+}
+
+//End class Event
 
 
