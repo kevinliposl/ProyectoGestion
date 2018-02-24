@@ -10,44 +10,20 @@ class LoginData {
     }
 
     function authenticate(Login $login) {
-
-        $user = $this->studentLogin($login);
-
-        if ($user != NULL) {
-            return $user;
-        } else {
-            $user = $this->professorLogin($login);
-            if ($user != NULL) {
-                return $user;
-            } else {
-                $user = $this->administrativeLogin($login);
-                if ($user != NULL) {
-                    return $user;
-                } else {
-                    $user = $this->admLogin($login);
-                    if ($user != NULL) {
-                        return $user;
-                    } else {
-                        $user['Estado'] = 'Usuario invalido o inexistente';
-                    }
-                }
+        $profile = array('student' => 'student', 'professor' => 'professor', 'administrative' => 'administrative');
+        foreach ($profile as $var) {
+            $query = $this->db->prepare("SELECT '" . $var . "' type, tb.". $var ."password FROM tbactor ac INNER JOIN tb" . $var . " tb ON ac.actorid = tb." . $var . "id WHERE ac.actormail=:mail;");
+            $query->execute(array('mail' => $login->getLoginMail()));
+            $result = $query->fetch();
+            $query->closeCursor();
+            if (isset($result['actormail'])) {
+                break;
             }
         }
-
-        return $user;
-    }
-
-    function recoverPassword(Login $login) {
-        $query = $this->db->prepare("select ac.*, st.* from tbactor as ac, tbstudent as st where ac.actorid=st.studentid and st.studentpassword='" . $login->getLoginPassword() . "' and ac.actormail='" . $login->getLoginMail() . "';");
-        $query->execute();
-        $result = $query->fetch();
-        $query->closeCursor();
-
-        return$result;
+        return $result;
     }
 
     function studentLogin(Login $login) {
-
         $query = $this->db->prepare("select ac.*, st.*, 'student' as type from tbactor as ac, tbstudent as st where ac.actorid=st.studentid and st.studentpassword='" . $login->getLoginPassword() . "' and ac.actormail='" . $login->getLoginMail() . "';");
         $query->execute();
         $result = $query->fetch();

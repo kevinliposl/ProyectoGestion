@@ -5,7 +5,7 @@ include_once '../public/header.php';
     <tr>
         <th>Mail</th>
     </tr>
-    <form enctype="multipart/form-data" action="../business/LoginBusiness.php">
+    <form enctype="multipart/form-data" method="POST" action="../business/LoginBusiness.php">
         <tr>
             <td>
                 <input type="email" name="actormail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
@@ -36,6 +36,7 @@ include_once '../public/header.php';
         </td>
     </tr>
 
+    
+    
     <?php
     include_once '../public/footer.php';
-    ?>

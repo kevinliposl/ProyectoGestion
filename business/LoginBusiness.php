@@ -2,6 +2,7 @@
 
 require '../domain/Login.php';
 require_once '../util/SSession.php';
+require_once '../util/SMail.php';
 
 if (isset($_POST['login'])) {
     if (isset($_POST['loginPassword'])) {
@@ -38,21 +39,26 @@ if (isset($_GET['signout'])) {
         header("location: ../index.php");
     }
 }
-
-if (isset($_GET['recover'])) {
+if (isset($_POST['recover'])) {
     if (isset($_POST['actormail'])) {
         if (filter_var($_POST['actormail'], FILTER_VALIDATE_EMAIL)) {
             $loginBusiness = new LoginBusiness();
             $login = new Login();
 
-            $login->setLoginMail($_POST['loginMail']);
+            $login->setLoginMail($_POST['actormail']);
 
             $result = $loginBusiness->authenticate($login);
+            if (isset($result)) {
+                while (!SMail::getInstance()->sendMail($login->getLoginMail(), 'Recordatorio de contraseña', 'La contraseña del sitio es la siguiente ' . $result[$result['type'] . 'password']));
+                header("location: ../view/RecoverPasswordView.php?success=recover");
+            } else {
+                header("location: ../view/RecoverPasswordView.php?error=dbError");
+            }
         } else {
-            header("location: ../view/LoginView.php?error=dbError");
+            header("location: ../view/RecoverPasswordView.php?error=format");
         }
     } else {
-        header("location: ../view/LoginView.php?error=empty");
+        header("location: ../view/RecoverPasswordView.php?error=empty");
     }
 }
 
