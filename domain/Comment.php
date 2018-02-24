@@ -8,6 +8,7 @@ class Comment {
     private $commentDate;
     private $commentDescription;
     private $commentActor;
+    private $commentCoincidence;
 
     function getCommentId() {
         return $this->commentId;
@@ -47,6 +48,14 @@ class Comment {
 
     function setCommentActor($commentActor) {
         $this->commentActor = $commentActor;
+    }
+    
+    function getCommentCoincidence() {
+        return $this->commentCoincidence;
+    }
+
+    function setCommentCoincidence($commentCoincidence) {
+        $this->commentCoincidence = $commentCoincidence;
     }
 
 }

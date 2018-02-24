@@ -3,6 +3,8 @@
 require '../domain/Comment.php';
 require '../business/ActivityBusiness.php';
 require_once '../util/SSession.php';
+require '../business/TagBusiness.php';
+require '../util/TagMaker.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['commentactor']) && isset($_POST['activityid']) && isset($_POST['commentdescription'])) {
@@ -11,18 +13,37 @@ if (isset($_POST['create'])) {
             $comment = new Comment();
             $activityBusiness = new ActivityBusiness();
             $activity = new Activity();
+            $tagBusiness = new TagBusiness();
+            $tagMaker = new TagMaker();
+
+
+
+            $allCommentWords = explode(' ', $_POST['commentdescription']);
+            $commentWords = array();
+
+            foreach ($allCommentWords as $word) {
+                if ($word >= 4) {
+                    array_push($commentWords, $word);
+                }
+            }
+
+            $commentCoincidence = $tagMaker->commentCoincidenceWithActivity($tagBusiness->selectActivity($_POST['activityid']), $commentWords);
 
             $comment->setActivityId($_POST['activityid']);
             $comment->setCommentDescription($_POST['commentdescription']);
             $comment->setCommentActor($_POST['commentactor']);
             $comment->setCommentDate(date("Y-m-d"));
+            $comment->setCommentCoincidence($commentCoincidence);
             $activity->setActivityId($_POST['activityid']);
+
 
             $result = $commentBusiness->insert($comment);
             $resulta = $activityBusiness->updateComment($activity);
 
             if ($result == 1 and $resulta == 1) {
-                header("location: ../view/AdministrativeCommentView.php?success=inserted");
+                print_r($commentCoincidence);
+
+                // header("location: ../view/AdministrativeCommentView.php?success=inserted");
             } else {
                 header("location: ../view/AdministrativeCommentView.php?error=dbError");
             }
@@ -65,17 +86,33 @@ if (isset($_POST['create'])) {
             $comment = new Comment();
             $activityBusiness = new ActivityBusiness();
             $activity = new Activity();
+            $tagBusiness = new TagBusiness();
+            $tagMaker = new TagMaker();
+            $allCommentWords = explode(' ', $_POST['commentdescription']);
+            $commentWords = array();
+
+            foreach ($allCommentWords as $word) {
+                if (strlen($word) >= 4) {
+                    array_push($commentWords, $word);
+                }
+            }
+
+            $activityTags = $tagBusiness->selectActivity($_POST['activityid']);
+            $commentCoincidence = $tagMaker->commentCoincidenceWithActivity($activityTags, $commentWords);
 
             $comment->setActivityId($_POST['activityid']);
             $comment->setCommentDescription($_POST['commentdescription']);
             $comment->setCommentActor(SSession::getInstance()->user['actorid']);
             $comment->setCommentDate(date("Y-m-d"));
+            $comment->setCommentCoincidence($commentCoincidence);
             $activity->setActivityId($_POST['activityid']);
+
 
             $result = $commentBusiness->insert($comment);
             $resulta = $activityBusiness->updateComment($activity);
 
             if ($result == 1 and $resulta == 1) {
+
                 header("location: ../view/CommentView.php?id=" . $_POST['activityid'] . "&title=" . $_POST['activitytitle'] . "&des=" . $_POST['activitydes'] . "&success=inserted");
             } else {
                 header("location: ../view/CommentView.php?id=" . $_POST['activityid'] . "&title=" . $_POST['activitytitle'] . "&des=" . $_POST['activitydes'] . "&error=dbError");

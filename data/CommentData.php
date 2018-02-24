@@ -25,12 +25,11 @@ class CommentData {
 
     function insert(Comment $comment) {
 
-        echo '<script language="javascript">alert("juas");</script>';
         $lastid = $this->getlastid();
 
-        $query = $this->db->prepare("INSERT INTO tbcomment VALUES(:commentid,:activityid,:commentdescription,:commentcreated,:commentactor,:commentstate);");
+        $query = $this->db->prepare("INSERT INTO tbcomment VALUES(:commentid,:activityid,:commentdescription,:commentcreated,:commentactor, :commentcoincidence,:commentstate);");
         $query->execute(array('commentid' => $lastid, 'activityid' => $comment->getActivityId(), 'commentdescription' => $comment->getCommentDescription(),
-            'commentcreated' => $comment->getCommentDate(), 'commentactor' => (int) $comment->getCommentActor(), 'commentstate' => 1));
+            'commentcreated' => $comment->getCommentDate(), 'commentactor' => (int) $comment->getCommentActor(), 'commentcoincidence'=> (int) $comment->getCommentCoincidence(), 'commentstate' => 1));
         $query->fetch();
         $query->closeCursor();
 
@@ -122,7 +121,7 @@ class CommentData {
 //End select
 
     function selectidActivity($idActivity) {
-        $query = $this->db->prepare("SELECT c.commentid,c.activityid,c.commentdescription,c.commentcreated,c.commentstate,a.actormail FROM tbcomment c INNER JOIN tbactor a on c.commentactor = a.actorid and c.commentstate = 1 WHERE c.activityid =" . $idActivity . ";");
+        $query = $this->db->prepare("SELECT c.commentid,c.activityid,c.commentdescription,c.commentcreated,c.commentstate,a.* FROM tbcomment c INNER JOIN tbactor a on c.commentactor = a.actorid and c.commentstate = 1 WHERE c.activityid =" . $idActivity . ";");
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();

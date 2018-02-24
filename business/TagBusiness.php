@@ -18,8 +18,8 @@ class TagBusiness {
         //End insert
     }
 
-    function selectAll() {
-        return $this->data->selectAll();
+    function selectActivity($activityId) {
+        return $this->data->selectActivity($activityId);
         //End selectAll
     }
 

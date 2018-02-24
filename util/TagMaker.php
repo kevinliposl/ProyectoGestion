@@ -92,4 +92,28 @@ class TagMaker {
         return $concepts;
     }
 
+    function commentCoincidenceWithActivity($activityTags, $commentWords) {
+        $activityTagMaxSize = count($activityTags);
+        $commentTagCoincidence = 0;
+
+        foreach ($commentWords as $commentWord) {
+
+            foreach ($activityTags as $activityTag) {
+
+                $currentWord = $activityTag[1];
+
+
+                if (strcasecmp($commentWord, $currentWord) == 0) {
+                    if ($commentTagCoincidence == 0) {
+                        $commentTagCoincidence = 1;
+                    } else {
+                        $commentTagCoincidence = $commentTagCoincidence + 1;
+                    }
+                }
+            }
+        }
+
+        return $commentTagCoincidence;
+    }
+
 }
