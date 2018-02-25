@@ -145,3 +145,12 @@ CREATE TABLE tbtag(
     tagword VARCHAR(100) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT PRIMARY KEY(tagactivityid, tagword)
 );
+
+CREATE TABLE tbadm(
+    adminid INTEGER,
+    password VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    CONSTRAINT PRIMARY KEY(adminid)
+);
+
+insert into tbactor values(1,'admin@adm.com');
+insert into tbadm values(1,'1234')
