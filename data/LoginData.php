@@ -10,7 +10,7 @@ class LoginData {
     }
 
     function authenticate(Login $login) {
-        $profile = array('student' => 'student', 'professor' => 'professor', 'administrative' => 'administrative', 'adm' => 'adm');
+        $profile = array('student' => 'student', 'professor' => 'professor', 'administrative' => 'administrative', 'admin' => 'admin');
         foreach ($profile as $var) {
             $query = $this->db->prepare("SELECT '" . $var . "' type, ac.*,tb.* FROM tbactor ac INNER JOIN tb" . $var . " tb ON ac.actorid = tb." . $var . "id WHERE ac.actormail=:mail AND tb." . $var . "password=:pass;");
             $query->execute(array('mail' => $login->getLoginMail(), 'pass' => $login->getLoginPassword()));
