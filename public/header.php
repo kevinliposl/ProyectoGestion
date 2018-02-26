@@ -20,7 +20,7 @@ RandomPassGenerator::getInstance();
                     <li><a href="../index.php"><div>Home</div></a></li> 
                     <?php if (!isset(SSession::getInstance()->user)) { ?>
                         <li><a href="RegisterView.php"><div>Registro</div></a></li>
-                        <li><a href="LoginView.php"><div>Iniciar Sesi&oa&oacute;n</div></a></li>
+                        <li><a href="LoginView.php"><div>Iniciar Sesi&oacute;n</div></a></li>
                     <?php }if (isset(SSession::getInstance()->user)) {
                         if(SSession::getInstance()->user['type'] == "adm"){?>
                         <li><a href="#"><div>Usuarios</div></a>

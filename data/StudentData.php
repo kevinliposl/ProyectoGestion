@@ -32,7 +32,7 @@ class StudentData {
     }
 
     private function insertActor(Student $student) {
-        $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
+        $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail,0);");
         $queryInsertActor->execute(array('actorid' => $student->getStudentid(), 'actormail' => $student->getStudentmail()));
         $queryInsertActor->fetch();
         $queryInsertActor->closeCursor();
