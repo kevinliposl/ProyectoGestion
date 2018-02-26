@@ -1,26 +1,6 @@
 CREATE DATABASE ucrpagecenter;
 USE ucrpagecenter;
 
-truncate table tbtag;
-truncate table tbactivity;
-truncate table tbevent;
-truncate table tbpost;
-truncate table tbcomment;
-truncate table tbactor;
-truncate table tbprofessor;
-truncate table tbadministrative;
-truncate table tbstudent;
-
-
-SELECT * FROM tbtag WHERE tagactivityid=1;
-select * from tbactor;
-select * from tbcomment;
-select count(*) from tbtag;
-select * from tbtag;
-select * from tbactivity;
-select * from tbevent;
-select * from tbpost;
-
 CREATE TABLE tbuniversity(
     universityid INTEGER,
     universityname VARCHAR(100) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -152,6 +132,3 @@ CREATE TABLE tbadmin(
     adminpassword VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT PRIMARY KEY(adminid)
 );
-
-insert into tbactor values(1,'admin@adm.com');
-insert into tbadm values(1,'1234');
