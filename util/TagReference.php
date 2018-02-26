@@ -10,7 +10,12 @@ class TagReference {
         
         $retorna = [];
         
+        $size=0;
+        
         foreach ($entradas as $entrada) {
+            
+                 $size = $size + 1;
+            array_push($retorna, $size);
             
             $data = array("a" => "a");
         
@@ -37,10 +42,10 @@ class TagReference {
                     }                    
                 }                
             }//End if(!$response)
-            array_push($retorna, ';');
+       
             
         }//End foreach ($entradas as $entrada)
-        
+      
         return $retorna;
         
     }//End sendGet
@@ -48,8 +53,12 @@ class TagReference {
      public function sendGetConcepts($entradas)
         {
              $retorna = [];
+             $size=0;
+        
         
         foreach ($entradas as $entrada) {
+              $size = $size + 1;
+            array_push($retorna, $size);
             
             $data = array("a" => "a");
         
@@ -76,8 +85,9 @@ class TagReference {
                     }                    
                 }                
             }//End if(!$response)
-            
+           
         }//End foreach ($entradas as $entrada)
+
         return $retorna;
         }
 

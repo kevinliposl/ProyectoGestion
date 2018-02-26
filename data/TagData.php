@@ -11,9 +11,9 @@ class TagData {
 
     function insert(array $words) {
         foreach ($words as $word) {
-            $queryInsertTag = $this->db->prepare("INSERT INTO tbtag VALUES (:idactivity,:word);");
+            $queryInsertTag = $this->db->prepare("INSERT INTO tbtag VALUES (:idactivity,:word,:relation);");
 
-            $queryInsertTag->execute(array('idactivity' => $word->getTagactivityid(), 'word' => $word->getTagword()));
+            $queryInsertTag->execute(array('idactivity' => $word->getTagactivityid(), 'word' => $word->getTagword(), 'relation' => $word->getTagRelation()));
             $queryInsertTag->fetch();
             $queryInsertTag->closeCursor();
         }
