@@ -99,10 +99,10 @@ CREATE TABLE tbadministrative(
 
 CREATE TABLE tbactivity(
     activityid INTEGER NOT NULL,
-    createddate DATE NOT NULL,
-    updatedate DATE NOT NULL,
-    likecount INTEGER NOT NULL,
-    commentcount INTEGER NOT NULL,
+    activitycreateddate DATE NOT NULL,
+    activityupdatedate DATE NOT NULL,
+    activitylikecount INTEGER NOT NULL,
+    activitycommentcount INTEGER NOT NULL,
     activitytitle VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     activitydescription varchar(255) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     activityestate SMALLINT DEFAULT 1 NOT NULL,
@@ -111,25 +111,25 @@ CREATE TABLE tbactivity(
 );
 
 CREATE TABLE tbevent(
-    activityid INTEGER NOT NULL,
+    eventid INTEGER NOT NULL,
     eventplace VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     eventdate DATE NOT NULL,
     eventhour TIME NOT NULL,
-    dayafter INTEGER NOT NULL,
-    daybefore INTEGER NOT NULL,
+    eventdayafter INTEGER NOT NULL,
+    eventdaybefore INTEGER NOT NULL,
     eventestate SMALLINT DEFAULT 1 NOT NULL,
     CONSTRAINT PRIMARY KEY(activityid)
 );
 
 CREATE TABLE tbpost(
-    activityid INTEGER NOT NULL,
+    postid INTEGER NOT NULL,
     poststate SMALLINT DEFAULT 1 NOT NULL,
     CONSTRAINT PRIMARY KEY(activityid)
 );
 
 CREATE TABLE tbcomment(
     commentid INTEGER NOT NULL,
-    activityid INTEGER NOT NULL,
+    commentactivityid INTEGER NOT NULL,
     commentdescription VARCHAR(255) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     commentcreated DATE NOT NULL,
     commentactor INTEGER NOT NULL,
@@ -144,9 +144,9 @@ CREATE TABLE tbtag(
     CONSTRAINT PRIMARY KEY(tagactivityid, tagword)
 );
 
-CREATE TABLE tbadm(
+CREATE TABLE tbadmin(
     adminid INTEGER,
-    password VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    adminpassword VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT PRIMARY KEY(adminid)
 );
 
