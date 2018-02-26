@@ -24,7 +24,7 @@ class LoginData {
     }
 
     function recoverPassword(Login $login) {
-        $profile = array('student' => 'student', 'professor' => 'professor', 'administrative' => 'administrative', 'adm' => 'adm');
+        $profile = array('student' => 'student', 'professor' => 'professor', 'administrative' => 'administrative', 'admin' => 'admin');
         foreach ($profile as $var) {
             $query = $this->db->prepare("SELECT '" . $var . "' type, tb." . $var . "password, ac.actormail FROM tbactor ac INNER JOIN tb" . $var . " tb ON ac.actorid = tb." . $var . "id WHERE ac.actormail=:mail;");
             $query->execute(array('mail' => $login->getLoginMail()));
