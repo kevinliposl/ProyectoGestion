@@ -11,6 +11,7 @@ truncate table tbprofessor;
 truncate table tbadministrative;
 truncate table tbstudent;
 
+
 SELECT * FROM tbtag WHERE tagactivityid=1;
 select * from tbactor;
 select * from tbcomment;

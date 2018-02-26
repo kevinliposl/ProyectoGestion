@@ -31,6 +31,8 @@ if (isset($_POST['create'])) {
             $entireWord = strtolower($_POST['title'] . " " . $_POST['description']);
             $entireArray = $tagMaker->makeTags($entireWord, $activityID->getActivityId());
 
+            
+
             //inserta todo el arreglo con posibles palabras relacionadas
             $tagBusiness->insert($entireArray);
 
@@ -100,7 +102,7 @@ if (isset($_POST['create'])) {
             $result = $postBusiness->update($post);
 
             if ($result == 1 and $resulta == 1) {
-                header("location: ../view/AdministrativePostView.php?success=inserted");
+               // header("location: ../view/AdministrativePostView.php?success=inserted");
             } else {
                 header("location: ../view/AdministrativePostView.php?error=dbError");
             }

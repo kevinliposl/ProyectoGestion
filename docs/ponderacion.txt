@@ -1,0 +1,6 @@
+(cantidad unitaria * 100 / total de unidades)--(cantidad unitaria / entre 100)                                            --    (cantidad de palabras * % unitario de grupo * porcentaje total de grupo / 100)
+aire 31%                                       -------una palabra representa un 2,20% aproximadamente=100% de la palabra
+concierto 28%                                 ------una palabra representa un 2,5% aproximadamente=100% de la palabra
+libre 41%                                      ------una palabra representa un 1,70% aproximadamente=100% de la palabra
+------------
+100%

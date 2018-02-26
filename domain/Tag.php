@@ -4,7 +4,7 @@ class Tag {
 
     private $tagactivityid;
     private $tagword;
-    private $tagrelation;
+    private $tagRelation;
 
     function getTagactivityid() {
         return $this->tagactivityid;
@@ -27,14 +27,15 @@ class Tag {
     function setTagword($tagword) {
         $this->tagword = $tagword;
     }
-    
-    function getTagrelation() {
-        return $this->tagrelation;
+
+    function getTagRelation() {
+        return $this->tagRelation;
     }
 
-    function setTagrelation($tagrelation) {
-        $this->tagrelation = $tagrelation;
+    function setTagRelation($tagRelation) {
+        $this->tagRelation = $tagRelation;
     }
+
 
 
 //End setActivitytag
