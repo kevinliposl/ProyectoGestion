@@ -58,6 +58,7 @@ CREATE TABLE tbcareer(
 CREATE TABLE tbactor(
     actorid INTEGER,
     actormail VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    actorchangedpassword SMALLINT DEFAULT 0 NOT NULL,
     CONSTRAINT PRIMARY KEY(actorid)
 );
 
