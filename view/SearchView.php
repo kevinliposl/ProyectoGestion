@@ -61,7 +61,7 @@ if (!isset(SSession::getInstance()->user)) {
         $('#message').text('Espere...');
 
         $.post('../business/SearchBusiness.php', args, function (data) {
-            $('#message').text("<a href='#'></a> ");//JSON.stringify(data.result));
+            $('#message').text("<a href='#'>Evento</a> ");//JSON.stringify(data.result));
             for (var dat in data.result) {
                 $('#message').text();
             }
