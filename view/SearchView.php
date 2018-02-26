@@ -23,19 +23,19 @@ if (!isset(SSession::getInstance()->user)) {
             <input type ='text' id="searchGeneral" placeholder="Busqueda General"/>
         </td>
         <td>
-            <input type ='date' id="searchDate" placeholder="Fecha"/>
-        </td>
-        <td>
             <select id="typeActivity"style="width: 100%;">
                 <option value="event">Evento</option>
                 <option value="post">Publicaci&oacute;n</option>
             </select>
         </td>
         <td>
-            <input type="text" id="searchPlays" placeholder="Lugar">
+            <input type ='date' id="searchDate" placeholder="Fecha"/>
         </td>
         <td>
-            <input type="datetime" id="searchHour" placeholder="Hora">
+            <input type="text" id="searchPlace" placeholder="Lugar">
+        </td>
+        <td>
+            <input type="time" id="searchHour" placeholder="Hora">
         </td>
         <td>
             <input type="text" id="searchActor" placeholder="Actor">
@@ -50,14 +50,14 @@ if (!isset(SSession::getInstance()->user)) {
 <script>
     $("#search").click(function () {
         var args = {
-            'typeActivity': $('#typeActivity').val(),
-            'searchGeneral': $('#searchGeneral').val(),
-            'searchDate': $('#searchDate').val().trim(),
-            'searchPlays': $('#searchPlays').val(),
-            'searchActor': $('#searchActor').val(),
+            'typeActivity': $('#typeActivity').val().trim(),
+            'searchGeneral': $('#searchGeneral').val().trim(),
+            'searchDate': $('#searchDate').val(),
+            'searchHour': $('#searchHour').val(),
+            'searchPlace': $('#searchPlace').val().trim(),
+            'searchActor': $('#searchActor').val().trim(),
             'select': 'select'
         };
-
         $('#message').text('Espere...');
 
         $.post('../business/SearchBusiness.php', args, function (data) {

@@ -3,32 +3,32 @@
 require '../domain/Login.php';
 require_once '../util/SSession.php';
 require_once '../util/SMail.php';
+require_once '../util/RSA.php';
 
 if (isset($_POST['login'])) {
-    if (isset($_POST['loginPassword'])) {
-        if (strlen($_POST['loginPassword']) > 0) {
-
+    if (isset($_POST['loginPassword']) && isset($_POST['loginMail'])) {
+        $keyPrivate = SSession::getInstance()->keys['privatekey'];
+        $email = RSA::getInstance()->decrypt($keyPrivate, $_POST["loginMail"]);
+        $pass = RSA::getInstance()->decrypt($keyPrivate, $_POST["loginPassword"]);
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($pass)) {
             $loginBusiness = new LoginBusiness();
             $login = new Login();
 
-            $login->setLoginMail($_POST['loginMail']);
-            $login->setLoginPassword($_POST['loginPassword']);
-
+            $login->setLoginMail($email);
+            $login->setLoginPassword($pass);
             $result = $loginBusiness->authenticate($login);
 
-            if (isset($result)) {
-
+            if ($result != false) {
                 SSession::getInstance()->user = $result;
-
-                header("location: ../index.php");
+                echo json_encode(array('result' => 1));
             } else {
-                header("location: ../view/LoginView.php?error=dbError");
+                echo json_encode(array('result' => 0));
             }
         } else {
-            header("location: ../view/LoginView.php?error=format");
+            echo json_encode(array('result' => -1));
         }
     } else {
-        header("location: ../view/LoginView.php?error=empty");
+        echo json_encode(array('result' => -2));
     }
 }
 if (isset($_GET['signout'])) {
@@ -47,7 +47,7 @@ if (isset($_POST['recover'])) {
 
             $login->setLoginMail($_POST['actormail']);
 
-            $result = $loginBusiness->authenticate($login);
+            $result = $loginBusiness->recoverPassword($login);
             if (isset($result)) {
                 while (!SMail::getInstance()->sendMail($login->getLoginMail(), 'Recordatorio de contraseña', 'La contraseña del sitio es la siguiente ' . $result[$result['type'] . 'password']));
                 header("location: ../view/RecoverPasswordView.php?success=recover");
@@ -71,12 +71,12 @@ class LoginBusiness {
         $this->data = new LoginData();
     }
 
-    function authenticate(Login $login) {
-        return $this->data->authenticate($login);
-    }
-
     function recoverPassword(Login $login) {
         return $this->data->recoverPassword($login);
+    }
+
+    function authenticate(Login $login) {
+        return $this->data->authenticate($login);
     }
 
 }

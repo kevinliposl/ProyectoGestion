@@ -11,8 +11,8 @@ class SearchData {
 
     function select(Search $search) {
         $tmp = $this->createQuery($search);
-        return $tmp;
         $query = $this->db->prepare($tmp);
+        //return $tmp;
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
@@ -22,15 +22,35 @@ class SearchData {
     private function createQuery(Search $search) {
         $query = "SELECT DISTINCT a.activityid, a.* FROM tbactivity a ";
         if ($search->getTypeActivity() != NULL) {
-            $query .= 'INNER JOIN tbtag t ON a.activityid = t.tagactivityid INNER JOIN tb' . $search->getTypeActivity() . ' ON a.id=tb' . $search->getTypeActivity() . '.id ';
+            $query .= 'INNER JOIN tbtag t ON a.activityid = t.tagactivityid INNER JOIN tb' . $search->getTypeActivity() . ' ON a.activityid=tb' . $search->getTypeActivity() . '.activityid ';
         }
         if ($search->getSearchDate() != NULL) {
-            $query .= 'WHERE a.createddate=' . $search->getSearchDate() . ' OR a.updatedate=' . $search->getSearchDate() . ' ';
+            $query .= strpos($query, 'WHERE') == NULL ? ' WHERE ' : '';
+            $query .= 'a.createddate=' . $search->getSearchDate() . ' OR a.updatedate=' . $search->getSearchDate() . ' ';
+        }
+        if ($search->getSearchHour() != NULL && $search->getTypeActivity() == 'event') {
+            if (strpos($query, 'WHERE') == NULL) {
+                $query .= " WHERE tbevent.eventhour='" . $search->getSearchHour() . ":00'";
+            } else {
+                $query .= " OR tbevent.eventhour='" . $search->getSearchHour() . ":00'";
+            }
+        }
+        if ($search->getSearchPlace() != NULL && $search->getTypeActivity() == 'event') {
+            if (strpos($query, 'WHERE') == NULL) {
+                $query .= " WHERE tbevent.eventplace LIKE'%" . strtolower($search->getSearchPlace()) . "%'";
+            } else {
+                $query .= " OR tbevent.eventplace LIKE'%" . strtolower($search->getSearchPlace()) . "%'";
+            }
         }
         if ($search->getSearchGeneral() != NULL) {
-            $query .= strpos($query, 'WHERE') !== NULL ? '' : 'WHERE';
             foreach ($search->getSearchGeneral() as $var) {
-                $query .= ' OR t.tagword="' . $var . '"';
+                if (trim($var) != '') {
+                    if (strpos($query, "WHERE") == NULL) {
+                        $query .= " WHERE t.tagword LIKE '%" . strtolower($var) . "%'";
+                    } else {
+                        $query .= " OR t.tagword LIKE '%" . strtolower($var) . "%'";
+                    }
+                }
             }
         }
         $query .= ';';

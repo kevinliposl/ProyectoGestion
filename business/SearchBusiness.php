@@ -9,9 +9,10 @@ if (isset($_POST['select'])) {
     $search = new Search;
 
     $search->setTypeActivity(isset($_POST['typeActivity']) ? $_POST['typeActivity'] : NULL);
+    $search->setSearchHour(isset($_POST['searchHour']) ? $_POST['searchHour'] : NULL);
     $search->setSearchGeneral(isset($_POST['searchGeneral']) ? explode(' ', $_POST['searchGeneral']) : NULL);
     $search->setSearchDate(isset($_POST['searchDate']) ? $_POST['searchDate'] : NULL);
-    $search->setSearchPlays(isset($_POST['searchPlays']) ? $_POST['searchPlays'] : NULL);
+    $search->setSearchPlace(isset($_POST['searchPlace']) ? $_POST['searchPlace'] : NULL);
     $search->setSearchActor(isset($_POST['searchActor']) ? $_POST['searchActor'] : NULL);
 
     $result = $searchBusiness->select($search);
