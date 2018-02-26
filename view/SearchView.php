@@ -61,7 +61,10 @@ if (!isset(SSession::getInstance()->user)) {
         $('#message').text('Espere...');
 
         $.post('../business/SearchBusiness.php', args, function (data) {
-            $('#message').text(JSON.stringify(data.result));
+            $('#message').text("<a href='#'></a> ");//JSON.stringify(data.result));
+            for (var dat in data.result) {
+                $('#message').text();
+            }
         }, 'json').fail(function () {
             alert('Error al acceder al servidor');
         });
