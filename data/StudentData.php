@@ -1,5 +1,7 @@
 <?php
 
+require_once '../util/SSession.php';
+
 class StudentData {
 
     private $db;
@@ -71,6 +73,12 @@ class StudentData {
     }
 
     function update(Student $student) {
+        if($student->getStudentpassword() != SSession::getInstance()->user['studentpassword']){
+           $queryP =$this->db->prepare("UPDATE tbactor set actorchangedpassword = 1 WHERE actorid =".SSession::getInstance()->user['actorid']);
+           $queryP->execute();
+           $queryP->fetch();
+           $queryP->closeCursor(); 
+        }
         $query = $this->db->prepare("UPDATE tbstudent s INNER JOIN tbactor a ON a.actorid = s.studentid "
                 . "SET s.studentlicense=:license, s.studentname=:name, s.studentlastname1=:lastname1, s.studentlastname2=:lastname2,"
                 . "s.studentpassword=:password, s.studentcareer1=:career1, s.studentcareer2=:career2, a.actormail=:mail WHERE s.studentid=:id;");
