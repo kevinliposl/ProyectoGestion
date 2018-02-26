@@ -37,6 +37,7 @@ class TagReference {
                     }                    
                 }                
             }//End if(!$response)
+            array_push($retorna, ';');
             
         }//End foreach ($entradas as $entrada)
         

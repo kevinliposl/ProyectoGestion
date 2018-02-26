@@ -26,6 +26,8 @@ class TagMaker {
 
         // funciones
         $synonymous = $this->synonymousExploder($words, $activityId);
+        
+        
 
         $concepts = $this->conceptsExploder($words, $activityId);
 
