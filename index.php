@@ -9,7 +9,6 @@ if (isset(SSession::getInstance()->user)) {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -60,7 +59,7 @@ if (isset(SSession::getInstance()->user)) {
                         <?php } else { ?>
                             <li><a href="#"><div>Usuario</div></a>
                                 <ul>
-                                    <li><a href="view/profileView.php"><div>Perfil</div></a></li>
+                                    <li><a href="view/ProfileView.php"><div>Perfil</div></a></li>
                                 </ul>
                             </li>
                             <li><a href="#"><div>Actividades</div></a>

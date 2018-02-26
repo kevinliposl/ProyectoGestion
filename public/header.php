@@ -52,7 +52,7 @@ RandomPassGenerator::getInstance();
                         <?php }else{?>
                             <li><a href="#"><div>Usuario</div></a>
                             <ul>
-                                <li><a href="profileView.php"><div>Perfil</div></a></li>
+                                <li><a href="ProfileView.php"><div>Perfil</div></a></li>
                             </ul>
                         </li>
                         <li><a href="#"><div>Actividades</div></a>
