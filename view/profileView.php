@@ -26,6 +26,10 @@ if (!isset(SSession::getInstance()->user)) {
 
 <?php
 
+if (SSession::getInstance()->user['actorchangedpassword'] == 0) {
+    echo '<h1>Cambie su contrase&ncaron;a</h1>';
+}
+
 if (SSession::getInstance()->user['type'] == "student") {//estudiante
     echo "<table>";
     echo "<tr>";

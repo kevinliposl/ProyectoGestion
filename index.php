@@ -5,7 +5,7 @@ require_once 'util/SSession.php';
 RandomPassGenerator::getInstance();
 if (isset(SSession::getInstance()->user)) {
     if (SSession::getInstance()->user['actorchangedpassword'] == 0) {
-        header('Location: view/ChangePasswordView.php');
+        header('Location: view/ProfileView.php');
     }
 }
 ?>
