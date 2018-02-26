@@ -14,22 +14,21 @@ class ActivityData {
         $this->act = new Activity();
     }
 
-//End construct
-
-    function insert(Activity $activity) {
-
-        $queryLastId = $this->db->prepare("SELECT MAX(activityid) AS activityid  FROM tbactivity");
+    private function getlastid() {
+        $queryLastId = $this->db->prepare("SELECT MAX(activityid) AS activityid FROM tbactivity");
         $queryLastId->execute();
         $resultLastId = $queryLastId->fetch();
         $queryLastId->closeCursor();
         $nextId = 1;
-
-        //ultimo id
         if ($resultLastId['activityid'] != NULL) {
-            $nextId = (int) $resultLastId['activityid'] + 1;
-        }//End if ($resultLastId['activityid'] != NULL)        
+            $nextId = intval($resultLastId['activityid'] + 1);
+        }
+    }
+
+    function insert(Activity $activity) {
+        $this->act->setActivityId($this->getlastid());
         $query = $this->db->prepare(
-                "INSERT INTO tbactivity VALUES (" . $nextId . ",'" .
+                "INSERT INTO tbactivity VALUES (" . $this->act->getActivityId() . ",'" .
                 $activity->getCreateDate() . "','" .
                 $activity->getUpdateDate() . "'," .
                 $activity->getLikeCount() . "," .
@@ -40,32 +39,25 @@ class ActivityData {
                 $activity->getActivityEnclosureId() . ");"
         );
         $query->execute();
-        $result = $query->fetch();
+        $query->fetch();
         $query->closeCursor();
-        $this->act->setActivityId($nextId);
 
-        if (!$result) {
-            return 1;
-        } else {
-            return 0;
-        }//End if-else(!$result)
+        return $this->select($this->act->getActivityId())->getActivityId() ? 1 : 0;
+        //End insert
     }
-
-//End insert
 
     function selectAll() {
         $query = $this->db->prepare("SELECT * from tbactivity where activityestate=:state;");
         $query->execute(array('state' => 0));
-        $result = $query->fetchAll(); //PDO::FETCH_ASSOC
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
 
         return $result;
+        //End selectALL
     }
 
-//End selectALL
-
     function select($idActivity) {
-        $query = $this->db->prepare("SELECT * FROM tbactivity WHERE activityid=" . $idActivity . ";");
+        $query = $this->db->prepare("SELECT * FROM tbactivity WHERE activitystate=1 AND activityid=" . $idActivity . ";");
         $query->execute();
         $row = $query->fetch();
 
@@ -79,50 +71,37 @@ class ActivityData {
         $currentActivity->setActivityDescription($row['activitydescription']);
 
         return $currentActivity;
+        //End select
     }
-
-//End select
 
     function delete(Activity $activity) {
-        $query = $this->db->prepare("UPDATE tbactivity SET activityestate=:state WHERE activityid=:id;");
+        $query = $this->db->prepare("UPDATE tbactivity SET activitystate=:state WHERE activityid=:id;");
         $query->execute(array('state' => 1, 'id' => $activity->getActivityId()));
-        $result = $query->fetch(PDO::FETCH_ASSOC);
-        if (!$result) {
-            return 1;
-        } else {
-            return 0;
-        }//End if (!$result)
+        $query->fetch(PDO::FETCH_ASSOC);
+        return !$this->select($activity->getActivityId())->getActivityId() ? 1 : 0;
+        //End delete
     }
-
-//End delete
 
     function getActivity() {
         return $this->act;
+        //End getActivity
     }
-
-//End getActivity
 
     function update(Activity $activity) {
-        $query = $this->db->prepare("UPDATE tbactivity "
-                . "SET activityid =" . $activity->getActivityId() .
-                ", activitytitle='" . $activity->getActivityTitle() .
-                "', activitydescription='" . $activity->getActivityDescription() .
-                "' WHERE activityid=" . $activity->getActivityId() . ";");
+        $query = $this->db->prepare("UPDATE tbactivity SET activitytitle=:title,activitydescription=:description WHERE activityid=:id;");
         $query->execute();
-        $result = $query->fetch();
+        $query->fetch();
         $query->closeCursor();
 
-        if (!$result) {
+        $activitytmp = $this->select($activity->getActivityId());
+        if ($activitytmp->getActivityDescription() != $activity->getActivityDescription() || $activitytmp->getActivityTitle() != $activity->getActivityTitle()) {
             return 1;
-        } else {
-            return 0;
-        }//End if (!$result)
+        }
+        return 0;
+        //End update
     }
 
-//End update
-
     function updateComment(Activity $activity) {
-
         $queryLastId = $this->db->prepare("SELECT MAX(commentcount) AS commentcount  FROM tbactivity");
         $queryLastId->execute();
         $resultLastId = $queryLastId->fetch();
@@ -148,17 +127,13 @@ class ActivityData {
         }//End if (!$result)
     }
 
-//End update
-
     function CountCommentDelete(Activity $activity) {
-
         $queryLastId = $this->db->prepare("SELECT MAX(commentcount) AS commentcount  FROM tbactivity");
         $queryLastId->execute();
         $resultLastId = $queryLastId->fetch();
         $queryLastId->closeCursor();
         $nextId = 1;
 
-        //ultimo id
         if ($resultLastId['commentcount'] != NULL) {
             $nextId = (int) $resultLastId['commentcount'] - 1;
         }//End if ($resultLastId['activityid'] != NULL) 
@@ -175,9 +150,8 @@ class ActivityData {
         } else {
             return 0;
         }//End if (!$result)
+        //End update
     }
 
-//End update
-}
-
 //End class ActivityData
+}
