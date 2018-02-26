@@ -4,6 +4,8 @@ require '../domain/Student.php';
 require_once '../util/RandomPassGenerator.php';
 require_once '../util/SMail.php';
 require_once '../util/SSession.php';
+require_once '../data/LoginData.php';
+require_once '../domain/Login.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['actormail']) && isset($_POST['actorname']) && isset($_POST['actorlastname1']) && isset($_POST['actorlastname2']) && isset($_POST['actorcareer1'])) {
@@ -66,15 +68,16 @@ if (isset($_POST['create'])) {
             $student->setStudentcareer1((int) $_POST['studentcareer1']);
             $student->setStudentcareer2((int) $_POST['studentcareer2']);
             $student->setStudentpassword($_POST['studentpassword']);
-            $update = array('studentid' => $_POST['studentid'], 'type' => 'student', 'studentlicense' => $_POST['studentlicense'],
-                'studentlicense' => $_POST['studentlicense'], 'studentmail' => $_POST['studentmail'], 'studentname' => $_POST['studentname'],
-                'studentlastname1' => $_POST['studentlastname1'], 'studentlastname2' => $_POST['studentlastname2'],
-                'studentcareer1' => $_POST['studentcareer1'], 'studentcareer2' => $_POST['studentcareer2'], 'studentpassword' => $_POST['studentpassword']);
-            SSession::getInstance()->user = $update;
 
             $result = $studentBusiness->update($student);
 
             if ($result == 1) {
+                $login = new Login();
+                $login->setLoginMail($_POST['studentmail']);
+                $login->setLoginPassword($_POST['studentpassword']);
+                $logind = new LoginData();
+                $logind->authenticate($login);
+                SSession::getInstance()->user = $logind;
                 header("location: ../view/StudentView.php?success=inserted");
             } else {
                 header("location: ../view/StudentView.php?error=dbError");

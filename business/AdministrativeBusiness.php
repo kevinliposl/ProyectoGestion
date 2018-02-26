@@ -3,6 +3,9 @@
 require '../domain/Administrative.php';
 require_once '../util/RandomPassGenerator.php';
 require_once '../util/SMail.php';
+require_once '../util/SSession.php';
+require_once '../data/LoginData.php';
+require_once '../domain/Login.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['actormail']) && isset($_POST['actorname']) && isset($_POST['actorlastname1']) && isset($_POST['actorlastname2']) && isset($_POST['actorarea'])) {
@@ -70,6 +73,12 @@ if (isset($_POST['create'])) {
 
             $result = $administrativeBusiness->update($administrative);
             if ($result == 1) {
+                $login = new Login();
+                $login->setLoginMail($_POST['administrativemail']);
+                $login->setLoginPassword($_POST['administrativepassword']);
+                $logind = new LoginData();
+                $logind->authenticate($login);
+                SSession::getInstance()->user = $logind;
                 header("location: ../view/AdministrativeView.php?success=inserted");
             } else {
                 header("location: ../view/AdministrativeView.php?error=dbError");

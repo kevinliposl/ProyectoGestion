@@ -3,6 +3,9 @@
 require '../domain/Professor.php';
 require_once '../util/RandomPassGenerator.php';
 require_once '../util/SMail.php';
+require_once '../util/SSession.php';
+require_once '../data/LoginData.php';
+require_once '../domain/Login.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['actormail']) && isset($_POST['actorname']) && isset($_POST['actorlastname1']) && isset($_POST['actorlastname2'])) {
@@ -68,6 +71,12 @@ if (isset($_POST['create'])) {
             $result = $professorBusiness->update($professor);
 
             if ($result === 1) {
+                $login = new Login();
+                $login->setLoginMail($_POST['professormail']);
+                $login->setLoginPassword($_POST['professorpassword']);
+                $logind = new LoginData();
+                $logind->authenticate($login);
+                SSession::getInstance()->user = $logind;
                 header("location: ../view/ProfessorView.php?success=update");
             } else {
                 header("location: ../view/ProfessorView.php?error=dbError");
