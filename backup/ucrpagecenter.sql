@@ -119,13 +119,13 @@ CREATE TABLE tbevent(
     eventdayafter INTEGER NOT NULL,
     eventdaybefore INTEGER NOT NULL,
     eventestate SMALLINT DEFAULT 1 NOT NULL,
-    CONSTRAINT PRIMARY KEY(activityid)
+    CONSTRAINT PRIMARY KEY(eventid)
 );
 
 CREATE TABLE tbpost(
     postid INTEGER NOT NULL,
     poststate SMALLINT DEFAULT 1 NOT NULL,
-    CONSTRAINT PRIMARY KEY(activityid)
+    CONSTRAINT PRIMARY KEY(postid)
 );
 
 CREATE TABLE tbcomment(

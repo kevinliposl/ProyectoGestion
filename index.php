@@ -20,9 +20,10 @@ RandomPassGenerator::getInstance();
                     <li><a href="index.php"><div>Home</div></a></li>
                     <?php if (!isset(SSession::getInstance()->user)) { ?>
                         <li><a href="view/RegisterView.php"><div>Registro</div></a></li>
-                        <li><a href="view/LoginView.php"><div>Iniciar sesion</div></a></li>
-                    <?php }if (isset(SSession::getInstance()->user)) {
-                        if (SSession::getInstance()->user['type'] == "adm") {
+                        <li><a href="view/LoginView.php"><div>Iniciar Sesi&oacute;n</div></a></li>
+                        <?php
+                    }if (isset(SSession::getInstance()->user)) {
+                        if (SSession::getInstance()->user['type'] == "admin") {
                             ?>
                             <li><a href="#"><div>Usuario</div></a>
                                 <ul>
@@ -51,7 +52,7 @@ RandomPassGenerator::getInstance();
 
                             <li><a href="view/OrganChartView.php"><div>Organigrama</div></a></li> 
                             <li><a href="view/SearchView.php"><div>Busqueda</div></a></li>
-    <?php } else { ?>
+                        <?php } else { ?>
                             <li><a href="#"><div>Usuario</div></a>
                                 <ul>
                                     <li><a href="view/profileView.php"><div>Perfil</div></a></li>
@@ -67,16 +68,12 @@ RandomPassGenerator::getInstance();
                             </li>
                             <li><a href="view/OrganChartView.php"><div>Organigrama</div></a></li> 
                             <li><a href="view/SearchView.php"><div>Busqueda</div></a></li>
-    <?php } ?>
-
+                        <?php } ?>
                         <li><a href="business/LoginBusiness.php?signout='i'"><div>Cerrar Sesi&oacute;n</div></a></li>
-
-<?php } ?>
+                    <?php } ?>
                 </ul>
             </nav>
         </header>
-
-        <h1>INDEX</h1>
-
+        <h1>University Page Center</h1>
     </body>
 </html>
