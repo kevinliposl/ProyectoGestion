@@ -3,6 +3,7 @@
 require '../domain/Student.php';
 require_once '../util/RandomPassGenerator.php';
 require_once '../util/SMail.php';
+require_once '../util/SSession.php';
 
 if (isset($_POST['create'])) {
     if (isset($_POST['actormail']) && isset($_POST['actorname']) && isset($_POST['actorlastname1']) && isset($_POST['actorlastname2']) && isset($_POST['actorcareer1'])) {
