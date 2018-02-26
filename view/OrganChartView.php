@@ -1,5 +1,11 @@
 <?php
 
+require_once '../util/SSession.php';
+
+if (!isset(SSession::getInstance()->user)) {
+    header('location: ../index.php');
+}
+
 include_once '../business/UniversityBusiness.php';
 include_once '../business/HeadquarterBusiness.php';
 include_once '../business/EnclosureBusiness.php';

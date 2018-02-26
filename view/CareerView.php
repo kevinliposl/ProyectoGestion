@@ -6,6 +6,12 @@ $enclosureBusiness = new EnclosureBusiness();
 
 include_once '../business/UniversityBusiness.php';
 $universityBusiness = new UniversityBusiness();
+
+require_once '../util/SSession.php';
+
+if (!isset(SSession::getInstance()->user)) {
+    header('location: ../index.php');
+}
 ?>
 <table>
     <tr>

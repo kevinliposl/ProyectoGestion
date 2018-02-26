@@ -6,6 +6,12 @@ $commentBusinessF = new CommentBusiness();
 
 include_once '../business/ActivityBusiness.php';
 $activityBusiness = new ActivityBusiness();
+
+require_once '../util/SSession.php';
+
+if (!isset(SSession::getInstance()->user)) {
+    header('location: ../index.php');
+}
 ?>
 
 <?php

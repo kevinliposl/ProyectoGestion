@@ -1,12 +1,18 @@
 <?php
 include_once '../public/header.php';
-?>
+require_once '../util/SSession.php';
 
+if (!isset(SSession::getInstance()->user)) {
+    header('location: ../index.php');
+}
+
+?>
 <table>
     <thead>
         <tr>
             <th>Universidad</th>
-            <th id="form-th" style="display: none">Tipo de instalaci&oacute;n?</th>
+            <th id = "form-th" style = "display: none">Tipo de instalaci & oacute;
+                n?</th>
         </tr>
     </thead>
     <tbody>

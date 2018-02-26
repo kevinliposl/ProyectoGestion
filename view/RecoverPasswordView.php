@@ -1,5 +1,8 @@
 <?php
 include_once '../public/header.php';
+
+require_once '../util/SSession.php';
+
 ?>
 <table>
     <tr>

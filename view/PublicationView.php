@@ -1,8 +1,13 @@
 <?php
 
 include_once '../public/header.php';
-
 include_once '../business/EventBusiness.php';
+
+require_once '../util/SSession.php';
+
+if (!isset(SSession::getInstance()->user)) {
+    header('location: ../index.php');
+}
 ?>
 
 <?php

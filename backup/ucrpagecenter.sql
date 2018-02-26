@@ -20,19 +20,6 @@ select * from tbactivity;
 select * from tbevent;
 select * from tbpost;
 
-CREATE TABLE tbstudent(
-    studentid INTEGER,
-    studentlicense VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    studentname VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    studentlastname1 VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    studentlastname2 VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    studentcareer1 INTEGER NOT NULL,
-    studentcareer2 INTEGER,
-    studentpassword VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL CHECK(studentpassword > 7),
-    studentstate SMALLINT DEFAULT 1 NOT NULL,
-    CONSTRAINT PRIMARY KEY(studentid)
-);
-
 CREATE TABLE tbuniversity(
     universityid INTEGER,
     universityname VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -49,6 +36,15 @@ CREATE TABLE tbheadquarter(
     CONSTRAINT PRIMARY KEY(headquarterid)
 );
 
+CREATE TABLE tbenclosure(
+    enclosureid INTEGER,
+    enclosurename VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci,
+    enclosureheadquarterid INTEGER,
+    enclosureuniversityid INTEGER,
+    enclosurestate SMALLINT DEFAULT 1 NOT NULL,
+    CONSTRAINT PRIMARY KEY(enclosureid)
+);
+
 CREATE TABLE tbcareer(
     careerid INTEGER,
     careercode VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci,
@@ -59,13 +55,23 @@ CREATE TABLE tbcareer(
     CONSTRAINT PRIMARY KEY(careerid)
 );
 
-CREATE TABLE tbenclosure(
-    enclosureid INTEGER,
-    enclosurename VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci,
-    enclosureheadquarterid INTEGER,
-    enclosureuniversityid INTEGER,
-    enclosurestate SMALLINT DEFAULT 1 NOT NULL,
-    CONSTRAINT PRIMARY KEY(enclosureid)
+CREATE TABLE tbactor(
+    actorid INTEGER,
+    actormail VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    CONSTRAINT PRIMARY KEY(actorid)
+);
+
+CREATE TABLE tbstudent(
+    studentid INTEGER,
+    studentlicense VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    studentname VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    studentlastname1 VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    studentlastname2 VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    studentcareer1 INTEGER NOT NULL,
+    studentcareer2 INTEGER,
+    studentpassword VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL CHECK(studentpassword > 7),
+    studentstate SMALLINT DEFAULT 1 NOT NULL,
+    CONSTRAINT PRIMARY KEY(studentid)
 );
 
 CREATE TABLE tbprofessor(
@@ -91,13 +97,6 @@ CREATE TABLE tbadministrative(
     CONSTRAINT PRIMARY KEY(administrativeid)
 );
 
-CREATE TABLE tbactor(
-    actorid INTEGER,
-    actormail VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    CONSTRAINT PRIMARY KEY(actorid)
-);
-
-
 CREATE TABLE tbactivity(
     activityid INTEGER NOT NULL,
     createddate DATE NOT NULL,
@@ -110,7 +109,6 @@ CREATE TABLE tbactivity(
     activityenclosureid INTEGER NOT NULL,
     CONSTRAINT PRIMARY KEY(activityid)
 );
-
 
 CREATE TABLE tbevent(
     activityid INTEGER NOT NULL,
@@ -153,4 +151,4 @@ CREATE TABLE tbadm(
 );
 
 insert into tbactor values(1,'admin@adm.com');
-insert into tbadm values(1,'1234')
+insert into tbadm values(1,'1234');
