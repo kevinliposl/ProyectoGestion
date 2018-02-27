@@ -12,8 +12,8 @@ if (!isset(SSession::getInstance()->user)) {
 <table>
     <tr>
         <th>Busqueda General</th>
-        <th>Fecha</th>
         <th>Tipo de Actividad</th>
+        <th>Fecha</th>
         <th>Lugar</th>
         <th>Hora</th>
         <th>Actor</th>
