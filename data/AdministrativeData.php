@@ -73,11 +73,11 @@ class AdministrativeData {
     }
 
     function update(Administrative $administrative) {
-        if($administrative->getAdministrativepassword() != SSession::getInstance()->user['administrativepassword']){
-           $queryP =$this->db->prepare("UPDATE tbactor set actorchangedpassword = 1 WHERE actorid =".SSession::getInstance()->user['actorid']);
-           $queryP->execute();
-           $queryP->fetch();
-           $queryP->closeCursor(); 
+        if ($administrative->getAdministrativepassword() != SSession::getInstance()->user['administrativepassword']) {
+            $queryP = $this->db->prepare("UPDATE tbactor set actorchangedpassword = 1 WHERE actorid =" . SSession::getInstance()->user['actorid']);
+            $queryP->execute();
+            $queryP->fetch();
+            $queryP->closeCursor();
         }
         $query = $this->db->prepare("UPDATE tbadministrative "
                 . "SET administrativelicense =:license, administrativename =:name, administrativelastname1=:lastname1,"

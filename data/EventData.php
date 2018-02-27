@@ -2,7 +2,7 @@
 
 class EventData {
 
-    //Attributes
+//Attributes
     private $db;
 
     function __construct() {
@@ -12,32 +12,46 @@ class EventData {
 
 //End construct
 
-    function insert(Activity $activity, Event $event) {
+    function insert( Event $event) {
 
-        $query = $this->db->prepare(
-                "INSERT INTO tbevent VALUES (" . $activity->getActivityId() . ",'" .
-                $event->getEventPLace() . "','" .
-                $event->getEventDate() . "','" .
-                $event->getEventHour() . "'," .
-                $event->getDayAfther() . "," .
-                $event->getDayBefore() . "," .
-                0 . ");"
-        );
-        $query->execute();
-        $result = $query->fetch();
-        $query->closeCursor();
 
-        if (!$result) {
-            return 1;
-        } else {
-            return 0;
-        }//End if-else(!$result)
+        $queryInsertEvent = $this->db->prepare("INSERT INTO tbevent VALUES (:eventid,:eventplace,:eventdate,:eventhour,:eventdayafter,:eventdaybefore,:eventstate);");
+        $queryInsertEvent->execute(array('eventid' => $event->getActivityId(), 'eventplace' => $event->getEventPLace(), 'eventdate' => $event->getEventDate(), 'eventhour' => $event->getEventHour(), 'eventdayafter' => $event->getDayAfther(), 'eventdaybefore' => $event->getDayBefore(), 'eventstate' => 0));
+        $queryInsertEvent->fetch();
+        $queryInsertEvent->closeCursor();
+
+        $queryExistsPost = $this->db->prepare("SELECT eventid FROM tbevent WHERE eventid=:id;");
+        $queryExistsPost->execute(array('id' => $event->getActivityId()));
+        $resultPost = $queryExistsPost->fetch();
+        $queryExistsPost->closeCursor();
+
+        return $resultPost['eventid'] ? 1 : 0;
+
+
+        /* $query = $this->db->prepare(
+          "INSERT INTO tbevent VALUES (" . $activity->getActivityId() . ",'" .
+          $event->getEventPLace() . "','" .
+          $event->getEventDate() . "','" .
+          $event->getEventHour() . "'," .
+          $event->getDayAfther() . "," .
+          $event->getDayBefore() . "," .
+          0 . ");"
+          );
+          $query->execute();
+          $result = $query->fetch();
+          $query->closeCursor();
+
+          if (!$result) {
+          return 1;
+          } else {
+          return 0;* */
     }
 
+//End if-else(!$result)
 //End insert
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT a.activitytitle,a.activitydescription,e.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.activityid WHERE a.activityestate = 0 AND e.eventestate = 0;");
+        $query = $this->db->prepare("SELECT a.*, e.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.eventid WHERE a.activitystate = 0 AND e.eventestate = 0;");
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
@@ -48,7 +62,7 @@ class EventData {
 //End selectALL
 
     function selectAllTotal() {
-        $query = $this->db->prepare("SELECT a.*,e.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.activityid WHERE a.activityestate = 0 AND e.eventestate = 0;");
+        $query = $this->db->prepare("SELECT a.*,e.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.eventid WHERE a.activitystate = 0 AND e.eventestate = 0;");
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
@@ -59,17 +73,17 @@ class EventData {
 //End selectALL
 
     function select($idActivity) {
-        $query = $this->db->prepare("SELECT * FROM tbevent WHERE activityid=" . $idActivity . ";");
+        $query = $this->db->prepare("SELECT * FROM tbevent WHERE eventid=" . $idActivity . ";");
         $query->execute();
         $row = $query->fetch();
 
         $currentEvent = new Event();
-        $currentEvent->setActivityId($row['activityid']);
+        $currentEvent->setActivityId($row['eventid']);
         $currentEvent->setCreateDate($row['eventplace']);
         $currentEvent->setUpdateDate($row['eventdate']);
         $currentEvent->setLikeCount($row['eventhour']);
-        $currentEvent->setDayAfther($row['dayafter']);
-        $currentEvent->setDayBefore($row['daybefore']);
+        $currentEvent->setDayAfther($row['eventdayafter']);
+        $currentEvent->setDayBefore($row['eventdaybefore']);
 
         return $currentEvent;
     }
@@ -78,13 +92,13 @@ class EventData {
 
     function update(Event $event) {
         $query = $this->db->prepare("UPDATE tbevent "
-                . "SET activityid =" . $event->getActivityId() .
-                ", dayafter=" . $event->getDayAfther() .
-                ", daybefore=" . $event->getDayBefore() .
+                . "SET eventid =" . $event->getActivityId() .
+                ", eventdayafter=" . $event->getDayAfther() .
+                ", eventdaybefore=" . $event->getDayBefore() .
                 ", eventplace='" . $event->getEventPLace() .
                 "', eventdate='" . $event->getEventDate() .
                 "', eventhour='" . $event->getEventHour() .
-                "' WHERE activityid=" . $event->getActivityId() . ";");
+                "' WHERE eventid=" . $event->getActivityId() . ";");
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
@@ -99,7 +113,7 @@ class EventData {
 //End update
 
     function delete(Event $event) {
-        $query = $this->db->prepare("UPDATE tbevent SET eventestate=:state WHERE activityid=:id;");
+        $query = $this->db->prepare("UPDATE tbevent SET eventestate=:state WHERE eventid=:id;");
         $query->execute(array('state' => 1, 'id' => $event->getActivityId()));
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if (!$result) {

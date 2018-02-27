@@ -23,10 +23,40 @@ class ActivityData {
         if ($resultLastId['activityid'] != NULL) {
             $nextId = intval($resultLastId['activityid'] + 1);
         }
+        return $nextId;
+    }
+    
+    private function existsActivity(Activity $activity) {
+        $queryExistsActivity = $this->db->prepare("SELECT activityid FROM tbactivity WHERE activityid=:id;");
+        $queryExistsActivity->execute(array('id' => $activity->getActivityId()));
+        $resultActivity = $queryExistsActivity->fetch();
+        $queryExistsActivity->closeCursor();
+
+        return !$resultActivity['activityid'] ? 1 : 0;
     }
 
     function insert(Activity $activity) {
-        $this->act->setActivityId($this->getlastid());
+        
+        if ($this->existsActivity($activity)) {
+            $activity->setActivityId($this->getlastid());
+                $queryInsertActivity = $this->db->prepare("INSERT INTO tbactivity VALUES (:activityid,:activitycreateddate,:activityupdatedate,:activitylikecount,:activitycommentcount,:activitytitle,:activitydescription,:activitystate,:activityenclosureid);");
+                $queryInsertActivity->execute(array('activityid' => $activity->getActivityId(), 'activitycreateddate' => $activity->getCreateDate(), 'activityupdatedate' => $activity->getUpdateDate(), 'activitylikecount' => $activity->getLikeCount(),
+                    'activitycommentcount' => $activity->getCommentCount(), 'activitytitle' => $activity->getActivityTitle(), 'activitydescription' => $activity->getActivityDescription(), 'activitystate' => 0, 'activityenclosureid'=> $activity->getActivityEnclosureId()));
+                $queryInsertActivity->fetch();
+                $queryInsertActivity->closeCursor();
+
+                $queryExistsActivity = $this->db->prepare("SELECT activityid FROM tbactivity WHERE activityid=:id;");
+                $queryExistsActivity->execute(array('id' => $activity->getActivityId()));
+                $resultActivity = $queryExistsActivity->fetch();
+                $queryExistsActivity->closeCursor();
+
+                return $resultActivity['activityid'] ? 1 : 0;
+            } else {
+                return 0;
+            }
+        }
+        
+       /** $this->act->setActivityId($this->getlastid());
         $query = $this->db->prepare(
                 "INSERT INTO tbactivity VALUES (" . $this->act->getActivityId() . ",'" .
                 $activity->getCreateDate() . "','" .
@@ -42,12 +72,14 @@ class ActivityData {
         $query->fetch();
         $query->closeCursor();
 
-        return $this->select($this->act->getActivityId())->getActivityId() ? 1 : 0;
+        return $this->select($this->act->getActivityId())->getActivityId() ? 1 : 0;**/
         //End insert
-    }
+    
+    
+    
 
     function selectAll() {
-        $query = $this->db->prepare("SELECT * from tbactivity where activityestate=:state;");
+        $query = $this->db->prepare("SELECT * from tbactivity where activitystate=:state;");
         $query->execute(array('state' => 0));
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
@@ -63,10 +95,10 @@ class ActivityData {
 
         $currentActivity = new Activity();
         $currentActivity->setActivityId($row['activityid']);
-        $currentActivity->setCreateDate($row['createddate']);
-        $currentActivity->setUpdateDate($row['updatedate']);
-        $currentActivity->setLikeCount($row['likecount']);
-        $currentActivity->setCommentCoun($row['commentcount']);
+        $currentActivity->setCreateDate($row['activitycreateddate']);
+        $currentActivity->setUpdateDate($row['activityupdatedate']);
+        $currentActivity->setLikeCount($row['activitylikecount']);
+        $currentActivity->setCommentCoun($row['activitycommentcount']);
         $currentActivity->setActivityTitle($row['activitytitle']);
         $currentActivity->setActivityDescription($row['activitydescription']);
 
@@ -78,13 +110,26 @@ class ActivityData {
         $query = $this->db->prepare("UPDATE tbactivity SET activitystate=:state WHERE activityid=:id;");
         $query->execute(array('state' => 1, 'id' => $activity->getActivityId()));
         $query->fetch(PDO::FETCH_ASSOC);
-        return !$this->select($activity->getActivityId())->getActivityId() ? 1 : 0;
+       if (!$result) {
+            return 1;
+        } else {
+            return 0;
+        }//End if (!$result)
         //End delete
     }
 
     function getActivity() {
-        return $this->act;
-        //End getActivity
+        $queryLastId = $this->db->prepare("SELECT MAX(activityid) AS activityid FROM tbactivity");
+        $queryLastId->execute();
+        $resultLastId = $queryLastId->fetch();
+        $queryLastId->closeCursor();
+        if ($resultLastId['activityid'] != NULL) {
+            $activity = new Activity();
+            $activity->setActivityId($resultLastId[0]);
+            return $activity;
+            
+        }
+        
     }
 
     function update(Activity $activity) {

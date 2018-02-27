@@ -29,7 +29,7 @@ class CommentData {
 
         $query = $this->db->prepare("INSERT INTO tbcomment VALUES(:commentid,:activityid,:commentdescription,:commentcreated,:commentactor, :commentcoincidence,:commentstate);");
         $query->execute(array('commentid' => $lastid, 'activityid' => $comment->getActivityId(), 'commentdescription' => $comment->getCommentDescription(),
-            'commentcreated' => $comment->getCommentDate(), 'commentactor' => (int) $comment->getCommentActor(), 'commentcoincidence'=> (int) $comment->getCommentCoincidence(), 'commentstate' => 1));
+            'commentcreated' => $comment->getCommentDate(), 'commentactor' => (int) $comment->getCommentActor(), 'commentcoincidence' => (int) $comment->getCommentCoincidence(), 'commentstate' => 1));
         $query->fetch();
         $query->closeCursor();
 

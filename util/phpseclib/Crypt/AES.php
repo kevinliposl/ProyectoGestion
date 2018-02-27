@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -62,7 +63,6 @@
  * @version    $Id: AES.php,v 1.7 2010/02/09 06:10:25 terrafrost Exp $
  * @link       http://phpseclib.sourceforge.net
  */
-
 /**
  * Include Crypt_Rijndael
  */
@@ -70,7 +70,7 @@ if (!class_exists('Crypt_Rijndael')) {
     require_once 'Rijndael.php';
 }
 
-/**#@+
+/* * #@+
  * @access public
  * @see Crypt_AES::encrypt()
  * @see Crypt_AES::decrypt()
@@ -107,9 +107,9 @@ define('CRYPT_AES_MODE_CFB', 3);
  * @link http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Output_feedback_.28OFB.29
  */
 define('CRYPT_AES_MODE_OFB', 4);
-/**#@-*/
+/* * #@- */
 
-/**#@+
+/* * #@+
  * @access private
  * @see Crypt_AES::Crypt_AES()
  */
@@ -121,7 +121,7 @@ define('CRYPT_AES_MODE_INTERNAL', 1);
  * Toggles the mcrypt implementation
  */
 define('CRYPT_AES_MODE_MCRYPT', 2);
-/**#@-*/
+/* * #@- */
 
 /**
  * Pure-PHP implementation of AES.
@@ -132,6 +132,7 @@ define('CRYPT_AES_MODE_MCRYPT', 2);
  * @package Crypt_AES
  */
 class Crypt_AES extends Crypt_Rijndael {
+
     /**
      * mcrypt resource for encryption
      *
@@ -176,9 +177,8 @@ class Crypt_AES extends Crypt_Rijndael {
      * @return Crypt_AES
      * @access public
      */
-    function Crypt_AES($mode = CRYPT_AES_MODE_CBC)
-    {
-        if ( !defined('CRYPT_AES_MODE') ) {
+    function Crypt_AES($mode = CRYPT_AES_MODE_CBC) {
+        if (!defined('CRYPT_AES_MODE')) {
             switch (true) {
                 case extension_loaded('mcrypt') && in_array('rijndael-128', mcrypt_list_algorithms()):
                     define('CRYPT_AES_MODE', CRYPT_AES_MODE_MCRYPT);
@@ -188,7 +188,7 @@ class Crypt_AES extends Crypt_Rijndael {
             }
         }
 
-        switch ( CRYPT_AES_MODE ) {
+        switch (CRYPT_AES_MODE) {
             case CRYPT_AES_MODE_MCRYPT:
                 switch ($mode) {
                     case CRYPT_AES_MODE_ECB:
@@ -252,11 +252,9 @@ class Crypt_AES extends Crypt_Rijndael {
      * @access public
      * @param Integer $length
      */
-    function setBlockLength($length)
-    {
+    function setBlockLength($length) {
         return;
     }
-
 
     /**
      * Sets the initialization vector. (optional)
@@ -267,10 +265,9 @@ class Crypt_AES extends Crypt_Rijndael {
      * @access public
      * @param String $iv
      */
-    function setIV($iv)
-    {
+    function setIV($iv) {
         parent::setIV($iv);
-        if ( CRYPT_AES_MODE == CRYPT_AES_MODE_MCRYPT ) {
+        if (CRYPT_AES_MODE == CRYPT_AES_MODE_MCRYPT) {
             $this->changed = true;
         }
     }
@@ -292,22 +289,21 @@ class Crypt_AES extends Crypt_Rijndael {
      * @access public
      * @param String $plaintext
      */
-    function encrypt($plaintext)
-    {
-        if ( CRYPT_AES_MODE == CRYPT_AES_MODE_MCRYPT ) {
+    function encrypt($plaintext) {
+        if (CRYPT_AES_MODE == CRYPT_AES_MODE_MCRYPT) {
             $changed = $this->changed;
             $this->_mcryptSetup();
             /*
-            if ($this->mode == CRYPT_AES_MODE_CTR) {
-                $iv = $this->encryptIV;
-                $xor = mcrypt_generic($this->enmcrypt, $this->_generate_xor(strlen($plaintext), $iv));
-                $ciphertext = $plaintext ^ $xor;
-                if ($this->continuousBuffer) {
-                    $this->encryptIV = $iv;
-                }
-                return $ciphertext;
-            }
-            */
+              if ($this->mode == CRYPT_AES_MODE_CTR) {
+              $iv = $this->encryptIV;
+              $xor = mcrypt_generic($this->enmcrypt, $this->_generate_xor(strlen($plaintext), $iv));
+              $ciphertext = $plaintext ^ $xor;
+              if ($this->continuousBuffer) {
+              $this->encryptIV = $iv;
+              }
+              return $ciphertext;
+              }
+             */
             // re: http://phpseclib.sourceforge.net/cfb-demo.phps
             // using mcrypt's default handing of CFB the above would output two different things.  using phpseclib's
             // rewritten CFB implementation the above outputs the same thing twice.
@@ -319,7 +315,7 @@ class Crypt_AES extends Crypt_Rijndael {
 
                 if (strlen($this->enbuffer)) {
                     $ciphertext = $plaintext ^ substr($this->encryptIV, strlen($this->enbuffer));
-                    $this->enbuffer.= $ciphertext;
+                    $this->enbuffer .= $ciphertext;
                     if (strlen($this->enbuffer) == 16) {
                         $this->encryptIV = $this->enbuffer;
                         $this->enbuffer = '';
@@ -331,7 +327,7 @@ class Crypt_AES extends Crypt_Rijndael {
                 }
 
                 $last_pos = strlen($plaintext) & 0xFFFFFFF0;
-                $ciphertext.= $last_pos ? mcrypt_generic($this->enmcrypt, substr($plaintext, 0, $last_pos)) : '';
+                $ciphertext .= $last_pos ? mcrypt_generic($this->enmcrypt, substr($plaintext, 0, $last_pos)) : '';
 
                 if (strlen($plaintext) & 0xF) {
                     if (strlen($ciphertext)) {
@@ -339,7 +335,7 @@ class Crypt_AES extends Crypt_Rijndael {
                     }
                     $this->encryptIV = mcrypt_generic($this->ecb, $this->encryptIV);
                     $this->enbuffer = substr($plaintext, $last_pos) ^ $this->encryptIV;
-                    $ciphertext.= $this->enbuffer;
+                    $ciphertext .= $this->enbuffer;
                 }
 
                 return $ciphertext;
@@ -370,22 +366,21 @@ class Crypt_AES extends Crypt_Rijndael {
      * @access public
      * @param String $ciphertext
      */
-    function decrypt($ciphertext)
-    {
-        if ( CRYPT_AES_MODE == CRYPT_AES_MODE_MCRYPT ) {
+    function decrypt($ciphertext) {
+        if (CRYPT_AES_MODE == CRYPT_AES_MODE_MCRYPT) {
             $changed = $this->changed;
             $this->_mcryptSetup();
             /*
-            if ($this->mode == CRYPT_AES_MODE_CTR) {
-                $iv = $this->decryptIV;
-                $xor = mcrypt_generic($this->enmcrypt, $this->_generate_xor(strlen($ciphertext), $iv));
-                $plaintext = $ciphertext ^ $xor;
-                if ($this->continuousBuffer) {
-                    $this->decryptIV = $iv;
-                }
-                return $plaintext;
-            }
-            */
+              if ($this->mode == CRYPT_AES_MODE_CTR) {
+              $iv = $this->decryptIV;
+              $xor = mcrypt_generic($this->enmcrypt, $this->_generate_xor(strlen($ciphertext), $iv));
+              $plaintext = $ciphertext ^ $xor;
+              if ($this->continuousBuffer) {
+              $this->decryptIV = $iv;
+              }
+              return $plaintext;
+              }
+             */
             if ($this->mode == 'ncfb') {
                 if ($changed) {
                     $this->ecb = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_ECB, '');
@@ -395,7 +390,7 @@ class Crypt_AES extends Crypt_Rijndael {
                 if (strlen($this->debuffer)) {
                     $plaintext = $ciphertext ^ substr($this->decryptIV, strlen($this->debuffer));
 
-                    $this->debuffer.= substr($ciphertext, 0, strlen($plaintext));
+                    $this->debuffer .= substr($ciphertext, 0, strlen($plaintext));
                     if (strlen($this->debuffer) == 16) {
                         $this->decryptIV = $this->debuffer;
                         $this->debuffer = '';
@@ -407,7 +402,7 @@ class Crypt_AES extends Crypt_Rijndael {
                 }
 
                 $last_pos = strlen($ciphertext) & 0xFFFFFFF0;
-                $plaintext.= $last_pos ? mdecrypt_generic($this->demcrypt, substr($ciphertext, 0, $last_pos)) : '';
+                $plaintext .= $last_pos ? mdecrypt_generic($this->demcrypt, substr($ciphertext, 0, $last_pos)) : '';
 
                 if (strlen($ciphertext) & 0xF) {
                     if (strlen($plaintext)) {
@@ -415,7 +410,7 @@ class Crypt_AES extends Crypt_Rijndael {
                     }
                     $this->decryptIV = mcrypt_generic($this->ecb, $this->decryptIV);
                     $this->debuffer = substr($ciphertext, $last_pos);
-                    $plaintext.= $this->debuffer ^ $this->decryptIV;
+                    $plaintext .= $this->debuffer ^ $this->decryptIV;
                 }
 
                 return $plaintext;
@@ -446,8 +441,7 @@ class Crypt_AES extends Crypt_Rijndael {
      *
      * @access private
      */
-    function _mcryptSetup()
-    {
+    function _mcryptSetup() {
         if (!$this->changed) {
             return;
         }
@@ -504,8 +498,7 @@ class Crypt_AES extends Crypt_Rijndael {
      * @param String $in
      * @return String
      */
-    function _encryptBlock($in)
-    {
+    function _encryptBlock($in) {
         $state = unpack('N*word', $in);
 
         $Nr = $this->Nr;
@@ -533,7 +526,6 @@ class Crypt_AES extends Crypt_Rijndael {
                 $t0[$state[2] & 0xFF000000] ^ $t1[$state[3] & 0x00FF0000] ^ $t2[$state[0] & 0x0000FF00] ^ $t3[$state[1] & 0x000000FF] ^ $w[$round][2],
                 $t0[$state[3] & 0xFF000000] ^ $t1[$state[0] & 0x00FF0000] ^ $t2[$state[1] & 0x0000FF00] ^ $t3[$state[2] & 0x000000FF] ^ $w[$round][3]
             );
-
         }
 
         // subWord
@@ -565,8 +557,7 @@ class Crypt_AES extends Crypt_Rijndael {
      * @param String $in
      * @return String
      */
-    function _decryptBlock($in)
-    {
+    function _decryptBlock($in) {
         $state = unpack('N*word', $in);
 
         $Nr = $this->Nr;
@@ -605,6 +596,7 @@ class Crypt_AES extends Crypt_Rijndael {
 
         return pack('N*', $state[0], $state[1], $state[2], $state[3]);
     }
+
 }
 
 // vim: ts=4:sw=4:et:

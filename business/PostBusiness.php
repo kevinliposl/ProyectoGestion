@@ -26,20 +26,19 @@ if (isset($_POST['create'])) {
             $activity->setCommentCoun(0);
 
             $resulta = $activityBusiness->insert($activity);
+
             $activityID = $activityBusiness->getActivity();
 
             $entireWord = strtolower($_POST['title'] . " " . $_POST['description']);
             $entireArray = $tagMaker->makeTags($entireWord, $activityID->getActivityId());
-
-            
 
             //inserta todo el arreglo con posibles palabras relacionadas
             $tagBusiness->insert($entireArray);
 
             $post->setActivityId($activityID->getActivityId());
 
-            $result = $postBusiness->insert($activityID, $post);
-
+            $result = $postBusiness->insert($post);
+            print_r($activityID->getActivityId());
             if ($resulta == 1 and $result == 1) {
                 header("location: ../view/AdministrativePostView.php?success=inserted");
             } else {
@@ -62,10 +61,12 @@ if (isset($_POST['create'])) {
 
             $post->setActivityId($_POST['postid']);
             $result = $postBusiness->delete($post);
-
+            print_r($result);
+            echo '--';
             $activity->setActivityId($_POST['postid']);
             $resulta = $activityBusiness->delete($activity);
 
+            print_r($resulta);
             if ($result == 1 and $resulta == 1) {
                 header("location: ../view/AdministrativePostView.php?success=inserted");
             } else {
@@ -102,7 +103,7 @@ if (isset($_POST['create'])) {
             $result = $postBusiness->update($post);
 
             if ($result == 1 and $resulta == 1) {
-               // header("location: ../view/AdministrativePostView.php?success=inserted");
+                 header("location: ../view/AdministrativePostView.php?success=inserted");
             } else {
                 header("location: ../view/AdministrativePostView.php?error=dbError");
             }
@@ -126,8 +127,8 @@ class PostBusiness {
 
 //End construct
 
-    function insert(Activity $activ, Post $post) {
-        return $this->data->insert($activ, $post);
+    function insert(Post $post) {
+        return $this->data->insert($post);
     }
 
 //End insert

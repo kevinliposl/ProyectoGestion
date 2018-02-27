@@ -18,9 +18,9 @@ class TagData {
             $queryInsertTag->closeCursor();
         }
     }
-    
-    function selectActivity($activityId){
-        $query = $this->db->prepare("SELECT * FROM tbtag WHERE tagactivityid=".$activityId.";");
+
+    function selectActivity($activityId) {
+        $query = $this->db->prepare("SELECT * FROM tbtag WHERE tagactivityid=" . $activityId . ";");
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();

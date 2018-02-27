@@ -52,7 +52,6 @@ class TagMaker {
         foreach ($allsynonymous as $synonym) {
             if (is_numeric($synonym)) {
                 $position = $position + 1;
-           
             } else {
                 $tag = new Tag();
                 $tag->setTagactivityid($activityId);
@@ -66,58 +65,57 @@ class TagMaker {
 
     function conceptsExploder($words, $activityId) {
         $tagReference = new TagReference();
-        
+
         $position = 0;
         //retorna los conceptos de las palabras
         $entireConceptsWords = $tagReference->sendGetConcepts($words);
         $uniteConcepts = '|';
-        
- 
+
+
 
         foreach ($entireConceptsWords as $divConcepts) {
-          
+
             if (strcmp($uniteConcepts, '|') == 0) {
-       
+
                 $uniteConcepts = $divConcepts;
             } else {
-       
+
                 $uniteConcepts = $uniteConcepts . '- ' . $divConcepts . " ";
             }
         }
-        
-            //separar y limpiar los conceptos en palabras
-            $uniteConcepts = str_replace(',', ' ', $uniteConcepts);
-            $uniteConcepts = str_replace('.', ' ', $uniteConcepts);
-            $uniteConcepts = str_replace('-', ' ', $uniteConcepts);
-            $uniteConcepts = str_replace(':', ' ', $uniteConcepts);
-            $uniteConcepts = str_replace(';', ' ', $uniteConcepts);
-            $uniteConcepts = str_replace("'", ' ', $uniteConcepts);
-            $uniteConcepts = strtolower($uniteConcepts);
-            $allConcepts = explode(" ", $uniteConcepts);
 
-            $concepts = array();
-            
-            foreach ($allConcepts as $concept) {
-                if (strlen($concept) >= 4 and ( strcmp($concept[0], '[') != 0) and ( strcmp($concept[strlen($concept) - 1], ']') != 0)) {
-                    //relacionar los conceptos con la actividad
-                 
-                        $tag = new Tag();
-                        $tag->setTagactivityid($activityId);
-                        $tag->setTagword($concept);
-                        $tag->setTagRelation($words[$position - 1]->getTagRelation());
-                        array_push($concepts, $tag);
-                    
-                }else{
-                    if(is_numeric($concept)){
-                        $position = $position + 1;
-                    }
+        //separar y limpiar los conceptos en palabras
+        $uniteConcepts = str_replace(',', ' ', $uniteConcepts);
+        $uniteConcepts = str_replace('.', ' ', $uniteConcepts);
+        $uniteConcepts = str_replace('-', ' ', $uniteConcepts);
+        $uniteConcepts = str_replace(':', ' ', $uniteConcepts);
+        $uniteConcepts = str_replace(';', ' ', $uniteConcepts);
+        $uniteConcepts = str_replace("'", ' ', $uniteConcepts);
+        $uniteConcepts = strtolower($uniteConcepts);
+        $allConcepts = explode(" ", $uniteConcepts);
+
+        $concepts = array();
+
+        foreach ($allConcepts as $concept) {
+            if (strlen($concept) >= 4 and ( strcmp($concept[0], '[') != 0) and ( strcmp($concept[strlen($concept) - 1], ']') != 0)) {
+                //relacionar los conceptos con la actividad
+
+                $tag = new Tag();
+                $tag->setTagactivityid($activityId);
+                $tag->setTagword($concept);
+                $tag->setTagRelation($words[$position - 1]->getTagRelation());
+                array_push($concepts, $tag);
+            } else {
+                if (is_numeric($concept)) {
+                    $position = $position + 1;
                 }
             }
-            
-        return $concepts;
         }
-    
 
+        return $concepts;
+    }
+
+    //ponderar los comentarios segun su nivel de coincidencia con las actividades
     function commentCoincidenceWithActivity($activityTags, $commentWords) {
         $activityTagMaxSize = count($activityTags);
         $commentTagCoincidence = 0;
