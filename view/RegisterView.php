@@ -67,9 +67,9 @@ $universityBusiness = new UniversityBusiness();
             <td id="tdactorarea" style="display: none;">
                 <select id="typeadministrative" name="administrativearea" style="width: 100%;">
                     <option value="invalidate">Seleccione un tipo</option>
-                    <option value="admision">admision</option>
-                    <option value="matricula">matricula</option>
-                    <option value="becas">becas</option>
+                    <option value="admision">Admision</option>
+                    <option value="matricula">Matricula</option>
+                    <option value="becas">Becas</option>
                     <option value="serviciosEstudiantiles">Servicios Estudiantiles</option>
                     <option value="infraestructura">Infraestructura</option>
                     <option value="transporte">Transporte</option>
