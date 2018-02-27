@@ -121,7 +121,7 @@ class CommentData {
 //End select
 
     function selectidActivity($idActivity) {
-        $query = $this->db->prepare("SELECT c.commentid,c.activityid,c.commentdescription,c.commentcreated,c.commentstate,a.* FROM tbcomment c INNER JOIN tbactor a on c.commentactor = a.actorid and c.commentstate = 1 WHERE c.activityid =" . $idActivity . ";");
+        $query = $this->db->prepare("SELECT c.* ,a.* FROM tbcomment c INNER JOIN tbactor a on c.commentactor = a.actorid and c.commentstate = 1 WHERE c.commentactivityid =" . $idActivity . ";");
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
