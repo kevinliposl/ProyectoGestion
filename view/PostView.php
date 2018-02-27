@@ -2,7 +2,6 @@
 
 include_once '../public/header.php';
 include_once '../business/PostBusiness.php';
-
 require_once '../util/SSession.php';
 
 if (!isset(SSession::getInstance()->user)) {
@@ -44,10 +43,12 @@ echo "<h3>Lista de Publicaciones</h3>";
         };
         $('#message').text('Espere...');
 
-        $.post('../business/SearchBusiness.php', args, function (data) {
-            for (var dat in data.result[0]) {
-                $('#message').html("<li><a href='CommentView.php?id=" +JSON.intify(data.result[0])+ "&title=" + JSON.stringify(data.result[6]) + "&des= " + JSON.stringify(data.result[7]) + "'><div> Fecha de creacion: " + JSON.stringify(data.result[2])+ ", Fecha de actualizacion: " + JSON.stringify(data.result[3])+", Numero de seguidores: " + JSON.stringify(data.result[4])+ ", Cantidad de comentarios: " + JSON.stringify(data.result[5])+ ", Titulo: " +JSON.stringify(data.result[6])+ ", Descripcion: " + JSON.stringify(data.result[7])+ "</div></a></li>");
-            }
+         $.post('../business/SearchBusiness.php', args, function (data) {
+            $.each(data, function (i, item) {
+                $('#message').html("<li><a href='CommentView.php?id=" + item.activityid + "&title=" + item.activitytitle + "&des="+ item.activitydescription + "'><div> Fecha de creacion: "
+                        + item.activitycreateddate + ", Fecha de actualizacion: " + item.activityupdatedate + ", Numero de seguidores: " + item.activitylikecount + ", Cantidad de comentarios: " +
+                        item.activitycommentcount + ", Titulo: " + item.activitytitle + ", Descripcion: " + item.activitydescription + "</div></a></li>");
+            });
         }, 'json').fail(function () {
             alert('Error al acceder al servidor');
         });
