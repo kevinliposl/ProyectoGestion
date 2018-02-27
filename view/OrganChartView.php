@@ -49,7 +49,7 @@ foreach ($universities as $university) {
             }
             echo '</ul>';
             echo '</li>';
-            echo '</ul></br>';
+            echo '</ul>';
         }
     } else {
         echo '<ul>';

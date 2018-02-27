@@ -29,7 +29,6 @@ class ProfessorData {
         $queryExistsActor->execute(array('mail' => $professor->getProfessormail()));
         $resultActor = $queryExistsActor->fetch();
         $queryExistsActor->closeCursor();
-
         return !$resultActor['actormail'] ? 1 : 0;
     }
 
@@ -97,25 +96,25 @@ class ProfessorData {
 
     function selectAll() {
         $query = $this->db->prepare("SELECT a.actormail,p.* from tbprofessor p INNER JOIN tbactor a ON a.actorid = p.professorid WHERE professorstate=:state;");
-        $query->execute(array('state' => 0));
+        $query->execute(array('state' => 1));
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
         return $result;
     }
 
-    function select($idProfessor) {
-        $query = $this->db->prepare("SELECT * FROM tbprofessor WHERE professorid=" . $idProfessor . ";");
-        $query->execute();
+    function select(Professor $professor) {
+        $query = $this->db->prepare("SELECT * FROM tbprofessor WHERE professorid=:professorid;");
+        $query->execute(array('idprofessor' => $professor->getProfessorid()));
         $result = $query->fetch();
 
-        $professor = new Professor();
-        $professor->setProfessorid($result['professorid']);
-        $professor->setProfessorlicense($result['professorlicense']);
-        $professor->setProfessorname($result['professorname']);
-        $professor->setProfessorlastname1($result['professorlastname1']);
-        $professor->setProfessorlastname2($result['professorlastname2']);
-        $professor->setProfessorpassword($result['professorpassword']);
-        return $professor;
+        $tmpProfessor = new Professor();
+        $tmpProfessor->setProfessorid($result['professorid']);
+        $tmpProfessor->setProfessorlicense($result['professorlicense']);
+        $tmpProfessor->setProfessorname($result['professorname']);
+        $tmpProfessor->setProfessorlastname1($result['professorlastname1']);
+        $tmpProfessor->setProfessorlastname2($result['professorlastname2']);
+        $tmpProfessor->setProfessorpassword($result['professorpassword']);
+        return $tmpProfessor;
     }
 
     function delete(Professor $professor) {
