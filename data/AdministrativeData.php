@@ -34,8 +34,9 @@ class AdministrativeData {
     }
 
     private function insertActor(Administrative $administrative) {
-        $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
-        $queryInsertActor->execute(array('actorid' => $administrative->getAdministrativeid(), 'actormail' => $administrative->getAdministrativemail()));
+        $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail,:actorchangedpassword);");
+        $queryInsertActor->execute(array('actorid' => $administrative->getAdministrativeid()
+            , 'actormail' => $administrative->getAdministrativemail(), 'actorchangedpassword' => 0));
         $queryInsertActor->fetch();
         $queryInsertActor->closeCursor();
 
@@ -54,7 +55,7 @@ class AdministrativeData {
                 $queryInsertProfessor = $this->db->prepare("INSERT INTO tbadministrative VALUES (:id,:license,:name,:lastname1,:lastname2,:area,:password,:state);");
                 $queryInsertProfessor->execute(array('id' => $administrative->getAdministrativeid(), 'license' => ' ', 'name' => $administrative->getAdministrativename(),
                     'lastname1' => $administrative->getAdministrativelastname1(), 'lastname2' => $administrative->getAdministrativelastname2(),
-                    'password' => $administrative->getAdministrativepassword(), 'state' => 0, 'area' => $administrative->getAdministrativearea()));
+                    'password' => $administrative->getAdministrativepassword(), 'state' => 1, 'area' => $administrative->getAdministrativearea()));
                 $queryInsertProfessor->fetch();
                 $queryInsertProfessor->closeCursor();
 
