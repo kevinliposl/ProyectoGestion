@@ -43,12 +43,14 @@ if (isset($_POST['create'])) {
             $event->setDayAfther($_POST['hourAfter']);
             $event->setDayBefore($_POST['hourBefore']);
 
-            $result = $eventBusiness->insert($activityID, $event);
+            print_r($activityID->getActivityId());
+            
+            $result = $eventBusiness->insert($event);
 
             if ($resulta == 1 and $result == 1) {
                 header("location: ../view/AdministrativeEventView.php?success=inserted");
             } else {
-                header("location: ../view/AdministrativeEventView.php?error=dbError");
+                //header("location: ../view/AdministrativeEventView.php?error=dbError");
             }
         } else {
             header("location: ../view/AdministrativeEventView.php?error=format");
@@ -133,8 +135,8 @@ class EventBusiness {
 
 //End construct
 
-    function insert(Activity $activ, Event $event) {
-        return $this->data->insert($activ, $event);
+    function insert(Event $event) {
+        return $this->data->insert($event);
     }
 
 //End insert

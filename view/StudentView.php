@@ -59,16 +59,16 @@ if (!isset(SSession::getInstance()->user)) {
     foreach ($universities as $university) {
         $universityname = $university['universityname'];
         ?>
-                    
-                                            <optgroup label="<?= $universityname; ?>">
-                    
+                            
+                                                    <optgroup label="<?= $universityname; ?>">
+                            
         <?php
         foreach ($careers as $career) {
             if ($career['universityname'] == $universityname) {
                 ?>
-                                                    
-                                                                                        <option value=" <?= $career['careerid']; ?> "> <?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?> </option>
-                                                    
+                                                                            
+                                                                                                                <option value=" <?= $career['careerid']; ?> "> <?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?> </option>
+                                                                            
                 <?php
             }
         }
@@ -85,16 +85,16 @@ if (!isset(SSession::getInstance()->user)) {
     foreach ($universities as $university) {
         $universityname = $university['universityname'];
         ?>
-                    
-                                            <optgroup label="<?= $universityname; ?>">
-                    
+                            
+                                                    <optgroup label="<?= $universityname; ?>">
+                            
         <?php
         foreach ($careers as $career) {
             if ($career['universityname'] == $universityname) {
                 ?>
-                                                    
-                                                                                        <option value=" <?= $career['careerid']; ?> "> <?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?> </option>
-                                                    
+                                                                            
+                                                                                                                <option value=" <?= $career['careerid']; ?> "> <?= $career['careerid'] . " | " . $career['careername'] . " | " . $career['enclosurename']; ?> </option>
+                                                                            
                 <?php
             }
         }

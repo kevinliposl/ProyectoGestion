@@ -23,11 +23,11 @@ echo "<a href='EventViewWeek.php'><font color=red>Eventos de la Semana</font></a
 echo "<a href='EventViewMonth.php'><font color=red>Eventos del Mes</font></a>";
 
 foreach ($event as $event) {
-    $size = $event['commentcount'] + 1;
+    $size = $event['activitycommentcount'] + 1;
 
     $fechaEvent = $event['eventdate'];
-    $dayafther = $event['dayafter']; //despues
-    $daybefore = $event['daybefore']; //antes
+    $dayafther = $event['eventdayafter']; //despues
+    $daybefore = $event['eventdaybefore']; //antes
 
     $fecha = date('Y-m-j');
 
@@ -38,7 +38,7 @@ foreach ($event as $event) {
     $nuevaDs = date('Y-m-j', $fechadespuesSemana);
 
     if (($fecha >= $nuevaAs) && ($fecha <= $nuevaDs)) {
-        echo "<li><a href='CommentView.php?id=" . $event['activityid'] . "&title=" . $event['activitytitle'] . "&des= " . $event['activitydescription'] . "'><div> Fecha de creacion: " . $event['createddate'] . ", Fecha de actualizacion: " . $event['updatedate'] . ", Numero de seguidores: " . $event['likecount'] . ", Cantidad de comentarios: " . $event['commentcount'] . ", Titulo: " . $event['activitytitle'] . ", Descripcion: " . $event['activitydescription'] . ", Lugar: " . $event['eventplace'] . ", Dia: " . $event['eventdate'] . ", Hora: " . $event['eventhour'] . "</div></a>";
+        echo "<li><a href='CommentView.php?id=" . $event['activityid'] . "&title=" . $event['activitytitle'] . "&des= " . $event['activitydescription'] . "'><div> Fecha de creacion: " . $event['activitycreateddate'] . ", Fecha de actualizacion: " . $event['activityupdatedate'] . ", Numero de seguidores: " . $event['activitylikecount'] . ", Cantidad de comentarios: " . $event['activitycommentcount'] . ", Titulo: " . $event['activitytitle'] . ", Descripcion: " . $event['activitydescription'] . ", Lugar: " . $event['eventplace'] . ", Dia: " . $event['eventdate'] . ", Hora: " . $event['eventhour'] . "</div></a>";
         echo "</li>";
     }
 }//End foreach ($events as $event) 

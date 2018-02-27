@@ -29,7 +29,7 @@ class CommentData {
 
         $query = $this->db->prepare("INSERT INTO tbcomment VALUES(:commentid,:activityid,:commentdescription,:commentcreated,:commentactor, :commentcoincidence,:commentstate);");
         $query->execute(array('commentid' => $lastid, 'activityid' => $comment->getActivityId(), 'commentdescription' => $comment->getCommentDescription(),
-            'commentcreated' => $comment->getCommentDate(), 'commentactor' => (int) $comment->getCommentActor(), 'commentcoincidence'=> (int) $comment->getCommentCoincidence(), 'commentstate' => 1));
+            'commentcreated' => $comment->getCommentDate(), 'commentactor' => (int) $comment->getCommentActor(), 'commentcoincidence' => (int) $comment->getCommentCoincidence(), 'commentstate' => 1));
         $query->fetch();
         $query->closeCursor();
 
@@ -59,7 +59,7 @@ class CommentData {
         foreach ($result as $row) {
 
             $currentComment->setCommentId($row['commentid']);
-            $currentComment->setActivityId($row['activityid']);
+            $currentComment->setActivityId($row['commentactivityid']);
             $currentComment->setCommentDate($row['commentcreated']);
             $currentComment->setCommentActor($row['commentactor']);
             $currentComment->setCommentDescription($row['commentdescription']);
@@ -80,7 +80,7 @@ class CommentData {
     }
 
     function selectAllEvents() {
-        $query = $this->db->prepare(" SELECT a.activitytitle,a.activitydescription, e.*, c.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.activityid INNER JOIN tbcomment c ON a.activityid = c.activityid  where c.commentstate!=0;");
+        $query = $this->db->prepare(" SELECT a.*, e.*, c.* FROM tbactivity a INNER JOIN tbevent e ON a.activityid = e.eventid INNER JOIN tbcomment c ON a.activityid = c.commentactivityid  where c.commentstate!=0;");
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
@@ -91,7 +91,7 @@ class CommentData {
 //End selectALL
 
     function selectAllPost() {
-        $query = $this->db->prepare(" SELECT a.activitytitle,a.activitydescription, p.*, c.* FROM tbactivity a INNER JOIN tbpost p ON a.activityid = p.activityid INNER JOIN tbcomment c ON a.activityid = c.activityid  where c.commentstate!=0;");
+        $query = $this->db->prepare(" SELECT a.*, p.*, c.* FROM tbactivity a INNER JOIN tbpost p ON a.activityid = p.postid INNER JOIN tbcomment c ON a.activityid = c.commentactivityid  where c.commentstate!=0;");
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
@@ -110,7 +110,7 @@ class CommentData {
         $currentComment = new Comment();
 
         $currentComment->setCommentId($row['commentid']);
-        $currentComment->setActivityId($row['activityid']);
+        $currentComment->setActivityId($row['commentactivityid']);
         $currentComment->setCommentDate($row['commentcreated']);
         $currentComment->setCommentActor($row['commentactor']);
         $currentComment->setCommentDescription($row['commentdescription']);
@@ -121,7 +121,7 @@ class CommentData {
 //End select
 
     function selectidActivity($idActivity) {
-        $query = $this->db->prepare("SELECT c.commentid,c.activityid,c.commentdescription,c.commentcreated,c.commentstate,a.* FROM tbcomment c INNER JOIN tbactor a on c.commentactor = a.actorid and c.commentstate = 1 WHERE c.activityid =" . $idActivity . ";");
+        $query = $this->db->prepare("SELECT c.* ,a.* FROM tbcomment c INNER JOIN tbactor a on c.commentactor = a.actorid and c.commentstate = 1 WHERE c.commentactivityid =" . $idActivity . ";");
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $query->closeCursor();
@@ -147,7 +147,7 @@ class CommentData {
     function update(Comment $comment) {
         $query = $this->db->prepare("UPDATE tbcomment "
                 . "SET commentid =" . $comment->getCommentId() .
-                ", activityid=" . $comment->getActivityId() .
+                ", commentactivityid=" . $comment->getActivityId() .
                 ", commentdescription='" . $comment->getCommentDescription() .
                 ", commentactor=" . $comment->getCommentActor() .
                 "' WHERE commentid=" . $comment->getCommentId() . ";");

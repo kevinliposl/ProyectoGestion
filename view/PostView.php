@@ -19,8 +19,8 @@ $posts = $postBusiness->selectAllTotal();
 echo "<h3>Lista de Publicaciones</h3>";
 
 foreach ($posts as $post) {
-    $size = $post['commentcount'] + 1;
-    echo "<li><a href='CommentView.php?id=" . $post['activityid'] . "&title=" . $post['activitytitle'] . "&des= " . $post['activitydescription'] . "'><div> Fecha de creacion: " . $post['createddate'] . ", Fecha de actualizacion: " . $post['updatedate'] . ", Numero de seguidores: " . $post['likecount'] . ", Cantidad de comentarios: " . $post['commentcount'] . ", Titulo: " . $post['activitytitle'] . ", Descripcion: " . $post['activitydescription'] . "</div></a>";
+    $size = $post['activitycommentcount'] + 1;
+    echo "<li><a href='CommentView.php?id=" . $post['activityid'] . "&title=" . $post['activitytitle'] . "&des= " . $post['activitydescription'] . "'><div> Fecha de creacion: " . $post['activitycreateddate'] . ", Fecha de actualizacion: " . $post['activityupdatedate'] . ", Numero de seguidores: " . $post['activitylikecount'] . ", Cantidad de comentarios: " . $post['activitycommentcount'] . ", Titulo: " . $post['activitytitle'] . ", Descripcion: " . $post['activitydescription'] . "</div></a>";
     echo "</li>";
 }//End foreach ($events as $event) 
 //    echo "</form>";

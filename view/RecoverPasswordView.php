@@ -2,7 +2,6 @@
 include_once '../public/header.php';
 
 require_once '../util/SSession.php';
-
 ?>
 <table>
     <tr>
@@ -39,7 +38,8 @@ require_once '../util/SSession.php';
         </td>
     </tr>
 
-    
-    
+
+
     <?php
     include_once '../public/footer.php';
+    

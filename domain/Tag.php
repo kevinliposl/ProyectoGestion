@@ -36,7 +36,5 @@ class Tag {
         $this->tagRelation = $tagRelation;
     }
 
-
-
 //End setActivitytag
 }

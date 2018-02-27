@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -47,6 +48,7 @@
  * @package File_ANSI
  */
 class File_ANSI {
+
     /**
      * Max Width
      *
@@ -213,8 +215,7 @@ class File_ANSI {
      * @return File_ANSI
      * @access public
      */
-    function File_ANSI()
-    {
+    function File_ANSI() {
         $this->setHistory(200);
         $this->setDimensions(80, 24);
     }
@@ -228,8 +229,7 @@ class File_ANSI {
      * @param Integer $y
      * @access public
      */
-    function setDimensions($x, $y)
-    {
+    function setDimensions($x, $y) {
         $this->max_x = $x - 1;
         $this->max_y = $y - 1;
         $this->x = $this->y = 0;
@@ -255,8 +255,7 @@ class File_ANSI {
      * @param Integer $y
      * @access public
      */
-    function setHistory($history)
-    {
+    function setHistory($history) {
         $this->max_history = $history;
     }
 
@@ -266,8 +265,7 @@ class File_ANSI {
      * @param String $source
      * @access public
      */
-    function loadString($source)
-    {
+    function loadString($source) {
         $this->setDimensions($this->max_x + 1, $this->max_y + 1);
         $this->appendString($source);
     }
@@ -278,11 +276,10 @@ class File_ANSI {
      * @param String $source
      * @access public
      */
-    function appendString($source)
-    {
+    function appendString($source) {
         for ($i = 0; $i < strlen($source); $i++) {
             if (strlen($this->ansi)) {
-                $this->ansi.= $source[$i];
+                $this->ansi .= $source[$i];
                 $chr = ord($source[$i]);
                 // http://en.wikipedia.org/wiki/ANSI_escape_code#Sequence_elements
                 // single character CSI's not currently supported
@@ -342,10 +339,14 @@ class File_ANSI {
                                         case 0:
                                             $this->attrs[$this->y][$this->x] = '';
 
-                                            if ($this->bold) $this->attrs[$this->y][$this->x].= '</b>';
-                                            if ($this->underline) $this->attrs[$this->y][$this->x].= '</underline>';
-                                            if ($this->blink) $this->attrs[$this->y][$this->x].= '</blink>';
-                                            if ($this->color) $this->attrs[$this->y][$this->x].= '</span>';
+                                            if ($this->bold)
+                                                $this->attrs[$this->y][$this->x] .= '</b>';
+                                            if ($this->underline)
+                                                $this->attrs[$this->y][$this->x] .= '</underline>';
+                                            if ($this->blink)
+                                                $this->attrs[$this->y][$this->x] .= '</blink>';
+                                            if ($this->color)
+                                                $this->attrs[$this->y][$this->x] .= '</span>';
 
                                             if ($this->reverse) {
                                                 $temp = $this->background;
@@ -390,23 +391,39 @@ class File_ANSI {
                                             //$back = $this->reverse ? &$this->foreground : &$this->background;
                                             $back = &$this->{ $this->reverse ? 'foreground' : 'background' };
                                             switch ($mod) {
-                                                case 30: $front = 'black'; break;
-                                                case 31: $front = 'red'; break;
-                                                case 32: $front = 'green'; break;
-                                                case 33: $front = 'yellow'; break;
-                                                case 34: $front = 'blue'; break;
-                                                case 35: $front = 'magenta'; break;
-                                                case 36: $front = 'cyan'; break;
-                                                case 37: $front = 'white'; break;
+                                                case 30: $front = 'black';
+                                                    break;
+                                                case 31: $front = 'red';
+                                                    break;
+                                                case 32: $front = 'green';
+                                                    break;
+                                                case 33: $front = 'yellow';
+                                                    break;
+                                                case 34: $front = 'blue';
+                                                    break;
+                                                case 35: $front = 'magenta';
+                                                    break;
+                                                case 36: $front = 'cyan';
+                                                    break;
+                                                case 37: $front = 'white';
+                                                    break;
 
-                                                case 40: $back = 'black'; break;
-                                                case 41: $back = 'red'; break;
-                                                case 42: $back = 'green'; break;
-                                                case 43: $back = 'yellow'; break;
-                                                case 44: $back = 'blue'; break;
-                                                case 45: $back = 'magenta'; break;
-                                                case 46: $back = 'cyan'; break;
-                                                case 47: $back = 'white'; break;
+                                                case 40: $back = 'black';
+                                                    break;
+                                                case 41: $back = 'red';
+                                                    break;
+                                                case 42: $back = 'green';
+                                                    break;
+                                                case 43: $back = 'yellow';
+                                                    break;
+                                                case 44: $back = 'blue';
+                                                    break;
+                                                case 45: $back = 'magenta';
+                                                    break;
+                                                case 46: $back = 'cyan';
+                                                    break;
+                                                case 47: $back = 'white';
+                                                    break;
 
                                                 default:
                                                     user_error('Unsupported attribute: ' . $mod);
@@ -459,14 +476,11 @@ class File_ANSI {
                 case "\x0F": // shift
                     break;
                 case "\x1B": // start ANSI escape code
-                    $this->ansi.= "\x1B";
+                    $this->ansi .= "\x1B";
                     break;
                 default:
                     $this->screen[$this->y] = substr_replace(
-                        $this->screen[$this->y],
-                        $source[$i],
-                        $this->x,
-                        1
+                            $this->screen[$this->y], $source[$i], $this->x, 1
                     );
 
                     if ($this->x > $this->max_x) {
@@ -485,19 +499,18 @@ class File_ANSI {
      * @access private
      * @return String
      */
-    function _getScreen()
-    {
+    function _getScreen() {
         $output = '';
         for ($i = 0; $i <= $this->max_y; $i++) {
             for ($j = 0; $j <= $this->max_x + 1; $j++) {
                 if (isset($this->attrs[$i][$j])) {
-                    $output.= $this->attrs[$i][$j];
+                    $output .= $this->attrs[$i][$j];
                 }
                 if (isset($this->screen[$i][$j])) {
-                    $output.= htmlspecialchars($this->screen[$i][$j]);
+                    $output .= htmlspecialchars($this->screen[$i][$j]);
                 }
             }
-            $output.= "\r\n";
+            $output .= "\r\n";
         }
         return rtrim($output);
     }
@@ -508,8 +521,7 @@ class File_ANSI {
      * @access public
      * @return String
      */
-    function getScreen()
-    {
+    function getScreen() {
         return '<pre style="color: white; background: black" width="' . ($this->max_x + 1) . '">' . $this->_getScreen() . '</pre>';
     }
 
@@ -519,22 +531,22 @@ class File_ANSI {
      * @access public
      * @return String
      */
-    function getHistory()
-    {
+    function getHistory() {
         $scrollback = '';
         for ($i = 0; $i < count($this->history); $i++) {
             for ($j = 0; $j <= $this->max_x + 1; $j++) {
                 if (isset($this->history_attrs[$i][$j])) {
-                    $scrollback.= $this->history_attrs[$i][$j];
+                    $scrollback .= $this->history_attrs[$i][$j];
                 }
                 if (isset($this->history[$i][$j])) {
-                    $scrollback.= htmlspecialchars($this->history[$i][$j]);
+                    $scrollback .= htmlspecialchars($this->history[$i][$j]);
                 }
             }
-            $scrollback.= "\r\n";
+            $scrollback .= "\r\n";
         }
-        $scrollback.= $this->_getScreen();
+        $scrollback .= $this->_getScreen();
 
         return '<pre style="color: white; background: black" width="' . ($this->max_x + 1) . '">' . $scrollback . '</pre>';
     }
+
 }

@@ -49,7 +49,7 @@ class Comment {
     function setCommentActor($commentActor) {
         $this->commentActor = $commentActor;
     }
-    
+
     function getCommentCoincidence() {
         return $this->commentCoincidence;
     }

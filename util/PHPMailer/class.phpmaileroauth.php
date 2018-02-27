@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPMailer - PHP email creation and transport class.
  * PHP Version 5.4
@@ -23,8 +24,8 @@
  * @author @sherryl4george
  * @author Marcus Bointon (@Synchro) <phpmailer@synchromedia.co.uk>
  */
-class PHPMailerOAuth extends PHPMailer
-{
+class PHPMailerOAuth extends PHPMailer {
+
     /**
      * The OAuth user's email address
      * @var string
@@ -60,14 +61,10 @@ class PHPMailerOAuth extends PHPMailer
      * Get a PHPMailerOAuthGoogle instance to use.
      * @return PHPMailerOAuthGoogle
      */
-    public function getOAUTHInstance()
-    {
+    public function getOAUTHInstance() {
         if (!is_object($this->oauth)) {
             $this->oauth = new PHPMailerOAuthGoogle(
-                $this->oauthUserEmail,
-                $this->oauthClientSecret,
-                $this->oauthClientId,
-                $this->oauthRefreshToken
+                    $this->oauthUserEmail, $this->oauthClientSecret, $this->oauthClientId, $this->oauthRefreshToken
             );
         }
         return $this->oauth;
@@ -81,8 +78,7 @@ class PHPMailerOAuth extends PHPMailer
      * @access public
      * @return bool
      */
-    public function smtpConnect($options = array())
-    {
+    public function smtpConnect($options = array()) {
         if (is_null($this->smtp)) {
             $this->smtp = $this->getSMTPInstance();
         }
@@ -117,7 +113,7 @@ class PHPMailerOAuth extends PHPMailer
             $prefix = '';
             $secure = $this->SMTPSecure;
             $tls = ($this->SMTPSecure == 'tls');
-            if ('ssl' == $hostinfo[2] or ('' == $hostinfo[2] and 'ssl' == $this->SMTPSecure)) {
+            if ('ssl' == $hostinfo[2] or ( '' == $hostinfo[2] and 'ssl' == $this->SMTPSecure)) {
                 $prefix = 'ssl://';
                 $tls = false; // Can't have SSL and TLS at the same time
                 $secure = 'ssl';
@@ -131,12 +127,12 @@ class PHPMailerOAuth extends PHPMailer
             if ('tls' === $secure or 'ssl' === $secure) {
                 //Check for an OpenSSL constant rather than using extension_loaded, which is sometimes disabled
                 if (!$sslext) {
-                    throw new phpmailerException($this->lang('extension_missing').'openssl', self::STOP_CRITICAL);
+                    throw new phpmailerException($this->lang('extension_missing') . 'openssl', self::STOP_CRITICAL);
                 }
             }
             $host = $hostinfo[3];
             $port = $this->Port;
-            $tport = (integer)$hostinfo[4];
+            $tport = (integer) $hostinfo[4];
             if ($tport > 0 and $tport < 65536) {
                 $port = $tport;
             }
@@ -165,13 +161,8 @@ class PHPMailerOAuth extends PHPMailer
                     }
                     if ($this->SMTPAuth) {
                         if (!$this->smtp->authenticate(
-                            $this->Username,
-                            $this->Password,
-                            $this->AuthType,
-                            $this->Realm,
-                            $this->Workstation,
-                            $this->oauth
-                        )
+                                        $this->Username, $this->Password, $this->AuthType, $this->Realm, $this->Workstation, $this->oauth
+                                )
                         ) {
                             throw new phpmailerException($this->lang('authenticate'));
                         }
@@ -188,9 +179,10 @@ class PHPMailerOAuth extends PHPMailer
         // If we get here, all connection attempts have failed, so close connection hard
         $this->smtp->close();
         // As we've caught all exceptions, just report whatever the last one was
-        if ($this->exceptions and !is_null($lastexception)) {
+        if ($this->exceptions and ! is_null($lastexception)) {
             throw $lastexception;
         }
         return false;
     }
+
 }
