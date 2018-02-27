@@ -131,5 +131,10 @@ CREATE TABLE tbtag(
 CREATE TABLE tbadmin(
     adminid INTEGER,
     adminpassword VARCHAR(50) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    adminstate SMALLINT DEFAULT 1 NOT NULL,
     CONSTRAINT PRIMARY KEY(adminid)
 );
+
+INSERT INTO tbactor VALUES(1,'admin@admin.com',1);
+INSERT INTO tbadmin VALUES(1,'qwerty',1);
+
