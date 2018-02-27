@@ -136,7 +136,7 @@ if (SSession::getInstance()->user['type'] == "student") {//estudiante
         echo "<input  pattern = "."[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"." type ='text' name='professormail' value='" . SSession::getInstance()->user['actormail'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input pattern = "."[A-Za-z0-9]{5,11}"." type ='text' name='professorlicense' value='" . SSession::getInstance()->user['professorlicense'] . "'/>";
+        echo "<input pattern = "."[A-Za-z0-9]{5,11}"." type ='text' name='professorlicense' value='" . trim(SSession::getInstance()->user['professorlicense']) . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type = 'hidden' name='professorid' value='" . SSession::getInstance()->user['professorid'] . "'/>";

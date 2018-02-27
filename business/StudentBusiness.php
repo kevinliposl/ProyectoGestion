@@ -78,15 +78,15 @@ if (isset($_POST['create'])) {
                 $logind = new LoginData();
                 $logind->authenticate($login);
                 SSession::getInstance()->user = $logind;
-                header("location: ../view/StudentView.php?success=inserted");
+                header("location: ../view/ProfileView.php?success=updated");
             } else {
-                header("location: ../view/StudentView.php?error=dbError");
+                header("location: ../view/ProfileView.php?error=dbError");
             }
         } else {
-            header("location: ../view/StudentView.php?error=format");
+            header("location: ../view/ProfileView.php?error=format");
         }
     } else {
-        header("location: ../view/StudentView.php?error=empty");
+        header("location: ../view/ProfileView.php?error=empty");
     }
 }
 
