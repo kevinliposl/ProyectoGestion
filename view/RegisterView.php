@@ -22,16 +22,16 @@ $universityBusiness = new UniversityBusiness();
     <form enctype="multipart/form-data" onsubmit="validate(); return false">
         <tr>
             <td>
-                <input type="email" id="actormail" name="actormail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
+                <input type="email" id="actormail" name="actormail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required/>
             </td>
             <td>
-                <input type="text" id="actorname" name="actorname" pattern="[a-zA-Z\s]+$"/>
+                <input type="text" id="actorname" name="actorname" pattern="[a-zA-Z\s]+$" required/>
             </td>
             <td>
-                <input type="text" id="actorlastname1" name="actorlastname1" pattern="[a-zA-Z\s]+$"/>
+                <input type="text" id="actorlastname1" name="actorlastname1" pattern="[a-zA-Z\s]+$" required/>
             </td>
             <td>
-                <input type="text" id="actorlastname2" name="actorlastname2" pattern="[a-zA-Z\s]+$"/>
+                <input type="text" id="actorlastname2" name="actorlastname2" pattern="[a-zA-Z\s]+$" required/>
             </td>
             <td>
                 <select id="actortype" name="actortype" style="width: 100%;">

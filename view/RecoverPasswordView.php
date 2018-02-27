@@ -10,15 +10,13 @@ require_once '../util/SSession.php';
     <form enctype="multipart/form-data" method="POST" action="../business/LoginBusiness.php">
         <tr>
             <td>
-                <input type="email" name="actormail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
+                <input type="email" name="actormail" placeholder="Mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required/>
             </td>
             <td>
                 <input type="submit" name="recover" value="Enviar"/> 
             </td>
         </tr>
     </form>
-
-
     <tr>
         <td></td>
         <td>
@@ -37,9 +35,6 @@ require_once '../util/SSession.php';
             ?>
         </td>
     </tr>
-
-
-
     <?php
     include_once '../public/footer.php';
     

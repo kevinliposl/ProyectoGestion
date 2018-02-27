@@ -26,7 +26,7 @@ $keyPublicHex = RSA::getInstance()->publicKeyToHex(SSession::getInstance()->keys
                 <input type="submit" name="login" value="Login"/> 
             </td>
             <td>
-                <a href="RecoverPasswordView.php">Recuperar contrasena</a>
+                <a href="RecoverPasswordView.php">Recuperar contrase&ncaron;a</a>
             </td>
 
         </tr>
@@ -57,26 +57,30 @@ $keyPublicHex = RSA::getInstance()->publicKeyToHex(SSession::getInstance()->keys
         }
 
         function validate() {
-            var args = {
-                "loginMail": encrypt($("#loginMail").val()),
-                "loginPassword": encrypt($("#loginPassword").val()),
-                "login": "login"
-            };
+            if ($("#loginMail").val().length > 0 && $("#loginPassword").val().length > 0) {
+                var args = {
+                    "loginMail": encrypt($("#loginMail").val()),
+                    "loginPassword": encrypt($("#loginPassword").val()),
+                    "login": "login"
+                };
 
-            $.post('../business/LoginBusiness.php', args, function (data) {
-                if (data.result === 1) {
-                    $("#state").html(message["success"]);
-                    location.href = '../index.php';
-                } else if (data.result === -1) {
-                    $("#state").html(message["format"]);
-                } else if (data.result === -2) {
-                    $("#state").html(message["emptyField"]);
-                } else {
+                $.post('../business/LoginBusiness.php', args, function (data) {
+                    if (data.result === 1) {
+                        $("#state").html(message["success"]);
+                        location.href = '../index.php';
+                    } else if (data.result === -1) {
+                        $("#state").html(message["format"]);
+                    } else if (data.result === -2) {
+                        $("#state").html(message["emptyField"]);
+                    } else {
+                        $("#state").html(message["fail"]);
+                    }
+                }, 'json').fail(function () {
                     $("#state").html(message["fail"]);
-                }
-            }, 'json').fail(function () {
-                alert('Error de Envio');
-            });
+                });
+            } else {
+                $("#state").html('Complete el formalario');
+            }
         }
 
 </script>
