@@ -1,6 +1,6 @@
 <?php
 
-require '../domain/Login.php';
+require_once '../domain/Login.php';
 require_once '../util/SSession.php';
 require_once '../util/SMail.php';
 require_once '../util/RSA.php';
@@ -18,7 +18,7 @@ if (isset($_POST['login'])) {
             $login->setLoginPassword($pass);
             $result = $loginBusiness->authenticate($login);
 
-            if ($result != false) {
+            if (isset($result['type'])) {
                 SSession::getInstance()->user = $result;
                 echo json_encode(array('result' => 1));
             } else {
@@ -48,7 +48,7 @@ if (isset($_POST['recover'])) {
             $login->setLoginMail($_POST['actormail']);
 
             $result = $loginBusiness->recoverPassword($login);
-            if (isset($result)) {
+            if (isset($result['type'])) {
                 while (!SMail::getInstance()->sendMail($login->getLoginMail(), 'Recordatorio de contraseña', 'La contraseña del sitio es la siguiente ' . $result[$result['type'] . 'password']));
                 header("location: ../view/RecoverPasswordView.php?success=recover");
             } else {

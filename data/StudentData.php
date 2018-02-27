@@ -54,7 +54,7 @@ class StudentData {
                 $queryInsertStudent = $this->db->prepare("INSERT INTO tbstudent VALUES (:id,:license,:name,:lastname1,:lastname2,:career1,:career2,:password,:state);");
                 $queryInsertStudent->execute(array('id' => $student->getStudentid(), 'license' => ' ', 'name' => $student->getStudentname(),
                     'lastname1' => $student->getStudentlastname1(), 'lastname2' => $student->getStudentlastname2(), 'career1' => $student->getStudentcareer1(),
-                    'career2' => 0, 'password' => $student->getStudentpassword(), 'state' => 0));
+                    'career2' => 0, 'password' => $student->getStudentpassword(), 'state' => 1));
                 $queryInsertStudent->fetch();
                 $queryInsertStudent->closeCursor();
 
@@ -112,7 +112,6 @@ class StudentData {
         $query->closeCursor();
         $student = new Student();
         $student->setStudentid((int) $result['studentid']);
-        //$student->setStudentmail($result['studentid']); Mail
         $student->setStudentlicense($result['studentlicense']);
         $student->setStudentname($result['studentname']);
         $student->setStudentlastname1($result['studentlastname1']);
@@ -125,7 +124,7 @@ class StudentData {
 
     function delete(Student $student) {
         $query = $this->db->prepare("UPDATE tbstudent SET studentstate=:state WHERE studentid=:id;");
-        $query->execute(array('state' => 1, 'id' => $student->getStudentid()));
+        $query->execute(array('state' => 0, 'id' => $student->getStudentid()));
         $result = $query->fetch();
         if (!$result) {
             return 1;
@@ -133,5 +132,4 @@ class StudentData {
             return 0;
         }
     }
-
 }

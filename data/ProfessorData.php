@@ -34,8 +34,9 @@ class ProfessorData {
     }
 
     private function insertActor(Professor $professor) {
-        $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail);");
-        $queryInsertActor->execute(array('actorid' => $professor->getProfessorid(), 'actormail' => $professor->getProfessormail()));
+        $queryInsertActor = $this->db->prepare("INSERT INTO tbactor VALUES (:actorid,:actormail,:actorchangedpassword);");
+        $queryInsertActor->execute(array('actorid' => $professor->getProfessorid(), 'actormail' => $professor->getProfessormail()
+            , 'actorchangedpassword' => 0));
         $queryInsertActor->fetch();
         $queryInsertActor->closeCursor();
 
@@ -54,7 +55,7 @@ class ProfessorData {
                 $queryInsertProfessor = $this->db->prepare("INSERT INTO tbprofessor VALUES (:id,:license,:name,:lastname1,:lastname2,:password,:state);");
                 $queryInsertProfessor->execute(array('id' => $professor->getProfessorid(), 'license' => ' ', 'name' => $professor->getProfessorname(),
                     'lastname1' => $professor->getProfessorlastname1(), 'lastname2' => $professor->getProfessorlastname2(),
-                    'password' => $professor->getProfessorpassword(), 'state' => 0));
+                    'password' => $professor->getProfessorpassword(), 'state' => 1));
                 $queryInsertProfessor->fetch();
                 $queryInsertProfessor->closeCursor();
 
@@ -73,11 +74,11 @@ class ProfessorData {
     }
 
     function update(Professor $professor) {
-        if($professor->getProfessorpassword() != SSession::getInstance()->user['professorpassword']){
-           $queryP =$this->db->prepare("UPDATE tbactor set actorchangedpassword = 1 WHERE actorid =".SSession::getInstance()->user['actorid']);
-           $queryP->execute();
-           $queryP->fetch();
-           $queryP->closeCursor(); 
+        if ($professor->getProfessorpassword() != SSession::getInstance()->user['professorpassword']) {
+            $queryP = $this->db->prepare("UPDATE tbactor set actorchangedpassword = 1 WHERE actorid =" . SSession::getInstance()->user['actorid']);
+            $queryP->execute();
+            $queryP->fetch();
+            $queryP->closeCursor();
         }
         $query = $this->db->prepare("UPDATE tbprofessor p INNER JOIN tbactor a ON a.actorid = p.professorid "
                 . "SET p.professorlicense =:license, p.professorname=:name, p.professorlastname1=:lastname1, p.professorlastname2=:lastname2, p.professorpassword=:password,"

@@ -72,27 +72,29 @@ class AdministrativeData {
         }
     }
 
-    function update(Administrative $administrative) {
-        if($administrative->getAdministrativepassword() != SSession::getInstance()->user['administrativepassword']){
-           $queryP =$this->db->prepare("UPDATE tbactor set actorchangedpassword = 1 WHERE actorid =".SSession::getInstance()->user['actorid']);
-           $queryP->execute();
-           $queryP->fetch();
-           $queryP->closeCursor(); 
+    function update(Administrative $adm) {
+        if ($adm->getAdministrativepassword() != SSession::getInstance()->user['administrativepassword']) {
+            $queryP = $this->db->prepare("UPDATE tbactor set actorchangedpassword = 1 WHERE actorid =:id");
+            $queryP->execute(array('id' => SSession::getInstance()->user['actorid']));
+            $queryP->fetch();
+            $queryP->closeCursor();
         }
-        $query = $this->db->prepare("UPDATE tbadministrative "
-                . "SET administrativelicense =:license, administrativename =:name, administrativelastname1=:lastname1,"
+
+        $query = $this->db->prepare("UPDATE tbadministrative SET administrativelicense =:license, administrativename =:name, administrativelastname1=:lastname1,"
                 . "administrativelastname2 =:lastname2, administrativepassword =:password,administrativearea =:area WHERE administrativeid =:id;");
-        $query->execute(array('license' => $administrative->getAdministrativelicense(), 'name' => $administrative->getAdministrativename(), 'lastname1' => $administrative->getAdministrativelastname1(),
-            'lastname2' => $administrative->getAdministrativelastname2(), 'password' => $administrative->getAdministrativepassword(), 'area' => $administrative->getAdministrativearea(),
-            'id' => $administrative->getAdministrativeid()));
-        $result = $query->fetch();
+
+        $query->execute(array('license' => $adm->getAdministrativelicense(), 'name' => $adm->getAdministrativename(), 'lastname1' => $adm->getAdministrativelastname1(),
+            'lastname2' => $adm->getAdministrativelastname2(), 'password' => $adm->getAdministrativepassword(), 'area' => $adm->getAdministrativearea(),
+            'id' => $adm->getAdministrativeid()));
+        $query->fetch();
         $query->closeCursor();
 
-        if (!$result) {
+        $tmp = $this->select($adm);
+        if ($tmp->getAdministrativearea() != $adm->getAdministrativearea() || $tmp->getAdministrativelastname1() != $adm->getAdministrativelastname1() || $tmp->getAdministrativelastname2() != $adm->getAdministrativelastname2() ||
+                $tmp->getAdministrativelicense() != $adm->getAdministrativelicense() || $tmp->getAdministrativename() != $adm->getAdministrativename() || $tmp->getAdministrativepassword() != $adm->getAdministrativepassword()) {
             return 1;
-        } else {
-            return 0;
         }
+        return 0;
     }
 
     function selectAll() {
@@ -103,21 +105,20 @@ class AdministrativeData {
         return $result;
     }
 
-    function select($idAdministrative) {
-        $query = $this->db->prepare("SELECT * FROM tbadministrative WHERE administrativeid=" . $idAdministrative . ";");
+    function select(Administrative $administrative) {
+        $query = $this->db->prepare("SELECT * FROM tbadministrative WHERE administrativeid=:id;");
         $query->execute();
         $result = $query->fetch();
 
-        $administrative = new Administrative();
-        $administrative->setAdministrativeid($result['administrativeid']);
-        $administrative->setAdministrativelicense($result['administrativelicense']);
-        $administrative->setAdministrativename($result['administrativename']);
-        $administrative->setAdministrativelastname1($result['administrativelastname1']);
-        $administrative->setAdministrativelastname2($result['administrativelastname2']);
-        $administrative->setAdministrativearea($result['administrativearea']);
-        $administrative->setAdministrativepassword($result['administrativepassword']);
-
-        return $administrative;
+        $tmp = new Administrative();
+        $tmp->setAdministrativeid($result['administrativeid']);
+        $tmp->setAdministrativelicense($result['administrativelicense']);
+        $tmp->setAdministrativename($result['administrativename']);
+        $tmp->setAdministrativelastname1($result['administrativelastname1']);
+        $tmp->setAdministrativelastname2($result['administrativelastname2']);
+        $tmp->setAdministrativearea($result['administrativearea']);
+        $tmp->setAdministrativepassword($result['administrativepassword']);
+        return $tmp;
     }
 
     function delete(Administrative $administrative) {

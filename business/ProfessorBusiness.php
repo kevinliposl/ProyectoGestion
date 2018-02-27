@@ -24,7 +24,6 @@ if (isset($_POST['create'])) {
             if ($result) {
                 while (!SMail::getInstance()->sendMail($professor->getProfessormail(), 'Contraseña temporal', 'La contraseña del sitio es la siguiente ' . $professor->getProfessorpassword()));
             }
-
             echo json_encode(array('result' => $result));
         } else {
             echo json_encode(array('result' => -1));
