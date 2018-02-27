@@ -75,14 +75,14 @@ class AdministrativeData {
 
     function update(Administrative $adm) {
         if ($adm->getAdministrativepassword() != SSession::getInstance()->user['administrativepassword']) {
-            $queryP = $this->db->prepare("UPDATE tbactor set actorchangedpassword = 1 WHERE actorid =:id");
+            $queryP = $this->db->prepare("UPDATE tbactor set actorchangedpassword = 1 WHERE actorid=:id");
             $queryP->execute(array('id' => SSession::getInstance()->user['actorid']));
             $queryP->fetch();
             $queryP->closeCursor();
         }
 
-        $query = $this->db->prepare("UPDATE tbadministrative SET administrativelicense =:license, administrativename =:name, administrativelastname1=:lastname1,"
-                . "administrativelastname2 =:lastname2, administrativepassword =:password,administrativearea =:area WHERE administrativeid =:id;");
+        $query = $this->db->prepare("UPDATE tbadministrative SET administrativelicense=:license, administrativename=:name, administrativelastname1=:lastname1,"
+                . "administrativelastname2=:lastname2, administrativepassword=:password,administrativearea=:area WHERE administrativeid=:id;");
 
         $query->execute(array('license' => $adm->getAdministrativelicense(), 'name' => $adm->getAdministrativename(), 'lastname1' => $adm->getAdministrativelastname1(),
             'lastname2' => $adm->getAdministrativelastname2(), 'password' => $adm->getAdministrativepassword(), 'area' => $adm->getAdministrativearea(),
