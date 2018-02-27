@@ -1,3 +1,4 @@
+drop database ucrpagecenter;
 CREATE DATABASE ucrpagecenter;
 USE ucrpagecenter;
 
