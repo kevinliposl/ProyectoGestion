@@ -63,6 +63,7 @@ if (!isset(SSession::getInstance()->user)) {
         $.post('../business/SearchBusiness.php', args, function (data) {
             for (var dat in data.result) {
                 $('#message').html("<li><a href='CommentView.php?id=" + dat.activityid + "&title="+ dat.activitytitle+ "&des= " + dat.activitydescription+ "'><div> Fecha de creacion: " + dat.activitycreateddate+ ", Fecha de actualizacion: " + dat.activityupdatedate+ ", Numero de seguidores: " + dat.activitylikecount+ ", Cantidad de comentarios: " + dat.activitycommentcount+", Titulo: " + dat.activitytitle+ ", Descripcion: " + dat.activitydescription+ ", Lugar: " + dat.eventplace+ ", Dia: " + dat.eventdate+ ", Hora: " + dat.eventhour+ "</div></a></li>");
+                $('#message').html("<li><a href='CommentView.php?id=" + dat.activityid+ "&title=" + dat.activitytitle + "&des= " + dat.activitydescription + "'><div> Fecha de creacion: " + dat.activitycreateddate+ ", Fecha de actualizacion: " + dat.activityupdatedate+", Numero de seguidores: " + dat.activitylikecount+ ", Cantidad de comentarios: " + dat.activitycommentcount+ ", Titulo: " + dat.activitytitle+ ", Descripcion: " + dat.activitydescription+ "</div></a></li>");
             }
         }, 'json').fail(function () {
             alert('Error al acceder al servidor');
@@ -76,6 +77,6 @@ if (!isset(SSession::getInstance()->user)) {
     </td>
 </tr>
 
-<?php
+<?php 
 
 include_once '../public/footer.php';
