@@ -77,8 +77,8 @@ if (isset($_POST['create'])) {
                 $login->setLoginMail($_POST['administrativemail']);
                 $login->setLoginPassword($_POST['administrativepassword']);
                 $logind = new LoginData();
-                $logind->authenticate($login);
-                SSession::getInstance()->user = $logind;
+                $result = $logind->authenticate($login);
+                SSession::getInstance()->user = $result;
                 header("location: ../view/AdministrativeView.php?success=inserted");
             } else {
                 header("location: ../view/AdministrativeView.php?error=dbError");
