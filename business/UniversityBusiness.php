@@ -25,8 +25,8 @@ if (isset($_POST['create'])) {
         header("location: ../view/UniversityView.php?error=empty");
     }
 } else if (isset($_POST['update'])) {
-    if (isset($_POST['universityid']) && isset($_POST['universityname']) && isset($_POST['universitytype']) && isset($_POST['universityhadheadquarter'])) {
-        if (strlen($_POST['universityid']) > 0 && strlen($_POST['universityname']) > 0 && strlen($_POST['universitytype']) > 0 && strlen($_POST['universityhadheadquarter']) > 0) {
+    if (isset($_POST['universityid']) && isset($_POST['universityname']) && isset($_POST['universitytype'])) {
+        if (strlen($_POST['universityid']) > 0 && strlen($_POST['universityname']) > 0 && strlen($_POST['universitytype']) > 0) {
             $universityBusiness = new UniversityBusiness();
 
             $university = new University();
