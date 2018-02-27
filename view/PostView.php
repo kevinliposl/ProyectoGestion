@@ -45,11 +45,9 @@ echo "<h3>Lista de Publicaciones</h3>";
         $('#message').text('Espere...');
 
         $.post('../business/SearchBusiness.php', args, function (data) {
-            $('#message').html(JSON.stringify(data.result));
-            //for (var dat in data.result) {
-//                $('#message').html("<li><a href='CommentView.php?id=" + dat.activityid + "&title="+ dat.activitytitle+ "&des= " + dat.activitydescription+ "'><div> Fecha de creacion: " + dat.activitycreateddate+ ", Fecha de actualizacion: " + dat.activityupdatedate+ ", Numero de seguidores: " + dat.activitylikecount+ ", Cantidad de comentarios: " + dat.activitycommentcount+", Titulo: " + dat.activitytitle+ ", Descripcion: " + dat.activitydescription+ ", Lugar: " + dat.eventplace+ ", Dia: " + dat.eventdate+ ", Hora: " + dat.eventhour+ "</div></a></li>");
-            //$('#message').html("<li><a href='CommentView.php?id=" + dat.activityid+ "&title=" + dat.activitytitle + "&des= " + dat.activitydescription + "'><div> Fecha de creacion: " + dat.activitycreateddate+ ", Fecha de actualizacion: " + dat.activityupdatedate+", Numero de seguidores: " + dat.activitylikecount+ ", Cantidad de comentarios: " + dat.activitycommentcount+ ", Titulo: " + dat.activitytitle+ ", Descripcion: " + dat.activitydescription+ "</div></a></li>");
-            //}
+            for (var dat in data.result[0]) {
+                $('#message').html("<li><a href='CommentView.php?id=" +JSON.intify(data.result[0])+ "&title=" + JSON.stringify(data.result[6]) + "&des= " + JSON.stringify(data.result[7]) + "'><div> Fecha de creacion: " + JSON.stringify(data.result[2])+ ", Fecha de actualizacion: " + JSON.stringify(data.result[3])+", Numero de seguidores: " + JSON.stringify(data.result[4])+ ", Cantidad de comentarios: " + JSON.stringify(data.result[5])+ ", Titulo: " +JSON.stringify(data.result[6])+ ", Descripcion: " + JSON.stringify(data.result[7])+ "</div></a></li>");
+            }
         }, 'json').fail(function () {
             alert('Error al acceder al servidor');
         });
