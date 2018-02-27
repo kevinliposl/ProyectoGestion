@@ -1,6 +1,6 @@
 <?php
 
-require '../domain/Professor.php';
+require_once '../domain/Professor.php';
 require_once '../util/RandomPassGenerator.php';
 require_once '../util/SMail.php';
 require_once '../util/SSession.php';
