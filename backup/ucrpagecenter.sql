@@ -1,6 +1,7 @@
 CREATE DATABASE ucrpagecenter;
 USE ucrpagecenter;
 
+
 CREATE TABLE tbuniversity(
     universityid INTEGER,
     universityname VARCHAR(100) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -87,7 +88,7 @@ CREATE TABLE tbactivity(
     activitycommentcount INTEGER NOT NULL,
     activitytitle VARCHAR(255) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     activitydescription varchar(500) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    activityestate SMALLINT DEFAULT 1 NOT NULL,
+    activitystate SMALLINT DEFAULT 1 NOT NULL,
     activityenclosureid INTEGER NOT NULL,
     CONSTRAINT PRIMARY KEY(activityid)
 );
