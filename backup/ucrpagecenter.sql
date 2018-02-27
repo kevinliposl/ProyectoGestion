@@ -1,4 +1,4 @@
-drop database ucrpagecenter;
+DROP DATABASE ucrpagecenter;
 CREATE DATABASE ucrpagecenter;
 USE ucrpagecenter;
 
