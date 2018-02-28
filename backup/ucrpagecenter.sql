@@ -119,6 +119,7 @@ CREATE TABLE tbcomment(
     commentcreated DATE NOT NULL,
     commentactor INTEGER NOT NULL,
     commentcoincidence FLOAT NOT NULL,
+    commenttype VARCHAR(255) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     commentstate SMALLINT DEFAULT 1 NOT NULL,
     CONSTRAINT PRIMARY KEY(commentid)
 );
