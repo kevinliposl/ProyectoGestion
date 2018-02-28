@@ -39,10 +39,11 @@ class SearchData {
         $query .= ';';
         return $query;
     }
+
     function selectEvent(Search $search) {
         $tmp = $this->createQueryEvent($search);
         $query = $this->db->prepare($tmp);
-       //return $tmp;
+        //return $tmp;
         $query->execute();
         $result = $query->fetch();
         $query->closeCursor();
@@ -80,7 +81,11 @@ class SearchData {
                 }
             }
         }
-        $query .= ';';
+        if (strpos($query, "WHERE") == NULL) {
+            $query .= " WHERE DATEDIFF(CURDATE(),e.eventdate) <= e.eventdayafter || DATEDIFF(CURDATE(),e.eventdate) <= e.eventdaybefore;";
+        } else {
+            $query .= " AND DATEDIFF(CURDATE(),e.eventdate) <= e.eventdayafter || DATEDIFF(CURDATE(),e.eventdate) <= e.eventdaybefore;";
+        }
         return $query;
     }
 

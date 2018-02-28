@@ -57,7 +57,6 @@ $event = $eventBusiness->selectAllTotal();
         $('#message').text('Espere...');
 
         $.post('../business/SearchBusiness.php', args, function (data) {
-
             $.each(data, function (i, item) {
                 $('#message').html("<li><a href='CommentView.php?id=" + item.activityid + "&title=" + item.activitytitle + "&des="+ item.activitydescription + "'><div> Fecha de creacion: "
                         + item.activitycreateddate + ", Fecha de actualizacion: " + item.activityupdatedate + ", Numero de seguidores: " + item.activitylikecount + ", Cantidad de comentarios: " +
