@@ -116,22 +116,83 @@ class TagMaker {
     }
 
     //ponderar los comentarios segun su nivel de coincidencia con las actividades
-    function commentCoincidenceWithActivity($activityTags, $commentWords) {
+    function commentCoincidenceWithActivity($activityTags, $commentWords, $tagsSize) {
+
+        //asignacion de variable
         $activityTagMaxSize = count($activityTags);
         $commentTagCoincidence = 0;
+        $sizesArray = array_fill(0, count($tagsSize), NULL);
+        $currentPosition = 0;
+        $relateWord = $activityTags[$currentPosition]['tagrelation'];
 
+        //cantidad de palabras relacionadas a la palabra de la actividad
+        foreach ($activityTags as $tags) {
+            if (strcmp($relateWord, $tags[2]) == 0) {
+                if ($sizesArray[$currentPosition] == NULL) {
+                    $sizesArray[$currentPosition] = 1;
+                } else {
+                    $sizesArray[$currentPosition] = $sizesArray[$currentPosition] + 1;
+                }
+            } else {
+                if ($currentPosition <= count($tagsSize) - 1) {
+
+                    $currentPosition = $currentPosition + 1;
+                    $relateWord = $tags['tagrelation'];
+                    if ($sizesArray[$currentPosition] == NULL) {
+                        $sizesArray[$currentPosition] = 1;
+                    } else {
+                        $sizesArray[$currentPosition] = $sizesArray[$currentPosition] + 1;
+                    }
+                }
+            }
+        }
+
+        //representacion del total del 100% de las palabra
+        $arrayPercent = array_fill(0, count($tagsSize), NULL);
+        $arrayPercentCurrentPosition = 0;
+
+        foreach ($sizesArray as $unitSize) {
+            $arrayPercent[$arrayPercentCurrentPosition] = round($unitSize * 100 / $activityTagMaxSize);
+            $arrayPercentCurrentPosition = $arrayPercentCurrentPosition + 1;
+        }
+
+        //representacion del 100% relacionado a una palabra de la actividad
+        $arrayPercentGroup = array_fill(0, count($tagsSize), NULL);
+        $arrayPercentWordCurrentPosition = 0;
+
+        foreach ($sizesArray as $unitWord) {
+            $arrayPercentGroup[$arrayPercentWordCurrentPosition] = (100 / $unitWord);
+            $arrayPercentWordCurrentPosition = $arrayPercentWordCurrentPosition + 1;
+        }
+
+        //print_r($arrayPercentGroup);
+
+        $tagPosition = 0;
+        //porcentaje de relacion entre el comentario y la actividad 
         foreach ($commentWords as $commentWord) {
 
             foreach ($activityTags as $activityTag) {
 
                 $currentWord = $activityTag[1];
+                $wordCoincidence = $activityTag[2];
 
 
                 if (strcasecmp($commentWord, $currentWord) == 0) {
-                    if ($commentTagCoincidence == 0) {
-                        $commentTagCoincidence = 1;
-                    } else {
-                        $commentTagCoincidence = $commentTagCoincidence + 1;
+
+                    foreach ($tagsSize as $tSize) {
+
+                        if (strcmp($wordCoincidence, $tSize['tagrelation']) == 0) {
+
+                            if ($commentTagCoincidence == 0) {
+                                $commentTagCoincidence = $arrayPercentGroup[$tagPosition];
+                            } else {
+                                $commentTagCoincidence = $commentTagCoincidence + $arrayPercentGroup[$tagPosition];
+                            }
+                        } else {
+                            if ($tagPosition < count($tagsSize) - 1) {
+                                $tagPosition = $tagPosition + 1;
+                            }
+                        }
                     }
                 }
             }

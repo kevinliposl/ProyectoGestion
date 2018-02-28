@@ -28,7 +28,7 @@ $comments = $commentBusiness->selectidActivity($_GET['id']);
 echo "<h3>Comentarios</h3>";
 
 foreach ($comments as $comment) {
-    echo "<div><h4>" . $comment['actormail'] . "</h4>" . $comment['commentdescription'] . " dia:" . $comment['commentcreated'] . "</div>";
+    echo "<div><h4>" . $comment['actormail'] . "</h4>" . $comment['commentdescription'] . " dia:" . $comment['commentcreated'] ." Concidencia: ". $comment['commentcoincidence'] ."%". "</div>";
 }//End foreach ($comments as $comment) 
 
 echo "<table>";

@@ -22,6 +22,11 @@ class TagBusiness {
         return $this->data->selectActivity($activityId);
         //End selectAll
     }
+       
+    function selectActivitySize($idActivity){
+        return $this->data->selectActivitySize($idActivity);
+    }
+
 
 //End class ActivityBusiness 
 }

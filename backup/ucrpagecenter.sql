@@ -2,7 +2,6 @@ drop database ucrpagecenter;
 CREATE DATABASE ucrpagecenter;
 USE ucrpagecenter;
 
-
 CREATE TABLE tbuniversity(
     universityid INTEGER,
     universityname VARCHAR(100) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -111,13 +110,14 @@ CREATE TABLE tbpost(
     CONSTRAINT PRIMARY KEY(postid)
 );
 
+
 CREATE TABLE tbcomment(
     commentid INTEGER NOT NULL,
     commentactivityid INTEGER NOT NULL,
     commentdescription VARCHAR(255) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
     commentcreated DATE NOT NULL,
     commentactor INTEGER NOT NULL,
-    commentcoincidence INTEGER NOT NULL,
+    commentcoincidence FLOAT NOT NULL,
     commentstate SMALLINT DEFAULT 1 NOT NULL,
     CONSTRAINT PRIMARY KEY(commentid)
 );

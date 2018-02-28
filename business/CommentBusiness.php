@@ -98,7 +98,8 @@ if (isset($_POST['create'])) {
             }
 
             $activityTags = $tagBusiness->selectActivity($_POST['activityid']);
-            $commentCoincidence = $tagMaker->commentCoincidenceWithActivity($activityTags, $commentWords);
+            $activitySize= $tagBusiness->selectActivitySize($_POST['activityid']);
+            $commentCoincidence = $tagMaker->commentCoincidenceWithActivity($activityTags, $commentWords, $activitySize);
 
             $comment->setActivityId($_POST['activityid']);
             $comment->setCommentDescription($_POST['commentdescription']);
@@ -146,7 +147,7 @@ class CommentBusiness {
     function selectidActivity($idActivity) {
         return $this->data->selectidActivity($idActivity);
     }
-
+ 
 //End selectidActivity
 
     function delete(Comment $comment) {

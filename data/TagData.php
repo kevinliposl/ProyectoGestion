@@ -20,11 +20,19 @@ class TagData {
     }
 
     function selectActivity($activityId) {
-        $query = $this->db->prepare("SELECT * FROM tbtag WHERE tagactivityid=" . $activityId . ";");
+        $query = $this->db->prepare("SELECT * FROM tbtag WHERE tagactivityid=" . $activityId . " order by(tagrelation);");
         $query->execute();
         $result = $query->fetchAll();
         $query->closeCursor();
         return $result;
+    }
+    
+    function selectActivitySize($activityId){
+       $query = $this->db->prepare("SELECT DISTINCT tagrelation FROM tbtag WHERE tagactivityid=" . $activityId . ";");
+        $query->execute();
+        $result = $query->fetchAll();
+        $query->closeCursor();
+        return $result; 
     }
 
 }
