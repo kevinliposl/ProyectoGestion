@@ -1,4 +1,5 @@
 <?php
+
 include_once '../public/header.php';
 include_once '../business/EventBusiness.php';
 require_once '../util/SSession.php';
@@ -9,6 +10,7 @@ if (!isset(SSession::getInstance()->user)) {
 ?>
 
 <?php
+
 echo "<h3>Lista de todos los Eventos</h3>";
 
 $eventBusiness = new EventBusiness();
@@ -55,9 +57,12 @@ $event = $eventBusiness->selectAllTotal();
         $('#message').text('Espere...');
 
         $.post('../business/SearchBusiness.php', args, function (data) {
-            for (var dat in data.result[0]) {
-                $('#message').html("<li><a href='CommentView.php?id=" + JSON.stringify(data.result[0]) + "&title="+ JSON.stringify(data.result[6])+ "&des= " + JSON.stringify(data.result[7])+ "'><div> Fecha de creacion: " + JSON.stringify(data.result[2])+ ", Fecha de actualizacion: " + JSON.stringify(data.result[3])+ ", Numero de seguidores: " + dJSON.stringify(data.result[4])+ ", Cantidad de comentarios: " + JSON.stringify(data.result[5])+", Titulo: " + JSON.stringify(data.result[6])+ ", Descripcion: " + JSON.stringify(data.result[7])+ "</div></a></li>");
-            }
+
+            $.each(data, function (i, item) {
+                $('#message').html("<li><a href='CommentView.php?id=" + item.activityid + "&title=" + item.activitytitle + "&des="+ item.activitydescription + "'><div> Fecha de creacion: "
+                        + item.activitycreateddate + ", Fecha de actualizacion: " + item.activityupdatedate + ", Numero de seguidores: " + item.activitylikecount + ", Cantidad de comentarios: " +
+                        item.activitycommentcount + ", Titulo: " + item.activitytitle + ", Descripcion: " + item.activitydescription + "</div></a></li>");
+            });
         }, 'json').fail(function () {
             alert('Error al acceder al servidor');
         });
@@ -73,6 +78,7 @@ $event = $eventBusiness->selectAllTotal();
 <br>
 <br>
 <?php
+
 echo "<a href='EventViewDay.php'><font color=red>Eventos de Hoy</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 echo "<a href='EventViewWeek.php'><font color=red>Eventos de la Semana</font></a>&nbsp;&nbsp;&nbsp;&nbsp;";
 echo "<a href='EventViewMonth.php'><font color=red>Eventos del Mes</font></a>";
@@ -101,5 +107,6 @@ foreach ($event as $event) {
 ?>
 
 <?php
+
 include_once '../public/footer.php';
 ?>   
