@@ -14,7 +14,7 @@ if (!isset(SSession::getInstance()->user)) {
 $postBusiness = new PostBusiness();
 $posts = $postBusiness->selectAllTotal();
 
-echo "<h3>Lista de Publicaciones</h3>";
+echo "<h3>Publicaciones</h3>";
 ?>
 
 <table>
@@ -62,6 +62,8 @@ echo "<h3>Lista de Publicaciones</h3>";
 </tr>
 
 <?php
+echo '<br>';
+echo "<h3>Lista de Publicaciones</h3>";
 
 foreach ($posts as $post) {
     $size = $post['activitycommentcount'] + 1;

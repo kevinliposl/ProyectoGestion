@@ -11,7 +11,7 @@ if (!isset(SSession::getInstance()->user)) {
 
 <?php
 
-echo "<h3>Lista de todos los Eventos</h3>";
+echo "<h3>Eventos</h3>";
 
 $eventBusiness = new EventBusiness();
 $event = $eventBusiness->selectAllTotal();
@@ -76,7 +76,8 @@ $event = $eventBusiness->selectAllTotal();
 <br>
 <br>
 <?php
-
+echo "<h3>Lista de todos los Eventos</h3>";
+echo '<br>';
 echo "<a href='EventViewDay.php'><font color=red>Eventos de Hoy</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 echo "<a href='EventViewWeek.php'><font color=red>Eventos de la Semana</font></a>&nbsp;&nbsp;&nbsp;&nbsp;";
 echo "<a href='EventViewMonth.php'><font color=red>Eventos del Mes</font></a>";
