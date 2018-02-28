@@ -54,8 +54,6 @@ if (SSession::getInstance()->user['type'] == "student") {//estudiante
 
         echo "<input pattern = ".'[A-Za-z0-9]{5,11}'." type ='text' name='studentlicense' value='". trim(SSession::getInstance()->user['studentlicense'])."'/>";
 
-        echo "<input type ='text' name='studentlicense' value='".trim(SSession::getInstance()->user['studentlicense'])."'/>";
-
         echo "</td>";
         echo "<td>";
         echo "<input type = 'hidden' name='studentid' value='" . SSession::getInstance()->user['studentid'] . "'/>";
