@@ -1,5 +1,4 @@
 <?php
-
 include_once '../public/header.php';
 include_once '../business/EventBusiness.php';
 require_once '../util/SSession.php';
@@ -10,7 +9,6 @@ if (!isset(SSession::getInstance()->user)) {
 ?>
 
 <?php
-
 echo "<h3>Lista de todos los Eventos</h3>";
 
 $eventBusiness = new EventBusiness();
@@ -57,7 +55,7 @@ $event = $eventBusiness->selectAllTotal();
         $('#message').text('Espere...');
 
         $.post('../business/SearchBusiness.php', args, function (data) {
-            $('#message').html(data.result);
+            $('#message').html(JSON.stringify(data.result));
             //          for (var dat in data.result) {
 //                $('#message').html("<li><a href='CommentView.php?id=" + dat.activityid + "&title="+ dat.activitytitle+ "&des= " + dat.activitydescription+ "'><div> Fecha de creacion: " + dat.activitycreateddate+ ", Fecha de actualizacion: " + dat.activityupdatedate+ ", Numero de seguidores: " + dat.activitylikecount+ ", Cantidad de comentarios: " + dat.activitycommentcount+", Titulo: " + dat.activitytitle+ ", Descripcion: " + dat.activitydescription+ ", Lugar: " + dat.eventplace+ ", Dia: " + dat.eventdate+ ", Hora: " + dat.eventhour+ "</div></a></li>");
             //$('#message').html("<li><a href='CommentView.php?id=" + dat.activityid+ "&title=" + dat.activitytitle + "&des= " + dat.activitydescription + "'><div> Fecha de creacion: " + dat.activitycreateddate+ ", Fecha de actualizacion: " + dat.activityupdatedate+", Numero de seguidores: " + dat.activitylikecount+ ", Cantidad de comentarios: " + dat.activitycommentcount+ ", Titulo: " + dat.activitytitle+ ", Descripcion: " + dat.activitydescription+ "</div></a></li>");
@@ -77,7 +75,6 @@ $event = $eventBusiness->selectAllTotal();
 <br>
 <br>
 <?php
-
 echo "<a href='EventViewDay.php'><font color=red>Eventos de Hoy</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 echo "<a href='EventViewWeek.php'><font color=red>Eventos de la Semana</font></a>&nbsp;&nbsp;&nbsp;&nbsp;";
 echo "<a href='EventViewMonth.php'><font color=red>Eventos del Mes</font></a>";
@@ -106,6 +103,5 @@ foreach ($event as $event) {
 ?>
 
 <?php
-
 include_once '../public/footer.php';
 ?>   

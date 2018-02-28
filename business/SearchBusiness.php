@@ -14,7 +14,6 @@ if (isset($_POST['selectEvent'])) {
     $search->setSearchPlace(isset($_POST['searchPlace']) ? $_POST['searchPlace'] : NULL);
     $search->setSearchHour(isset($_POST['searchHour']) ? $_POST['searchHour'] : NULL);
     $result = $searchBusiness->selectEvent($search);
-
     echo json_encode(array('result' => $result));
 }
 
@@ -24,8 +23,7 @@ if (isset($_POST['selectPost'])) {
 
     $search->setTypeActivity('post');
     $search->setSearchGeneral(isset($_POST['searchGeneral']) ? explode(' ', $_POST['searchGeneral']) : NULL);
-    $search->setSearchDate(isset($_POST['searchDate']) ? $_POST['searchDate'] : NULL);
-  
+    $search->setSearchDate(isset($_POST['searchDate']) ? date_format($_POST['searchDate'], "Y-m-d") : NULL);
     $result = $searchBusiness->selectPost($search);
 
     echo json_encode(array('result' => $result));
