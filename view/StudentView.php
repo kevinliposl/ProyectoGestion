@@ -14,6 +14,8 @@ require_once '../util/SSession.php';
 
 if (!isset(SSession::getInstance()->user)) {
     header('location: ../index.php');
+} elseif (SSession::getInstance()->user['type'] != 'admin') {
+    header('location: ../index.php');
 }
 ?>
 <table>

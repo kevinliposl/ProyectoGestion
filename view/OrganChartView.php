@@ -30,25 +30,27 @@ foreach ($universities as $university) {
     if (intval($university['universityhadheadquarter']) == 1) {
         foreach ($headquarters as $headquarter) {
             echo '<ul>';
-            echo '<li><a href="#"><div>' . $headquarter['headquartername'] . '</div></a>';
-            echo '<ul>';
             if ($university['universityid'] == $headquarter['headquarteruniversityid']) {
-                foreach ($enclosures as $enclosure) {
-                    if ($enclosure['enclosureheadquarterid'] == $headquarter['headquarterid']) {
-                        echo '<li><a href="#"><div>' . $enclosure['enclosurename'] . '</div></a>';
-                        echo '<ul>';
-                        foreach ($careers1 as $career) {
-                            if ($enclosure['enclosureid'] == $career['careerenclosureid']) {
-                                echo '<li><a href="#"><div>' . $career['careercode'] . ' | ' . $career['careername'] . ' | ' . $career['careergrade'] . '</div></a></li>';
+                echo '<li><a href="#"><div>' . $headquarter['headquartername'] . '</div></a>';
+                echo '<ul>';
+                if ($university['universityid'] == $headquarter['headquarteruniversityid']) {
+                    foreach ($enclosures as $enclosure) {
+                        if ($enclosure['enclosureheadquarterid'] == $headquarter['headquarterid']) {
+                            echo '<li><a href="#"><div>' . $enclosure['enclosurename'] . '</div></a>';
+                            echo '<ul>';
+                            foreach ($careers1 as $career) {
+                                if ($enclosure['enclosureid'] == $career['careerenclosureid']) {
+                                    echo '<li><a href="#"><div>' . $career['careercode'] . ' | ' . $career['careername'] . ' | ' . $career['careergrade'] . '</div></a></li>';
+                                }
                             }
+                            echo '</ul>';
+                            echo '</li>';
                         }
-                        echo '</ul>';
-                        echo '</li>';
                     }
                 }
+                echo '</ul>';
+                echo '</li>';
             }
-            echo '</ul>';
-            echo '</li>';
             echo '</ul>';
         }
     } else {
