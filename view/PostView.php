@@ -15,8 +15,54 @@ if (!isset(SSession::getInstance()->user)) {
 $postBusiness = new PostBusiness();
 $posts = $postBusiness->selectAllTotal();
 
-//    echo "<form enctype='multipart/form-data' method='POST' action='../business/EventBusiness.php'>";
 echo "<h3>Lista de Publicaciones</h3>";
+?>
+
+<table>
+    <tr>
+        <th>Busqueda General</th>
+        <th>Fecha</th>
+    </tr>
+    <tr>
+        <td>
+            <input type ='text' id="searchGeneral" placeholder="Busqueda General"/>
+        </td>
+        <td>
+            <input type ='date' id="searchDate" placeholder="Fecha"/>
+        </td>
+        <td>
+            <input type="button" id="search" value="Buscar"/> 
+        </td>
+    </tr>
+</table>
+<script>
+    $("#search").click(function () {
+        var args = {
+            'searchGeneral': $('#searchGeneral').val().trim(),
+            'searchDate': $('#searchDate').val(),
+            'selectPost': 'selectPost'
+        };
+        $('#message').text('Espere...');
+
+        $.post('../business/SearchBusiness.php', args, function (data) {
+            $('#message').html(JSON.stringify(data.result));
+            //for (var dat in data.result) {
+//                $('#message').html("<li><a href='CommentView.php?id=" + dat.activityid + "&title="+ dat.activitytitle+ "&des= " + dat.activitydescription+ "'><div> Fecha de creacion: " + dat.activitycreateddate+ ", Fecha de actualizacion: " + dat.activityupdatedate+ ", Numero de seguidores: " + dat.activitylikecount+ ", Cantidad de comentarios: " + dat.activitycommentcount+", Titulo: " + dat.activitytitle+ ", Descripcion: " + dat.activitydescription+ ", Lugar: " + dat.eventplace+ ", Dia: " + dat.eventdate+ ", Hora: " + dat.eventhour+ "</div></a></li>");
+            //$('#message').html("<li><a href='CommentView.php?id=" + dat.activityid+ "&title=" + dat.activitytitle + "&des= " + dat.activitydescription + "'><div> Fecha de creacion: " + dat.activitycreateddate+ ", Fecha de actualizacion: " + dat.activityupdatedate+", Numero de seguidores: " + dat.activitylikecount+ ", Cantidad de comentarios: " + dat.activitycommentcount+ ", Titulo: " + dat.activitytitle+ ", Descripcion: " + dat.activitydescription+ "</div></a></li>");
+            //}
+        }, 'json').fail(function () {
+            alert('Error al acceder al servidor');
+        });
+    });
+</script>
+<tr>
+    <td></td>
+    <td>
+        <div id="message"></div>
+    </td>
+</tr>
+
+<?php
 
 foreach ($posts as $post) {
     $size = $post['activitycommentcount'] + 1;

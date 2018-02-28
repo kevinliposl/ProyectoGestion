@@ -4,18 +4,29 @@ require '../domain/Event.php';
 require '../domain/Publication.php';
 require '../domain/Search.php';
 
-if (isset($_POST['select'])) {
+if (isset($_POST['selectEvent'])) {
     $searchBusiness = new SearchBusiness;
     $search = new Search;
 
-    $search->setTypeActivity(isset($_POST['typeActivity']) ? $_POST['typeActivity'] : NULL);
-    $search->setSearchHour(isset($_POST['searchHour']) ? $_POST['searchHour'] : NULL);
+    $search->setTypeActivity('post');
     $search->setSearchGeneral(isset($_POST['searchGeneral']) ? explode(' ', $_POST['searchGeneral']) : NULL);
     $search->setSearchDate(isset($_POST['searchDate']) ? $_POST['searchDate'] : NULL);
     $search->setSearchPlace(isset($_POST['searchPlace']) ? $_POST['searchPlace'] : NULL);
-    $search->setSearchActor(isset($_POST['searchActor']) ? $_POST['searchActor'] : NULL);
+    $search->setSearchHour(isset($_POST['searchHour']) ? $_POST['searchHour'] : NULL);
+    $result = $searchBusiness->selectEvent($search);
 
-    $result = $searchBusiness->select($search);
+    echo json_encode(array('result' => $result));
+}
+
+if (isset($_POST['selectPost'])) {
+    $searchBusiness = new SearchBusiness;
+    $search = new Search;
+
+    $search->setTypeActivity('post');
+    $search->setSearchGeneral(isset($_POST['searchGeneral']) ? explode(' ', $_POST['searchGeneral']) : NULL);
+    $search->setSearchDate(isset($_POST['searchDate']) ? $_POST['searchDate'] : NULL);
+  
+    $result = $searchBusiness->selectPost($search);
 
     echo json_encode(array('result' => $result));
 }
@@ -34,11 +45,18 @@ class SearchBusiness {
     }
 
     /**
-     * Funcion para insertar la carrera
+     * Funcion para buscar eventos
      */
-    function select(Search $search) {
-        return $this->data->select($search);
+    function selectEvent(Search $search) {
+        return $this->data->selectEvent($search);
     }
 
-//End class CareerBusiness 
+    /**
+     * Funcion para buscar post
+     */
+    function selectPost(Search $search) {
+        return $this->data->selectPost($search);
+    }
+
+//End class SearchBusiness 
 }
