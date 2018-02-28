@@ -51,7 +51,7 @@ if (SSession::getInstance()->user['type'] == "student") {//estudiante
         echo "<input pattern = "."[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"." type ='text' name='studentmail' value='" . SSession::getInstance()->user['actormail'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input pattern = ".'[A-Za-z0-9]{5,11}'." type ='text' name='studentlicense' value='".SSession::getInstance()->user['studentlicense']."'/>";
+        echo "<input pattern = ".'[A-Za-z0-9]{5,11}'." type ='text' name='studentlicense' value='". trim(SSession::getInstance()->user['studentlicense'])."'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type = 'hidden' name='studentid' value='" . SSession::getInstance()->user['studentid'] . "'/>";
@@ -175,7 +175,7 @@ if (SSession::getInstance()->user['type'] == "student") {//estudiante
         echo "<input type ='text' name='administrativemail' value='" . SSession::getInstance()->user['actormail'] . "'/>";
         echo "</td>";
         echo "<td>";
-        echo "<input type ='text' name='administrativelicense' value='" . SSession::getInstance()->user['administrativelicense'] . "'/>";
+        echo "<input type ='text' name='administrativelicense' value='" . trim(SSession::getInstance()->user['administrativelicense']) . "'/>";
         echo "</td>";
         echo "<td>";
         echo "<input type = 'hidden' name='administrativeid' value='" . SSession::getInstance()->user['administrativeid'] . "'/>";
