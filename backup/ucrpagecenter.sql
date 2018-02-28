@@ -138,3 +138,37 @@ CREATE TABLE tbadmin(
 INSERT INTO tbactor VALUES(1,'pruebasproyectos.u@gmail.com',1);
 INSERT INTO tbadmin VALUES(1,'pruebasu',1);
 
+INSERT INTO `tbuniversity` VALUES 
+(1,'Universidad de Costa Rica',1,1,1),
+(2,'Tecnologico de Costa Rica',1,1,1),
+(3,'Universidad Nacional',1,1,0);
+
+INSERT INTO `tbheadquarter` VALUES 
+(1,'Sede del Atlantico',1),
+(2,'Sede del Caribe',1),
+(3,'Sede de Occidente',1),
+(4,'Sede Central',2),
+(5,'Sede San Carlos',2);
+
+INSERT INTO `tbenclosure` VALUES 
+(1,'Turrialba',1,1,1),
+(2,'Guapiles',1,1,1),
+(3,'Paraiso',1,1,1),
+(4,'Alajuela',3,1,1),
+(5,'Tarrazu',3,1,1),
+(6,'Limon',2,1,1),
+(7,'Cartago',4,2,1),
+(8,'Ciudad Quesada',5,2,1),
+(9,'Sarapiqui',0,3,1);
+
+INSERT INTO `tbcareer` VALUES 
+(1,'111111','Informatica Emplesarial','Bachillerato',1,1),
+(2,'111112','Informatica Emplesarial','Bachillerato',3,1),
+(3,'111113','Informatica Emplesarial','Bachillerato',2,1),
+(4,'22221','Ingenieria Civil','Licenciatura',4,1),
+(5,'111114','Informatica Emplesarial','Bachillerato',5,1),
+(6,'22222','Ingenieria Aduanera','Bachillerato',6,1),
+(7,'22223','Ingenieria Electronica','Bachillerato',7,1),
+(8,'111111','Ingenieria en Computacion','Licenciatura',8,1),
+(9,'33333','Ingenieria en Sistemas','Bachillerato',9,1);
+
