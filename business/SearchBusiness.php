@@ -23,7 +23,7 @@ if (isset($_POST['selectPost'])) {
 
     $search->setTypeActivity('post');
     $search->setSearchGeneral(isset($_POST['searchGeneral']) ? explode(' ', $_POST['searchGeneral']) : NULL);
-    $search->setSearchDate(isset($_POST['searchDate']) ? date_format($_POST['searchDate'], "Y-m-d") : NULL);
+    $search->setSearchDate(isset($_POST['searchDate']) ? $_POST['searchDate'] : NULL);
     $result = $searchBusiness->selectPost($search);
 
     echo json_encode(array('result' => $result));
