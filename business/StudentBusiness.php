@@ -76,8 +76,8 @@ if (isset($_POST['create'])) {
                 $login->setLoginMail($_POST['studentmail']);
                 $login->setLoginPassword($_POST['studentpassword']);
                 $logind = new LoginData();
-                $logind->authenticate($login);
-                SSession::getInstance()->user = $logind;
+                $result = $logind->authenticate($login);
+                SSession::getInstance()->user = $result;
                 header("location: ../view/ProfileView.php?success=updated");
             } else {
                 header("location: ../view/ProfileView.php?error=dbError");

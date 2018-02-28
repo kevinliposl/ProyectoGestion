@@ -74,8 +74,8 @@ if (isset($_POST['create'])) {
                 $login->setLoginMail($_POST['professormail']);
                 $login->setLoginPassword($_POST['professorpassword']);
                 $logind = new LoginData();
-                $logind->authenticate($login);
-                SSession::getInstance()->user = $logind;
+                $result = $logind->authenticate($login);
+                SSession::getInstance()->user = $result;
                 header("location: ../view/ProfessorView.php?success=update");
             } else {
                 header("location: ../view/ProfessorView.php?error=dbError");
