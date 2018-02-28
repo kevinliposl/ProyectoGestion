@@ -9,6 +9,7 @@ class Comment {
     private $commentDescription;
     private $commentActor;
     private $commentCoincidence;
+    private $commentType;
 
     function getCommentId() {
         return $this->commentId;
@@ -56,6 +57,14 @@ class Comment {
 
     function setCommentCoincidence($commentCoincidence) {
         $this->commentCoincidence = $commentCoincidence;
+    }
+    
+    function getCommentType() {
+        return $this->commentType;
+    }
+
+    function setCommentType($commentType) {
+        $this->commentType = $commentType;
     }
 
 }

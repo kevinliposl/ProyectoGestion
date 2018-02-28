@@ -34,6 +34,15 @@ if (isset($_POST['create'])) {
             $comment->setCommentActor($_POST['commentactor']);
             $comment->setCommentDate(date("Y-m-d"));
             $comment->setCommentCoincidence($commentCoincidence);
+            if(SSession::getInstance()->user['type'] == "student"){
+                $comment->setCommentType("Estudiante");
+            }else if (SSession::getInstance()->user['type'] == "administrative"){
+                $comment->setCommentType("Administrativo");
+            }else if (SSession::getInstance()->user['type'] == "professor"){
+                $comment->setCommentType("Profesor");
+            }else{
+                $comment->setCommentType("Admin");
+            }
             $activity->setActivityId($_POST['activityid']);
 
 
@@ -106,6 +115,15 @@ if (isset($_POST['create'])) {
             $comment->setCommentActor(SSession::getInstance()->user['actorid']);
             $comment->setCommentDate(date("Y-m-d"));
             $comment->setCommentCoincidence($commentCoincidence);
+            if(SSession::getInstance()->user['type'] == "student"){
+                $comment->setCommentType("Estudiante");
+            }else if (SSession::getInstance()->user['type'] == "administrative"){
+                $comment->setCommentType("Administrativo");
+            }else if (SSession::getInstance()->user['type'] == "professor"){
+                $comment->setCommentType("Profesor");
+            }else{
+                $comment->setCommentType("Admin");
+            }
             $activity->setActivityId($_POST['activityid']);
 
 
