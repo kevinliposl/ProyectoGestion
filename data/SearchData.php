@@ -23,7 +23,7 @@ class SearchData {
         $query = "SELECT DISTINCT a.activityid, a.*,p.* FROM tbactivity a INNER JOIN tbtag t ON a.activityid = t.tagactivityid INNER JOIN tbpost p ON a.activityid = p.postid";
         if ($search->getSearchDate() != NULL) {
             $query .= strpos($query, 'WHERE') == NULL ? ' WHERE ' : '';
-            $query .= 'a.createddate=' . $search->getSearchDate() . ' OR a.updatedate=' . $search->getSearchDate() . ' ';
+            $query .= "a.activitycreateddate='" . $search->getSearchDate() . "' OR a.activityupdatedate='" . $search->getSearchDate() . "'";
         }
         if ($search->getSearchGeneral() != NULL) {
             foreach ($search->getSearchGeneral() as $var) {
