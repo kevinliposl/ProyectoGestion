@@ -72,11 +72,11 @@ if (isset(SSession::getInstance()->user)) {
                                     </ul>
                                 </li>
                                 <li><a href="view/OrganChartView.php"><div>Organigrama</div></a></li> 
-                                <li><a href="view/SearchView.php"><div>Busqueda</div></a></li>
                             <?php } ?>
                             <li><a href="business/LoginBusiness.php?signout='i'"><div>Cerrar Sesi&oacute;n</div></a></li>
                         <?php }
-                    } ?>
+                    }
+                    ?>
                 </ul>
             </nav>
         </header>
