@@ -135,6 +135,6 @@ CREATE TABLE tbadmin(
     CONSTRAINT PRIMARY KEY(adminid)
 );
 
-INSERT INTO tbactor VALUES(1,'admin@admin.com',1);
-INSERT INTO tbadmin VALUES(1,'qwerty',1);
+INSERT INTO tbactor VALUES(1,'pruebasproyectos.u@gmail.com',1);
+INSERT INTO tbadmin VALUES(1,'pruebasu',1);
 
