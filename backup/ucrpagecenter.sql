@@ -2,6 +2,7 @@ DROP DATABASE ucrpagecenter;
 CREATE DATABASE ucrpagecenter;
 USE ucrpagecenter;
 
+
 CREATE TABLE tbuniversity(
     universityid INTEGER,
     universityname VARCHAR(100) CHARSET utf8 COLLATE utf8_unicode_ci NOT NULL,
