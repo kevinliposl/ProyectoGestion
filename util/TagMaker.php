@@ -166,8 +166,9 @@ class TagMaker {
         }
 
         //print_r($arrayPercentGroup);
-
+        
         $tagPosition = 0;
+        $wordsTotal = array_fill(0, count($tagsSize), NULL);
         //porcentaje de relacion entre el comentario y la actividad 
         foreach ($commentWords as $commentWord) {
 
@@ -178,26 +179,33 @@ class TagMaker {
 
 
                 if (strcasecmp($commentWord, $currentWord) == 0) {
-
+                 
                     foreach ($tagsSize as $tSize) {
 
                         if (strcmp($wordCoincidence, $tSize['tagrelation']) == 0) {
-
-                            if ($commentTagCoincidence == 0) {
-                                $commentTagCoincidence = $arrayPercentGroup[$tagPosition];
-                            } else {
-                                $commentTagCoincidence = $commentTagCoincidence + $arrayPercentGroup[$tagPosition];
-                            }
-                        } else {
-                            if ($tagPosition < count($tagsSize) - 1) {
-                                $tagPosition = $tagPosition + 1;
+                            
+                              if ($wordsTotal[$tagPosition] == NULL) {
+                                  $wordsTotal[$tagPosition] = 1;
+                              }else{
+                                   $wordsTotal[$tagPosition] =  $wordsTotal[$tagPosition] + 1;
+                              }
+              
+                           
+                        }else{
+                            if($tagPosition < count($tagsSize) - 1){
+                            $tagPosition = $tagPosition + 1;
                             }
                         }
                     }
                 }
             }
         }
-
+  
+        $totalPosition = 0;
+        foreach ($wordsTotal as $total){
+            $commentTagCoincidence = $total*$arrayPercentGroup[$totalPosition]*$arrayPercent[$totalPosition]/100;
+            $totalPosition = $totalPosition + 1;
+        }
         return $commentTagCoincidence;
     }
 
